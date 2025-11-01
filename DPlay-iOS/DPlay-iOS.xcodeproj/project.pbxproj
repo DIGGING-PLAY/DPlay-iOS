@@ -19,6 +19,7 @@
 		EFA5C3FA2EB31B6C001F1627 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EFA5C3F92EB31B6C001F1627 /* SnapKit */; };
 		EFA5C4042EB31CAB001F1627 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = EFA5C4032EB31CAB001F1627 /* Alamofire */; };
 		EFA5C4072EB31CDF001F1627 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EFA5C4062EB31CDF001F1627 /* Kingfisher */; };
+		EFA5C40C2EB5DA8E001F1627 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		EFA5C3C42EB31737001F1627 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EFA5C3C52EB31737001F1627 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFA5C3C62EB31737001F1627 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +107,12 @@
 		EFA5C3772EB31484001F1627 /* DPlay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */,
 				EFA5C3892EB3149C001F1627 /* App */,
 				EFA5C3A72EB31696001F1627 /* Data */,
 				EFA5C3952EB314D8001F1627 /* Domain */,
 				EFA5C38D2EB314B3001F1627 /* Presentation */,
-				EFA5C3F72EB318C0001F1627 /* Extension */,
-				EFA5C3CA2EB31737001F1627 /* Resource */,
+				EFA5C40E2EB5DB84001F1627 /* Global */,
 				EFA5C3DE2EB31849001F1627 /* Mocks & Stubs */,
 			);
 			path = "DPlay-iOS";
@@ -268,6 +270,15 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		EFA5C40E2EB5DB84001F1627 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				EFA5C3F72EB318C0001F1627 /* Extension */,
+				EFA5C3CA2EB31737001F1627 /* Resource */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFA5C3CB2EB31737001F1627 /* Assets.xcassets in Resources */,
+				EFA5C40C2EB5DA8E001F1627 /* Config.xcconfig in Resources */,
 				EFA5C3CD2EB31737001F1627 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,7 +486,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "DPlay-iOS/Resource/Info.plist";
+				INFOPLIST_FILE = "DPlay-iOS/Global/Resource/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -512,7 +524,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "DPlay-iOS/Resource/Info.plist";
+				INFOPLIST_FILE = "DPlay-iOS/Global/Resource/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
