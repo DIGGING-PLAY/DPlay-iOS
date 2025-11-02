@@ -21,6 +21,8 @@
 		D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E28B2EB7B7C10001CEBE /* UIView+.swift */; };
 		D0F2E28F2EB7B8150001CEBE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */; };
 		D0F2E2902EB7B8150001CEBE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */; };
+		D0F2E2922EB7B86B0001CEBE /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E2912EB7B8550001CEBE /* UITextField+.swift */; };
+		D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E2912EB7B8550001CEBE /* UITextField+.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
 		EFA5C3812EB31488001F1627 /* DPlay_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C37F2EB31488001F1627 /* DPlay_iOSTests.swift */; };
 		EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3822EB3148C001F1627 /* DPlay_iOSUITests.swift */; };
@@ -61,6 +63,7 @@
 		D0F2E2802EB739260001CEBE /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D0F2E28B2EB7B7C10001CEBE /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		D0F2E2912EB7B8550001CEBE /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C3502EB3061C001F1627 /* DPlay-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C35A2EB3061C001F1627 /* DPlay-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,10 +253,11 @@
 		EFA5C3F72EB318C0001F1627 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */,
 				D0F2E28B2EB7B7C10001CEBE /* UIView+.swift */,
 				D0F2E2802EB739260001CEBE /* UILabel+.swift */,
 				D0F2E27D2EB661280001CEBE /* UIFont+.swift */,
+				D0F2E2912EB7B8550001CEBE /* UITextField+.swift */,
+				D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -468,6 +472,7 @@
 				D0F2E2812EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +490,7 @@
 			files = (
 				EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */,
 				D0F2E28F2EB7B8150001CEBE /* UIStackView+.swift in Sources */,
+				D0F2E2922EB7B86B0001CEBE /* UITextField+.swift in Sources */,
 				D0F2E27E2EB6612F0001CEBE /* UIFont+.swift in Sources */,
 				D0F2E2822EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C3862EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift in Sources */,
