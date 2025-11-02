@@ -19,5 +19,11 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SUIT-Medium.otf</string>
+		<string>SUIT-SemiBold.otf</string>
+		<string>SUIT-Bold.otf</string>
+	</array>
 </dict>
 </plist>
