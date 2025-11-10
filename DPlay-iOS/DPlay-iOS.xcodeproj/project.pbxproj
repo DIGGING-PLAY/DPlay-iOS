@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
 		D0F2E2732EB65AA60001CEBE /* SUIT-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */; };
 		D0F2E2742EB65AA60001CEBE /* SUIT-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
 		D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.otf"; sourceTree = "<group>"; };
 		D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.otf"; sourceTree = "<group>"; };
@@ -110,6 +112,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D05A62E92EC1A3C900B56DFD /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				D05A62EA2EC1C6F000B56DFD /* View */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		D05A62EA2EC1C6F000B56DFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EFA5C3312EB3061B001F1627 = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				EFA5C3FB2EB31BA0001F1627 /* Component */,
+				D05A62E92EC1A3C900B56DFD /* Splash */,
 				EFA5C3AA2EB316B6001F1627 /* Home */,
 			);
 			path = Presentation;
@@ -469,6 +488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F2E2902EB7B8150001CEBE /* UIStackView+.swift in Sources */,
+				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
 				D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */,
 				D0F2E27F2EB6612F0001CEBE /* UIFont+.swift in Sources */,
 				EFA5C3AB2EB316B6001F1627 /* ViewController.swift in Sources */,
