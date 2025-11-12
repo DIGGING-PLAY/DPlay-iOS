@@ -28,6 +28,8 @@ final class LoginViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        
+        setupTarget()
     }
 }
 
@@ -82,5 +84,23 @@ private extension LoginViewController {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
         }
+    }
+}
+
+@objc private extension LoginViewController {
+    
+    //MARK: - @objc Method
+    
+    func appleLoginButtonTapped() {
+        print("appleLoginButtonTapped")
+    }
+}
+
+private extension LoginViewController {
+    
+    // MARK: - Private Method
+    
+    func setupTarget() {
+        appleLoginButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
     }
 }
