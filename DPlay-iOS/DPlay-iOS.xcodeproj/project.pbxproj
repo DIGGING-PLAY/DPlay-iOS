@@ -23,6 +23,9 @@
 		D0F2E2902EB7B8150001CEBE /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */; };
 		D0F2E2922EB7B86B0001CEBE /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E2912EB7B8550001CEBE /* UITextField+.swift */; };
 		D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F2E2912EB7B8550001CEBE /* UITextField+.swift */; };
+		EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0030102EC1FC43009E6532 /* HomeViewController.swift */; };
+		EF00302F2EC1FE7C009E6532 /* Iamge&IconLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00302E2EC1FE7C009E6532 /* Iamge&IconLiterals.swift */; };
+		EF0030302EC1FE7C009E6532 /* Iamge&IconLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00302E2EC1FE7C009E6532 /* Iamge&IconLiterals.swift */; };
 		EF2560302EBDD198003E65C9 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* Question.swift */; };
 		EF2560312EBDD198003E65C9 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* Question.swift */; };
 		EF2560332EBDD1A8003E65C9 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560322EBDD1A8003E65C9 /* Recommendation.swift */; };
@@ -36,12 +39,15 @@
 		EF2560412EBDD5FA003E65C9 /* MockRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560402EBDD5FA003E65C9 /* MockRecommendations.swift */; };
 		EF2560422EBDD5FA003E65C9 /* MockRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560402EBDD5FA003E65C9 /* MockRecommendations.swift */; };
 		EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */; };
+		EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */; };
+		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
+		EF7537D02EC768BD00F28DE3 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */; };
+		EF7537D12EC768BD00F28DE3 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
 		EFA5C3812EB31488001F1627 /* DPlay_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C37F2EB31488001F1627 /* DPlay_iOSTests.swift */; };
 		EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3822EB3148C001F1627 /* DPlay_iOSUITests.swift */; };
 		EFA5C3862EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3832EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift */; };
 		EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3882EB3149C001F1627 /* AppDelegate.swift */; };
-		EFA5C3AB2EB316B6001F1627 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3A92EB316B6001F1627 /* ViewController.swift */; };
 		EFA5C3CB2EB31737001F1627 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA5C3C42EB31737001F1627 /* Assets.xcassets */; };
 		EFA5C3CD2EB31737001F1627 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFA5C3C72EB31737001F1627 /* LaunchScreen.storyboard */; };
 		EFA5C3DD2EB31840001F1627 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = EFA5C3DC2EB31840001F1627 /* Then */; };
@@ -78,6 +84,8 @@
 		D0F2E28B2EB7B7C10001CEBE /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		D0F2E2912EB7B8550001CEBE /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		EF0030102EC1FC43009E6532 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		EF00302E2EC1FE7C009E6532 /* Iamge&IconLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Iamge&IconLiterals.swift"; sourceTree = "<group>"; };
 		EF25602F2EBDD198003E65C9 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		EF2560322EBDD1A8003E65C9 /* Recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
 		EF2560352EBDD220003E65C9 /* HomeViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUseCase.swift; sourceTree = "<group>"; };
@@ -85,6 +93,9 @@
 		EF25603D2EBDD5E3003E65C9 /* MockQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockQuestions.swift; sourceTree = "<group>"; };
 		EF2560402EBDD5FA003E65C9 /* MockRecommendations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecommendations.swift; sourceTree = "<group>"; };
 		EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
+		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
+		EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C3502EB3061C001F1627 /* DPlay-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C35A2EB3061C001F1627 /* DPlay-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +104,6 @@
 		EFA5C3822EB3148C001F1627 /* DPlay_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPlay_iOSUITests.swift; sourceTree = "<group>"; };
 		EFA5C3832EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPlay_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EFA5C3882EB3149C001F1627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EFA5C3A92EB316B6001F1627 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EFA5C3C42EB31737001F1627 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EFA5C3C52EB31737001F1627 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFA5C3C62EB31737001F1627 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -130,6 +140,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF0030112EC1FC43009E6532 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EF55682D2EC72BAB00A1EEED /* SubView */,
+				EF0030142EC1FC4B009E6532 /* Cell */,
+				EF0030102EC1FC43009E6532 /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EF0030142EC1FC4B009E6532 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		EF25603C2EBDD5D4003E65C9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +173,14 @@
 				EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EF55682D2EC72BAB00A1EEED /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		EFA5C3312EB3061B001F1627 = {
@@ -267,8 +303,8 @@
 		EFA5C3AA2EB316B6001F1627 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EF0030112EC1FC43009E6532 /* View */,
 				EF2560442EBDD89A003E65C9 /* ViewModel */,
-				EFA5C3A92EB316B6001F1627 /* ViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -301,6 +337,8 @@
 				D0F2E2912EB7B8550001CEBE /* UITextField+.swift */,
 				D0F2E28E2EB7B80B0001CEBE /* UIStackView+.swift */,
 				EFA5C4252EB5E0A6001F1627 /* UIColor+.swift */,
+				EF00302E2EC1FE7C009E6532 /* Iamge&IconLiterals.swift */,
+				EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -518,14 +556,18 @@
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */,
 				D0F2E27F2EB6612F0001CEBE /* UIFont+.swift in Sources */,
-				EFA5C3AB2EB316B6001F1627 /* ViewController.swift in Sources */,
 				D0F2E2812EB739290001CEBE /* UILabel+.swift in Sources */,
 				EF2560302EBDD198003E65C9 /* Question.swift in Sources */,
+				EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */,
 				EF2560332EBDD1A8003E65C9 /* Recommendation.swift in Sources */,
 				EFA5C4262EB5E0A6001F1627 /* UIColor+.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EF25603E2EBDD5E3003E65C9 /* MockQuestions.swift in Sources */,
+				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				EF0030302EC1FE7C009E6532 /* Iamge&IconLiterals.swift in Sources */,
+				EF7537D02EC768BD00F28DE3 /* UIImage+.swift in Sources */,
+				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,6 +596,8 @@
 				D0F2E2822EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C3862EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift in Sources */,
 				D0F2E28C2EB7B7C60001CEBE /* UIView+.swift in Sources */,
+				EF7537D12EC768BD00F28DE3 /* UIImage+.swift in Sources */,
+				EF00302F2EC1FE7C009E6532 /* Iamge&IconLiterals.swift in Sources */,
 				EF2560392EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -601,7 +645,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -639,7 +683,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
