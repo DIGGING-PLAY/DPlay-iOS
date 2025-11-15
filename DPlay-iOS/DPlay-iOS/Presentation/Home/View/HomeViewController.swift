@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 final class HomeViewController: UIViewController {
+    
     // MARK: - Properties
     
     // MARK: - UI Properties
@@ -42,6 +43,7 @@ final class HomeViewController: UIViewController {
 }
 
 private extension HomeViewController {
+    
     // MARK: - Layout
     
     func setupStyle() {
@@ -104,14 +106,38 @@ private extension HomeViewController {
         }
         
         editorCollectionView.do {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 13
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 48, bottom: 0, right: 0)
-            layout.itemSize = CGSize(width: 279, height: 300)
-            $0.collectionViewLayout = layout
-            $0.backgroundColor = .clear
-            $0.showsHorizontalScrollIndicator = false
+            let layout = UICollectionViewCompositionalLayout { section, env in
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(279),
+                    heightDimension: .absolute(300)
+                )
+                
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(279),
+                    heightDimension: .absolute(300)
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: groupSize,
+                    subitems: [item]
+                )
+
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPaging
+                section.interGroupSpacing = 13
+                section.contentInsets = NSDirectionalEdgeInsets(
+                    top: 0,
+                    leading: 48,
+                    bottom: 0,
+                    trailing: 48
+                )
+
+                return section
+            }
+
+            $0.setCollectionViewLayout(layout, animated: false)
             $0.register(MusicAlbumCell.self, forCellWithReuseIdentifier: MusicAlbumCell.identifier)
         }
     }
@@ -184,7 +210,7 @@ private extension HomeViewController {
         editorCollectionView.snp.makeConstraints {
             $0.top.equalTo(musicStateButton.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(200)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
@@ -198,6 +224,7 @@ extension HomeViewController {
 }
 
 private extension HomeViewController {
+    
     // MARK: - Private Method
     
     func setupDelegate() {
@@ -220,8 +247,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             withReuseIdentifier: MusicAlbumCell.identifier,
             for: indexPath
         ) as? MusicAlbumCell else { return UICollectionViewCell() }
-        
-        // 추후 configure() 로 데이터 주입
         return cell
     }
 }
