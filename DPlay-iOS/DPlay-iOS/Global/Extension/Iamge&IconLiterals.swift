@@ -18,7 +18,12 @@ enum IconLiterals {
     static var ic_dplay_bigLogo: UIImage { .load(name: "ic_dplay_bigLogo") }
     static var ic_bookmark_24: UIImage { .load(name: "ic_bookmark_24") }
     static var ic_bookmark_fill_24: UIImage { .load(name: "ic_bookmark_fill_24") }
+    static var ic_floating: UIImage { .load(name: "ic_floating") }
+    static var ic_tabbar_home: UIImage { .load(name: "ic_tabbar_home") }
     static var ic_list_24: UIImage { .load(name: "ic_list_24") }
+    static var ic_tabbar_home_select: UIImage { .load(name: "ic_tabbar_home_select") }
+    static var ic_tabbar_mypage: UIImage { .load(name: "ic_tabbar_mypage") }
+    static var ic_tabbar_mypage_select: UIImage { .load(name: "ic_tabbar_mypage_select") }
 }
 
 enum ImageLiterals {

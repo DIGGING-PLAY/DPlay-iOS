@@ -43,6 +43,8 @@
 		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
 		EF7537D02EC768BD00F28DE3 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */; };
 		EF7537D12EC768BD00F28DE3 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */; };
+		EF7537D72EC838DE00F28DE3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537D62EC838DE00F28DE3 /* TabBarController.swift */; };
+		EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
 		EFA5C3812EB31488001F1627 /* DPlay_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C37F2EB31488001F1627 /* DPlay_iOSTests.swift */; };
 		EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3822EB3148C001F1627 /* DPlay_iOSUITests.swift */; };
@@ -96,6 +98,8 @@
 		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
 		EF7537CF2EC768BD00F28DE3 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		EF7537D62EC838DE00F28DE3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C3502EB3061C001F1627 /* DPlay-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C35A2EB3061C001F1627 /* DPlay-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +187,23 @@
 			path = SubView;
 			sourceTree = "<group>";
 		};
+		EF7537D42EC838A900F28DE3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EF7537D62EC838DE00F28DE3 /* TabBarController.swift */,
+				EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EF7537D52EC838A900F28DE3 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				EF7537D42EC838A900F28DE3 /* View */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		EFA5C3312EB3061B001F1627 = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +267,7 @@
 		EFA5C38D2EB314B3001F1627 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				EF7537D52EC838A900F28DE3 /* TabBar */,
 				EFA5C3FB2EB31BA0001F1627 /* Component */,
 				EFA5C3AA2EB316B6001F1627 /* Home */,
 			);
@@ -567,8 +589,10 @@
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				EF0030302EC1FE7C009E6532 /* Iamge&IconLiterals.swift in Sources */,
 				EF7537D02EC768BD00F28DE3 /* UIImage+.swift in Sources */,
+				EF7537D72EC838DE00F28DE3 /* TabBarController.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
+				EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
