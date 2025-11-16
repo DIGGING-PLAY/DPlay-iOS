@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01894012ECA611F002A48C1 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
+		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
 		D0F2E2732EB65AA60001CEBE /* SUIT-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */; };
 		D0F2E2742EB65AA60001CEBE /* SUIT-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */; };
@@ -57,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D01894002ECA6074002A48C1 /* AgreementItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemView.swift; sourceTree = "<group>"; };
+		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
 		D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.otf"; sourceTree = "<group>"; };
 		D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.otf"; sourceTree = "<group>"; };
@@ -110,6 +114,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D01893FA2ECA5C7E002A48C1 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D01893FB2ECA5C90002A48C1 /* Terms */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		D01893FB2ECA5C90002A48C1 /* Terms */ = {
+			isa = PBXGroup;
+			children = (
+				D01893FF2ECA6054002A48C1 /* Component */,
+			);
+			path = Terms;
+			sourceTree = "<group>";
+		};
+		D01893FF2ECA6054002A48C1 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D01894002ECA6074002A48C1 /* AgreementItemView.swift */,
+				D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		EFA5C3312EB3061B001F1627 = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +204,7 @@
 			children = (
 				EFA5C3FB2EB31BA0001F1627 /* Component */,
 				EFA5C3AA2EB316B6001F1627 /* Home */,
+				D01893FA2ECA5C7E002A48C1 /* Onboarding */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -469,11 +499,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F2E2902EB7B8150001CEBE /* UIStackView+.swift in Sources */,
+				D01894012ECA611F002A48C1 /* AgreementItemView.swift in Sources */,
 				D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */,
 				D0F2E27F2EB6612F0001CEBE /* UIFont+.swift in Sources */,
 				EFA5C3AB2EB316B6001F1627 /* ViewController.swift in Sources */,
 				D0F2E2812EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C4262EB5E0A6001F1627 /* UIColor+.swift in Sources */,
+				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
