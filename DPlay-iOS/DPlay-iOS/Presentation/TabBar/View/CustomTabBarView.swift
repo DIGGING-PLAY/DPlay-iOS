@@ -40,7 +40,7 @@ final class CustomTabBarView: UIView {
         setupHierarchy()
         setupLayout()
         setupTarget()
-        updateSelected(0) 
+        updateSelected(0)
     }
     
     required init?(coder: NSCoder) { fatalError() }

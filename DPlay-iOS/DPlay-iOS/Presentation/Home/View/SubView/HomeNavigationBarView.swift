@@ -15,12 +15,12 @@ final class HomeNavigationBarView: UIView {
     // MARK: - UI Properties
     
     private let logoImageView = UIImageView().then {
-        $0.image = IconLiterals.ic_dplay_bigLogo // Assets에 저장된 로고
+        $0.image = IconLiterals.ic_dplay_bigLogo
         $0.contentMode = .scaleAspectFit
     }
     
     private let menuButton = UIButton().then {
-        $0.setImage(IconLiterals.ic_list_24, for: .normal) // 오른쪽 메뉴 아이콘
+        $0.setImage(IconLiterals.ic_list_24, for: .normal)
         $0.tintColor = .black
     }
     
