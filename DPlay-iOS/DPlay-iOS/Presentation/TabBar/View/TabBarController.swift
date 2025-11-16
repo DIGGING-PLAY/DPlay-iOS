@@ -29,6 +29,7 @@ final class MainTabBarController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupHierarchy()
         setupLayout()
         bindActions()
         switchTo(index: 0)
