@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D01893EF2ECA52EE002A48C1 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893EE2ECA52DF002A48C1 /* AuthToken.swift */; };
 		D01893F12ECA5345002A48C1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F02ECA5343002A48C1 /* User.swift */; };
+		D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */; };
+		D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F82ECA54F6002A48C1 /* AuthRepository.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
@@ -63,6 +65,8 @@
 /* Begin PBXFileReference section */
 		D01893EE2ECA52DF002A48C1 /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		D01893F02ECA5343002A48C1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		D01893F82ECA54F6002A48C1 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
@@ -134,6 +138,30 @@
 				D01893EE2ECA52DF002A48C1 /* AuthToken.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		D01893ED2ECA4F78002A48C1 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		D01893F52ECA54D0002A48C1 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D01893F82ECA54F6002A48C1 /* AuthRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		D01893F72ECA54D0002A48C1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D01893F52ECA54D0002A48C1 /* Repository */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		D05A62E92EC1A3C900B56DFD /* Splash */ = {
@@ -282,6 +310,7 @@
 		EFA5C3A72EB31696001F1627 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D01893F72ECA54D0002A48C1 /* Auth */,
 				EFA5C3A62EB31696001F1627 /* Home */,
 			);
 			path = Data;
@@ -532,12 +561,14 @@
 				D01893F12ECA5345002A48C1 /* User.swift in Sources */,
 				D0F2E2902EB7B8150001CEBE /* UIStackView+.swift in Sources */,
 				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
+				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
 				D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */,
 				D0F2E27F2EB6612F0001CEBE /* UIFont+.swift in Sources */,
 				EFA5C3AB2EB316B6001F1627 /* ViewController.swift in Sources */,
 				D01893EF2ECA52EE002A48C1 /* AuthToken.swift in Sources */,
 				D0F2E2812EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C4262EB5E0A6001F1627 /* UIColor+.swift in Sources */,
+				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
