@@ -15,7 +15,7 @@ final class AgreementItemView: UIView {
     //MARK: - UI Properties
 
     let agreeButton = UIButton()
-    private let titleLabel = UILabel()
+    let titleButton = UIButton()
     private let arrowImageView = UIImageView(image: UIImage(resource: .icArrowRight16))
     
     //MARK: - Init
@@ -43,16 +43,16 @@ private extension AgreementItemView {
             $0.setImage(.icCheckCircleSelected24, for: .selected)
         }
         
-        titleLabel.do {
-            $0.setTextStyle(.bodySemi16)
-            $0.textColor = .gray500
+        titleButton.do {
+            $0.titleLabel?.setTextStyle(.bodySemi16)
+            $0.setTitleColor(.gray500, for: .normal)
         }
     }
     
     func setupHierarchy() {
         addSubviews(
             agreeButton,
-            titleLabel,
+            titleButton,
             arrowImageView
         )
     }
@@ -63,7 +63,7 @@ private extension AgreementItemView {
             $0.leading.equalToSuperview().inset(12)
         }
         
-        titleLabel.snp.makeConstraints {
+        titleButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(agreeButton.snp.trailing).offset(12)
         }
@@ -80,6 +80,6 @@ extension AgreementItemView {
     //MARK: - Method
     
     func setTitle(_ text: String) {
-        titleLabel.text = text
+        titleButton.setTitle(text, for: .normal)
     }
 }

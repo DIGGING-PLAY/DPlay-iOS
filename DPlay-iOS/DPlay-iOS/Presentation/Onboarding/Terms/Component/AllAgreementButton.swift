@@ -63,3 +63,20 @@ private extension AllAgreementButton {
         }
     }
 }
+
+extension AllAgreementButton {
+    
+    //MARK: - Method
+    
+    func updateUI(agreeAllSelected: Bool) {
+        isSelected = agreeAllSelected
+        
+        if isSelected {
+            checkImageView.image = .icCheckCircleSelected24
+            backgroundColor = .dplay_pink100
+        } else {
+            checkImageView.image = .icCheckCircleDefault24
+            backgroundColor = .gray100
+        }
+    }
+}

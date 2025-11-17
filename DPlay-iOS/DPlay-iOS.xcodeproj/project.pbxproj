@@ -10,6 +10,7 @@
 		D01893FE2ECA5CD1002A48C1 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D01894012ECA611F002A48C1 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
+		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
 		D0F2E2732EB65AA60001CEBE /* SUIT-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */; };
 		D0F2E2742EB65AA60001CEBE /* SUIT-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */; };
@@ -63,6 +64,7 @@
 		D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		D01894002ECA6074002A48C1 /* AgreementItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemView.swift; sourceTree = "<group>"; };
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
+		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
 		D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.otf"; sourceTree = "<group>"; };
 		D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.otf"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				D01893FF2ECA6054002A48C1 /* Component */,
 				D01893FC2ECA5CC7002A48C1 /* View */,
+				D071854B2ECAC1390055FEBE /* ViewModel */,
 			);
 			path = Terms;
 			sourceTree = "<group>";
@@ -148,6 +151,14 @@
 				D01894002ECA6074002A48C1 /* AgreementItemView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D071854B2ECAC1390055FEBE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D071854C2ECAC1470055FEBE /* TermsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		EFA5C3312EB3061B001F1627 = {
@@ -520,6 +531,7 @@
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

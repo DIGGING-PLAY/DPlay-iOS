@@ -12,6 +12,10 @@ import Then
 
 final class TermsViewController: UIViewController {
     
+    //MARK: - Properties
+    
+    private let viewModel = TermsViewModel()
+    
     //MARK: - UI Properties
 
     private let backButton = UIButton()
@@ -30,6 +34,8 @@ final class TermsViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        
+        setupTarget()
     }
 }
 
@@ -108,6 +114,61 @@ private extension TermsViewController {
         nextButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
+        }
+    }
+}
+
+@objc private extension TermsViewController {
+    
+    //MARK: - @objc Method
+    
+    func backButtonTapped() {
+        print("backButtonTapped")
+    }
+
+    func agreeAllButtonTapped() {
+        viewModel.toggleAll()
+        applyStateToUI()
+    }
+
+    func agreeButtonTapped(_ sender: UIButton) {
+        sender == serviceTermView.agreeButton ? viewModel.toggleService() : viewModel.togglePrivacy()
+        applyStateToUI()
+    }
+    
+    func termTitleButtonTapped(_ sender: UIButton) {
+        print("termTitleButtonTapped")
+    }
+}
+
+private extension TermsViewController {
+    
+    // MARK: - Private Method
+    
+    func setupTarget() {
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        agreeAllButton.addTarget(self, action: #selector(agreeAllButtonTapped), for: .touchUpInside)
+        serviceTermView.agreeButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
+        privacyTermView.agreeButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
+        serviceTermView.titleButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
+        privacyTermView.titleButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    func applyStateToUI() {
+        serviceTermView.agreeButton.isSelected = viewModel.serviceAgreed
+        privacyTermView.agreeButton.isSelected = viewModel.privacyAgreed
+        agreeAllButton.updateUI(agreeAllSelected: viewModel.allAgreed)
+        updateNextButtonState(isEnabled: viewModel.allAgreed)
+    }
+    
+    func updateNextButtonState(isEnabled: Bool) {
+        nextButton.isEnabled = isEnabled
+        if isEnabled {
+            nextButton.setTitleColor(.white, for: .normal)
+            nextButton.backgroundColor = .dplay_pink
+        } else {
+            nextButton.setTitleColor(.gray400, for: .normal)
+            nextButton.backgroundColor = .gray200
         }
     }
 }
