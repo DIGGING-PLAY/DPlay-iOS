@@ -77,6 +77,7 @@ private extension TermsViewController {
             $0.titleLabel?.setTextStyle(.bodyBold16)
             $0.backgroundColor = .gray200
             $0.roundCorners(cornerRadius: 12)
+            $0.isEnabled = false
         }
     }
     
