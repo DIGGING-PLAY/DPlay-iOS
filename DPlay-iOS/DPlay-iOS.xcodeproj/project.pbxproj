@@ -12,6 +12,8 @@
 		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
 		D05B9A5F2ECB4B66001379C4 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A5E2ECB4B5F001379C4 /* Profile.swift */; };
 		D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A602ECB4D5E001379C4 /* Nickname.swift */; };
+		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
+		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
 		D0F2E2732EB65AA60001CEBE /* SUIT-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */; };
@@ -68,6 +70,8 @@
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D05B9A5E2ECB4B5F001379C4 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		D05B9A602ECB4D5E001379C4 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
+		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
+		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
 		D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.otf"; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				D05B9A5D2ECB4B5A001379C4 /* Entity */,
+				D05B9A622ECB5048001379C4 /* UseCase */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -172,6 +177,30 @@
 				D05B9A5E2ECB4B5F001379C4 /* Profile.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		D05B9A622ECB5048001379C4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		D05B9A652ECB50F6001379C4 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D05B9A662ECB5101001379C4 /* Repository */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		D05B9A662ECB5101001379C4 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		D071854B2ECAC1390055FEBE /* ViewModel */ = {
@@ -296,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				EFA5C3A62EB31696001F1627 /* Home */,
+				D05B9A652ECB50F6001379C4 /* Onboarding */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -543,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F2E2902EB7B8150001CEBE /* UIStackView+.swift in Sources */,
+				D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */,
 				D01894012ECA611F002A48C1 /* AgreementItemView.swift in Sources */,
 				D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */,
 				D05B9A5F2ECB4B66001379C4 /* Profile.swift in Sources */,
@@ -556,6 +587,7 @@
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
+				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
