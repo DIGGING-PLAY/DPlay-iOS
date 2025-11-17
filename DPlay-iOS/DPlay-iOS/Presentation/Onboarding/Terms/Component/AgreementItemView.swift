@@ -44,6 +44,7 @@ private extension AgreementItemView {
         }
         
         titleButton.do {
+            $0.setTitle(" ", for: .normal)
             $0.titleLabel?.setTextStyle(.bodySemi16)
             $0.setTitleColor(.gray500, for: .normal)
         }
