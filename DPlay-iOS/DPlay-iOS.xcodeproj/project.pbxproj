@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01893FE2ECA5CD1002A48C1 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D01894012ECA611F002A48C1 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		D01894002ECA6074002A48C1 /* AgreementItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemView.swift; sourceTree = "<group>"; };
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
@@ -126,15 +128,24 @@
 			isa = PBXGroup;
 			children = (
 				D01893FF2ECA6054002A48C1 /* Component */,
+				D01893FC2ECA5CC7002A48C1 /* View */,
 			);
 			path = Terms;
+			sourceTree = "<group>";
+		};
+		D01893FC2ECA5CC7002A48C1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D01893FF2ECA6054002A48C1 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				D01894002ECA6074002A48C1 /* AgreementItemView.swift */,
 				D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */,
+				D01894002ECA6074002A48C1 /* AgreementItemView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -503,6 +514,7 @@
 				D0F2E28D2EB7B7C60001CEBE /* UIView+.swift in Sources */,
 				D0F2E27F2EB6612F0001CEBE /* UIFont+.swift in Sources */,
 				EFA5C3AB2EB316B6001F1627 /* ViewController.swift in Sources */,
+				D01893FE2ECA5CD1002A48C1 /* TermsViewController.swift in Sources */,
 				D0F2E2812EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C4262EB5E0A6001F1627 /* UIColor+.swift in Sources */,
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
