@@ -16,6 +16,7 @@
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
 		D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */; };
+		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
 		D0F2E2732EB65AA60001CEBE /* SUIT-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */; };
@@ -76,6 +77,7 @@
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
 		D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
 		D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.otf"; sourceTree = "<group>"; };
@@ -221,8 +223,17 @@
 			children = (
 				D07185562ECAE9980055FEBE /* Component */,
 				D07185502ECACD7D0055FEBE /* View */,
+				D071854F2ECACD740055FEBE /* ViewModel */,
 			);
 			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		D071854F2ECACD740055FEBE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D07185502ECACD7D0055FEBE /* View */ = {
@@ -620,6 +631,7 @@
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D0F2E2932EB7B86B0001CEBE /* UITextField+.swift in Sources */,
+				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

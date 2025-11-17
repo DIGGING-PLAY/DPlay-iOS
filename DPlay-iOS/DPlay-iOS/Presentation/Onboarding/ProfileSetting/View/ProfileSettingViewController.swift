@@ -14,6 +14,7 @@ final class ProfileSettingViewController: UIViewController {
     
     //MARK: - Properties
     
+    private let viewModel = ProfileSettingViewModel()
     
     //MARK: - UI Properties
 
@@ -34,6 +35,8 @@ final class ProfileSettingViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupTarget()
+        bindViewModel()
     }
 }
 
@@ -61,7 +64,7 @@ private extension ProfileSettingViewController {
             $0.textColor = .dplay_black
             $0.font = .dplayFont(.bodySemi16)
             $0.attributedPlaceholder = NSAttributedString(
-                string: "이메일을 입력하세요",
+                string: "닉네임을 입력해주세요",
                 attributes: [
                     .font: UIFont.dplayFont(.bodySemi16),
                     .foregroundColor: UIColor.gray400
@@ -100,6 +103,7 @@ private extension ProfileSettingViewController {
             $0.titleLabel?.setTextStyle(.bodyBold16)
             $0.backgroundColor = .gray200
             $0.roundCorners(cornerRadius: 12)
+            $0.isEnabled = false
         }
     }
     
@@ -150,6 +154,108 @@ private extension ProfileSettingViewController {
         joinButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
+        }
+    }
+}
+
+@objc private extension ProfileSettingViewController {
+    
+    //MARK: - @objc Method
+    
+    func imageSelectButtonTapped() {
+        print("imageSelectButtonTapped")
+    }
+
+    func backButtonTapped() {
+        print("backButtonTapped")
+    }
+
+    func nicknameDidChange(_ textField: UITextField) {
+        var text = textField.text ?? ""
+        
+        if text.count > 10 {
+            text = String(text.prefix(10))
+            textField.text = text
+        }
+        
+        textLengthLabel.text = "\(text.count)/10"
+        clearButton.isHidden = text.isEmpty
+        viewModel.updateNicknameInputState(text)
+    }
+
+    func clearButtonTapped() {
+        nicknameTextField.text = ""
+        clearButton.isHidden = true
+        viewModel.onValidationStateChanged?(.empty)
+    }
+
+    func joinButtonTapped() {
+        guard let nickname = nicknameTextField.text else { return }
+        
+        viewModel.validateNicknameDuplicate(nickname)
+    }
+}
+
+private extension ProfileSettingViewController {
+    
+    // MARK: - Private Method
+    
+    func setupTarget() {
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        imageSelectButton.addTarget(self, action: #selector(imageSelectButtonTapped), for: .touchUpInside)
+        nicknameTextField.addTarget(self, action: #selector(nicknameDidChange), for: .editingChanged)
+        clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
+        joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
+    }
+    
+    func bindViewModel() {
+        viewModel.onValidationStateChanged = { [weak self] state in
+            guard let self else { return }
+            
+            switch state {
+            case .empty:
+                updateJoinButtonState(isEnabled: false)
+                nicknameTextField.layer.borderWidth = 0
+                nicknameDescriptionLabel.text = ""
+                
+            case .normal:
+                updateJoinButtonState(isEnabled: true)
+                nicknameTextField.layer.borderWidth = 0
+                nicknameDescriptionLabel.text = ""
+                
+            case .valid:
+                nicknameTextField.layer.borderColor = UIColor.info_blue.cgColor
+                nicknameTextField.layer.borderWidth = 1
+                
+                nicknameDescriptionLabel.text = "사용 가능한 닉네임이에요"
+                nicknameDescriptionLabel.textColor = .info_blue
+                
+            case .invalid(let error):
+                updateJoinButtonState(isEnabled: false)
+                nicknameTextField.layer.borderColor = UIColor.alert_red.cgColor
+                nicknameTextField.layer.borderWidth = 1
+                nicknameDescriptionLabel.textColor = .alert_red
+
+                switch error {
+                case .invalidLength:
+                    nicknameDescriptionLabel.text = "2자 이상 입력해주세요"
+                case .invalidCharacters:
+                    nicknameDescriptionLabel.text = "특수문자, 띄어쓰기는 사용이 불가능해요"
+                case .duplicate:
+                    nicknameDescriptionLabel.text = "이미 사용중인 닉네임이에요"
+                }
+            }
+        }
+    }
+    
+    func updateJoinButtonState(isEnabled: Bool) {
+        joinButton.isEnabled = isEnabled
+        if isEnabled {
+            joinButton.setTitleColor(.white, for: .normal)
+            joinButton.backgroundColor = .dplay_pink
+        } else {
+            joinButton.setTitleColor(.gray400, for: .normal)
+            joinButton.backgroundColor = .gray200
         }
     }
 }
