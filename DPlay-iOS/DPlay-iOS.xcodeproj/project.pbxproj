@@ -15,6 +15,7 @@
 		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
+		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
 		D0F2E2722EB65AA60001CEBE /* SUIT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */; };
 		D0F2E2732EB65AA60001CEBE /* SUIT-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */; };
 		D0F2E2742EB65AA60001CEBE /* SUIT-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */; };
@@ -73,6 +74,7 @@
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
+		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D0F2E26F2EB65AA60001CEBE /* SUIT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Bold.otf"; sourceTree = "<group>"; };
 		D0F2E2702EB65AA60001CEBE /* SUIT-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-Medium.otf"; sourceTree = "<group>"; };
 		D0F2E2712EB65AA60001CEBE /* SUIT-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUIT-SemiBold.otf"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				D01893FB2ECA5C90002A48C1 /* Terms */,
+				D071854E2ECACD680055FEBE /* ProfileSetting */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -209,6 +212,22 @@
 				D071854C2ECAC1470055FEBE /* TermsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D071854E2ECACD680055FEBE /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				D07185562ECAE9980055FEBE /* Component */,
+			);
+			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		D07185562ECAE9980055FEBE /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		EFA5C3312EB3061B001F1627 = {
@@ -584,6 +603,7 @@
 				D0F2E2812EB739290001CEBE /* UILabel+.swift in Sources */,
 				EFA5C4262EB5E0A6001F1627 /* UIColor+.swift in Sources */,
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
+				D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
