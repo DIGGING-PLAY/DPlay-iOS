@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Combine
+
 import SnapKit
 import Then
-import Combine
 
 final class HomeViewController: UIViewController {
     
@@ -43,6 +44,11 @@ final class HomeViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError() }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStyle()
@@ -50,11 +56,6 @@ final class HomeViewController: UIViewController {
         setupLayout()
         setupDelegate()
         bind()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadData()
     }
     
     private func loadData() {
@@ -264,6 +265,8 @@ private extension HomeViewController {
     }
 }
 
+// MARK: - UICollectionView
+
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.posts.count
@@ -278,5 +281,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.configure(with: post)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = viewModel.posts[indexPath.item]
+        viewModel.didSelectPost(post)
     }
 }

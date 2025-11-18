@@ -27,9 +27,17 @@ final class HomeCoordinator: Coordinator {
         navigationController.setViewControllers([vc], animated: false)
     }
 
-    func goToDetail(_ post: Post) {
-        //let vm = DetailViewModel(post: post)
-        //let vc = DetailViewController(viewModel: vm)
-        //navigationController.pushViewController(vc, animated: true)
+    func goToMusicDetail(trackId: String) {
+        let service = MockMusicDetailService()
+        let repository = DefaultMusicDetailRepository(service: service)
+        let useCase = DefaultMusicDetailUseCase(repository: repository)
+        let vm = MusicDetailViewModel(trackId: trackId, useCase: useCase, coordinator: self)
+        let vc = MusicDetailViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func pop() {
+        navigationController.popViewController(animated: true)
     }
 }
