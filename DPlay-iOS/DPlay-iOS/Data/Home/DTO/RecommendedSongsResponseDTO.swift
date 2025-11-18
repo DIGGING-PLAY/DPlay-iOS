@@ -7,7 +7,8 @@
 
 import Foundation
 
-// MARK: - RecommendedSongsDTO
+// MARK: - HomeFeedResponseDTO
+
 struct HomeFeedResponseDTO: Decodable {
     let status: Bool
     let code: Int
@@ -15,7 +16,8 @@ struct HomeFeedResponseDTO: Decodable {
     let data: HomeFeedDataDTO
 }
 
-// MARK: - HomeDataDTO
+// MARK: - HomeFeedDataDTO
+
 struct HomeFeedDataDTO: Decodable {
     let questionId: Int
     let date: String
@@ -25,7 +27,8 @@ struct HomeFeedDataDTO: Decodable {
     let items: [HomeFeedPostDTO]
 }
 
-// MARK: - PostDTO
+// MARK: - HomeFeedPostDTO
+
 struct HomeFeedPostDTO: Decodable {
     let postId: Int
     let isScrapped: Bool
@@ -36,11 +39,15 @@ struct HomeFeedPostDTO: Decodable {
     let like: HomeFeedLikeDTO
 }
 
+// MARK: - HomeFeedBadgesDTO
+
 struct HomeFeedBadgesDTO: Decodable {
     let isEditorPick: Bool
     let isPopular: Bool
     let isNew: Bool
 }
+
+// MARK: - HomeFeedTrackDTO
 
 struct HomeFeedTrackDTO: Decodable {
     let trackId: String
@@ -49,16 +56,22 @@ struct HomeFeedTrackDTO: Decodable {
     let artistName: String
 }
 
+// MARK: - HomeFeedUserDTO
+
 struct HomeFeedUserDTO: Decodable {
     let userId: Int
     let nickname: String
     let profileImg: String
 }
 
+// MARK: - HomeFeedLikeDTO
+
 struct HomeFeedLikeDTO: Decodable {
     let isLiked: Bool
     let count: Int
 }
+
+// MARK: - DTO to Entity
 
 extension HomeFeedDataDTO {
     func toEntity() -> (Question, [Post]) {

@@ -14,15 +14,8 @@ final class HomeNavigationBarView: UIView {
     
     // MARK: - UI Properties
     
-    private let logoImageView = UIImageView().then {
-        $0.image = IconLiterals.ic_dplay_bigLogo
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    private let menuButton = UIButton().then {
-        $0.setImage(IconLiterals.ic_list_24, for: .normal)
-        $0.tintColor = .black
-    }
+    private let logoImageView = UIImageView()
+    private let menuButton = UIButton()
     
     // MARK: - Init
     
@@ -41,6 +34,16 @@ final class HomeNavigationBarView: UIView {
 private extension HomeNavigationBarView {
     func setupStyle() {
         backgroundColor = .white
+        
+        logoImageView.do {
+            $0.image = IconLiterals.ic_dplay_bigLogo
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        menuButton.do {
+            $0.setImage(IconLiterals.ic_list_24, for: .normal)
+            $0.tintColor = .black
+        }
     }
     
     func setupHierarchy() {

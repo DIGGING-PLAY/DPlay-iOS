@@ -22,12 +22,8 @@ class MusicAlbumCell: UICollectionViewCell {
     private let musicScrapButton = UIButton()
     
     private let cardBackgroundView = UIView()
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light)).then {
-        $0.alpha = 0.9  // 블러 강도
-    }
-    private let overlayView = UIView().then {
-        $0.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.25)
-    }
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let overlayView = UIView()
     
     private let userProfileImageView = UIImageView()
     private let userNameLabel = UILabel()
@@ -79,6 +75,9 @@ private extension MusicAlbumCell {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
         }
+        
+        blurView.alpha = 0.75
+        overlayView.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.25)
         
         userProfileImageView.do {
             $0.contentMode = .scaleAspectFill
@@ -183,7 +182,6 @@ private extension MusicAlbumCell {
             $0.leading.equalTo(userProfileImageView.snp.trailing).offset(6)
         }
         
-        
         userCommentQuoteUpIamgeView.snp.makeConstraints {
             $0.top.equalTo(userProfileImageView.snp.bottom).offset(24)
             $0.leading.equalToSuperview().inset(12)
@@ -226,22 +224,13 @@ private extension MusicAlbumCell {
 
 extension MusicAlbumCell {
     func configure(with post: Post) {
-        // 앨범 이미지
         if let url = URL(string: post.track.coverImage) {
             musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
         }
-        
-        // 유저 정보
         userNameLabel.text = post.user.nickname
         userProfileImageView.image = UIImage(named: "img_mock_profile")
-
-        // 내용
         userCommentLabel.text = post.content
-
-        // 좋아요
         heartCountLabel.text = "\(post.like.count)"
-
-        // 스크랩
         let scrapIcon = post.isScrapped
             ? IconLiterals.ic_bookmark_fill_24
             : IconLiterals.ic_bookmark_24
