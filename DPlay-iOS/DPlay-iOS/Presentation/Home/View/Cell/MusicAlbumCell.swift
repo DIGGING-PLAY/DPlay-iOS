@@ -33,7 +33,6 @@ class MusicAlbumCell: UICollectionViewCell {
     private let userNameLabel = UILabel()
     private let userCommentQuoteUpIamgeView = UIImageView()
     private let userCommentQuoteDownIamgeView = UIImageView()
-    
     private let userCommentLabel = UILabel()
     private let userHeartButton = UIButton()
     private let heartCountLabel = UILabel()
@@ -123,7 +122,7 @@ private extension MusicAlbumCell {
         }
         
         musicStreamingButton.do {
-            $0.setImage(IconLiterals.ic_stream, for: .normal)
+            $0.setImage(IconLiterals.ic_stream_p, for: .normal)
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 16
             $0.layer.masksToBounds = true
@@ -222,5 +221,30 @@ private extension MusicAlbumCell {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(44)
         }
+    }
+}
+
+extension MusicAlbumCell {
+    func configure(with post: Post) {
+        // 앨범 이미지
+        if let url = URL(string: post.track.coverImage) {
+            musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
+        }
+        
+        // 유저 정보
+        userNameLabel.text = post.user.nickname
+        userProfileImageView.image = UIImage(named: "img_mock_profile")
+
+        // 내용
+        userCommentLabel.text = post.content
+
+        // 좋아요
+        heartCountLabel.text = "\(post.like.count)"
+
+        // 스크랩
+        let scrapIcon = post.isScrapped
+            ? IconLiterals.ic_bookmark_fill_24
+            : IconLiterals.ic_bookmark_24
+        musicScrapButton.setImage(scrapIcon, for: .normal)
     }
 }

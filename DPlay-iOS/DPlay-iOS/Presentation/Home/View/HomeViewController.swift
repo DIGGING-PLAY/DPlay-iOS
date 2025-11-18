@@ -6,13 +6,16 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
+import Combine
 
 final class HomeViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let viewModel: HomeViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI Properties
     
@@ -33,12 +36,29 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStyle()
         setupHierarchy()
         setupLayout()
         setupDelegate()
+        bind()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData()
+    }
+    
+    private func loadData() {
+        Task { await viewModel.loadHome() }
     }
 }
 
@@ -94,12 +114,12 @@ private extension HomeViewController {
             config.baseForegroundColor = .dplay_pink
             config.imagePadding = 4
             config.cornerStyle = .capsule
-
+            
             var titleAttr = AttributedString("EDITOR")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = .dplay_pink
             config.attributedTitle = titleAttr
-
+            
             $0.configuration = config
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
@@ -113,7 +133,7 @@ private extension HomeViewController {
                 )
                 
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
+                
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .absolute(279),
                     heightDimension: .absolute(300)
@@ -123,7 +143,7 @@ private extension HomeViewController {
                     layoutSize: groupSize,
                     subitems: [item]
                 )
-
+                
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .groupPaging
                 section.interGroupSpacing = 13
@@ -133,10 +153,10 @@ private extension HomeViewController {
                     bottom: 0,
                     trailing: 48
                 )
-
+                
                 return section
             }
-
+            
             $0.setCollectionViewLayout(layout, animated: false)
             $0.register(MusicAlbumCell.self, forCellWithReuseIdentifier: MusicAlbumCell.identifier)
         }
@@ -220,7 +240,14 @@ private extension HomeViewController {
 }
 
 extension HomeViewController {
+    
     // MARK: - Method
+    
+    private func bind() {
+        viewModel.$posts.sink { [weak self] _ in
+            self?.editorCollectionView.reloadData()
+        }.store(in: &cancellables)
+    }
 }
 
 private extension HomeViewController {
@@ -239,7 +266,7 @@ private extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return viewModel.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -247,16 +274,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             withReuseIdentifier: MusicAlbumCell.identifier,
             for: indexPath
         ) as? MusicAlbumCell else { return UICollectionViewCell() }
+        let post = viewModel.posts[indexPath.row]
+        cell.configure(with: post)
+        
         return cell
     }
 }
-
-#if DEBUG
-import SwiftUI
-
-#Preview {
-    HomeViewController()
-}
-#endif
-
-
