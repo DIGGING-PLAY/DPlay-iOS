@@ -14,16 +14,14 @@ final class MainTabBarController: UIViewController {
     
     // MARK: - Properties
     
-    private let homeVC = HomeViewController()
-    private let myVC = HomeViewController()
-    private lazy var viewControllers: [UIViewController] = [homeVC, myVC]
+    private var viewControllers: [UIViewController] = []
     private var currentVC: UIViewController?
-  
+    
     // MARK: - UI Properties
     
     private let tabBarView = CustomTabBarView() // 내가 만드는 탭바 뷰
     private let containerView = UIView() // 화면 콘텐츠 들어갈 곳
-  
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -32,6 +30,11 @@ final class MainTabBarController: UIViewController {
         setupHierarchy()
         setupLayout()
         bindActions()
+        switchTo(index: 0)
+    }
+    
+    func setViewControllers(_ viewControllers: [UIViewController]) {
+        self.viewControllers = viewControllers
         switchTo(index: 0)
     }
 }
