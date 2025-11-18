@@ -1,0 +1,48 @@
+//
+//  RecommendedSongsEntity.swift
+//  DPlay-iOS
+//
+//  Created by 정정욱 on 11/7/25.
+//
+
+import Foundation
+
+struct Question {
+    let id: Int
+    let date: String
+    let hasPosted: Bool
+}
+
+struct Post {
+    let id: Int
+    let content: String
+    let user: User
+    let track: Track
+    let like: Like
+    let badges: Badges
+    let isScrapped: Bool
+}
+
+struct User {
+    let id: Int
+    let nickname: String
+    let profileImage: String
+}
+
+struct Track {
+    let id: String
+    let title: String
+    let coverImage: String
+    let artist: String
+}
+
+struct Like {
+    let isLiked: Bool
+    let count: Int
+}
+
+struct Badges {
+    let isEditorPick: Bool
+    let isPopular: Bool
+    let isNew: Bool
+}
