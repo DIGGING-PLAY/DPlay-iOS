@@ -15,14 +15,13 @@ protocol MusicDetailUseCase {
 
 final class DefaultMusicDetailUseCase: MusicDetailUseCase {
     private let repository: MusicDetailRepository
-
+    
     init(repository: MusicDetailRepository) {
         self.repository = repository
     }
-
+    
     func getMusicDetail(trackId: String) async throws -> MusicDetail {
-        let dto = try await repository.fetchMusicDetail(trackId: trackId)
-        return dto.toEntity()
+        return try await repository.fetchMusicDetail(trackId: trackId)
     }
     
     func toggleLike(postId: Int, isLiked: Bool) async throws {}

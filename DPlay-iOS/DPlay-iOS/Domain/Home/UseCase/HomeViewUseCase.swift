@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeViewUseCase {
-    func getHomeData() async throws -> (Question, [Post])
+    func getHomeData() async throws -> HomeFeed
 }
 
 final class DefaultHomeViewUseCase: HomeViewUseCase {
@@ -19,15 +19,8 @@ final class DefaultHomeViewUseCase: HomeViewUseCase {
         self.repository = repository
     }
 
-    func getHomeData() async throws -> (Question, [Post]) {
-        let dataDTO = try await repository.fetchHomeFeed()
-        let question = Question(
-            id: dataDTO.questionId,
-            date: dataDTO.date,
-            hasPosted: dataDTO.hasPosted
-        )
-        let posts = dataDTO.items.map { $0.toEntity() }
-
-        return (question, posts)
+    func getHomeData() async throws -> HomeFeed {
+        let feed = try await repository.fetchHomeFeed()
+        return feed  
     }
 }

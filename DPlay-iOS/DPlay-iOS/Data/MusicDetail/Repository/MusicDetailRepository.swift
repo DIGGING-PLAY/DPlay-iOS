@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MusicDetailRepository {
-    func fetchMusicDetail(trackId: String) async throws -> MusicDetailDataDTO
+    func fetchMusicDetail(trackId: String) async throws -> MusicDetail
 }
 
 final class DefaultMusicDetailRepository: MusicDetailRepository {
@@ -19,7 +19,8 @@ final class DefaultMusicDetailRepository: MusicDetailRepository {
         self.service = service
     }
 
-    func fetchMusicDetail(trackId: String) async throws -> MusicDetailDataDTO {
-        return try await service.fetchMusicDetail(trackId: trackId)
+    func fetchMusicDetail(trackId: String) async throws -> MusicDetail {
+        let dto = try await service.fetchMusicDetail(trackId: trackId)
+        return dto.toEntity()   
     }
 }

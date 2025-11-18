@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeRepository {
-    func fetchHomeFeed() async throws -> HomeFeedDataDTO
+    func fetchHomeFeed() async throws -> HomeFeed
     func updateLike(id: Int) async throws
     func updateScrap(id: Int, isScrapped: Bool) async throws
 }
@@ -21,9 +21,9 @@ final class DefaultHomeRepository: HomeRepository {
         self.service = service
     }
 
-    func fetchHomeFeed() async throws -> HomeFeedDataDTO {
-        let response = try await service.fetchHomeFeed()
-        return response.data
+    func fetchHomeFeed() async throws -> HomeFeed {
+        let responseDTO = try await service.fetchHomeFeed()
+        return responseDTO.data.toEntity()
     }
 
     func updateLike(id: Int) async throws {

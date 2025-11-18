@@ -74,15 +74,13 @@ struct HomeFeedLikeDTO: Decodable {
 // MARK: - DTO to Entity
 
 extension HomeFeedDataDTO {
-    func toEntity() -> (Question, [Post]) {
-        let question = Question(
-            id: questionId,
-            date: date,
-            hasPosted: hasPosted
+    func toEntity() -> HomeFeed {
+        .init(
+            question: Question(id: questionId, date: date, hasPosted: hasPosted),
+            totalCount: totalCount,
+            locked: locked,
+            posts: items.map { $0.toEntity() }
         )
-
-        let posts = items.map { $0.toEntity() }
-        return (question, posts)
     }
 }
 

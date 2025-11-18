@@ -28,9 +28,9 @@ final class HomeViewModel: ObservableObject {
         defer { isLoading = false }
         
         do {
-            let (q, p) = try await useCase.getHomeData()
-            self.question = q
-            self.posts = p
+            let homeFeed = try await useCase.getHomeData()
+            self.question = homeFeed.question
+            self.posts = homeFeed.posts
         } catch {
             print("ERROR:", error)
         }

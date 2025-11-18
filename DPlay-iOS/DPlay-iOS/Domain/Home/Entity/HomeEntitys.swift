@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct HomeFeed {
+    let question: Question
+    let totalCount: Int
+    let locked: Bool
+    let posts: [Post]
+}
+
 struct Question {
     let id: Int
     let date: String
