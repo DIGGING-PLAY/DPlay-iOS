@@ -8,39 +8,29 @@
 import Foundation
 
 protocol HomeRepository {
-    func fetchTodayQuestion() async throws -> Question
-    func fetchTodayRecommendations() async throws -> [Recommendation]
-    func likeRecommendation(id: Int) async throws
-    func scrapRecommendation(id: Int) async throws
-    func unscrapRecommendation(id: Int) async throws
+    func fetchHomeFeed() async throws -> HomeFeedDataDTO
+    func updateLike(id: Int) async throws
+    func updateScrap(id: Int, isScrapped: Bool) async throws
 }
 
 final class DefaultHomeRepository: HomeRepository {
-    init() {}
-    
-    /*
-     func fetchTodayQuestion() async throws -> Question {
-            let dto = try await service.getTodayQuestion()
-            return dto.toDomain()
-     }
-     */
-    func fetchTodayQuestion() async throws -> Question {
-        return MockQuestions.today
+
+    private let service: HomeService
+
+    init(service: HomeService) {
+        self.service = service
     }
-    
-    func fetchTodayRecommendations() async throws -> [Recommendation] {
-        return MockRecommendations.today
+
+    func fetchHomeFeed() async throws -> HomeFeedDataDTO {
+        let response = try await service.fetchHomeFeed()
+        return response.data
     }
-    
-    func likeRecommendation(id: Int) async throws {
-        print("\(id)번 추천글 좋아요 처리됨 (Mock)")
+
+    func updateLike(id: Int) async throws {
+        try await service.like(postId: id)
     }
-    
-    func scrapRecommendation(id: Int) async throws {
-        print("\(id)번 추천글 스크랩 처리됨 (Mock)")
-    }
-    
-    func unscrapRecommendation(id: Int) async throws {
-        print("\(id)번 추천글 스크랩 해제됨 (Mock)")
+
+    func updateScrap(id: Int, isScrapped: Bool) async throws {
+        try await service.scrap(postId: id, isScrapped: isScrapped)
     }
 }
