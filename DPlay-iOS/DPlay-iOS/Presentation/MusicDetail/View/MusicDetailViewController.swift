@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 import Then
 import SnapKit
 
 final class MusicDetailViewController: UIViewController {
+   
     // MARK: - Properties
+    
+    private let viewModel: MusicDetailViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI Properties
     
@@ -42,11 +47,30 @@ final class MusicDetailViewController: UIViewController {
     private let profileStack = UIStackView()
     
     // MARK: - Life Cycle
+    
+    init(viewModel: MusicDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadData()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStyle()
         setupHierarchy()
         setupLayout()
+        bind()
+        bindNavigationBar()
+    }
+        
+    private func loadData() {
+        Task { await viewModel.loadDetail() }
     }
 }
 
@@ -54,14 +78,16 @@ private extension MusicDetailViewController {
     // MARK: - Layout
     
     func setupStyle() {
+        view.backgroundColor = .white
+        
         topOverlayImageView.do {
             $0.contentMode = .scaleAspectFill
             $0.image = ImageLiterals.img_card_cover
             $0.clipsToBounds = true
         }
         
-        blurView.alpha = 0.9
-        whiteOverlay.backgroundColor = .white.withAlphaComponent(0.3)
+        blurView.alpha = 0.5
+        whiteOverlay.backgroundColor = .white.withAlphaComponent(0.7)
 
         albumImageView.do {
             $0.contentMode = .scaleAspectFill
@@ -212,9 +238,13 @@ private extension MusicDetailViewController {
         profileStack.addArrangedSubview(profileName)
     }
     
-    
-    
     func setupLayout() {
+        
+        topOverlayImageView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(250)
+        }
         
         blurView.snp.makeConstraints {
             $0.edges.equalTo(topOverlayImageView)
@@ -234,7 +264,7 @@ private extension MusicDetailViewController {
         }
         
         navigationBarView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
+            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(44)
         }
@@ -295,36 +325,29 @@ private extension MusicDetailViewController {
     }
 }
 
-#if DEBUG
-import SwiftUI
-
-struct MusicDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        MusicDetailViewController()
-            .toPreview()
-            .previewDevice("iPhone 15 Pro")
-    }
-}
-#endif
-
-import SwiftUI
-
-extension UIViewController {
-    func toPreview() -> some View {
-        UIViewControllerPreviewWrapper(self)
-    }
-}
-
-private struct UIViewControllerPreviewWrapper: UIViewControllerRepresentable {
-    let viewController: UIViewController
-    
-    init(_ vc: UIViewController) {
-        self.viewController = vc
+extension MusicDetailViewController {
+    private func bind() {
+        
+        viewModel.$detail
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] detail in
+                guard let self, let detail else { return }
+        
+                self.musicTitle.text = detail.title
+                self.artistLabel.text = detail.artist
+                
+                // 이미지 로드 (URL 기반)
+                //if let url = URL(string: detail.coverImage) {
+                //    self.albumImageView.kf.setImage(with: url)
+                //    self.topOverlayImageView.kf.setImage(with: url)
+                //}
+            }
+            .store(in: &cancellables)
     }
     
-    func makeUIViewController(context: Context) -> UIViewController {
-        return viewController
+    private func bindNavigationBar() {
+        navigationBarView.onTapBack = { [weak self] in
+            self?.viewModel.didTapBack()
+        }
     }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }

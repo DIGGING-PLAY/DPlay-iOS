@@ -12,24 +12,15 @@ import Then
 
 final class MusicDetailNavigationBar: UIView {
     
+    // MARK: - Properties
+    
+    var onTapBack: (() -> Void)?
+    
     // MARK: - UI Properties
     
-    private let backButton = UIButton().then {
-        $0.setImage(ImageLiterals.img_back, for: .normal)
-        $0.contentMode = .scaleAspectFit
-        $0.tintColor = .black
-    }
-    
-    private let DateLabel = UILabel().then {
-        $0.text = "10월 12일"
-        $0.font = .dplayFont(.titleBold18)
-        $0.textColor = .black
-    }
-    
-    private let menuButton = UIButton().then {
-        $0.setImage(ImageLiterals.img_dot_menu, for: .normal)
-        $0.tintColor = .black
-    }
+    private let backButton = UIButton()
+    private let DateLabel = UILabel()
+    private let menuButton = UIButton()
     
     // MARK: - Init
     
@@ -38,6 +29,7 @@ final class MusicDetailNavigationBar: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +40,23 @@ final class MusicDetailNavigationBar: UIView {
 private extension MusicDetailNavigationBar {
     func setupStyle() {
         backgroundColor = .clear
+        
+        backButton.do {
+            $0.setImage(ImageLiterals.img_back, for: .normal)
+            $0.contentMode = .scaleAspectFit
+            $0.tintColor = .black
+        }
+        
+        DateLabel.do {
+            $0.text = "10월 12일"
+            $0.font = .dplayFont(.titleBold18)
+            $0.textColor = .black
+        }
+        
+        menuButton.do {
+            $0.setImage(ImageLiterals.img_dot_menu, for: .normal)
+            $0.tintColor = .black
+        }
     }
     
     func setupHierarchy() {
@@ -62,7 +71,7 @@ private extension MusicDetailNavigationBar {
         }
         
         DateLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()  
+            $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
             $0.height.equalTo(24)
         }
@@ -70,7 +79,28 @@ private extension MusicDetailNavigationBar {
         menuButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
             $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
+            $0.size.equalTo(48)
         }
+    }
+}
+
+@objc private extension MusicDetailNavigationBar {
+    
+    //MARK: - @objc Method
+    
+    private func didTapBack() {
+        onTapBack?()
+    }
+}
+
+private extension MusicDetailNavigationBar {
+    // MARK: - Private Method
+    
+    func setupDelegate() {
+        //delegate 지정
+    }
+    
+    func setupTarget() {
+        backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
     }
 }
