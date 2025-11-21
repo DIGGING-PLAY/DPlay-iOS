@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F02ECA5343002A48C1 /* UserSession.swift */; };
+		D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */; };
+		D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F82ECA54F6002A48C1 /* AuthRepository.swift */; };
+		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
+		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
+		D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */; };
+		D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4ABC2ED0E05400DB0107 /* AuthService.swift */; };
 		EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0030102EC1FC43009E6532 /* HomeViewController.swift */; };
 		EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */; };
 		EF2560312EBDD198003E65C9 /* HomeEntitys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */; };
@@ -85,6 +92,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D01893F02ECA5343002A48C1 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		D01893F82ECA54F6002A48C1 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
+		D06B4ABC2ED0E05400DB0107 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EF0030102EC1FC43009E6532 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntitys.swift; sourceTree = "<group>"; };
 		EF2560352EBDD220003E65C9 /* HomeViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUseCase.swift; sourceTree = "<group>"; };
@@ -164,6 +178,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D01893E62ECA4C77002A48C1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D01893EC2ECA4F71002A48C1 /* Entity */,
+				D01893ED2ECA4F78002A48C1 /* UseCase */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		D01893EC2ECA4F71002A48C1 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				D01893F02ECA5343002A48C1 /* UserSession.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		D01893ED2ECA4F78002A48C1 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		D01893F52ECA54D0002A48C1 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D01893F82ECA54F6002A48C1 /* AuthRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		D01893F72ECA54D0002A48C1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D06B4AB82ED0DC0300DB0107 /* DTO */,
+				D01893F52ECA54D0002A48C1 /* Repository */,
+				D06B4ABB2ED0E04A00DB0107 /* Service */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		D05A62E92EC1A3C900B56DFD /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				D05A62EA2EC1C6F000B56DFD /* View */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		D05A62EA2EC1C6F000B56DFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D05A62F22EC1CF8200B56DFD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D05A62F42EC1CF9200B56DFD /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D05A62F42EC1CF9200B56DFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D06B4AB82ED0DC0300DB0107 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D06B4ABB2ED0E04A00DB0107 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D06B4ABC2ED0E05400DB0107 /* AuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		EF0030112EC1FC43009E6532 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +394,8 @@
 			children = (
 				EF7537D52EC838A900F28DE3 /* TabBar */,
 				EFA5C3FB2EB31BA0001F1627 /* Component */,
+				D05A62E92EC1A3C900B56DFD /* Splash */,
+				D05A62F22EC1CF8200B56DFD /* Login */,
 				EFA5C3AA2EB316B6001F1627 /* Home */,
 				EFCBCEA52EC9B25300BA7740 /* MusicDetail */,
 			);
@@ -298,6 +405,7 @@
 		EFA5C3952EB314D8001F1627 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				D01893E62ECA4C77002A48C1 /* Auth */,
 				EFCBCF142ECC743F00BA7740 /* MusicDetail */,
 				EFA5C4012EB31C18001F1627 /* Home */,
 			);
@@ -341,6 +449,7 @@
 		EFA5C3A72EB31696001F1627 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				D01893F72ECA54D0002A48C1 /* Auth */,
 				EFCBCF182ECC747A00BA7740 /* MusicDetail */,
 				EFA5C3A62EB31696001F1627 /* Home */,
 			);
@@ -705,6 +814,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */,
+				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
+				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
+				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
 				EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
@@ -721,12 +834,14 @@
 				EFCBCEF02EC9B57C00BA7740 /* UIFont+.swift in Sources */,
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
+				D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */,
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EFCBCF382ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
 				EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */,
 				EFCBCF282ECC754B00BA7740 /* MusicDetailUseCase.swift in Sources */,
+				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
 				EFCBCF362ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
 				EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */,
@@ -736,6 +851,7 @@
 				EFCBCF3B2ECC77A600BA7740 /* MusicDetailViewModel.swift in Sources */,
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* TabBarController.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
