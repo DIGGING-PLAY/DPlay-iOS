@@ -6,14 +6,14 @@
 //
 
 protocol AuthRepository {
-    func loginWithApple(appleIdentityToken: String) async throws -> User
+    func loginWithApple(appleIdentityToken: String) async throws -> UserSession
     func refreshAccessToken(refreshToken: String) async throws -> AuthToken
     func logout() async throws
 }
 
 final class DefaultAuthRepository: AuthRepository {
-    func loginWithApple(appleIdentityToken: String) async throws -> User {
-        return User(userId: 0, userTokens: AuthToken(accessToken: "", refreshToken: ""))
+    func loginWithApple(appleIdentityToken: String) async throws -> UserSession {
+        return UserSession(userId: 0, userTokens: AuthToken(accessToken: "", refreshToken: ""))
     }
     
     func refreshAccessToken(refreshToken: String) async throws -> AuthToken {

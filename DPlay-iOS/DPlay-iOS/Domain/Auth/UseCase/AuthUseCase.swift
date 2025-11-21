@@ -6,7 +6,7 @@
 //
 
 protocol AuthUseCase {
-    func loginWithApple(appleIdentityToken: String) async throws -> User
+    func loginWithApple(appleIdentityToken: String) async throws -> UserSession
     func refreshAccessToken(refreshToken: String) async throws -> AuthToken
     func logout() async throws
 }
@@ -20,7 +20,7 @@ final class DefaultAuthUseCase: AuthUseCase {
     }
     
     // 1. 애플 로그인
-    func loginWithApple(appleIdentityToken: String) async throws -> User {
+    func loginWithApple(appleIdentityToken: String) async throws -> UserSession {
         return try await authRepository.loginWithApple(appleIdentityToken: appleIdentityToken)
     }
     
