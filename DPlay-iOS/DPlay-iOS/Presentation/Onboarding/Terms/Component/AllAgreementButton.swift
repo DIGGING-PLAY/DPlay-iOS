@@ -14,7 +14,7 @@ final class AllAgreementButton: UIButton {
         
     //MARK: - UI Properties
 
-    private var checkImageView = UIImageView(image: UIImage(resource: .icCheckCircleDefault24))
+    private var checkImageView = UIImageView(image: IconLiterals.ic_check_circle_default_24)
     private let customTitleLabel = UILabel()
     
     //MARK: - Init
@@ -72,10 +72,10 @@ extension AllAgreementButton {
         isSelected = agreeAllSelected
         
         if isSelected {
-            checkImageView.image = .icCheckCircleSelected24
+            checkImageView.image = IconLiterals.ic_check_circle_selected_24
             backgroundColor = .dplay_pink100
         } else {
-            checkImageView.image = .icCheckCircleDefault24
+            checkImageView.image = IconLiterals.ic_check_circle_default_24
             backgroundColor = .gray100
         }
     }

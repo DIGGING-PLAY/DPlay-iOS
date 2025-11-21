@@ -47,7 +47,7 @@ private extension TermsViewController {
         view.backgroundColor = .white
         
         backButton.do {
-            $0.setImage(.isBack48, for: .normal)
+            $0.setImage(IconLiterals.ic_back_48, for: .normal)
         }
         
         titleLabel.do {

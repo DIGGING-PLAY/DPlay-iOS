@@ -48,7 +48,7 @@ private extension ProfileSettingViewController {
         view.backgroundColor = .white
         
         backButton.do {
-            $0.setImage(.isBack48, for: .normal)
+            $0.setImage(IconLiterals.ic_back_48, for: .normal)
         }
         
         titleLabel.do {
@@ -81,7 +81,7 @@ private extension ProfileSettingViewController {
         }
         
         clearButton.do {
-            $0.setImage(.btnCircleClose, for: .normal)
+            $0.setImage(IconLiterals.ic_circle_close, for: .normal)
             $0.frame = CGRect(x: 0, y: 0, width: 20, height: 53)
             $0.isHidden = true
         }

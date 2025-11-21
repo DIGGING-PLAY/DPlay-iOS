@@ -16,7 +16,7 @@ final class AgreementItemView: UIView {
 
     let agreeButton = UIButton()
     let titleButton = UIButton()
-    private let arrowImageView = UIImageView(image: UIImage(resource: .icArrowRight16))
+    private let arrowImageView = UIImageView(image: IconLiterals.ic_arrow_right_16)
     
     //MARK: - Init
     
@@ -39,8 +39,8 @@ private extension AgreementItemView {
     
     func setupStyle() {
         agreeButton.do {
-            $0.setImage(.icCheckCircleDefault24, for: .normal)
-            $0.setImage(.icCheckCircleSelected24, for: .selected)
+            $0.setImage(IconLiterals.ic_check_circle_default_24, for: .normal)
+            $0.setImage(IconLiterals.ic_check_circle_selected_24, for: .selected)
         }
         
         titleButton.do {

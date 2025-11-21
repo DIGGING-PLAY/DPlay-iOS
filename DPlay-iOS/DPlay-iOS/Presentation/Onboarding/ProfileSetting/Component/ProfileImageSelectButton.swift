@@ -15,7 +15,7 @@ final class ProfileImageSelectButton: UIButton {
     //MARK: - UI Properties
 
     private let profileImageView = UIImageView()
-    private let plusImageView = UIImageView(image: .btnCirclePlus)
+    private let plusImageView = UIImageView(image: IconLiterals.ic_circle_plus)
     
     //MARK: - Init
     
