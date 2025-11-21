@@ -1,0 +1,132 @@
+//
+//  RecommendedSongsDTO.swift
+//  DPlay-iOS
+//
+//  Created by 정정욱 on 11/16/25.
+//
+
+import Foundation
+
+// MARK: - HomeFeedResponseDTO
+
+struct HomeFeedResponseDTO: Decodable {
+    let status: Bool
+    let code: Int
+    let message: String
+    let data: HomeFeedDataDTO
+}
+
+// MARK: - HomeFeedDataDTO
+
+struct HomeFeedDataDTO: Decodable {
+    let questionId: Int
+    let date: String
+    let hasPosted: Bool
+    let locked: Bool
+    let totalCount: Int
+    let items: [HomeFeedPostDTO]
+}
+
+// MARK: - HomeFeedPostDTO
+
+struct HomeFeedPostDTO: Decodable {
+    let postId: Int
+    let isScrapped: Bool
+    let content: String
+    let badges: HomeFeedBadgesDTO
+    let track: HomeFeedTrackDTO
+    let user: HomeFeedUserDTO
+    let like: HomeFeedLikeDTO
+}
+
+// MARK: - HomeFeedBadgesDTO
+
+struct HomeFeedBadgesDTO: Decodable {
+    let isEditorPick: Bool
+    let isPopular: Bool
+    let isNew: Bool
+}
+
+// MARK: - HomeFeedTrackDTO
+
+struct HomeFeedTrackDTO: Decodable {
+    let trackId: String
+    let songTitle: String
+    let coverImg: String
+    let artistName: String
+}
+
+// MARK: - HomeFeedUserDTO
+
+struct HomeFeedUserDTO: Decodable {
+    let userId: Int
+    let nickname: String
+    let profileImg: String
+}
+
+// MARK: - HomeFeedLikeDTO
+
+struct HomeFeedLikeDTO: Decodable {
+    let isLiked: Bool
+    let count: Int
+}
+
+// MARK: - DTO to Entity
+
+extension HomeFeedDataDTO {
+    func toEntity() -> HomeFeed {
+        .init(
+            question: Question(id: questionId, date: date, hasPosted: hasPosted),
+            totalCount: totalCount,
+            locked: locked,
+            posts: items.map { $0.toEntity() }
+        )
+    }
+}
+
+extension HomeFeedPostDTO {
+    func toEntity() -> Post {
+        Post(
+            id: postId,
+            content: content,
+            user: user.toEntity(),
+            track: track.toEntity(),
+            like: like.toEntity(),
+            badges: badges.toEntity(),
+            isScrapped: isScrapped
+        )
+    }
+}
+
+extension HomeFeedBadgesDTO {
+    func toEntity() -> Badges {
+        Badges(
+            isEditorPick: isEditorPick,
+            isPopular: isPopular,
+            isNew: isNew
+        )
+    }
+}
+
+extension HomeFeedUserDTO {
+    func toEntity() -> User {
+        User(id: userId, nickname: nickname, profileImage: profileImg)
+    }
+}
+
+extension HomeFeedTrackDTO {
+    func toEntity() -> Track {
+        Track(
+            id: trackId,
+            title: songTitle,
+            coverImage: coverImg,
+            artist: artistName
+        )
+    }
+}
+
+extension HomeFeedLikeDTO {
+    func toEntity() -> Like {
+        Like(isLiked: isLiked, count: count)
+    }
+}
