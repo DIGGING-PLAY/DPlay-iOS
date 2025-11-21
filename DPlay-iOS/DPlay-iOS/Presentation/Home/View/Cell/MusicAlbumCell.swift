@@ -225,9 +225,9 @@ private extension MusicAlbumCell {
 
 extension MusicAlbumCell {
     func configure(with post: Post) {
-        if let url = URL(string: post.track.coverImage) {
-            musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
-        }
+        //if let url = URL(string: post.track.coverImage) {
+        //    musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
+        // }
         userNameLabel.text = post.user.nickname
         userProfileImageView.image = UIImage(named: "img_mock_profile")
         userCommentLabel.text = post.content

@@ -66,7 +66,7 @@ private extension MainTabBarController {
     private func bindActions() {
         tabBarView.onTapHome = { [weak self] in self?.switchTo(index: 0) }
         tabBarView.onTapMy   = { [weak self] in self?.switchTo(index: 1) }
-        tabBarView.onTapAdd  = { [weak self] in /* present something */ }
+        //tabBarView.onTapAdd  = { [weak self] in /* present something */ }
     }
     
     private func switchTo(index: Int) {

@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Group.png",
-      "idiom" : "universal"
+      "filename" : "ic_stream_32.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ic_stream_32@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ic_stream_32@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -207,7 +207,7 @@ private extension HomeViewController {
         
         questionLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
-            $0.leading.equalTo(questionImage.snp.trailing).inset(4)
+            $0.leading.equalTo(questionImage.snp.trailing).offset(4)
         }
         
         questionTitleLabel.snp.makeConstraints {
