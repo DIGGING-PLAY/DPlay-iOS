@@ -9,5 +9,6 @@ import Foundation
 
 struct UserSession {
     let userId: Int
-    let userTokens: AuthToken
+    let accessToken: String
+    let refreshToken: String
 }
