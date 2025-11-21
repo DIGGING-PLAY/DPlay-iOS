@@ -25,7 +25,7 @@ final class HomeViewController: UIViewController {
     private let refreshButton = UIButton()
     
     private let questionContainerView = UIView()
-    private let questionIamge = UIImageView()
+    private let questionImage = UIImageView()
     private let questionLabel = UILabel()
     private let questionTitleLabel = UILabel()
     
@@ -57,10 +57,6 @@ final class HomeViewController: UIViewController {
         setupDelegate()
         bind()
     }
-    
-    private func loadData() {
-        Task { await viewModel.loadHome() }
-    }
 }
 
 private extension HomeViewController {
@@ -86,13 +82,12 @@ private extension HomeViewController {
         
         questionContainerView.do {
             $0.backgroundColor = .gray100
-            $0.layer.cornerRadius = 12
+            $0.roundCorners(cornerRadius: 12)
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
-            $0.layer.cornerRadius = 12
         }
         
-        questionIamge.do {
+        questionImage.do {
             $0.image = IconLiterals.ic_dplay_smallLogo
             $0.contentMode = .scaleAspectFit
         }
@@ -105,8 +100,8 @@ private extension HomeViewController {
         
         questionTitleLabel.do {
             $0.text = "여행 갈 때 플레이리스트에 꼭 넣는 노래는?"
-            $0.setTextStyle(.bodySemi14)
             $0.textColor = .black
+            $0.setTextStyle(.bodySemi14)
         }
         
         musicStateButton.do {
@@ -174,7 +169,7 @@ private extension HomeViewController {
         )
         
         questionContainerView.addSubviews(
-            questionIamge,
+            questionImage,
             questionLabel,
             questionTitleLabel
         )
@@ -183,13 +178,13 @@ private extension HomeViewController {
     func setupLayout() {
         navigationBarView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(48)
         }
         
         todayDateLabel.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(16)
         }
         
         refreshButton.snp.makeConstraints {
@@ -200,11 +195,11 @@ private extension HomeViewController {
         
         questionContainerView.snp.makeConstraints {
             $0.top.equalTo(todayDateLabel.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(66)
         }
         
-        questionIamge.snp.makeConstraints {
+        questionImage.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
             $0.leading.equalToSuperview().inset(12)
             $0.size.equalTo(20)
@@ -212,12 +207,12 @@ private extension HomeViewController {
         
         questionLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
-            $0.leading.equalTo(questionIamge.snp.trailing).inset(4)
+            $0.leading.equalTo(questionImage.snp.trailing).inset(4)
         }
         
         questionTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(questionIamge.snp.bottom).offset(4)
-            $0.leading.trailing.equalToSuperview().inset(12)
+            $0.top.equalTo(questionImage.snp.bottom).offset(4)
+            $0.horizontalEdges.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(12)
         }
         
@@ -248,6 +243,10 @@ extension HomeViewController {
         viewModel.$posts.sink { [weak self] _ in
             self?.editorCollectionView.reloadData()
         }.store(in: &cancellables)
+    }
+    
+    private func loadData() {
+        Task { await viewModel.loadHome() }
     }
 }
 

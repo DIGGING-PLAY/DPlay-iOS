@@ -19,7 +19,7 @@ final class MusicDetailNavigationBar: UIView {
     // MARK: - UI Properties
     
     private let backButton = UIButton()
-    private let DateLabel = UILabel()
+    private let dateLabel = UILabel()
     private let menuButton = UIButton()
     
     // MARK: - Init
@@ -47,9 +47,9 @@ private extension MusicDetailNavigationBar {
             $0.tintColor = .black
         }
         
-        DateLabel.do {
+        dateLabel.do {
             $0.text = "10월 12일"
-            $0.font = .dplayFont(.titleBold18)
+            $0.setTextStyle(.titleBold18)
             $0.textColor = .black
         }
         
@@ -60,24 +60,23 @@ private extension MusicDetailNavigationBar {
     }
     
     func setupHierarchy() {
-        addSubviews(backButton, DateLabel, menuButton)
+        addSubviews(backButton, dateLabel, menuButton)
     }
     
     func setupLayout() {
         backButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(12)
+            $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.height.equalTo(24)
+            $0.size.equalTo(48)
         }
         
-        DateLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
+        dateLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
             $0.height.equalTo(24)
         }
         
         menuButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview()
             $0.centerY.equalToSuperview()
             $0.size.equalTo(48)
         }
@@ -95,10 +94,6 @@ private extension MusicDetailNavigationBar {
 
 private extension MusicDetailNavigationBar {
     // MARK: - Private Method
-    
-    func setupDelegate() {
-        //delegate 지정
-    }
     
     func setupTarget() {
         backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)

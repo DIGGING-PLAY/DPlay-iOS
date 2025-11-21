@@ -12,7 +12,7 @@ import Then
 import SnapKit
 
 final class MusicDetailViewController: UIViewController {
-   
+    
     // MARK: - Properties
     
     private let viewModel: MusicDetailViewModel
@@ -38,10 +38,10 @@ final class MusicDetailViewController: UIViewController {
     private let playButton = UIButton()
     private let likeButton = UIButton()
     private var actionButtons = UIStackView()
-   
+    
     private let commentCard = UIView()
     private let commentLabel = UILabel()
-
+    
     private let profileImageView = UIImageView()
     private let profileName = UILabel()
     private let profileStack = UIStackView()
@@ -59,7 +59,7 @@ final class MusicDetailViewController: UIViewController {
         super.viewDidAppear(animated)
         loadData()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStyle()
@@ -68,7 +68,7 @@ final class MusicDetailViewController: UIViewController {
         bind()
         bindNavigationBar()
     }
-        
+    
     private func loadData() {
         Task { await viewModel.loadDetail() }
     }
@@ -88,19 +88,17 @@ private extension MusicDetailViewController {
         
         blurView.alpha = 0.5
         whiteOverlay.backgroundColor = .white.withAlphaComponent(0.7)
-
+        
         albumImageView.do {
             $0.contentMode = .scaleAspectFill
             $0.image = ImageLiterals.img_card_cover
-            $0.clipsToBounds = true
-            $0.layer.cornerRadius = 8
+            $0.roundCorners(cornerRadius: 8)
         }
         
         scrapButton.do {
             $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
             $0.backgroundColor = .gray600
-            $0.layer.cornerRadius = 12
-            $0.layer.masksToBounds = true
+            $0.roundCorners(cornerRadius: 12)
         }
         
         musicStateButton.do {
@@ -122,14 +120,14 @@ private extension MusicDetailViewController {
         }
         
         musicTitle.do {
-            $0.font = .dplayFont(.titleBold18)
+            $0.setTextStyle(.titleBold18)
             $0.text = "내일에서 온 티켓"
             $0.textColor = .black
             $0.textAlignment = .center
         }
         
         artistLabel.do {
-            $0.font = .dplayFont(.bodySemi14)
+            $0.setTextStyle(.bodySemi14)
             $0.text = "한로로"
             $0.textColor = .gray400
             $0.textAlignment = .center
@@ -146,21 +144,20 @@ private extension MusicDetailViewController {
             titleAttr.font = .dplayFont(.bodyBold14)
             titleAttr.foregroundColor = .white
             config.attributedTitle = titleAttr
-            
             $0.configuration = config
         }
-
+        
         likeButton.do {
             var config = UIButton.Configuration.bordered()
             config.baseForegroundColor = UIColor.dplay_pink
             config.baseBackgroundColor = .clear
             config.cornerStyle = .medium
-
+            
             // 아이콘
             config.image = IconLiterals.ic_heart_p
             config.imagePlacement = .leading
             config.imagePadding = 8
-
+            
             // 텍스트
             var titleAttr = AttributedString("53")
             titleAttr.font = .dplayFont(.bodySemi14)
@@ -169,7 +166,7 @@ private extension MusicDetailViewController {
             $0.configuration = config
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
-            $0.layer.cornerRadius = 12
+            $0.roundCorners(cornerRadius: 12)
         }
         
         actionButtons.do {
@@ -180,27 +177,26 @@ private extension MusicDetailViewController {
         
         commentCard.do {
             $0.backgroundColor = .white
-            $0.layer.cornerRadius = 12
+            $0.roundCorners(cornerRadius: 12)
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
         }
         
         commentLabel.do {
-            $0.font = .dplayFont(.bodySemi14)
+            $0.setTextStyle(.bodySemi14)
             $0.text = "진짜 나오자마자 들었는데 이 노래가 최고 출근곡, 퇴근곡, 노동곡 다 되는 짱제로! 일하는 매장에서도 수십 번씩 틀고 있어요. 모두가 알아야 돼.."
             $0.numberOfLines = 0
         }
         
         profileImageView.do {
             $0.contentMode = .scaleAspectFill
-            $0.layer.cornerRadius = 16
-            $0.clipsToBounds = true
+            $0.roundCorners(cornerRadius: 16)
             $0.image = ImageLiterals.img_mock_profile
             $0.snp.makeConstraints { $0.size.equalTo(32) }
         }
         
-       profileName.do {
-            $0.font = .dplayFont(.bodySemi14)
+        profileName.do {
+            $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
             $0.text = "윤서얌어렵다이거"
         }
@@ -216,40 +212,41 @@ private extension MusicDetailViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        contentView.addSubview(topOverlayImageView)
-        contentView.addSubview(blurView)
-        contentView.addSubview(whiteOverlay)
-        contentView.addSubview(navigationBarView)
+        contentView.addSubviews(
+            topOverlayImageView,
+            blurView,
+            whiteOverlay,
+            navigationBarView,
+            albumContainer,
+            musicTitle,
+            artistLabel,
+            actionButtons,
+            commentCard
+        )
         
-        contentView.addSubview(albumContainer)
-        albumContainer.addSubview(albumImageView)
-        albumContainer.addSubview(scrapButton)
-        albumContainer.addSubview(musicStateButton)
-
-        contentView.addSubview(musicTitle)
-        contentView.addSubview(artistLabel)
-        actionButtons.addArrangedSubview(playButton)
-        actionButtons.addArrangedSubview(likeButton)
-        contentView.addSubview(actionButtons)
-        contentView.addSubview(commentCard)
-        commentCard.addSubview(commentLabel)
-        commentCard.addSubview(profileStack)
-        profileStack.addArrangedSubview(profileImageView)
-        profileStack.addArrangedSubview(profileName)
+        albumContainer.addSubviews(
+            albumImageView,
+            scrapButton,
+            musicStateButton
+        )
+        
+        actionButtons.addArrangedSubviews(playButton, likeButton)
+        commentCard.addSubviews(commentLabel, profileStack)
+        profileStack.addArrangedSubviews(profileImageView, profileName)
     }
     
     func setupLayout() {
         
         topOverlayImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(250)
         }
         
         blurView.snp.makeConstraints {
             $0.edges.equalTo(topOverlayImageView)
         }
-
+        
         whiteOverlay.snp.makeConstraints {
             $0.edges.equalTo(topOverlayImageView)
         }
@@ -265,7 +262,7 @@ private extension MusicDetailViewController {
         
         navigationBarView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(44)
         }
         
@@ -302,19 +299,19 @@ private extension MusicDetailViewController {
         
         actionButtons.snp.makeConstraints {
             $0.top.equalTo(artistLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(48)
         }
         
         commentCard.snp.makeConstraints {
             $0.top.equalTo(actionButtons.snp.bottom).offset(32)
-            $0.leading.trailing.equalToSuperview().inset(12)
+            $0.horizontalEdges.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().offset(-40)
         }
         
         commentLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
-            $0.leading.trailing.equalToSuperview().inset(12)
+            $0.horizontalEdges.equalToSuperview().inset(12)
         }
         
         profileStack.snp.makeConstraints {
@@ -332,7 +329,7 @@ extension MusicDetailViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] detail in
                 guard let self, let detail else { return }
-        
+                
                 self.musicTitle.text = detail.title
                 self.artistLabel.text = detail.artist
                 

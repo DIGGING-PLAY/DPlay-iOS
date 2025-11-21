@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Dplay.png",
+      "filename" : "img_wordmark_pink.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "img_wordmark_pink@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "img_wordmark_pink@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
