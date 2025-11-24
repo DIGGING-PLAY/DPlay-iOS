@@ -15,6 +15,12 @@ final class TermsViewModel {
     var allAgreed: Bool {
         serviceAgreed && privacyAgreed
     }
+    
+    weak var coordinator: OnboardingCoordinator?
+    
+    init(coordinator: OnboardingCoordinator?) {
+        self.coordinator = coordinator
+    }
 }
 
 extension TermsViewModel {
@@ -36,5 +42,14 @@ extension TermsViewModel {
     // 개인정보 약관 토글
     func togglePrivacy() {
         privacyAgreed.toggle()
+    }
+}
+
+extension TermsViewModel {
+    
+    // MARK: - Coordinator
+
+    func goToProfileSetting() {
+        coordinator?.goToProfileSetting()
     }
 }

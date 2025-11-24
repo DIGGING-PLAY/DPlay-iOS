@@ -14,7 +14,7 @@ final class ProfileSettingViewController: UIViewController {
     
     //MARK: - Properties
     
-    private let viewModel = ProfileSettingViewModel()
+    private let viewModel: ProfileSettingViewModel
     
     //MARK: - UI Properties
 
@@ -28,6 +28,15 @@ final class ProfileSettingViewController: UIViewController {
     private let joinButton = UIButton()
 
     //MARK: - Life Cycle
+    
+    init(viewModel: ProfileSettingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,7 +176,7 @@ private extension ProfileSettingViewController {
     }
 
     func backButtonTapped() {
-        print("backButtonTapped")
+        viewModel.popToPrevious()
     }
 
     func nicknameDidChange(_ textField: UITextField) {

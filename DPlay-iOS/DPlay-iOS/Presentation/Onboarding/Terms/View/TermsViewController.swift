@@ -14,7 +14,7 @@ final class TermsViewController: UIViewController {
     
     //MARK: - Properties
     
-    private let viewModel = TermsViewModel()
+    private let viewModel: TermsViewModel
     
     //MARK: - UI Properties
 
@@ -27,6 +27,15 @@ final class TermsViewController: UIViewController {
     private let nextButton = UIButton()
 
     //MARK: - Life Cycle
+    
+    init(viewModel: TermsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,12 +135,12 @@ private extension TermsViewController {
     func backButtonTapped() {
         print("backButtonTapped")
     }
-
+    
     func agreeAllButtonTapped() {
         viewModel.toggleAll()
         applyStateToUI()
     }
-
+    
     func agreeButtonTapped(_ sender: UIButton) {
         sender == serviceTermView.agreeButton ? viewModel.toggleService() : viewModel.togglePrivacy()
         applyStateToUI()
@@ -139,6 +148,10 @@ private extension TermsViewController {
     
     func termTitleButtonTapped(_ sender: UIButton) {
         print("termTitleButtonTapped")
+    }
+    
+    func nextButtonTapped() {
+        viewModel.goToProfileSetting()
     }
 }
 
@@ -153,6 +166,7 @@ private extension TermsViewController {
         privacyTermView.agreeButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
         serviceTermView.titleButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
         privacyTermView.titleButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     func applyStateToUI() {

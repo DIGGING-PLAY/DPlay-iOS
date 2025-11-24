@@ -22,6 +22,9 @@
 		D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */; };
 		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
+		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
+		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
+		D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */; };
 		EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0030102EC1FC43009E6532 /* HomeViewController.swift */; };
 		EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */; };
 		EF2560312EBDD198003E65C9 /* HomeEntitys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */; };
@@ -117,6 +120,7 @@
 		D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
+		D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		EF0030102EC1FC43009E6532 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntitys.swift; sourceTree = "<group>"; };
 		EF2560352EBDD220003E65C9 /* HomeViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUseCase.swift; sourceTree = "<group>"; };
@@ -653,6 +657,7 @@
 				EFCBCE962EC9A91900BA7740 /* HomeCoordinator.swift */,
 				EFCBCE9A2EC9A9E300BA7740 /* Coordinator.swift */,
 				EFCBCEA62EC9B46B00BA7740 /* TabBarCoordinator.swift */,
+				D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -961,6 +966,7 @@
 				D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */,
 				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
 				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
+				D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */,
 				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
 				EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
@@ -970,6 +976,7 @@
 				EFCBCEEA2EC9B57C00BA7740 /* UIStackView+.swift in Sources */,
 				EFCBCEEB2EC9B57C00BA7740 /* UIColor+.swift in Sources */,
 				EFCBCEEC2EC9B57C00BA7740 /* UIView+.swift in Sources */,
+				D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */,
 				EFCBCF2B2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EFCBCF202ECC751F00BA7740 /* MusicDetailResponseDTO.swift in Sources */,
 				EFCBCEED2EC9B57C00BA7740 /* UITextField+.swift in Sources */,
@@ -995,6 +1002,7 @@
 				EFCBCF3B2ECC77A600BA7740 /* MusicDetailViewModel.swift in Sources */,
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */,
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
