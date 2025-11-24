@@ -25,7 +25,7 @@ final class ProfileSettingViewController: UIViewController {
     private let clearButton = UIButton()
     private let textLengthLabel = UILabel()
     private let nicknameDescriptionLabel = UILabel()
-    private let joinButton = UIButton()
+    private let signUpButton = UIButton()
 
     //MARK: - Life Cycle
     
@@ -106,7 +106,7 @@ private extension ProfileSettingViewController {
             $0.setTextStyle(.capMedi12)
         }
 
-        joinButton.do {
+        signUpButton.do {
             $0.setTitle("가입하기", for: .normal)
             $0.setTitleColor(.gray400, for: .normal)
             $0.titleLabel?.setTextStyle(.bodyBold16)
@@ -124,7 +124,7 @@ private extension ProfileSettingViewController {
             nicknameTextField,
             textLengthLabel,
             nicknameDescriptionLabel,
-            joinButton
+            signUpButton
         )
     }
     
@@ -160,7 +160,7 @@ private extension ProfileSettingViewController {
             $0.leading.equalToSuperview().inset(20)
         }
         
-        joinButton.snp.makeConstraints {
+        signUpButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
         }
@@ -198,10 +198,10 @@ private extension ProfileSettingViewController {
         viewModel.onValidationStateChanged?(.empty)
     }
 
-    func joinButtonTapped() {
+    func signUpButtonTapped() {
         guard let nickname = nicknameTextField.text else { return }
         
-        viewModel.validateNicknameDuplicate(nickname)
+        viewModel.startSignUp(nickname: nickname)
     }
 }
 
@@ -214,7 +214,7 @@ private extension ProfileSettingViewController {
         imageSelectButton.addTarget(self, action: #selector(imageSelectButtonTapped), for: .touchUpInside)
         nicknameTextField.addTarget(self, action: #selector(nicknameDidChange), for: .editingChanged)
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
-        joinButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
     
     func bindViewModel() {
@@ -223,12 +223,12 @@ private extension ProfileSettingViewController {
             
             switch state {
             case .empty:
-                updateJoinButtonState(isEnabled: false)
+                updateSignUpButtonState(isEnabled: false)
                 nicknameTextField.layer.borderWidth = 0
                 nicknameDescriptionLabel.text = ""
                 
             case .normal:
-                updateJoinButtonState(isEnabled: true)
+                updateSignUpButtonState(isEnabled: true)
                 nicknameTextField.layer.borderWidth = 0
                 nicknameDescriptionLabel.text = ""
                 
@@ -240,7 +240,7 @@ private extension ProfileSettingViewController {
                 nicknameDescriptionLabel.textColor = .info_blue
                 
             case .invalid(let error):
-                updateJoinButtonState(isEnabled: false)
+                updateSignUpButtonState(isEnabled: false)
                 nicknameTextField.layer.borderColor = UIColor.alert_red.cgColor
                 nicknameTextField.layer.borderWidth = 1
                 nicknameDescriptionLabel.textColor = .alert_red
@@ -257,14 +257,14 @@ private extension ProfileSettingViewController {
         }
     }
     
-    func updateJoinButtonState(isEnabled: Bool) {
-        joinButton.isEnabled = isEnabled
+    func updateSignUpButtonState(isEnabled: Bool) {
+        signUpButton.isEnabled = isEnabled
         if isEnabled {
-            joinButton.setTitleColor(.white, for: .normal)
-            joinButton.backgroundColor = .dplay_pink
+            signUpButton.setTitleColor(.white, for: .normal)
+            signUpButton.backgroundColor = .dplay_pink
         } else {
-            joinButton.setTitleColor(.gray400, for: .normal)
-            joinButton.backgroundColor = .gray200
+            signUpButton.setTitleColor(.gray400, for: .normal)
+            signUpButton.backgroundColor = .gray200
         }
     }
 }
