@@ -44,7 +44,9 @@ final class ProfileSettingViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        
         setupTarget()
+        
         bindViewModel()
     }
 }
@@ -181,6 +183,7 @@ private extension ProfileSettingViewController {
 
     func nicknameDidChange(_ textField: UITextField) {
         var text = textField.text ?? ""
+        viewModel.nickname = text
         
         if text.count > 10 {
             text = String(text.prefix(10))
@@ -189,11 +192,11 @@ private extension ProfileSettingViewController {
         
         textLengthLabel.text = "\(text.count)/10"
         clearButton.isHidden = text.isEmpty
-        viewModel.updateNicknameInputState(text)
     }
 
     func clearButtonTapped() {
         nicknameTextField.text = ""
+        viewModel.nickname = ""
         clearButton.isHidden = true
         viewModel.onValidationStateChanged?(.empty)
     }

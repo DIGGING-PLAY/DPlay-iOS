@@ -6,30 +6,49 @@
 //
 
 import Foundation
+import Combine
 
-final class ProfileSettingViewModel {
+final class ProfileSettingViewModel: ObservableObject {
+    
+    //MARK: - Property Wrappers
+    
+    @Published var nickname: String = ""
     
     //MARK: - Properties
     
-    private(set) var currentText: String = ""
     var onValidationStateChanged: ((NicknameValidationState) -> Void)?
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    //MARK: - Dependencies
     
     private let useCase: AuthUseCase
     weak var coordinator: OnboardingCoordinator?
     
+    //MARK: - Init
+    
     init(useCase: AuthUseCase, coordinator: OnboardingCoordinator?) {
         self.useCase = useCase
         self.coordinator = coordinator
+        
+        setupNicknameObserver()
     }
 }
 
-extension ProfileSettingViewModel {
-    
-    //MARK: - Method
+private extension ProfileSettingViewModel {
+
+    //MARK: - Private Method
+
+    func setupNicknameObserver() {
+        $nickname
+            .removeDuplicates()
+            .sink { [weak self] text in
+                self?.updateNicknameInputState(text)
+            }
+            .store(in: &cancellables)
+    }
     
     func updateNicknameInputState(_ text: String) {
-        currentText = text
-        
         guard !text.isEmpty else {
             onValidationStateChanged?(.empty)
             return
@@ -44,6 +63,11 @@ extension ProfileSettingViewModel {
             assertionFailure("Unhandled error: \(error)")
         }
     }
+}
+
+extension ProfileSettingViewModel {
+    
+    //MARK: - Method
     
     func startSignUp(nickname: String, image: Data? = nil) {
         Task {
