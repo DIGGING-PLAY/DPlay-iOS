@@ -13,10 +13,9 @@ final class ProfileSettingViewModel: ObservableObject {
     //MARK: - Property Wrappers
     
     @Published var nickname: String = ""
+    @Published var nicknameValidationState: NicknameValidationState = .empty
     
     //MARK: - Properties
-    
-    var onValidationStateChanged: ((NicknameValidationState) -> Void)?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -42,6 +41,9 @@ private extension ProfileSettingViewModel {
     func setupNicknameObserver() {
         $nickname
             .removeDuplicates()
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .dropFirst()
+            .receive(on: RunLoop.main)
             .sink { [weak self] text in
                 self?.updateNicknameInputState(text)
             }
@@ -49,16 +51,16 @@ private extension ProfileSettingViewModel {
     }
     
     func updateNicknameInputState(_ text: String) {
-        guard !text.isEmpty else {
-            onValidationStateChanged?(.empty)
+        if text.isEmpty {
+            nicknameValidationState = .empty
             return
         }
         
         do {
            let _ = try Nickname(text)
-            onValidationStateChanged?(.normal)
+            nicknameValidationState = .normal
         } catch let error as NicknameError {
-            onValidationStateChanged?(.invalid(error))
+            nicknameValidationState = .invalid(error)
         } catch {
             assertionFailure("Unhandled error: \(error)")
         }
@@ -69,15 +71,16 @@ extension ProfileSettingViewModel {
     
     //MARK: - Method
     
-    func startSignUp(nickname: String, image: Data? = nil) {
+    func startSignUp(image: Data? = nil) {
+        print("입력된 닉네임: \(nickname)")
         Task {
             do {
                 try await useCase.singUp(nickname: nickname, image: image)
                 
-                onValidationStateChanged?(.valid)
+                nicknameValidationState = .valid
             } catch let error as NicknameError {
                 if error == .duplicate {
-                    onValidationStateChanged?(.invalid(.duplicate))
+                    nicknameValidationState = .invalid(.duplicate)
                 }
             }
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 import SnapKit
 import Then
@@ -15,6 +16,7 @@ final class ProfileSettingViewController: UIViewController {
     //MARK: - Properties
     
     private let viewModel: ProfileSettingViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - UI Properties
 
@@ -182,29 +184,29 @@ private extension ProfileSettingViewController {
     }
 
     func nicknameDidChange(_ textField: UITextField) {
-        var text = textField.text ?? ""
-        viewModel.nickname = text
+        guard let text = textField.text else { return }
         
-        if text.count > 10 {
-            text = String(text.prefix(10))
-            textField.text = text
+        if text.isEmpty {
+            viewModel.nicknameValidationState = .empty
+        } else {
+            viewModel.nickname = text
+            
+            if text.count > 10 {
+                viewModel.nickname = String(text.prefix(10))
+                textField.text = viewModel.nickname
+            }
+            
+            textLengthLabel.text = "\(viewModel.nickname.count)/10"
+            clearButton.isHidden = false
         }
-        
-        textLengthLabel.text = "\(text.count)/10"
-        clearButton.isHidden = text.isEmpty
     }
 
     func clearButtonTapped() {
-        nicknameTextField.text = ""
-        viewModel.nickname = ""
-        clearButton.isHidden = true
-        viewModel.onValidationStateChanged?(.empty)
+        viewModel.nicknameValidationState = .empty
     }
 
     func signUpButtonTapped() {
-        guard let nickname = nicknameTextField.text else { return }
-        
-        viewModel.startSignUp(nickname: nickname)
+        viewModel.startSignUp()
     }
 }
 
@@ -221,42 +223,58 @@ private extension ProfileSettingViewController {
     }
     
     func bindViewModel() {
-        viewModel.onValidationStateChanged = { [weak self] state in
-            guard let self else { return }
-            
-            switch state {
-            case .empty:
-                updateSignUpButtonState(isEnabled: false)
-                nicknameTextField.layer.borderWidth = 0
-                nicknameDescriptionLabel.text = ""
+        viewModel.$nicknameValidationState
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                print(state)
                 
-            case .normal:
-                updateSignUpButtonState(isEnabled: true)
-                nicknameTextField.layer.borderWidth = 0
-                nicknameDescriptionLabel.text = ""
-                
-            case .valid:
-                nicknameTextField.layer.borderColor = UIColor.info_blue.cgColor
-                nicknameTextField.layer.borderWidth = 1
-                
-                nicknameDescriptionLabel.text = "사용 가능한 닉네임이에요"
-                nicknameDescriptionLabel.textColor = .info_blue
-                
-            case .invalid(let error):
-                updateSignUpButtonState(isEnabled: false)
-                nicknameTextField.layer.borderColor = UIColor.alert_red.cgColor
-                nicknameTextField.layer.borderWidth = 1
-                nicknameDescriptionLabel.textColor = .alert_red
-
-                switch error {
-                case .invalidLength:
-                    nicknameDescriptionLabel.text = "2자 이상 입력해주세요"
-                case .invalidCharacters:
-                    nicknameDescriptionLabel.text = "특수문자, 띄어쓰기는 사용이 불가능해요"
-                case .duplicate:
-                    nicknameDescriptionLabel.text = "이미 사용중인 닉네임이에요"
-                }
+                updateUI(state: state)
             }
+            .store(in: &cancellables)
+    }
+    
+    func updateUI(state: NicknameValidationState) {
+        let descriptionText: String = {
+            switch state {
+            case .empty, .normal:
+                return ""
+            case .valid:
+                return "사용 가능한 닉네임이에요"
+            case .invalid(let nicknameError):
+                return nicknameError.errorMessage
+            }
+        }()
+        
+        let descriptionColor: UIColor = {
+            switch state {
+            case .empty, .normal:
+                return .clear
+            case .valid:
+                return .info_blue
+            case .invalid:
+                return .alert_red
+            }
+        }()
+
+        nicknameDescriptionLabel.text = descriptionText
+        nicknameDescriptionLabel.textColor = descriptionColor
+
+        nicknameTextField.layer.borderWidth = 1
+        nicknameTextField.layer.borderColor = descriptionColor.cgColor
+
+        switch state {
+        case .empty:
+            nicknameTextField.text = ""
+            viewModel.nickname = ""
+            textLengthLabel.text = "0/10"
+            clearButton.isHidden = true
+            updateSignUpButtonState(isEnabled: false)
+        case .valid:
+            signUpButton.isEnabled = false
+        case .normal:
+            updateSignUpButtonState(isEnabled: true)
+        case .invalid:
+            updateSignUpButtonState(isEnabled: false)
         }
     }
     

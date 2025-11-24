@@ -18,6 +18,17 @@ enum NicknameError: Error {
     case invalidLength
     case invalidCharacters
     case duplicate
+    
+    var errorMessage: String {
+        switch self {
+        case .invalidLength:
+            return "2자 이상 입력해주세요"
+        case .invalidCharacters:
+            return "특수문자, 띄어쓰기는 사용이 불가능해요"
+        case .duplicate:
+            return "이미 사용중인 닉네임이에요"
+        }
+    }
 }
 
 struct Nickname {
