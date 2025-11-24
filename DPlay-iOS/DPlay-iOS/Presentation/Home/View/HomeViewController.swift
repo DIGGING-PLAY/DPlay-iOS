@@ -17,7 +17,7 @@ final class HomeViewController: UIViewController {
     
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()
@@ -109,52 +109,23 @@ private extension HomeViewController {
             config.image = IconLiterals.ic_editor
             config.baseForegroundColor = .dplay_pink
             config.imagePadding = 4
-            config.cornerStyle = .capsule
             
             var titleAttr = AttributedString("EDITOR")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = .dplay_pink
             config.attributedTitle = titleAttr
-            
             $0.configuration = config
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
+            $0.backgroundColor = .white
+            $0.roundCorners(cornerRadius: 15)
         }
         
         editorCollectionView.do {
-            let layout = UICollectionViewCompositionalLayout { section, env in
-                let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(279),
-                    heightDimension: .absolute(300)
-                )
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(279),
-                    heightDimension: .absolute(300)
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: groupSize,
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .groupPaging
-                section.interGroupSpacing = 13
-                section.contentInsets = NSDirectionalEdgeInsets(
-                    top: 0,
-                    leading: 48,
-                    bottom: 0,
-                    trailing: 48
-                )
-                
-                return section
-            }
-            
-            $0.setCollectionViewLayout(layout, animated: false)
+            $0.backgroundColor = .clear
+            $0.setCollectionViewLayout(makeEditorLayout(), animated: false)
             $0.register(MusicAlbumCell.self, forCellWithReuseIdentifier: MusicAlbumCell.identifier)
+            $0.showsHorizontalScrollIndicator = false
         }
     }
     
@@ -218,7 +189,7 @@ private extension HomeViewController {
         
         musicStateButton.snp.makeConstraints {
             $0.top.equalTo(questionContainerView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().inset(136)
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
             $0.width.equalTo(100)
         }
@@ -230,6 +201,60 @@ private extension HomeViewController {
         }
     }
 }
+
+private extension HomeViewController {
+
+    // MARK: - Layout Constants
+    enum Layout {
+        static let cardHeight: CGFloat = 300
+        static let cardFraction: CGFloat = 0.7 // 화면 대비 카드 전체 너비 비율
+        static let horizontalInsetFraction: CGFloat = (1 - cardFraction) / 2 // 양쪽 여백 비율
+        static let groupSpacingFraction: CGFloat = 0.08 // 카드 간 간격 비율
+    }
+
+    // MARK: - Make Layout
+    func makeEditorLayout() -> UICollectionViewLayout {
+
+        return UICollectionViewCompositionalLayout { section, env in
+            // 현재 화면 width
+            let containerWidth = env.container.contentSize.width
+
+            // 아이템 크기 (가로는 비율, 세로는 그룹에 의해 결정)
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            // 그룹 크기
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(Layout.cardFraction),
+                heightDimension: .absolute(Layout.cardHeight)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+
+            // Section 세팅
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .groupPaging
+
+            section.interGroupSpacing = containerWidth * Layout.groupSpacingFraction
+
+            // 좌우 inset도 비율 기반
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: containerWidth * Layout.horizontalInsetFraction,
+                bottom: 0,
+                trailing: containerWidth * Layout.horizontalInsetFraction
+            )
+
+            return section
+        }
+    }
+}
+
 
 @objc private extension HomeViewController {
     //MARK: - @objc Method
