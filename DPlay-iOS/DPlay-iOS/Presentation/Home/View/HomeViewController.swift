@@ -30,6 +30,7 @@ final class HomeViewController: UIViewController {
     private let questionTitleLabel = UILabel()
     
     private let musicStateButton = UIButton()
+    private let musicScrapButton = UIButton()
     private let editorCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
@@ -121,6 +122,18 @@ private extension HomeViewController {
             $0.roundCorners(cornerRadius: 15)
         }
         
+        musicScrapButton.do {
+            $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
+            $0.backgroundColor = .gray600
+            $0.roundCorners(cornerRadius: 12)
+        }
+        
+        musicScrapButton.do {
+            $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
+            $0.backgroundColor = .gray600
+            $0.roundCorners(cornerRadius: 12)
+        }
+        
         editorCollectionView.do {
             $0.backgroundColor = .clear
             $0.setCollectionViewLayout(makeEditorLayout(), animated: false)
@@ -136,7 +149,8 @@ private extension HomeViewController {
             refreshButton,
             questionContainerView,
             musicStateButton,
-            editorCollectionView
+            editorCollectionView,
+            musicScrapButton
         )
         
         questionContainerView.addSubviews(
@@ -192,6 +206,12 @@ private extension HomeViewController {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
             $0.width.equalTo(100)
+        }
+        
+        musicScrapButton.snp.makeConstraints {
+            $0.trailing.equalTo(editorCollectionView.snp.trailing).inset(view.bounds.width * 0.15)
+            $0.top.equalTo(editorCollectionView.snp.top)
+            $0.size.equalTo(44)
         }
         
         editorCollectionView.snp.makeConstraints {

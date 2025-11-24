@@ -19,8 +19,6 @@ final class MusicAlbumCell: UICollectionViewCell {
     // MARK: - UI Properties
     
     private let musicAlbumCoverImageView = UIImageView()
-    private let musicScrapButton = UIButton()
-    
     private let cardBackgroundView = UIView()
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let overlayView = UIView()
@@ -58,13 +56,7 @@ private extension MusicAlbumCell {
             $0.roundCorners(cornerRadius: 128)
             $0.image = ImageLiterals.img_card_cover
         }
-        
-        musicScrapButton.do {
-            $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
-            $0.backgroundColor = .gray600
-            $0.roundCorners(cornerRadius: 12)
-        }
-        
+                
         cardBackgroundView.do {
             $0.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.5)
             $0.roundCorners(
@@ -128,8 +120,7 @@ private extension MusicAlbumCell {
     func setupHierarchy() {
         contentView.addSubviews(
             musicAlbumCoverImageView,
-            cardBackgroundView,
-            musicScrapButton
+            cardBackgroundView
         )
         
         cardBackgroundView.addSubviews(
@@ -165,12 +156,6 @@ private extension MusicAlbumCell {
         
         blurView.snp.makeConstraints { $0.edges.equalToSuperview() }
         overlayView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        
-        musicScrapButton.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.size.equalTo(44)
-        }
         
         userProfileImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
@@ -235,6 +220,5 @@ extension MusicAlbumCell {
         let scrapIcon = post.isScrapped
         ? IconLiterals.ic_bookmark_fill_24
         : IconLiterals.ic_bookmark_24
-        musicScrapButton.setImage(scrapIcon, for: .normal)
     }
 }
