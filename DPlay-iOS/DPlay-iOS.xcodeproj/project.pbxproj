@@ -25,6 +25,8 @@
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
+		D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */; };
+		D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */; };
 		D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDC22ED61D8900F75191 /* NSObject+.swift */; };
 		D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */; };
 		EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0030102EC1FC43009E6532 /* HomeViewController.swift */; };
@@ -123,6 +125,8 @@
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D0D8FDB42ED5703500F75191 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
+		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
 		D0D8FDC22ED61D8900F75191 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		EF0030102EC1FC43009E6532 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 			children = (
 				D01893FB2ECA5C90002A48C1 /* Terms */,
 				D071854E2ECACD680055FEBE /* ProfileSetting */,
+				D0D8FDBB2ED59CA000F75191 /* Overview */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -412,6 +417,31 @@
 				D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D0D8FDBB2ED59CA000F75191 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				D0D8FDBC2ED59CA900F75191 /* View */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
+		D0D8FDBC2ED59CA900F75191 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0D8FDBF2ED61C2A00F75191 /* Cell */,
+				D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D0D8FDBF2ED61C2A00F75191 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		EF0030112EC1FC43009E6532 /* View */ = {
@@ -977,12 +1007,14 @@
 				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
 				EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
+				D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */,
 				D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				EFCBCEA72EC9B46B00BA7740 /* TabBarCoordinator.swift in Sources */,
 				EFCBCEEA2EC9B57C00BA7740 /* UIStackView+.swift in Sources */,
 				EFCBCEEB2EC9B57C00BA7740 /* UIColor+.swift in Sources */,
+				D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */,
 				EFCBCEEC2EC9B57C00BA7740 /* UIView+.swift in Sources */,
 				D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */,
 				EFCBCF2B2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
