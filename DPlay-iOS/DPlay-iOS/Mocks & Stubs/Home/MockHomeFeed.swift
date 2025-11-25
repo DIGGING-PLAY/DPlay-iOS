@@ -8,7 +8,6 @@
 import Foundation
 
 enum MockHomeFeed {
-    
     static let sample = HomeFeedResponseDTO(
         status: true,
         code: 2000,
