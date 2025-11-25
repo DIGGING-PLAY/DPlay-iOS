@@ -14,7 +14,7 @@ final class SplashViewController: UIViewController {
     
     //MARK: - UI Properties
     
-    private let logoImageView = UIImageView(image: UIImage(resource: .imgWordmarkWhite))
+    private let logoImageView = UIImageView(image: ImageLiterals.img_wordmark_white)
     
     //MARK: - Life Cycle
     

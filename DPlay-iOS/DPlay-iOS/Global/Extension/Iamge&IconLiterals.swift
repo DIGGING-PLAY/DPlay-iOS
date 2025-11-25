@@ -26,6 +26,13 @@ enum IconLiterals {
     static var ic_tabbar_home_select: UIImage { .load(name: "ic_tabbar_home_select") }
     static var ic_tabbar_mypage: UIImage { .load(name: "ic_tabbar_mypage") }
     static var ic_tabbar_mypage_select: UIImage { .load(name: "ic_tabbar_mypage_select") }
+    static var ic_arrow_right_16: UIImage { .load(name: "ic_arrow_right_16") }
+    static var ic_check_circle_default_24: UIImage { .load(name: "ic_check_circle_default_24") }
+    static var ic_check_circle_selected_24: UIImage { .load(name: "ic_check_circle_selected_24") }
+    static var ic_back_48: UIImage { .load(name: "ic_back_48") }
+    static var ic_apple_24: UIImage { .load(name: "ic_apple_24") }
+    static var ic_circle_close: UIImage { .load(name: "ic_circle_close") }
+    static var ic_circle_plus: UIImage { .load(name: "ic_circle_plus") }
 }
 
 enum ImageLiterals {
@@ -33,6 +40,8 @@ enum ImageLiterals {
     static var img_mock_profile: UIImage { .load(name: "img_mock_profile") }
     static var img_back: UIImage { .load(name: "img_back") }
     static var img_dot_menu: UIImage { .load(name: "img_dot_menu") }
+    static var img_wordmark_pink: UIImage { .load(name: "img_wordmark_pink") }
+    static var img_wordmark_white: UIImage { .load(name: "img_wordmark_white") }
 }
 
 extension UIImage {
