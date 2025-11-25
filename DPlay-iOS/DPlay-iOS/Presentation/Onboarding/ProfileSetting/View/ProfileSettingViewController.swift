@@ -23,6 +23,8 @@ final class ProfileSettingViewController: UIViewController {
     //MARK: - UI Properties
 
     private let backButton = UIButton()
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     private let titleLabel = UILabel()
     private let imageSelectButton = ProfileImageSelectButton()
     private let nicknameTextField = UITextField()
@@ -68,6 +70,10 @@ private extension ProfileSettingViewController {
         
         backButton.do {
             $0.setImage(IconLiterals.ic_back_48, for: .normal)
+        }
+        
+        scrollView.do {
+            $0.showsVerticalScrollIndicator = false
         }
         
         titleLabel.do {
@@ -128,14 +134,14 @@ private extension ProfileSettingViewController {
     }
     
     func setupHierarchy() {
-        view.addSubviews(
-            backButton,
+        view.addSubviews(backButton, scrollView, signUpButton)
+        scrollView.addSubview(contentView)
+        contentView.addSubviews(
             titleLabel,
             imageSelectButton,
             nicknameTextField,
             textLengthLabel,
-            nicknameDescriptionLabel,
-            signUpButton
+            nicknameDescriptionLabel
         )
     }
     
@@ -144,8 +150,19 @@ private extension ProfileSettingViewController {
             $0.top.leading.equalTo(view.safeAreaLayoutGuide)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(backButton.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(signUpButton.snp.top)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(backButton.snp.bottom).offset(20)
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(16)
         }
         
@@ -164,6 +181,7 @@ private extension ProfileSettingViewController {
         textLengthLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(7)
             $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().offset(-20)
         }
         
         nicknameDescriptionLabel.snp.makeConstraints {
@@ -214,7 +232,17 @@ private extension ProfileSettingViewController {
         UIView.animate(withDuration: duration,
                        delay: 0,
                        options: UIView.AnimationOptions(rawValue: curve << 16),
-                       animations: { self.view.layoutIfNeeded() })
+                       animations: {
+            self.view.layoutIfNeeded()
+            
+            if isKeyboardShowing {
+                let bottomOffset = CGPoint(x: 0,
+                                           y: max(self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom, 0))
+                self.scrollView.setContentOffset(bottomOffset, animated: true)
+            } else {
+                self.scrollView.setContentOffset(.zero, animated: true)
+            }
+        })
     }
 }
 
