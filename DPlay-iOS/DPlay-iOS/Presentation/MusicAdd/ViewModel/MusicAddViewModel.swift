@@ -24,4 +24,8 @@ extension MusicAddViewModel {
     func didTapBack() {
         coordinator?.dismiss()
     }
+    
+    func didTapNext(trackId: String) {
+        coordinator?.goToMusicComment(trackId: trackId)
+    }
 }

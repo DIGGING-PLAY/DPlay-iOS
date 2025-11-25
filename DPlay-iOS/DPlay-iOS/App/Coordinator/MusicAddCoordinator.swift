@@ -23,6 +23,13 @@ final class MusicAddCoordinator: Coordinator {
         navigationController.setViewControllers([vc], animated: false)
     }
     
+    func goToMusicComment(trackId: String) {
+        let vm = MusicCommentViewModel(trackId: trackId, coordinator: self)
+        let vc = MusicCommentViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
     func pop() {
         navigationController.popViewController(animated: true)
     }

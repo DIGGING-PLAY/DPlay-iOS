@@ -43,7 +43,6 @@ final class MusicAddViewController: UIViewController {
         bindNavigationBar()
     }
     
-    
     init(viewModel: MusicAddViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -158,6 +157,15 @@ private extension MusicAddViewController {
             mockSearch(text: text)
         }
     }
+    
+    
+    func didTapNext() {
+        guard let index = selectedIndex else { return }
+        
+        let selectedTrack = results[index.row]
+        let trackId = selectedTrack.trackId
+        viewModel.didTapNext(trackId: trackId)
+    }
 }
 
 extension MusicAddViewController {
@@ -180,6 +188,7 @@ private extension MusicAddViewController {
     
     func setupTarget() {
         searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        nextButton.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
     }
     
     func updateNextButton() {
