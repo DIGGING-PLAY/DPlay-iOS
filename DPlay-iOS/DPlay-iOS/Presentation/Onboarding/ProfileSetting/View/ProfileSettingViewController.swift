@@ -43,6 +43,8 @@ final class ProfileSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboardWhenTappedAround()
+        
         setupStyle()
         setupHierarchy()
         setupLayout()
