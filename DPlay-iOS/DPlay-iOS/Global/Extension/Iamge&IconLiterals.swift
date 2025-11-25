@@ -28,6 +28,7 @@ enum IconLiterals {
     static var ic_tabbar_mypage_select: UIImage { .load(name: "ic_tabbar_mypage_select") }
     static var ic_search_20: UIImage { .load(name: "ic_search_20") }
     static var ic_check_circle_24: UIImage { .load(name: "ic_check_circle_24") }
+    static var ic_info_20: UIImage { .load(name: "ic_info_20") }
 }
 
 enum ImageLiterals {
