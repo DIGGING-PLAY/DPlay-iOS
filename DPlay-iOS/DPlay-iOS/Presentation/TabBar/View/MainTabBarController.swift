@@ -17,36 +17,41 @@ final class MainTabBarController: UIViewController {
     private var viewControllers: [UIViewController] = []
     private var currentVC: UIViewController?
     
+    /// add 플로팅 버튼 코디네이터 까지 전달 하기 위한 클로저
+    var onTapAdd: (() -> Void)?
+    
     // MARK: - UI Properties
     
-    private let tabBarView = CustomTabBarView() // 내가 만드는 탭바 뷰
-    private let containerView = UIView() // 화면 콘텐츠 들어갈 곳
+    private let tabBarView = CustomTabBarView()
+    private let containerView = UIView()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         setupHierarchy()
         setupLayout()
         bindActions()
-        switchTo(index: 0)
     }
     
     func setViewControllers(_ viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
+        guard !viewControllers.isEmpty else { return }
         switchTo(index: 0)
     }
 }
 
 private extension MainTabBarController {
     
+    // MARK: - Setup
+    
     func setupHierarchy() {
-        view.addSubview(containerView)
-        view.addSubview(tabBarView)
+        view.addSubviews(containerView, tabBarView)
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         containerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(tabBarView.snp.top)
@@ -61,20 +66,29 @@ private extension MainTabBarController {
 
 private extension MainTabBarController {
     
-    // MARK: - Method
+    // MARK: - Bind
     
-    private func bindActions() {
-        tabBarView.onTapHome = { [weak self] in self?.switchTo(index: 0) }
-        tabBarView.onTapMy   = { [weak self] in self?.switchTo(index: 1) }
-        //tabBarView.onTapAdd  = { [weak self] in /* present something */ }
+    func bindActions() {
+        tabBarView.onTapHome = { [weak self] in
+            self?.switchTo(index: 0)
+        }
+        
+        tabBarView.onTapMy = { [weak self] in
+            self?.switchTo(index: 1)
+        }
+        
+        tabBarView.onTapAdd = { [weak self] in
+            self?.onTapAdd?()
+        }
     }
     
-    private func switchTo(index: Int) {
+    // MARK: - Switching Logic
+    
+    func switchTo(index: Int) {
         let selectedVC = viewControllers[index]
-        
         if currentVC == selectedVC { return }
         
-        // 기존 VC 제거
+        // 기존 제거
         if let current = currentVC {
             current.willMove(toParent: nil)
             current.view.removeFromSuperview()

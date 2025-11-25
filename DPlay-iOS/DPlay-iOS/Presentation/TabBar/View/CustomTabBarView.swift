@@ -53,7 +53,7 @@ private extension CustomTabBarView {
             $0.backgroundColor = .white
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
-            $0.layer.cornerRadius = 20
+            $0.roundCorners(cornerRadius: 20)
         }
         
         homeButton.do {
@@ -63,7 +63,7 @@ private extension CustomTabBarView {
         
         addButton.do {
             $0.backgroundColor = .gray600
-            $0.layer.cornerRadius = 28
+            $0.roundCorners(cornerRadius: 28)
             $0.setImage(IconLiterals.ic_floating, for: .normal)
         }
         
@@ -119,7 +119,9 @@ private extension CustomTabBarView {
         updateSelected(1)
         onTapMy?()
     }
-    private func didTapAdd() { onTapAdd?() }
+    private func didTapAdd() {
+        onTapAdd?()
+    }
 }
 
 private extension CustomTabBarView {
@@ -130,6 +132,20 @@ private extension CustomTabBarView {
         homeButton.addTarget(self, action: #selector(didTapHome), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
         myButton.addTarget(self, action: #selector(didTapMy), for: .touchUpInside)
+    }
+    
+    /// 기본 hitTest는 부모 뷰의 영역 안에서만 터치를 탐지
+    /// 그런데 addButton의 상단 영역은 부모(CustomTabBarView)의 bounds 바깥이라 터치 영역이 작음
+    /// 즉 부모 뷰보다 addButton을 우선해서 터치를 처리하도록 강제
+    internal override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let convertedPoint = addButton.convert(point, from: self)
+        
+        // addButton이 터치 영역 안이면 addButton을 반환
+        if addButton.point(inside: convertedPoint, with: event) {
+            return addButton
+        }
+
+        return super.hitTest(point, with: event)
     }
 }
 
