@@ -14,6 +14,7 @@ import Then
 final class MusicAddViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let viewModel: MusicAddViewModel
     
     private var cancellables = Set<AnyCancellable>()
@@ -24,13 +25,13 @@ final class MusicAddViewController: UIViewController {
     
     private let navigationBarView = MusicAddNavigationBarView()
     private let titleLabel = UILabel()
-    private let descriptionLabel = UILabel()
     private let searchTextField = UITextField()
     private let searchContainerView = UIView()
     private let tableView = UITableView()
     private let nextButton = UIButton()
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,18 +55,15 @@ final class MusicAddViewController: UIViewController {
 private extension MusicAddViewController {
     
     // MARK: - Layout
+    
     func setupStyle() {
         view.backgroundColor = .white
         
         titleLabel.do {
             $0.text = "추천하고 싶은\n노래를 검색해보세요!"
-            $0.font = .systemFont(ofSize: 22, weight: .bold)
+            $0.setTextStyle(.titleBold24)
             $0.textColor = .black
             $0.numberOfLines = 2
-        }
-        
-        descriptionLabel.do {
-            $0.text = ""
         }
         
         searchContainerView.do {
@@ -75,7 +73,7 @@ private extension MusicAddViewController {
         
         searchTextField.do {
             $0.placeholder = "노래 제목이나 아티스트명을 검색해주세요"
-            $0.font = .systemFont(ofSize: 16)
+            $0.setTextStyle(.bodySemi16)
             $0.clearButtonMode = .whileEditing
         }
         
@@ -87,10 +85,11 @@ private extension MusicAddViewController {
         
         nextButton.do {
             $0.setTitle("다음으로", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-            $0.backgroundColor = .gray300
+            $0.titleLabel?.setTextStyle(.bodyBold16)
+            $0.setTitleColor(.gray400, for: .normal)
+            $0.backgroundColor = .gray200
             $0.isEnabled = false
-            $0.layer.cornerRadius = 12
+            $0.roundCorners(cornerRadius: 12)
         }
     }
     
@@ -98,7 +97,6 @@ private extension MusicAddViewController {
         view.addSubviews(
             navigationBarView,
             titleLabel,
-            descriptionLabel,
             searchContainerView,
             tableView,
             nextButton
@@ -117,30 +115,30 @@ private extension MusicAddViewController {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
         
         searchContainerView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(48)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.height.equalTo(53)
         }
         
         searchTextField.snp.makeConstraints {
-            $0.verticalEdges.equalToSuperview().inset(10)
+            $0.verticalEdges.equalToSuperview().inset(16)
             $0.horizontalEdges.equalToSuperview().inset(12)
         }
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(searchContainerView.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(nextButton.snp.top).offset(-16)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(nextButton.snp.top).offset(-12)
         }
         
         nextButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(52)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.height.equalTo(61)
         }
     }
 }
@@ -187,7 +185,8 @@ private extension MusicAddViewController {
     func updateNextButton() {
         let enabled = (selectedIndex != nil)
         nextButton.isEnabled = enabled
-        nextButton.backgroundColor = enabled ? .dplay_pink : .gray300
+        nextButton.setTitleColor(.white, for: .normal)
+        nextButton.backgroundColor = enabled ? .dplay_pink : .gray400
     }
     
     // ⭐ MOCK 검색 (API 붙이면 여기 수정)
