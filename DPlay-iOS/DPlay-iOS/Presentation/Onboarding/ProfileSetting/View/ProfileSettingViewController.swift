@@ -18,6 +18,8 @@ final class ProfileSettingViewController: UIViewController {
     private let viewModel: ProfileSettingViewModel
     private var cancellables = Set<AnyCancellable>()
     
+    private var signUpButtonBottomConstraint: Constraint?
+    
     //MARK: - UI Properties
 
     private let backButton = UIButton()
@@ -42,14 +44,16 @@ final class ProfileSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        hideKeyboardWhenTappedAround()
-        
+                
         setupStyle()
         setupHierarchy()
         setupLayout()
         
         setupTarget()
+        setupDelegate()
+        setupKeyboardObserver()
+        
+        hideKeyboardWhenTappedAround()
         
         bindViewModel()
     }
@@ -85,6 +89,7 @@ private extension ProfileSettingViewController {
                     .foregroundColor: UIColor.gray400
                 ]
             )
+            $0.returnKeyType = .done
             $0.addPadding(left: 12)
             $0.roundCorners(cornerRadius: 12)
 
@@ -169,6 +174,8 @@ private extension ProfileSettingViewController {
         signUpButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
+            
+            signUpButtonBottomConstraint = $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16).constraint
         }
     }
 }
@@ -185,30 +192,29 @@ private extension ProfileSettingViewController {
         viewModel.popToPrevious()
     }
 
-    func nicknameDidChange(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        
-        if text.isEmpty {
-            viewModel.nicknameValidationState = .empty
-        } else {
-            viewModel.nickname = text
-            
-            if text.count > 10 {
-                viewModel.nickname = String(text.prefix(10))
-                textField.text = viewModel.nickname
-            }
-            
-            textLengthLabel.text = "\(viewModel.nickname.count)/10"
-            clearButton.isHidden = false
-        }
-    }
-
     func clearButtonTapped() {
         viewModel.nicknameValidationState = .empty
     }
 
     func signUpButtonTapped() {
         viewModel.startSignUp()
+    }
+    
+    func handleKeyboard(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
+              let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
+
+        let isKeyboardShowing = keyboardFrame.origin.y < UIScreen.main.bounds.height
+        let bottomInset = isKeyboardShowing ? keyboardFrame.height - view.safeAreaInsets.bottom + 16 : 0
+
+        signUpButtonBottomConstraint?.update(inset: bottomInset)
+
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       options: UIView.AnimationOptions(rawValue: curve << 16),
+                       animations: { self.view.layoutIfNeeded() })
     }
 }
 
@@ -219,9 +225,12 @@ private extension ProfileSettingViewController {
     func setupTarget() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         imageSelectButton.addTarget(self, action: #selector(imageSelectButtonTapped), for: .touchUpInside)
-        nicknameTextField.addTarget(self, action: #selector(nicknameDidChange), for: .editingChanged)
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+    }
+    
+    func setupDelegate() {
+        nicknameTextField.delegate = self
     }
     
     func bindViewModel() {
@@ -289,5 +298,37 @@ private extension ProfileSettingViewController {
             signUpButton.setTitleColor(.gray400, for: .normal)
             signUpButton.backgroundColor = .gray200
         }
+    }
+    
+    func setupKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboard(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+    }
+}
+
+extension ProfileSettingViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        
+        if text.isEmpty {
+            viewModel.nicknameValidationState = .empty
+        } else {
+            if text.count > 10 {
+                viewModel.nickname = String(text.prefix(10))
+                textField.text = viewModel.nickname
+            }
+            
+            viewModel.nickname = text
+            textLengthLabel.text = "\(text.count)/10"
+            clearButton.isHidden = text.isEmpty
+        }
+
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
