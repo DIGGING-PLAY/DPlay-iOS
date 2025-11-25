@@ -16,9 +16,9 @@ final class LoginViewController: UIViewController {
     
     private let logoStackView = UIStackView()
     private let logoLabel = UILabel()
-    private let logoImageView = UIImageView(image: UIImage(resource: .imgWordmarkPink))
+    private let logoImageView = UIImageView(image: ImageLiterals.img_wordmark_pink)
     private let appleLoginButton = UIButton()
-    private let applelogoImageView = UIImageView(image: UIImage(resource: .icApple24))
+    private let applelogoImageView = UIImageView(image: IconLiterals.ic_apple_24)
     
     //MARK: - Life Cycle
     
