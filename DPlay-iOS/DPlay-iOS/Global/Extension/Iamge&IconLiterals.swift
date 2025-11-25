@@ -42,6 +42,7 @@ enum ImageLiterals {
     static var img_dot_menu: UIImage { .load(name: "img_dot_menu") }
     static var img_wordmark_pink: UIImage { .load(name: "img_wordmark_pink") }
     static var img_wordmark_white: UIImage { .load(name: "img_wordmark_white") }
+    static var img_onboarding_3: UIImage { .load(name: "img_onboarding_3") }
 }
 
 extension UIImage {
