@@ -21,7 +21,7 @@ final class MusicCommentNavigationBarView: UIView {
     private let backButton = UIButton()
     private let navigationLabel = UILabel()
     
-    // MARK: - Init
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)

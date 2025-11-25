@@ -34,9 +34,10 @@ final class MusicCommentViewController: UIViewController {
     private let countLabel = UILabel()
     
     private let guideButton = UIButton()
+    private var popupView: CommentGuidePopupView?
     private let registerButton = UIButton()
 
-    // MARK: - Init
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -232,6 +233,25 @@ private extension MusicCommentViewController {
             $0.height.equalTo(61)
         }
     }
+}
+
+@objc private extension MusicCommentViewController {
+   
+    //MARK: - @objc Method
+    
+    /// 팝업 관련 메서드
+    @objc func didTapGuide() {
+        showPopup()
+    }
+    
+    /// 글 등록 관련 메서드
+    @objc private func didTapRegister() {
+        let comment = textView.text ?? ""
+        viewModel.didTapRegister(comment: comment)
+    }
+}
+
+private extension MusicCommentViewController {
     
     // MARK: - Delegate
     
@@ -245,6 +265,51 @@ private extension MusicCommentViewController {
         navigationBarView.onTapBack = { [weak self] in
             self?.viewModel.didTapBack()
         }
+        
+        guideButton.addTarget(self, action: #selector(didTapGuide), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
+    }
+    
+    private func showPopup() {
+        
+        // 이미 떠있으면 중복 X
+        guard popupView == nil else { return }
+        
+        let popup = CommentGuidePopupView()
+        popup.alpha = 0
+        popup.layer.cornerRadius = 12
+        popup.clipsToBounds = false
+        
+        view.addSubview(popup)
+        self.popupView = popup
+        
+        popup.bindActions(close: { [weak self] in
+            self?.hidePopup()
+        }, learnMore: {
+            print("더 알아보기 이동 예정 추후 웹뷰 연결")
+        })
+        
+        popup.snp.makeConstraints {
+            $0.top.equalTo(guideButton.snp.bottom).offset(8)
+            $0.leading.equalTo(guideButton.snp.leading)
+            $0.width.equalTo(305)
+            $0.height.equalTo(134)
+        }
+        
+        UIView.animate(withDuration: 0.25) {
+            popup.alpha = 1
+        }
+    }
+    
+    private func hidePopup() {
+        guard let popup = popupView else { return }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            popup.alpha = 0
+        }, completion: { _ in
+            popup.removeFromSuperview()
+            self.popupView = nil
+        })
     }
 }
 

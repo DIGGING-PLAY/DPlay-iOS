@@ -26,4 +26,8 @@ extension MusicCommentViewModel {
     func didTapBack() {
         coordinator?.pop()
     }
+    
+    func didTapRegister(comment: String) {
+        coordinator?.dismiss()
+    }
 }
