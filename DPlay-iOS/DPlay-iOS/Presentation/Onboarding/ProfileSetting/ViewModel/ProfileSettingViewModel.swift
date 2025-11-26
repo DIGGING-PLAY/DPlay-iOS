@@ -76,8 +76,9 @@ extension ProfileSettingViewModel {
         Task {
             do {
                 try await useCase.singUp(nickname: nickname, image: image)
-                
                 nicknameValidationState = .valid
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                goToOverview()
             } catch let error as NicknameError {
                 if error == .duplicate {
                     nicknameValidationState = .invalid(.duplicate)
@@ -91,6 +92,10 @@ extension ProfileSettingViewModel {
 extension ProfileSettingViewModel {
     
     // MARK: - Coordinator
+
+    func goToOverview() {
+        coordinator?.goToOverview()
+    }
 
     func popToPrevious() {
         coordinator?.pop()

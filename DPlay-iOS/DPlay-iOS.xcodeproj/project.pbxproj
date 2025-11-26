@@ -13,6 +13,7 @@
 		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
+		D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */; };
 		D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A602ECB4D5E001379C4 /* Nickname.swift */; };
 		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
@@ -115,6 +116,7 @@
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
 		D05B9A602ECB4D5E001379C4 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
@@ -320,6 +322,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D05B6C2B2ED69E64003F25E5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D05B9A5B2ECB4B04001379C4 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D8FDBC2ED59CA900F75191 /* View */,
+				D05B6C2B2ED69E64003F25E5 /* ViewModel */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -1017,6 +1028,7 @@
 				D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */,
 				EFCBCEEC2EC9B57C00BA7740 /* UIView+.swift in Sources */,
 				D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */,
+				D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */,
 				EFCBCF2B2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EFCBCF202ECC751F00BA7740 /* MusicDetailResponseDTO.swift in Sources */,
 				EFCBCEED2EC9B57C00BA7740 /* UITextField+.swift in Sources */,

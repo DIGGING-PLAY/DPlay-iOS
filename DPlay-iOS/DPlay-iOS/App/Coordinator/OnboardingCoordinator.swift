@@ -35,6 +35,13 @@ final class OnboardingCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func goToOverview() {
+        let vm = OverviewViewModel(coordinator: self)
+        let vc = OverviewViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.pushViewController(vc, animated: true)
+    }
+
     func pop() {
         navigationController.popViewController(animated: true)
     }

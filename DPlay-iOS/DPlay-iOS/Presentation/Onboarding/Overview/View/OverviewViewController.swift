@@ -14,7 +14,8 @@ final class OverviewViewController: UIViewController {
     
     //MARK: - Properties
     
-//    private let viewModel:
+    private let viewModel: OverviewViewModel
+    
     private let screenWidth = UIScreen.main.bounds.width
     private let titleTexts = [
         "오늘의 질문이 도착했어요",
@@ -43,14 +44,14 @@ final class OverviewViewController: UIViewController {
 
     //MARK: - Life Cycle
     
-//    init(viewModel: TermsViewModel) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(viewModel: OverviewViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,7 +169,7 @@ private extension OverviewViewController {
     //MARK: - @objc Method
     
     func backButtonTapped() {
-        print("backButtonTapped")
+        viewModel.popToPrevious()
     }
     
     func startButtonTapped() {
@@ -220,7 +221,6 @@ extension OverviewViewController: UIScrollViewDelegate {
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
-        print(page)
         pageControl.currentPage = page
         titleLabel.text = titleTexts[page]
         descriptionLabel.text = descriptionTexts[page]
