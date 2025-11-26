@@ -15,6 +15,7 @@
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
 		D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */; };
 		D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */; };
+		D05B6C362ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */; };
 		D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A602ECB4D5E001379C4 /* Nickname.swift */; };
 		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
@@ -119,6 +120,7 @@
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
 		D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewController.swift; sourceTree = "<group>"; };
+		D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewModel.swift; sourceTree = "<group>"; };
 		D05B9A602ECB4D5E001379C4 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
@@ -336,9 +338,26 @@
 		D05B6C2E2ED6C697003F25E5 /* NotificationPermission */ = {
 			isa = PBXGroup;
 			children = (
-				D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */,
+				D05B6C312ED6CF6E003F25E5 /* View */,
+				D05B6C352ED6CFA4003F25E5 /* ViewModel */,
 			);
 			path = NotificationPermission;
+			sourceTree = "<group>";
+		};
+		D05B6C312ED6CF6E003F25E5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D05B6C352ED6CFA4003F25E5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D05B9A5B2ECB4B04001379C4 /* Onboarding */ = {
@@ -1070,6 +1089,7 @@
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
+				D05B6C362ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift in Sources */,
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
 				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,

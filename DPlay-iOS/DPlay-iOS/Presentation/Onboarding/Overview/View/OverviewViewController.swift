@@ -173,7 +173,7 @@ private extension OverviewViewController {
     }
     
     func startButtonTapped() {
-        print("startButtonTapped")
+        viewModel.goToNotificationPermission()
     }
 }
 

@@ -42,6 +42,13 @@ final class OnboardingCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
+    func goToNotificationPermission() {
+        let vm = NotificationPermissionViewModel(coordinator: self)
+        let vc = NotificationPermissionViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.pushViewController(vc, animated: true)
+    }
+
     func pop() {
         navigationController.popViewController(animated: true)
     }

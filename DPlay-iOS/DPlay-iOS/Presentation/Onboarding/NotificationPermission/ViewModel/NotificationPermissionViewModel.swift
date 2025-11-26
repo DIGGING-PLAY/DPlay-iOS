@@ -1,11 +1,11 @@
 //
-//  OverviewViewModel.swift
+//  NotificationPermissionViewModel.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/26/25.
 //
 
-final class OverviewViewModel {
+final class NotificationPermissionViewModel {
     
     //MARK: - Properties
     
@@ -18,15 +18,11 @@ final class OverviewViewModel {
     }
 }
 
-extension OverviewViewModel {
+extension NotificationPermissionViewModel {
     
     // MARK: - Coordinator
 
-    func goToNotificationPermission() {
-        coordinator?.goToNotificationPermission()
-    }
-    
-    func popToPrevious() {
-        coordinator?.pop()
+    func goToHome() {
+        
     }
 }
