@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+import PhotosUI
 import SnapKit
 import Then
 
@@ -210,9 +211,12 @@ private extension ProfileSettingViewController {
             secondaryButtonTitle: "기본 이미지로 변경하기",
             primaryAction: {
                 print("앨범에서 선택하기 탭")
+                self.presentImagePicker()
             },
             secondaryAction: {
                 print("기본 이미지로 변경하기 탭")
+                self.imageSelectButton.setProfileImage(type: .defaultImage)
+                self.viewModel.selectedImageData = nil
             }
         )
         
@@ -350,6 +354,16 @@ private extension ProfileSettingViewController {
                                                name: UIResponder.keyboardWillChangeFrameNotification,
                                                object: nil)
     }
+    
+    func presentImagePicker() {
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .any(of: [.images])
+            
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
 }
 
 extension ProfileSettingViewController: UITextFieldDelegate {
@@ -374,5 +388,30 @@ extension ProfileSettingViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension ProfileSettingViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard let provider = results.first?.itemProvider,
+              provider.canLoadObject(ofClass: UIImage.self) else {
+            return
+        }
+        
+        provider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
+            guard let self else { return }
+            
+            DispatchQueue.main.async {
+                if let uiImage = object as? UIImage,
+                   let imageData = uiImage.jpegData(compressionQuality: 0.9) {
+                    self.viewModel.selectedImageData = imageData
+                    self.imageSelectButton.setProfileImage(type: .selectedImage(uiImage))
+                } else {
+                    print("프로필 이미지 로드 실패")
+                }
+            }
+        }
     }
 }
