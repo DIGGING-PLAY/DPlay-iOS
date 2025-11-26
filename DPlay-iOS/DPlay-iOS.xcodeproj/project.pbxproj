@@ -16,6 +16,7 @@
 		D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */; };
 		D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */; };
 		D05B6C362ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */; };
+		D05B6C382ED6DE58003F25E5 /* DPlayButtonModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C372ED6DE0E003F25E5 /* DPlayButtonModalViewController.swift */; };
 		D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A602ECB4D5E001379C4 /* Nickname.swift */; };
 		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
@@ -121,6 +122,7 @@
 		D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
 		D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewController.swift; sourceTree = "<group>"; };
 		D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewModel.swift; sourceTree = "<group>"; };
+		D05B6C372ED6DE0E003F25E5 /* DPlayButtonModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPlayButtonModalViewController.swift; sourceTree = "<group>"; };
 		D05B9A602ECB4D5E001379C4 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 		EFA5C3FB2EB31BA0001F1627 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				D05B6C372ED6DE0E003F25E5 /* DPlayButtonModalViewController.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1042,6 +1045,7 @@
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
 				D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */,
 				D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */,
+				D05B6C382ED6DE58003F25E5 /* DPlayButtonModalViewController.swift in Sources */,
 				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
 				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
 				D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */,

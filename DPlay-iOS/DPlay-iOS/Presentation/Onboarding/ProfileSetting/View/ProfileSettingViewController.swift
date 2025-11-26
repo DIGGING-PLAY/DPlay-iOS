@@ -204,7 +204,26 @@ private extension ProfileSettingViewController {
     //MARK: - @objc Method
     
     func imageSelectButtonTapped() {
-        print("imageSelectButtonTapped")
+        let modal = DPlayButtonModalViewController(
+            type: .plain,
+            primaryButtonTitle: "앨범에서 선택하기",
+            secondaryButtonTitle: "기본 이미지로 변경하기",
+            primaryAction: {
+                print("앨범에서 선택하기 탭")
+            },
+            secondaryAction: {
+                print("기본 이미지로 변경하기 탭")
+            }
+        )
+        
+        if let sheet = modal.sheetPresentationController {
+            sheet.detents = [
+                .custom { _ in 140 }
+            ]
+            sheet.prefersGrabberVisible = false
+        }
+
+        present(modal, animated: true)
     }
 
     func backButtonTapped() {
