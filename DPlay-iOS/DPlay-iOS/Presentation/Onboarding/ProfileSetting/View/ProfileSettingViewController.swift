@@ -52,7 +52,6 @@ final class ProfileSettingViewController: UIViewController {
         setupLayout()
         
         setupTarget()
-        setupDelegate()
         setupKeyboardObserver()
         
         hideKeyboardWhenTappedAround()
@@ -87,6 +86,7 @@ private extension ProfileSettingViewController {
         nicknameTextField.do {
             $0.backgroundColor = .gray100
             $0.textColor = .dplay_black
+            $0.tintColor = .dplay_pink
             $0.font = .dplayFont(.bodySemi16)
             $0.attributedPlaceholder = NSAttributedString(
                 string: "닉네임을 입력해주세요",
@@ -96,6 +96,7 @@ private extension ProfileSettingViewController {
                 ]
             )
             $0.returnKeyType = .done
+            $0.delegate = self
             $0.addPadding(left: 12)
             $0.roundCorners(cornerRadius: 12)
 
@@ -255,10 +256,6 @@ private extension ProfileSettingViewController {
         imageSelectButton.addTarget(self, action: #selector(imageSelectButtonTapped), for: .touchUpInside)
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-    }
-    
-    func setupDelegate() {
-        nicknameTextField.delegate = self
     }
     
     func bindViewModel() {
