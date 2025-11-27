@@ -15,8 +15,8 @@ enum MockHomeFeed {
         data: HomeFeedDataDTO(
             questionId: 12345,
             date: "2025-10-19",
-            hasPosted: true,
-            locked: false,
+            hasPosted: false,
+            locked: true,
             totalCount: 257,
             items: [
                 HomeFeedPostDTO(
