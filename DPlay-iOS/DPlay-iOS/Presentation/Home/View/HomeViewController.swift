@@ -29,6 +29,7 @@ final class HomeViewController: UIViewController {
     private let questionLabel = UILabel()
     private let questionTitleLabel = UILabel()
     
+    private var popupView: RecommendationPopupView?
     private let musicStateButton = UIButton()
     private let musicScrapButton = UIButton()
     private let editorCollectionView = UICollectionView(
@@ -226,6 +227,7 @@ private extension HomeViewController {
 private extension HomeViewController {
 
     // MARK: - Layout Constants
+    
     enum Layout {
         static let cardHeight: CGFloat = 300
         static let cardFraction: CGFloat = 0.7 // 화면 대비 카드 전체 너비 비율
@@ -271,6 +273,20 @@ private extension HomeViewController {
                 trailing: containerWidth * Layout.horizontalInsetFraction
             )
 
+            /// 스크롤 이벤트 잡는 부분 - 마지막 cell에서 isLocked가 참일때 스크롤시 팝업 표시
+            section.visibleItemsInvalidationHandler = { items, offset, env in
+                
+                // 현재 페이지 계산
+                let pageWidth = env.container.contentSize.width * Layout.cardFraction
+                let currentPage = Int((offset.x + pageWidth / 2) / pageWidth)
+
+                // 마지막 페이지(= locked 셀) 접근 시 팝업 표시
+                if currentPage == self.viewModel.posts.count,
+                   self.viewModel.isLocked {
+                    self.showLockedPopup()
+                }
+            }
+
             return section
         }
     }
@@ -278,6 +294,7 @@ private extension HomeViewController {
 
 
 @objc private extension HomeViewController {
+    
     //MARK: - @objc Method
     
     func didTapScrap() {
@@ -297,9 +314,11 @@ extension HomeViewController {
     // MARK: - Method
     
     private func bind() {
-        viewModel.$posts.sink { [weak self] _ in
-            self?.editorCollectionView.reloadData()
-        }.store(in: &cancellables)
+        viewModel.$posts
+            .sink { [weak self] _ in
+                self?.editorCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
     }
     
     private func loadData() {
@@ -342,5 +361,58 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = viewModel.posts[indexPath.item]
         viewModel.didSelectPost(post)
+    }
+    
+}
+
+// MARK: - Popup Methods
+
+extension HomeViewController {
+    
+    private func showLockedPopup() {
+        guard popupView == nil else { return }
+        guard let window = getKeyWindow() else { return }
+
+        let popup = RecommendationPopupView()
+        popup.configure(
+            action: { [weak self] in
+                self?.hidePopup()
+            },
+            close: { [weak self] in
+                self?.hidePopup()
+            }
+        )
+
+        self.popupView = popup
+        window.addSubview(popup)
+
+        popup.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
+        popup.alpha = 0
+        UIView.animate(withDuration: 0.25) {
+            popup.alpha = 1
+        }
+    }
+    
+    /// UIWindow는 화면 전체를 담당하는 루트 컨테이너 여기 위에 추가하면 전체 화면 최상단에 추가 가능
+    /// 탭바 영역까지 적용하기 위함
+    private func getKeyWindow() -> UIWindow? {
+        return UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+    }
+    
+    private func hidePopup() {
+        guard let popup = popupView else { return }
+
+        UIView.animate(withDuration: 0.25, animations: {
+            popup.alpha = 0
+        }) { _ in
+            popup.removeFromSuperview()
+            self.popupView = nil
+        }
     }
 }

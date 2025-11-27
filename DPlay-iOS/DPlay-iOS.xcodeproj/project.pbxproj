@@ -38,6 +38,7 @@
 		EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */; };
 		EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94782ED80F16001B56B8 /* ToastView.swift */; };
 		EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A947E2ED80F23001B56B8 /* ToastManager.swift */; };
+		EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */; };
 		EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */; };
 		EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
@@ -145,6 +146,7 @@
 		EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGuidePopupView.swift; sourceTree = "<group>"; };
 		EF5A94782ED80F16001B56B8 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		EF5A947E2ED80F23001B56B8 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationPopupView.swift; sourceTree = "<group>"; };
 		EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -475,6 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */,
+				EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -1146,6 +1149,7 @@
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
 				EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
+				EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */,
 				EFCBCF382ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
 				EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */,

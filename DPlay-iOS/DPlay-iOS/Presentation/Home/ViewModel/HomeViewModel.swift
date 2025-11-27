@@ -14,7 +14,9 @@ final class HomeViewModel: ObservableObject {
     @Published var question: Question?
     @Published var posts: [Post] = []
     @Published var isLoading = false
-    
+    @Published var isLocked: Bool = false
+    @Published var shouldShowPopup: Bool = false
+     
     private let useCase: HomeViewUseCase
     weak var coordinator: HomeCoordinator?
     
@@ -30,7 +32,9 @@ final class HomeViewModel: ObservableObject {
         do {
             let homeFeed = try await useCase.getHomeData()
             self.question = homeFeed.question
-            self.posts = homeFeed.posts
+            self.isLocked = homeFeed.locked
+            self.posts = homeFeed.locked ? Array(homeFeed.posts.prefix(3)) : homeFeed.posts
+            
         } catch {
             print("ERROR:", error)
         }
@@ -38,7 +42,6 @@ final class HomeViewModel: ObservableObject {
 }
 
 // MARK: - Coordinator
-
 extension HomeViewModel {
     func didSelectPost(_ post: Post) {
         coordinator?.goToMusicDetail(trackId: String(post.id))
