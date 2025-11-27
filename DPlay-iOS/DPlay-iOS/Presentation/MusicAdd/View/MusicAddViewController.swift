@@ -26,12 +26,21 @@ final class MusicAddViewController: UIViewController {
     private let navigationBarView = MusicAddNavigationBarView()
     private let titleLabel = UILabel()
     private let searchTextField = UITextField()
+    private let rightButton = UIButton(type: .custom)
     private let searchContainerView = UIView()
     private let tableView = UITableView()
     private let nextButton = UIButton()
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +49,13 @@ final class MusicAddViewController: UIViewController {
         setupLayout()
         setupDelegate()
         setupTarget()
+        setupRightButton()
         bindNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     init(viewModel: MusicAddViewModel) {
@@ -73,7 +88,7 @@ private extension MusicAddViewController {
         searchTextField.do {
             $0.placeholder = "노래 제목이나 아티스트명을 검색해주세요"
             $0.setTextStyle(.bodySemi16)
-            $0.clearButtonMode = .whileEditing
+            $0.clearButtonMode = .never
         }
         
         tableView.do {
@@ -144,9 +159,13 @@ private extension MusicAddViewController {
 
 @objc private extension MusicAddViewController {
     // MARK: - @objc Method
+    
     func textFieldDidChange(_ textField: UITextField) {
         let text = textField.text ?? ""
-        
+
+        // 입력 중에는 항상 검색 아이콘 보이기
+        setSearchIcon()
+
         if text.isEmpty {
             tableView.isHidden = true
             results.removeAll()
@@ -157,14 +176,32 @@ private extension MusicAddViewController {
             mockSearch(text: text)
         }
     }
-    
-    
+
     func didTapNext() {
         guard let index = selectedIndex else { return }
         
         let selectedTrack = results[index.row]
         let trackId = selectedTrack.trackId
         viewModel.didTapNext(trackId: trackId)
+    }
+    
+    /// 버튼의 따른 액션 정의
+    func didTapRightButton() {
+        if rightButton.currentImage == IconLiterals.ic_close_20 {
+            // X 버튼 → 텍스트 클리어
+            searchTextField.text = ""
+            setSearchIcon()
+            searchTextField.sendActions(for: .editingChanged)
+            return
+        }
+        
+        // 돋보기 → 검색 기능 실행
+        let query = searchTextField.text ?? ""
+        mockSearch(text: query)
+    }
+    
+    private func keyboardWillHide() {
+        setClearIcon()
     }
 }
 
@@ -173,6 +210,23 @@ extension MusicAddViewController {
         navigationBarView.onTapBack = { [weak self] in
             self?.viewModel.didTapBack()
         }
+    }
+    
+    /// 기본은 돋보기 아이콘 키보드가 내려가면 close 아이콘
+    private func setupRightButton() {
+        rightButton.tintColor = .gray400
+        rightButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        rightButton.addTarget(self, action: #selector(didTapRightButton), for: .touchUpInside)
+        searchTextField.setRightButton(rightButton)
+        setSearchIcon()
+    }
+    
+    private func setSearchIcon() {
+        rightButton.setImage(IconLiterals.ic_search_20, for: .normal)
+    }
+
+    private func setClearIcon() {
+        rightButton.setImage(IconLiterals.ic_close_20, for: .normal)
     }
 }
 
@@ -225,8 +279,10 @@ extension MusicAddViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath
-        tableView.reloadData()
         updateNextButton()
+        tableView.reloadData()
+        searchTextField.resignFirstResponder()
+        setClearIcon()
     }
 }
 

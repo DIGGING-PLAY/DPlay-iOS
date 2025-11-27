@@ -23,6 +23,13 @@ extension UITextField {
 }
 
 extension UITextField {
+    func setRightButton(_ button: UIButton) {
+        self.rightView = button
+        self.rightViewMode = .always
+    }
+}
+
+extension UITextField {
 
     /// Typography 기반 텍스트 스타일 적용 (UILabel과 동일한 규칙)
     func setTextStyle(_ fontStyle: DpalyFontStyle) {

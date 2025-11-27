@@ -618,7 +618,6 @@
 			isa = PBXGroup;
 			children = (
 				D01893F72ECA54D0002A48C1 /* Auth */,
-				EFA5C3A62EB31696001F1627 /* Home */,
 				EFCBCF182ECC747A00BA7740 /* MusicDetail */,
 				EFCBCF492ED49A4400BA7740 /* MusicAdd */,
 				EFA5C3A62EB31696001F1627 /* Home */,
