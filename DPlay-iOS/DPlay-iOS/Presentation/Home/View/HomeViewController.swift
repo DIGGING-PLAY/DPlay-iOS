@@ -56,6 +56,7 @@ final class HomeViewController: UIViewController {
         setupHierarchy()
         setupLayout()
         setupDelegate()
+        setupTarget()
         bind()
     }
 }
@@ -278,6 +279,17 @@ private extension HomeViewController {
 
 @objc private extension HomeViewController {
     //MARK: - @objc Method
+    
+    func didTapScrap() {
+        musicScrapButton.addAction(UIAction { [weak self] _ in
+            ToastManager.shared.show(
+                message: "보관함에 추가했어요",
+                actionText: "보러가기"
+            ) {
+                //self?.navigateToStorage()
+            }
+        }, for: .touchDown)
+    }
 }
 
 extension HomeViewController {
@@ -305,7 +317,7 @@ private extension HomeViewController {
     }
     
     func setupTarget() {
-        //addTarget
+        musicScrapButton.addTarget(self, action: #selector(didTapScrap), for: .touchUpInside)
     }
 }
 

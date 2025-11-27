@@ -36,6 +36,8 @@
 		EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */; };
 		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
 		EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */; };
+		EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94782ED80F16001B56B8 /* ToastView.swift */; };
+		EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A947E2ED80F23001B56B8 /* ToastManager.swift */; };
 		EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */; };
 		EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
@@ -141,6 +143,8 @@
 		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
 		EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGuidePopupView.swift; sourceTree = "<group>"; };
+		EF5A94782ED80F16001B56B8 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		EF5A947E2ED80F23001B56B8 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -475,6 +479,22 @@
 			path = SubView;
 			sourceTree = "<group>";
 		};
+		EF5A94792ED80F16001B56B8 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				EF5A94782ED80F16001B56B8 /* ToastView.swift */,
+			);
+			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		EF5A947F2ED80F23001B56B8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				EF5A947E2ED80F23001B56B8 /* ToastManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		EF7537D42EC838A900F28DE3 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -648,6 +668,8 @@
 		EFA5C3FB2EB31BA0001F1627 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				EF5A94792ED80F16001B56B8 /* CommonUI */,
+				EF5A947F2ED80F23001B56B8 /* Manager */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1116,6 +1138,7 @@
 				EFCBCEED2EC9B57C00BA7740 /* UITextField+.swift in Sources */,
 				EFCBCEEE2EC9B57C00BA7740 /* Iamge&IconLiterals.swift in Sources */,
 				EFCBCEEF2EC9B57C00BA7740 /* UILabel+.swift in Sources */,
+				EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */,
 				EFCBCEF02EC9B57C00BA7740 /* UIFont+.swift in Sources */,
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
@@ -1148,6 +1171,7 @@
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
+				EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */,
 				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,

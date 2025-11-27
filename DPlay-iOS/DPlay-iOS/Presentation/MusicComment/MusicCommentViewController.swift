@@ -240,12 +240,12 @@ private extension MusicCommentViewController {
     //MARK: - @objc Method
     
     /// 팝업 관련 메서드
-    @objc func didTapGuide() {
+    func didTapGuide() {
         showPopup()
     }
     
     /// 글 등록 관련 메서드
-    @objc private func didTapRegister() {
+    func didTapRegister() {
         let comment = textView.text ?? ""
         viewModel.didTapRegister(comment: comment)
     }
