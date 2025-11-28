@@ -158,14 +158,12 @@ private extension MusicAddViewController {
 }
 
 @objc private extension MusicAddViewController {
+    
     // MARK: - @objc Method
     
     func textFieldDidChange(_ textField: UITextField) {
         let text = textField.text ?? ""
-
-        // 입력 중에는 항상 검색 아이콘 보이기
-        setSearchIcon()
-
+        setSearchIcon() // 입력 중에는 항상 돋보기 아이콘
         if text.isEmpty {
             tableView.isHidden = true
             results.removeAll()
@@ -188,7 +186,6 @@ private extension MusicAddViewController {
     /// 버튼의 따른 액션 정의
     func didTapRightButton() {
         if rightButton.currentImage == IconLiterals.ic_close_20 {
-            // X 버튼 → 텍스트 클리어
             searchTextField.text = ""
             setSearchIcon()
             searchTextField.sendActions(for: .editingChanged)

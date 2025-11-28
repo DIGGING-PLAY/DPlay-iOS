@@ -102,7 +102,6 @@ private extension MainTabBarController {
             $0.edges.equalToSuperview()
         }
         selectedVC.didMove(toParent: self)
-        
         currentVC = selectedVC
     }
 }

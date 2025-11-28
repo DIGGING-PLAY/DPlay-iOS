@@ -18,6 +18,7 @@ final class ToastManager {
     private var toastView: ToastView?
 
     // MARK: - Public API
+    
     func show(
         message: String,
         actionText: String? = nil,
@@ -56,6 +57,7 @@ final class ToastManager {
     }
 
     // MARK: - Private Methods
+    
     private func hideToast() {
         guard let toast = toastView else { return }
 
