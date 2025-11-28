@@ -106,3 +106,9 @@ private extension MainTabBarController {
         currentVC = selectedVC
     }
 }
+
+extension MainTabBarController {
+    func setTabBarHidden(_ hidden: Bool) {
+        tabBarView.isHidden = hidden
+    }
+}

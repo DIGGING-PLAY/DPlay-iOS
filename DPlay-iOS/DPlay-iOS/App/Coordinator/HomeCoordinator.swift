@@ -34,10 +34,20 @@ final class HomeCoordinator: Coordinator {
         let vm = MusicDetailViewModel(trackId: trackId, useCase: useCase, coordinator: self)
         let vc = MusicDetailViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
+        rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
     
+    private func rootTabBarController() -> MainTabBarController? {
+        navigationController
+            .view.window?
+            .rootViewController as? MainTabBarController
+    }
+
     func pop() {
         navigationController.popViewController(animated: true)
+        if navigationController.viewControllers.count == 1 {
+            rootTabBarController()?.setTabBarHidden(false)
+        }
     }
 }

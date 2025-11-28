@@ -39,6 +39,7 @@
 		EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94782ED80F16001B56B8 /* ToastView.swift */; };
 		EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A947E2ED80F23001B56B8 /* ToastManager.swift */; };
 		EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */; };
+		EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */; };
 		EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */; };
 		EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
@@ -147,6 +148,7 @@
 		EF5A94782ED80F16001B56B8 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		EF5A947E2ED80F23001B56B8 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationPopupView.swift; sourceTree = "<group>"; };
+		EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSheetView.swift; sourceTree = "<group>"; };
 		EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -486,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				EF5A94782ED80F16001B56B8 /* ToastView.swift */,
+				EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -1178,6 +1181,7 @@
 				EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */,
 				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */,
