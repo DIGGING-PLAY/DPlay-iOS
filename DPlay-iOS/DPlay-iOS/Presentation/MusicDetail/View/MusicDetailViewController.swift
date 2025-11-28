@@ -54,7 +54,7 @@ final class MusicDetailViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) { fatalError() }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadData()
@@ -345,5 +345,36 @@ extension MusicDetailViewController {
         navigationBarView.onTapBack = { [weak self] in
             self?.viewModel.didTapBack()
         }
+        
+        navigationBarView.onTapMenu = { [weak self] in
+            self?.presentReportSheet()
+        }
+    }
+    
+    private func presentReportSheet() {
+
+        guard let window = keyWindow() else { return }
+
+        let sheet = ReportSheetView()
+        
+        sheet.closeHandler = { [weak sheet] in
+            sheet?.dismiss()
+        }
+
+        sheet.confirmHandler = { [weak sheet] reason in
+            print("신고 사유:", reason.rawValue)
+            sheet?.dismiss()
+        }
+
+        window.addSubview(sheet)
+        sheet.snp.makeConstraints { $0.edges.equalToSuperview() }
+        sheet.present()
+    }
+
+    private func keyWindow() -> UIWindow? {
+        return UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
     }
 }

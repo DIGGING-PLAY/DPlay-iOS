@@ -15,6 +15,7 @@ final class MusicDetailNavigationBar: UIView {
     // MARK: - Properties
     
     var onTapBack: (() -> Void)?
+    var onTapMenu: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -87,8 +88,12 @@ private extension MusicDetailNavigationBar {
     
     //MARK: - @objc Method
     
-    private func didTapBack() {
+    func didTapBack() {
         onTapBack?()
+    }
+    
+    func didTapMenu() {
+          onTapMenu?()
     }
 }
 
@@ -97,5 +102,6 @@ private extension MusicDetailNavigationBar {
     
     func setupTarget() {
         backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+        menuButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside) 
     }
 }
