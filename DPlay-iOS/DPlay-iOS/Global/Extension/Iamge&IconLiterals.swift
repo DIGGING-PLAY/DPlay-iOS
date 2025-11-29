@@ -33,6 +33,9 @@ enum IconLiterals {
     static var ic_apple_24: UIImage { .load(name: "ic_apple_24") }
     static var ic_circle_close: UIImage { .load(name: "ic_circle_close") }
     static var ic_circle_plus: UIImage { .load(name: "ic_circle_plus") }
+    static var ic_circle_edit: UIImage { .load(name: "ic_circle_edit") }
+    static var ic_more_g_20: UIImage { .load(name: "ic_more_g_20") }
+    static var ic_setting_24: UIImage { .load(name: "ic_setting_24") }
 }
 
 enum ImageLiterals {
