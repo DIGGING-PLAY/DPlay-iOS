@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D017CD302EDB2A8E001CD763 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017CD2F2EDB2A82001CD763 /* MypageViewController.swift */; };
 		D017CD332EDB4F96001CD763 /* MypageNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017CD322EDB4F86001CD763 /* MypageNavigationBarView.swift */; };
 		D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F02ECA5343002A48C1 /* UserSession.swift */; };
 		D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */; };
@@ -25,6 +26,7 @@
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MypageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MypageSegmentedControl.swift */; };
+		D0C54FF52EDB80040003E4B0 /* MypageCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF42EDB7FF50003E4B0 /* MypageCollectionViewLayout.swift */; };
 		D0C54FF82EDB80E30003E4B0 /* RegisteredMusicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF72EDB80D20003E4B0 /* RegisteredMusicCell.swift */; };
 		D0C54FFA2EDB8E800003E4B0 /* ArchiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF92EDB8E800003E4B0 /* ArchiveCell.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
@@ -108,6 +110,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D017CD2F2EDB2A82001CD763 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		D017CD322EDB4F86001CD763 /* MypageNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNavigationBarView.swift; sourceTree = "<group>"; };
 		D01893F02ECA5343002A48C1 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MypageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageSegmentedControl.swift; sourceTree = "<group>"; };
+		D0C54FF42EDB7FF50003E4B0 /* MypageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageCollectionViewLayout.swift; sourceTree = "<group>"; };
 		D0C54FF72EDB80D20003E4B0 /* RegisteredMusicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredMusicCell.swift; sourceTree = "<group>"; };
 		D0C54FF92EDB8E800003E4B0 /* ArchiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveCell.swift; sourceTree = "<group>"; };
 		D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
@@ -215,8 +219,17 @@
 			children = (
 				D017CD312EDB4F2E001CD763 /* Component */,
 				D0C54FF62EDB80CB0003E4B0 /* Cell */,
+				D017CD2E2EDB2A7A001CD763 /* View */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		D017CD2E2EDB2A7A001CD763 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D017CD2F2EDB2A82001CD763 /* MypageViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D017CD312EDB4F2E001CD763 /* Component */ = {
@@ -225,6 +238,7 @@
 				D017CD322EDB4F86001CD763 /* MypageNavigationBarView.swift */,
 				D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */,
 				D0C54FF22EDB727C0003E4B0 /* MypageSegmentedControl.swift */,
+				D0C54FF42EDB7FF50003E4B0 /* MypageCollectionViewLayout.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -1030,6 +1044,7 @@
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EFCBCF382ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
+				D0C54FF52EDB80040003E4B0 /* MypageCollectionViewLayout.swift in Sources */,
 				EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */,
 				EFCBCF282ECC754B00BA7740 /* MusicDetailUseCase.swift in Sources */,
 				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
@@ -1045,6 +1060,7 @@
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */,
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
+				D017CD302EDB2A8E001CD763 /* MypageViewController.swift in Sources */,
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
