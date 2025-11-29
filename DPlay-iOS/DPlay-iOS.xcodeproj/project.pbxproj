@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D017CD332EDB4F96001CD763 /* MypageNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D017CD322EDB4F86001CD763 /* MypageNavigationBarView.swift */; };
 		D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F02ECA5343002A48C1 /* UserSession.swift */; };
 		D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */; };
 		D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F82ECA54F6002A48C1 /* AuthRepository.swift */; };
@@ -103,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D017CD322EDB4F86001CD763 /* MypageNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNavigationBarView.swift; sourceTree = "<group>"; };
 		D01893F02ECA5343002A48C1 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		D01893F82ECA54F6002A48C1 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
@@ -200,6 +202,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D017CD2D2EDB2A6F001CD763 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				D017CD312EDB4F2E001CD763 /* Component */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		D017CD312EDB4F2E001CD763 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D017CD322EDB4F86001CD763 /* MypageNavigationBarView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		D01893E62ECA4C77002A48C1 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +558,7 @@
 				EFA5C3AA2EB316B6001F1627 /* Home */,
 				D01893FA2ECA5C7E002A48C1 /* Onboarding */,
 				EFCBCEA52EC9B25300BA7740 /* MusicDetail */,
+				D017CD2D2EDB2A6F001CD763 /* MyPage */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1011,6 +1030,7 @@
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* TabBarController.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
+				D017CD332EDB4F96001CD763 /* MypageNavigationBarView.swift in Sources */,
 				EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
