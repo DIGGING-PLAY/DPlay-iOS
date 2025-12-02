@@ -204,6 +204,43 @@ private extension ProfileSettingViewController {
     
     //MARK: - @objc Method
     
+    /// 키보드 표시/숨김 변화에 따라 하단 버튼 위치와 스크롤을 조정합니다.
+    /// - Parameter notification: 키보드 프레임/애니메이션 정보가 담긴 Notification
+    func handleKeyboard(_ notification: Notification) {
+        // Notification에서 키보드 최종 프레임, 애니메이션 시간/곡선을 안전하게 추출
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
+              let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
+        
+        // 키보드가 화면에 올라와 있는지 여부 판단
+        let isKeyboardShowing = keyboardFrame.origin.y < UIScreen.main.bounds.height
+        // 키보드 높이에 맞춰 하단 버튼(bottom constraint) 인셋 계산 (세이프에리어 보정 + 기본 16 간격)
+        let bottomInset = isKeyboardShowing ? keyboardFrame.height - view.safeAreaInsets.bottom + 16 : 0
+        // signUpButton의 하단 제약 업데이트
+        signUpButtonBottomConstraint?.update(inset: bottomInset)
+        
+        // 시스템 키보드 애니메이션과 동일한 타이밍/커브로 레이아웃 변경 애니메이션
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       options: UIView.AnimationOptions(rawValue: curve << 16),
+                       animations: {
+            // 레이아웃 변경 반영
+            self.view.layoutIfNeeded()
+            
+            // 키보드가 올라오면 마지막 콘텐츠가 가려지지 않도록 스크롤을 하단으로 이동
+            if isKeyboardShowing {
+                let bottomOffset = CGPoint(x: 0,
+                                           y: max(self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom, 0))
+                self.scrollView.setContentOffset(bottomOffset, animated: true)
+            }
+            // 키보드가 내려가면 스크롤을 초기 위치로 복귀
+            else {
+                self.scrollView.setContentOffset(.zero, animated: true)
+            }
+        })
+    }
+    
     func imageSelectButtonTapped() {
         let modal = DPlayButtonModalViewController(
             type: .plain,
@@ -240,33 +277,6 @@ private extension ProfileSettingViewController {
 
     func signUpButtonTapped() {
         viewModel.startSignUp()
-    }
-    
-    func handleKeyboard(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
-              let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
-
-        let isKeyboardShowing = keyboardFrame.origin.y < UIScreen.main.bounds.height
-        let bottomInset = isKeyboardShowing ? keyboardFrame.height - view.safeAreaInsets.bottom + 16 : 0
-
-        signUpButtonBottomConstraint?.update(inset: bottomInset)
-
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       options: UIView.AnimationOptions(rawValue: curve << 16),
-                       animations: {
-            self.view.layoutIfNeeded()
-            
-            if isKeyboardShowing {
-                let bottomOffset = CGPoint(x: 0,
-                                           y: max(self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom, 0))
-                self.scrollView.setContentOffset(bottomOffset, animated: true)
-            } else {
-                self.scrollView.setContentOffset(.zero, animated: true)
-            }
-        })
     }
 }
 
@@ -415,3 +425,4 @@ extension ProfileSettingViewController: PHPickerViewControllerDelegate {
         }
     }
 }
+
