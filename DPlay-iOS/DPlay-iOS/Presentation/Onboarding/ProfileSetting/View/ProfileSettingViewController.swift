@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+import PhotosUI
 import SnapKit
 import Then
 
@@ -18,9 +19,13 @@ final class ProfileSettingViewController: UIViewController {
     private let viewModel: ProfileSettingViewModel
     private var cancellables = Set<AnyCancellable>()
     
+    private var signUpButtonBottomConstraint: Constraint?
+    
     //MARK: - UI Properties
 
     private let backButton = UIButton()
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     private let titleLabel = UILabel()
     private let imageSelectButton = ProfileImageSelectButton()
     private let nicknameTextField = UITextField()
@@ -42,12 +47,15 @@ final class ProfileSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         setupStyle()
         setupHierarchy()
         setupLayout()
         
         setupTarget()
+        setupKeyboardObserver()
+        
+        hideKeyboardWhenTappedAround()
         
         bindViewModel()
     }
@@ -64,6 +72,10 @@ private extension ProfileSettingViewController {
             $0.setImage(IconLiterals.ic_back_48, for: .normal)
         }
         
+        scrollView.do {
+            $0.showsVerticalScrollIndicator = false
+        }
+        
         titleLabel.do {
              $0.text = "디플레이에서 사용할\n프로필을 완성해주세요"
              $0.setTextStyle(.titleBold24)
@@ -75,6 +87,7 @@ private extension ProfileSettingViewController {
         nicknameTextField.do {
             $0.backgroundColor = .gray100
             $0.textColor = .dplay_black
+            $0.tintColor = .dplay_pink
             $0.font = .dplayFont(.bodySemi16)
             $0.attributedPlaceholder = NSAttributedString(
                 string: "닉네임을 입력해주세요",
@@ -83,6 +96,8 @@ private extension ProfileSettingViewController {
                     .foregroundColor: UIColor.gray400
                 ]
             )
+            $0.returnKeyType = .done
+            $0.delegate = self
             $0.addPadding(left: 12)
             $0.roundCorners(cornerRadius: 12)
 
@@ -121,14 +136,14 @@ private extension ProfileSettingViewController {
     }
     
     func setupHierarchy() {
-        view.addSubviews(
-            backButton,
+        view.addSubviews(backButton, scrollView, signUpButton)
+        scrollView.addSubview(contentView)
+        contentView.addSubviews(
             titleLabel,
             imageSelectButton,
             nicknameTextField,
             textLengthLabel,
-            nicknameDescriptionLabel,
-            signUpButton
+            nicknameDescriptionLabel
         )
     }
     
@@ -137,8 +152,19 @@ private extension ProfileSettingViewController {
             $0.top.leading.equalTo(view.safeAreaLayoutGuide)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(backButton.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(signUpButton.snp.top)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(backButton.snp.bottom).offset(20)
+            $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(16)
         }
         
@@ -157,6 +183,7 @@ private extension ProfileSettingViewController {
         textLengthLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(7)
             $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().offset(-20)
         }
         
         nicknameDescriptionLabel.snp.makeConstraints {
@@ -167,6 +194,8 @@ private extension ProfileSettingViewController {
         signUpButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
+            
+            signUpButtonBottomConstraint = $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16).constraint
         }
     }
 }
@@ -175,30 +204,71 @@ private extension ProfileSettingViewController {
     
     //MARK: - @objc Method
     
+    /// 키보드 표시/숨김 변화에 따라 하단 버튼 위치와 스크롤을 조정합니다.
+    /// - Parameter notification: 키보드 프레임/애니메이션 정보가 담긴 Notification
+    func handleKeyboard(_ notification: Notification) {
+        // Notification에서 키보드 최종 프레임, 애니메이션 시간/곡선을 안전하게 추출
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
+              let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
+        
+        // 키보드가 화면에 올라와 있는지 여부 판단
+        let isKeyboardShowing = keyboardFrame.origin.y < UIScreen.main.bounds.height
+        // 키보드 높이에 맞춰 하단 버튼(bottom constraint) 인셋 계산 (세이프에리어 보정 + 기본 16 간격)
+        let bottomInset = isKeyboardShowing ? keyboardFrame.height - view.safeAreaInsets.bottom + 16 : 0
+        // signUpButton의 하단 제약 업데이트
+        signUpButtonBottomConstraint?.update(inset: bottomInset)
+        
+        // 시스템 키보드 애니메이션과 동일한 타이밍/커브로 레이아웃 변경 애니메이션
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       options: UIView.AnimationOptions(rawValue: curve << 16),
+                       animations: {
+            // 레이아웃 변경 반영
+            self.view.layoutIfNeeded()
+            
+            // 키보드가 올라오면 마지막 콘텐츠가 가려지지 않도록 스크롤을 하단으로 이동
+            if isKeyboardShowing {
+                let bottomOffset = CGPoint(x: 0,
+                                           y: max(self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom, 0))
+                self.scrollView.setContentOffset(bottomOffset, animated: true)
+            }
+            // 키보드가 내려가면 스크롤을 초기 위치로 복귀
+            else {
+                self.scrollView.setContentOffset(.zero, animated: true)
+            }
+        })
+    }
+    
     func imageSelectButtonTapped() {
-        print("imageSelectButtonTapped")
+        let modal = DPlayButtonModalViewController(
+            type: .plain,
+            primaryButtonTitle: "앨범에서 선택하기",
+            secondaryButtonTitle: "기본 이미지로 변경하기",
+            primaryAction: {
+                print("앨범에서 선택하기 탭")
+                self.presentImagePicker()
+            },
+            secondaryAction: {
+                print("기본 이미지로 변경하기 탭")
+                self.imageSelectButton.setProfileImage(type: .defaultImage)
+                self.viewModel.selectedImageData = nil
+            }
+        )
+        
+        if let sheet = modal.sheetPresentationController {
+            sheet.detents = [
+                .custom { _ in 140 }
+            ]
+            sheet.prefersGrabberVisible = false
+        }
+
+        present(modal, animated: true)
     }
 
     func backButtonTapped() {
         viewModel.popToPrevious()
-    }
-
-    func nicknameDidChange(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        
-        if text.isEmpty {
-            viewModel.nicknameValidationState = .empty
-        } else {
-            viewModel.nickname = text
-            
-            if text.count > 10 {
-                viewModel.nickname = String(text.prefix(10))
-                textField.text = viewModel.nickname
-            }
-            
-            textLengthLabel.text = "\(viewModel.nickname.count)/10"
-            clearButton.isHidden = false
-        }
     }
 
     func clearButtonTapped() {
@@ -217,7 +287,6 @@ private extension ProfileSettingViewController {
     func setupTarget() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         imageSelectButton.addTarget(self, action: #selector(imageSelectButtonTapped), for: .touchUpInside)
-        nicknameTextField.addTarget(self, action: #selector(nicknameDidChange), for: .editingChanged)
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
@@ -288,4 +357,72 @@ private extension ProfileSettingViewController {
             signUpButton.backgroundColor = .gray200
         }
     }
+    
+    func setupKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboard(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+    }
+    
+    func presentImagePicker() {
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 1
+            configuration.filter = .any(of: [.images])
+            
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
 }
+
+extension ProfileSettingViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        
+        if text.isEmpty {
+            viewModel.nicknameValidationState = .empty
+        } else {
+            if text.count > 10 {
+                viewModel.nickname = String(text.prefix(10))
+                textField.text = viewModel.nickname
+            }
+            
+            viewModel.nickname = text
+            textLengthLabel.text = "\(text.count)/10"
+            clearButton.isHidden = text.isEmpty
+        }
+
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension ProfileSettingViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard let provider = results.first?.itemProvider,
+              provider.canLoadObject(ofClass: UIImage.self) else {
+            return
+        }
+        
+        provider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
+            guard let self else { return }
+            
+            DispatchQueue.main.async {
+                if let uiImage = object as? UIImage,
+                   let imageData = uiImage.jpegData(compressionQuality: 0.9) {
+                    self.viewModel.selectedImageData = imageData
+                    self.imageSelectButton.setProfileImage(type: .selectedImage(uiImage))
+                } else {
+                    print("프로필 이미지 로드 실패")
+                }
+            }
+        }
+    }
+}
+

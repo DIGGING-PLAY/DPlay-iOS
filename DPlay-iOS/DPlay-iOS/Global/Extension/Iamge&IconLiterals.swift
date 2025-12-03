@@ -33,6 +33,7 @@ enum IconLiterals {
     static var ic_apple_24: UIImage { .load(name: "ic_apple_24") }
     static var ic_circle_close: UIImage { .load(name: "ic_circle_close") }
     static var ic_circle_plus: UIImage { .load(name: "ic_circle_plus") }
+    static var ic_alert_24: UIImage { .load(name: "ic_alert_24")}
 }
 
 enum ImageLiterals {
@@ -42,6 +43,8 @@ enum ImageLiterals {
     static var img_dot_menu: UIImage { .load(name: "img_dot_menu") }
     static var img_wordmark_pink: UIImage { .load(name: "img_wordmark_pink") }
     static var img_wordmark_white: UIImage { .load(name: "img_wordmark_white") }
+    static var img_onboarding_3: UIImage { .load(name: "img_onboarding_3") }
+    static var img_profile: UIImage { .load(name: "img_profile")}
 }
 
 extension UIImage {
