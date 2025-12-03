@@ -9,7 +9,6 @@ import Foundation
 
 import Alamofire
 
-
 /// BaseAPI는 “모든 API 요청의 설계도”
 protocol BaseAPI: URLRequestConvertible {
 
