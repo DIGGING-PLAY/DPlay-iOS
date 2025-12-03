@@ -22,7 +22,6 @@ final class AuthInterceptor: RequestInterceptor {
         var request = urlRequest
         
         if let token = KeychainManager.shared.accessToken {
-            // 대부분 서버는 Bearer prefix 요구
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
