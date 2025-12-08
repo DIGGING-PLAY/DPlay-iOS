@@ -1,43 +1,45 @@
 //
-//  MypageViewController.swift
+//  MyPageViewController.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/27/25.
 //
 
 import UIKit
+import Combine
 
 import SnapKit
 import Then
 
-final class MypageViewController: UIViewController {
+final class MyPageViewController: UIViewController {
     
     //MARK: - Properties
     
-//    private let viewModel: MypageViewModel
-    
+    private let viewModel: MyPageViewModel
+    private var cancellables = Set<AnyCancellable>()
+
     private var selectedTabIndex = 0
     
     //MARK: - UI Properties
 
-    private let navigationBarView = MypageNavigationBarView()
+    private let navigationBarView = MyPageNavigationBarView()
     private let nicknameLabel = UILabel()
     private let musicCountLabel = UILabel()
     private let labelStackView = UIStackView()
     private let profileEditButton = ProfileEditButton()
-    private let segmentedControl = MypageSegmentedControl()
-    private let musicsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: MypageCollectionViewLayoutFactory.registeredMusicsLayout())
+    private let segmentedControl = MyPageSegmentedControl()
+    private let musicsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: MyPageCollectionViewLayoutFactory.registeredMusicsLayout())
 
     //MARK: - Life Cycle
     
-//    init(viewModel: MypageViewModel) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +52,17 @@ final class MypageViewController: UIViewController {
         
         bindNavigationBar()
         bindSegmentedControl()
+        bindViewModel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+     
+        loadData()
     }
 }
 
-private extension MypageViewController {
+private extension MyPageViewController {
     
     //MARK: - setup
     
@@ -61,17 +70,16 @@ private extension MypageViewController {
         view.backgroundColor = .white
         
         nicknameLabel.do {
-            $0.text = "디플레이"
+            $0.text = " "
             $0.setTextStyle(.titleBold24)
             $0.textColor = .dplay_black
             $0.textAlignment = .left
         }
         
         musicCountLabel.do {
-            $0.text = "총 16개의 노래를 공유했어요"
+            $0.text = " "
             $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
-            $0.highlightText(targetText: "16", color: .dplay_pink)
             $0.textAlignment = .left
         }
         
@@ -83,8 +91,8 @@ private extension MypageViewController {
         musicsCollectionView.do {
             $0.backgroundColor = .gray100
             $0.showsVerticalScrollIndicator = false
-            $0.register(RegisteredMusicCell.self, forCellWithReuseIdentifier: RegisteredMusicCell.identifier)
-            $0.register(ArchiveCell.self, forCellWithReuseIdentifier: ArchiveCell.identifier)
+            $0.register(RegisteredMusicCell.self, forCellWithReuseIdentifier: RegisteredMusicCell.className)
+            $0.register(ArchiveCell.self, forCellWithReuseIdentifier: ArchiveCell.className)
             $0.delegate = self
             $0.dataSource = self
         }
@@ -132,7 +140,7 @@ private extension MypageViewController {
     }
 }
 
-@objc private extension MypageViewController {
+@objc private extension MyPageViewController {
     
     //MARK: - @objc Method
         
@@ -141,7 +149,7 @@ private extension MypageViewController {
     }
 }
 
-private extension MypageViewController {
+private extension MyPageViewController {
     
     // MARK: - Private Method
     
@@ -160,7 +168,7 @@ private extension MypageViewController {
             if self.selectedTabIndex == 1 {
                 self.selectedTabIndex = 0
                 self.musicsCollectionView.setCollectionViewLayout(
-                    MypageCollectionViewLayoutFactory.registeredMusicsLayout(),
+                    MyPageCollectionViewLayoutFactory.registeredMusicsLayout(),
                     animated: false
                 ) { _ in
                     self.musicsCollectionView.reloadData()
@@ -174,9 +182,13 @@ private extension MypageViewController {
             if self.selectedTabIndex == 0 {
                 self.selectedTabIndex = 1
                 self.musicsCollectionView.setCollectionViewLayout(
-                    MypageCollectionViewLayoutFactory.archiveLayout(),
+                    MyPageCollectionViewLayoutFactory.archiveLayout(),
                     animated: false
                 ) { _ in
+                    guard (self.viewModel.archiveMusics != nil) else {
+                        Task { await self.viewModel.loadArchiveMusics() }
+                        return
+                    }
                     self.musicsCollectionView.reloadData()
                     self.musicsCollectionView.setContentOffset(.zero, animated: false)
                     self.musicsCollectionView.layoutIfNeeded()
@@ -184,39 +196,79 @@ private extension MypageViewController {
             }
         }
     }
+    
+    func bindViewModel() {
+        viewModel.$userProfile
+            .sink { [weak self] profile in
+                guard let self else { return }
+                
+                let nickname = profile?.user.nickname ?? ""
+                let postCount = profile?.postTotalCount ?? Int()
+                let profileImageUrl = profile?.user.profileImage ?? ""
+                
+                nicknameLabel.text = nickname
+                musicCountLabel.text = "총 \(postCount)개의 노래를 공유했어요"
+                musicCountLabel.highlightText(targetText: "\(postCount)", color: .dplay_pink)
+                profileEditButton.setProfileImage(imageUrl: profileImageUrl)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$registeredMusics
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                musicsCollectionView.reloadData()
+            }.store(in: &cancellables)
+        
+        viewModel.$archiveMusics
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                musicsCollectionView.reloadData()
+            }.store(in: &cancellables)
+    }
+    
+    func loadData() {
+        Task { await viewModel.loadUserProfile() }
+        Task { await viewModel.loadRegisteredMusics() }
+    }
 }
 
 // MARK: - UICollectionView
 
-extension MypageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if selectedTabIndex == 0 {
+            return viewModel.registeredMusics?.totalCount ?? 0
+        } else {
+            return viewModel.archiveMusics?.totalCount ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if selectedTabIndex == 0 {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: RegisteredMusicCell.identifier,
+                withReuseIdentifier: RegisteredMusicCell.className,
                 for: indexPath
             ) as? RegisteredMusicCell else { return UICollectionViewCell() }
+            
+            if let models = viewModel.registeredMusics?.items {
+                cell.configureCell(with: models[indexPath.item])
+            }
             
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ArchiveCell.identifier,
+                withReuseIdentifier: ArchiveCell.className,
                 for: indexPath
             ) as? ArchiveCell else { return UICollectionViewCell() }
+            
+            if let models = viewModel.archiveMusics?.items {
+                cell.configureCell(with: models[indexPath.item])
+            }
             
             return cell
         }
     }
 }
-
-#if DEBUG
-import SwiftUI
-
-#Preview {
-    MypageViewController()
-}
-#endif

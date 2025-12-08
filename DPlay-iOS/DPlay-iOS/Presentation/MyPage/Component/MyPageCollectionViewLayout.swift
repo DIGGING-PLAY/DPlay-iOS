@@ -1,5 +1,5 @@
 //
-//  MypageCollectionViewLayout.swift
+//  MyPageCollectionViewLayoutFactory.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/27/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MypageCollectionViewLayoutFactory {
+final class MyPageCollectionViewLayoutFactory {
     static func registeredMusicsLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),

@@ -7,14 +7,11 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
 final class ArchiveCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
-    static let identifier = "ArchiveCell"
         
     // MARK: - UI Properties
     
@@ -74,7 +71,7 @@ private extension ArchiveCell {
         }
         
         musicTitleLabel.do {
-            $0.text = "ㅈㅣㅂ"
+            $0.text = " "
             $0.textColor = .dplay_black
             $0.setTextStyle(.bodySemi14)
             $0.numberOfLines = 1
@@ -82,7 +79,7 @@ private extension ArchiveCell {
         }
         
         artistNameLabel.do {
-            $0.text = "한로로"
+            $0.text = " "
             $0.textColor = .gray400
             $0.setTextStyle(.capMedi12)
             $0.numberOfLines = 1
@@ -120,5 +117,15 @@ private extension ArchiveCell {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(1)
             $0.centerX.bottom.equalToSuperview()
         }
+    }
+}
+
+extension ArchiveCell {
+    func configureCell(with model: MyPageTrackPost) {
+        guard let url = URL(string: model.track.coverImage) else { return }
+        
+        imageView.kf.setImage(with: url)
+        musicTitleLabel.text = model.track.title
+        artistNameLabel.text = model.track.artist
     }
 }

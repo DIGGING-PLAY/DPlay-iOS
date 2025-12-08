@@ -7,14 +7,11 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
 final class RegisteredMusicCell: UICollectionViewCell {
-    
-    // MARK: - Properties
-    
-    static let identifier = "RegisteredMusicCell"
         
     // MARK: - UI Properties
     
@@ -38,14 +35,9 @@ final class RegisteredMusicCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        
-//        imageView.image = nil
-//        musicTitleLabel.text = ""
-//        artistNameLabel.text = ""
-//        commentLabel.text = ""
-//    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }
 
 private extension RegisteredMusicCell {
@@ -66,7 +58,7 @@ private extension RegisteredMusicCell {
         }
         
         musicTitleLabel.do {
-            $0.text = "ㅈㅣㅂ"
+            $0.text = " "
             $0.textColor = .dplay_black
             $0.setTextStyle(.bodyBold16)
             $0.numberOfLines = 1
@@ -74,20 +66,19 @@ private extension RegisteredMusicCell {
         }
         
         artistNameLabel.do {
-            $0.text = "한로로"
+            $0.text = " "
             $0.textColor = .gray400
             $0.setTextStyle(.capMedi12)
          }
         
         commentLabel.do {
-            $0.text = "저쪽 집에 불이 났다고 해서 구경하러 갔죠 그런데 보고 오니 우리 집에 불이 난거예요 보자마자 눈물이 났어요"
+            $0.text = " "
             $0.textColor = .gray500
             $0.setTextStyle(.capMedi12)
             $0.numberOfLines = 1
             $0.lineBreakMode = .byTruncatingTail
         }
     }
-
     
     func setupHierarchy() {
         addSubviews(
@@ -131,5 +122,16 @@ private extension RegisteredMusicCell {
             $0.leading.equalTo(imageView.snp.trailing).offset(8)
             $0.trailing.equalToSuperview().inset(12)
         }
+    }
+}
+
+extension RegisteredMusicCell {
+    func configureCell(with model: MyPageTrackPost) {
+        guard let url = URL(string: model.track.coverImage) else { return }
+        
+        imageView.kf.setImage(with: url)
+        musicTitleLabel.text = model.track.title
+        artistNameLabel.text = model.track.artist
+        commentLabel.text = model.content
     }
 }

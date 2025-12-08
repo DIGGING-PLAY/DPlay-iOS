@@ -1,5 +1,5 @@
 //
-//  MypageSegmentedControl.swift
+//  MyPageSegmentedControl.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/27/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MypageSegmentedControl: UIView {
+final class MyPageSegmentedControl: UIView {
     
     // MARK: - Properties
     
@@ -42,7 +42,7 @@ final class MypageSegmentedControl: UIView {
     }
 }
 
-private extension MypageSegmentedControl {
+private extension MyPageSegmentedControl {
     func setupStyle() {
         backgroundColor = .clear
         
@@ -105,7 +105,7 @@ private extension MypageSegmentedControl {
     }
 }
 
-@objc private extension MypageSegmentedControl {
+@objc private extension MyPageSegmentedControl {
     
     //MARK: - @objc Method
     
@@ -146,7 +146,7 @@ private extension MypageSegmentedControl {
     }
 }
 
-private extension MypageSegmentedControl {
+private extension MyPageSegmentedControl {
     
     // MARK: - Private Method
     

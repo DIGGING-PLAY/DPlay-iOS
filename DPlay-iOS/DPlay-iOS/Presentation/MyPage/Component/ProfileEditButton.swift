@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -14,7 +15,7 @@ final class ProfileEditButton: UIButton {
         
     //MARK: - UI Properties
 
-    private let profileImageView = UIImageView()
+    private let profileImageView = UIImageView(image: ImageLiterals.img_profile)
     private let editImageView = UIImageView(image: IconLiterals.ic_circle_edit)
     
     //MARK: - Init
@@ -57,5 +58,15 @@ private extension ProfileEditButton {
         editImageView.snp.makeConstraints {
             $0.trailing.bottom.equalToSuperview()
         }
+    }
+}
+
+extension ProfileEditButton {
+    
+    //MARK: - setup
+    
+    func setProfileImage(imageUrl: String) {
+        guard let url = URL(string: imageUrl) else { return }
+        profileImageView.kf.setImage(with: url)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  MypageNavigationBarView.swift
+//  MyPageNavigationBarView.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/27/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MypageNavigationBarView: UIView {
+final class MyPageNavigationBarView: UIView {
     
     // MARK: - Properties
     
@@ -38,7 +38,7 @@ final class MypageNavigationBarView: UIView {
     }
 }
 
-private extension MypageNavigationBarView {
+private extension MyPageNavigationBarView {
     func setupStyle() {
         backgroundColor = .clear
         
@@ -70,7 +70,7 @@ private extension MypageNavigationBarView {
     }
 }
 
-@objc private extension MypageNavigationBarView {
+@objc private extension MyPageNavigationBarView {
     
     //MARK: - @objc Method
     
@@ -79,7 +79,7 @@ private extension MypageNavigationBarView {
     }
 }
 
-private extension MypageNavigationBarView {
+private extension MyPageNavigationBarView {
     // MARK: - Private Method
     
     func setupTarget() {
