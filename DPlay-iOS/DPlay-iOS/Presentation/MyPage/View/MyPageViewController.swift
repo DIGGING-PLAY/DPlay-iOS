@@ -238,6 +238,30 @@ private extension MyPageViewController {
         Task { await viewModel.loadUserProfile() }
         Task { await viewModel.loadRegisteredMusics() }
     }
+    
+    func showDeleteModal() {
+        let modal = DPlayButtonModalViewController(
+            type: .warning,
+            primaryButtonTitle: "삭제하기",
+            secondaryButtonTitle: "취소하기",
+            primaryAction: {
+                print("삭제하기 탭")
+            },
+            secondaryAction: {
+                print("취소하기 탭")
+            }
+        )
+        
+        if let sheet = modal.sheetPresentationController {
+            sheet.detents = [
+                .custom { _ in 140 }
+            ]
+            sheet.prefersGrabberVisible = false
+        }
+
+        present(modal, animated: true)
+
+    }
 }
 
 // MARK: - UICollectionView
@@ -266,7 +290,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                     cell.onTapMoreButton = { [weak self] in
                         guard let self else { return }
                         
-                        print("moreButtonTapped")
+                        showDeleteModal()
                     }
                 } else {
                     cell.onTapPlayButton = { [weak self] in
