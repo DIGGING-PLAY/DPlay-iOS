@@ -47,6 +47,9 @@ final class ArchiveCell: UICollectionViewCell {
 }
 
 private extension ArchiveCell {
+    
+    //MARK: - Layout
+    
     func setupStyle() {
         backgroundColor = .clear
         
@@ -120,6 +123,9 @@ private extension ArchiveCell {
 }
 
 extension ArchiveCell {
+    
+    //MARK: - Configure
+    
     func configureCell(with model: MyPageTrackPost) {
         guard let url = URL(string: model.track.coverImage) else { return }
         

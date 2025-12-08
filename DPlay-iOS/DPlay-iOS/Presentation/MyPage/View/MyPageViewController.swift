@@ -261,7 +261,22 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
             
             if let data = viewModel.registeredMusics, let isHost = data.isHost {
                 cell.configureCell(isHost: isHost, with: data.items[indexPath.item])
+                
+                if isHost {
+                    cell.onTapMoreButton = { [weak self] in
+                        guard let self else { return }
+                        
+                        print("moreButtonTapped")
+                    }
+                } else {
+                    cell.onTapPlayButton = { [weak self] in
+                        guard let self else { return }
+                        
+                        print("playButtonTapped")
+                    }
+                }
             }
+            
             
             return cell
         } else {

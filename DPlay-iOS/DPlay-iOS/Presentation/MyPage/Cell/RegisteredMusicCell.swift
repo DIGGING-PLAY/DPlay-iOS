@@ -12,7 +12,12 @@ import SnapKit
 import Then
 
 final class RegisteredMusicCell: UICollectionViewCell {
-        
+    
+    // MARK: - Event Properties
+
+    var onTapMoreButton: (() -> Void)?
+    var onTapPlayButton: (() -> Void)?
+
     // MARK: - UI Properties
     
     private let imageView = UIImageView()
@@ -30,6 +35,8 @@ final class RegisteredMusicCell: UICollectionViewCell {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        
+        setupTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +49,9 @@ final class RegisteredMusicCell: UICollectionViewCell {
 }
 
 private extension RegisteredMusicCell {
+    
+    //MARK: - Layout
+    
     func setupStyle() {
         backgroundColor = .white
         roundCorners(cornerRadius: 20)
@@ -136,7 +146,33 @@ private extension RegisteredMusicCell {
     }
 }
 
+@objc private extension RegisteredMusicCell {
+    
+    //MARK: - @objc Method
+    
+    func moreButtonTapped() {
+        onTapMoreButton?()
+    }
+        
+    func playButtonTapped() {
+        onTapPlayButton?()
+    }
+}
+
+private extension RegisteredMusicCell {
+    
+    // MARK: - Private Method
+    
+    func setupTarget() {
+        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+    }
+}
+
 extension RegisteredMusicCell {
+    
+    //MARK: - Configure
+    
     func configureCell(isHost: Bool, with model: MyPageTrackPost) {
         guard let url = URL(string: model.track.coverImage) else { return }
         

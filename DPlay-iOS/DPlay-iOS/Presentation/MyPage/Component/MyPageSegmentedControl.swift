@@ -12,7 +12,7 @@ import Then
 
 final class MyPageSegmentedControl: UIView {
     
-    // MARK: - Properties
+    // MARK: - Event Properties
     
     var onTapRegisteredMusicsButton: (() -> Void)?
     var onTapArchiveButton: (() -> Void)?
