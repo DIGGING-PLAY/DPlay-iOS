@@ -9,6 +9,7 @@ import Foundation
 
 struct MyPageMusics {
     let visibleLimit: Int
+    let totalCount: Int
     let nextCursor: String?
     let items: [MyPageTrackPost]
 }
@@ -16,5 +17,5 @@ struct MyPageMusics {
 struct MyPageTrackPost {
     let id: Int
     let track: Track
-    let content: String
+    let content: String?
 }

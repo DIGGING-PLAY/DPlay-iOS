@@ -25,7 +25,7 @@ struct MyPageTracksDataDTO: Decodable {
 struct MyPageTrackItemDTO: Decodable {
     let postId: Int
     let track: MyPageTrackDTO
-    let content: String
+    let content: String?
 }
 
 struct MyPageTrackDTO: Decodable {
@@ -41,6 +41,7 @@ extension MyPageTracksDataDTO {
     func toEntity() -> MyPageMusics {
         MyPageMusics(
             visibleLimit: visibleLimit,
+            totalCount: totalCount,
             nextCursor: nextCursor,
             items: items.map { $0.toEntity() }
         )

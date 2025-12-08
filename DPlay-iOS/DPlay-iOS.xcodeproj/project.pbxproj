@@ -13,6 +13,11 @@
 		D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */; };
 		D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893F82ECA54F6002A48C1 /* AuthRepository.swift */; };
 		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
+		D01C6D7A2EE46C02009C9AF8 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D792EE46BFC009C9AF8 /* MyPageService.swift */; };
+		D01C6D7B2EE46C02009C9AF8 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D792EE46BFC009C9AF8 /* MyPageService.swift */; };
+		D01C6D7E2EE46CE2009C9AF8 /* MockMyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D7D2EE46CDF009C9AF8 /* MockMyPage.swift */; };
+		D01C6D812EE479A5009C9AF8 /* MyPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D802EE4799C009C9AF8 /* MyPageRepository.swift */; };
+		D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D802EE4799C009C9AF8 /* MyPageRepository.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
 		D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */; };
@@ -134,6 +139,9 @@
 		D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		D01894002ECA6074002A48C1 /* AgreementItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemView.swift; sourceTree = "<group>"; };
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
+		D01C6D792EE46BFC009C9AF8 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
+		D01C6D7D2EE46CDF009C9AF8 /* MockMyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMyPage.swift; sourceTree = "<group>"; };
+		D01C6D802EE4799C009C9AF8 /* MyPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRepository.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -352,6 +360,30 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		D01C6D782EE46BEE009C9AF8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D792EE46BFC009C9AF8 /* MyPageService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D01C6D7C2EE46CD0009C9AF8 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D7D2EE46CDF009C9AF8 /* MockMyPage.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		D01C6D7F2EE47991009C9AF8 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D802EE4799C009C9AF8 /* MyPageRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		D05A62E92EC1A3C900B56DFD /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +561,8 @@
 			isa = PBXGroup;
 			children = (
 				D0C550082EDFE5510003E4B0 /* DTO */,
+				D01C6D782EE46BEE009C9AF8 /* Service */,
+				D01C6D7F2EE47991009C9AF8 /* Repository */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1159,6 +1193,7 @@
 				D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
+				D01C6D812EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCEA72EC9B46B00BA7740 /* TabBarCoordinator.swift in Sources */,
 				EFCBCEEA2EC9B57C00BA7740 /* UIStackView+.swift in Sources */,
 				EFCBCEEB2EC9B57C00BA7740 /* UIColor+.swift in Sources */,
@@ -1183,9 +1218,11 @@
 				D0C54FF52EDB80040003E4B0 /* MypageCollectionViewLayout.swift in Sources */,
 				EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */,
 				EFCBCF282ECC754B00BA7740 /* MusicDetailUseCase.swift in Sources */,
+				D01C6D7B2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
 				EFCBCF362ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
+				D01C6D7E2EE46CE2009C9AF8 /* MockMyPage.swift in Sources */,
 				EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */,
 				EFCBCE9F2EC9B1DA00BA7740 /* MusicDetailViewController.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
@@ -1227,6 +1264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01C6D7A2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				EFCBCF272ECC754B00BA7740 /* MusicDetailUseCase.swift in Sources */,
 				D0C5500A2EDFE5C80003E4B0 /* MyPageProfileDTO.swift in Sources */,
 				D0C550132EE019D50003E4B0 /* UserProfile.swift in Sources */,
@@ -1236,6 +1274,7 @@
 				EF2560312EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
 				EFCBCF392ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
+				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */,
 				EFCBCF2A2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EF2560372EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
