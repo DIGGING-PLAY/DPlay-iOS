@@ -35,13 +35,13 @@ final class MyPageCollectionViewLayoutFactory {
             
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .absolute(itemWidth),
-                heightDimension: .absolute(itemWidth + 42)
+                heightDimension: .estimated(itemWidth + 42)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .absolute(containerWidth),
-                heightDimension: .absolute(itemWidth + 42)
+                heightDimension: .estimated(itemWidth + 42)
             )
             
             let group = NSCollectionLayoutGroup.horizontal(

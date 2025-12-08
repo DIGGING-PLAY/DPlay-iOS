@@ -34,13 +34,9 @@ final class ArchiveCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        
-//        imageView.image = nil
-//        musicTitleLabel.text = ""
-//        artistNameLabel.text = ""
-//    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -117,6 +113,9 @@ private extension ArchiveCell {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(1)
             $0.centerX.bottom.equalToSuperview()
         }
+        
+        musicTitleLabel.setContentCompressionResistancePriority(.init(749), for: .vertical)
+        artistNameLabel.setContentCompressionResistancePriority(.init(749), for: .vertical)
     }
 }
 
