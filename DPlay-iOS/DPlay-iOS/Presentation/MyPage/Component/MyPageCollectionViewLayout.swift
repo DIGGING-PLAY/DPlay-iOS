@@ -30,17 +30,19 @@ final class MyPageCollectionViewLayoutFactory {
 
     static func archiveLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionIndex, environment in
+            //디바이스의 너비를 가져와 셀 크기 지정
+            //디바이스 너비에서 좌우 패딩 값(각각 16), 셀 간격(12) * 2를 뺀 후 3등분함
             let containerWidth = environment.container.effectiveContentSize.width
             let itemWidth = (containerWidth - 56) / 3
             
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .absolute(itemWidth),
-                heightDimension: .estimated(itemWidth + 42)
+                heightDimension: .estimated(itemWidth + 42) //셀 너비 + 42(하단 라벨 두개의 높이)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .absolute(containerWidth),
+                widthDimension: .estimated(containerWidth),
                 heightDimension: .estimated(itemWidth + 42)
             )
             
