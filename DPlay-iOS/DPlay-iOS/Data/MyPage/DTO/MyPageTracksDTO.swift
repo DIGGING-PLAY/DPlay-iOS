@@ -18,7 +18,7 @@ struct MyPageTracksDataDTO: Decodable {
     let visibleLimit: Int
     let totalCount: Int
     let nextCursor: String?
-    let isHost: Bool
+    let isHost: Bool?
     let items: [MyPageTrackItemDTO]
 }
 
@@ -43,6 +43,7 @@ extension MyPageTracksDataDTO {
             visibleLimit: visibleLimit,
             totalCount: totalCount,
             nextCursor: nextCursor,
+            isHost: isHost,
             items: items.map { $0.toEntity() }
         )
     }

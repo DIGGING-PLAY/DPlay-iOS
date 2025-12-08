@@ -65,8 +65,10 @@ extension ProfileEditButton {
     
     //MARK: - setup
     
-    func setProfileImage(imageUrl: String) {
-        guard let url = URL(string: imageUrl) else { return }
+    func setProfileButton(isHost: Bool, profileImageUrl: String) {
+        guard let url = URL(string: profileImageUrl) else { return }
         profileImageView.kf.setImage(with: url)
+        editImageView.isHidden = !isHost
+        isEnabled = isHost
     }
 }

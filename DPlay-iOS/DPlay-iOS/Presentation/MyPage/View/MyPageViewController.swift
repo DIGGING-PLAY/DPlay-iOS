@@ -50,9 +50,9 @@ final class MyPageViewController: UIViewController {
         
         setupTarget()
         
+        bindViewModel()
         bindNavigationBar()
         bindSegmentedControl()
-        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -157,9 +157,46 @@ private extension MyPageViewController {
         profileEditButton.addTarget(self, action: #selector(profileEditButtonTapped), for: .touchUpInside)
     }
     
+    func bindViewModel() {
+        viewModel.$userProfile
+            .sink { [weak self] profile in
+                guard let self else { return }
+                
+                let nickname = profile?.user.nickname ?? ""
+                let postCount = profile?.postTotalCount ?? Int()
+                let profileImageUrl = profile?.user.profileImage ?? ""
+                let isHost = profile?.isHost ?? false
+                
+                nicknameLabel.text = nickname
+                musicCountLabel.text = "총 \(postCount)개의 노래를 공유했어요"
+                musicCountLabel.highlightText(targetText: "\(postCount)", color: .dplay_pink)
+                profileEditButton.setProfileButton(isHost: isHost, profileImageUrl: profileImageUrl)
+                navigationBarView.setNavigationBar(isHost: isHost)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$registeredMusics
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                musicsCollectionView.reloadData()
+            }.store(in: &cancellables)
+        
+        viewModel.$archiveMusics
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                musicsCollectionView.reloadData()
+            }.store(in: &cancellables)
+    }
+    
     func bindNavigationBar() {
         navigationBarView.onTapSettingButton = {
-            print("SettingButtonTapped")
+            print("settingButtonTapped")
+        }
+        
+        navigationBarView.onTapBackButton = {
+            print("backButtonTapped")
         }
     }
     
@@ -197,37 +234,6 @@ private extension MyPageViewController {
         }
     }
     
-    func bindViewModel() {
-        viewModel.$userProfile
-            .sink { [weak self] profile in
-                guard let self else { return }
-                
-                let nickname = profile?.user.nickname ?? ""
-                let postCount = profile?.postTotalCount ?? Int()
-                let profileImageUrl = profile?.user.profileImage ?? ""
-                
-                nicknameLabel.text = nickname
-                musicCountLabel.text = "총 \(postCount)개의 노래를 공유했어요"
-                musicCountLabel.highlightText(targetText: "\(postCount)", color: .dplay_pink)
-                profileEditButton.setProfileImage(imageUrl: profileImageUrl)
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$registeredMusics
-            .sink { [weak self] _ in
-                guard let self else { return }
-                
-                musicsCollectionView.reloadData()
-            }.store(in: &cancellables)
-        
-        viewModel.$archiveMusics
-            .sink { [weak self] _ in
-                guard let self else { return }
-                
-                musicsCollectionView.reloadData()
-            }.store(in: &cancellables)
-    }
-    
     func loadData() {
         Task { await viewModel.loadUserProfile() }
         Task { await viewModel.loadRegisteredMusics() }
@@ -253,8 +259,8 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                 for: indexPath
             ) as? RegisteredMusicCell else { return UICollectionViewCell() }
             
-            if let models = viewModel.registeredMusics?.items {
-                cell.configureCell(with: models[indexPath.item])
+            if let data = viewModel.registeredMusics, let isHost = data.isHost {
+                cell.configureCell(isHost: isHost, with: data.items[indexPath.item])
             }
             
             return cell

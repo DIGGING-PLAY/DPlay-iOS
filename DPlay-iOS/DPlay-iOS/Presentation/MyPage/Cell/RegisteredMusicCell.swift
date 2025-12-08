@@ -17,6 +17,7 @@ final class RegisteredMusicCell: UICollectionViewCell {
     
     private let imageView = UIImageView()
     private let moreButton = UIButton()
+    private let playButton = UIButton()
     private let musicTitleLabel = UILabel()
     private let artistNameLabel = UILabel()
     private let commentLabel = UILabel()
@@ -57,6 +58,10 @@ private extension RegisteredMusicCell {
             $0.setImage(IconLiterals.ic_more_g_20, for: .normal)
         }
         
+        playButton.do {
+            $0.setImage(IconLiterals.ic_play_28, for: .normal)
+        }
+        
         musicTitleLabel.do {
             $0.text = " "
             $0.textColor = .dplay_black
@@ -84,6 +89,7 @@ private extension RegisteredMusicCell {
         addSubviews(
             imageView,
             moreButton,
+            playButton,
             musicTitleLabel,
             artistNameLabel,
             commentLabel
@@ -106,6 +112,11 @@ private extension RegisteredMusicCell {
             $0.size.equalTo(20)
         }
         
+        playButton.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(12)
+            $0.size.equalTo(28)
+        }
+        
         musicTitleLabel.snp.makeConstraints {
             $0.top.equalTo(moreButton.snp.bottom)
             $0.leading.equalTo(imageView.snp.trailing).offset(8)
@@ -126,12 +137,14 @@ private extension RegisteredMusicCell {
 }
 
 extension RegisteredMusicCell {
-    func configureCell(with model: MyPageTrackPost) {
+    func configureCell(isHost: Bool, with model: MyPageTrackPost) {
         guard let url = URL(string: model.track.coverImage) else { return }
         
         imageView.kf.setImage(with: url)
         musicTitleLabel.text = model.track.title
         artistNameLabel.text = model.track.artist
         commentLabel.text = model.content
+        moreButton.isHidden = !isHost
+        playButton.isHidden = isHost
     }
 }

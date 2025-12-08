@@ -11,6 +11,7 @@ struct MyPageMusics {
     let visibleLimit: Int
     let totalCount: Int
     let nextCursor: String?
+    let isHost: Bool?
     let items: [MyPageTrackPost]
 }
 

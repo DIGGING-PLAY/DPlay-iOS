@@ -15,11 +15,13 @@ final class MyPageNavigationBarView: UIView {
     // MARK: - Properties
     
     var onTapSettingButton: (() -> Void)?
-    
+    var onTapBackButton: (() -> Void)?
+
     // MARK: - UI Properties
     
     private let navigationTitle = UILabel()
     private let settingButton = UIButton()
+    private let backButton = UIButton()
     
     // MARK: - Init
     
@@ -51,10 +53,18 @@ private extension MyPageNavigationBarView {
         settingButton.do {
             $0.setImage(IconLiterals.ic_setting_24, for: .normal)
         }
+        
+        backButton.do {
+            $0.setImage(IconLiterals.ic_back_48, for: .normal)
+        }
     }
     
     func setupHierarchy() {
-        addSubviews(navigationTitle, settingButton)
+        addSubviews(
+            navigationTitle,
+            settingButton,
+            backButton
+        )
     }
     
     func setupLayout() {
@@ -63,8 +73,12 @@ private extension MyPageNavigationBarView {
         }
         
         settingButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.trailing.centerY.equalToSuperview()
+            $0.size.equalTo(48)
+        }
+        
+        backButton.snp.makeConstraints {
+            $0.leading.centerY.equalToSuperview()
             $0.size.equalTo(48)
         }
     }
@@ -77,12 +91,29 @@ private extension MyPageNavigationBarView {
     private func settingButtonTapped() {
         onTapSettingButton?()
     }
+    
+    private func backButtonTapped() {
+        onTapBackButton?()
+    }
 }
 
 private extension MyPageNavigationBarView {
+    
     // MARK: - Private Method
     
     func setupTarget() {
         settingButton.addTarget(self, action: #selector(settingButtonTapped), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+}
+
+extension MyPageNavigationBarView {
+    
+    // MARK: - Method
+    
+    func setNavigationBar(isHost: Bool) {
+        navigationTitle.isHidden = !isHost
+        settingButton.isHidden = !isHost
+        backButton.isHidden = isHost
     }
 }
