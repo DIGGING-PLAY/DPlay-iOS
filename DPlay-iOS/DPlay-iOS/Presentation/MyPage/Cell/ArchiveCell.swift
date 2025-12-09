@@ -54,7 +54,6 @@ private extension ArchiveCell {
         backgroundColor = .clear
         
         imageView.do {
-            $0.backgroundColor = .gray600
             $0.contentMode = .scaleAspectFill
             $0.roundCorners(cornerRadius: frame.width / 2)
             $0.layer.borderWidth = 1

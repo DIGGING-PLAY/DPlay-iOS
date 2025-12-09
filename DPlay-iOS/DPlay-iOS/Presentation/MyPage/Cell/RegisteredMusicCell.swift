@@ -59,7 +59,6 @@ private extension RegisteredMusicCell {
         layer.borderColor = UIColor.gray200.cgColor
         
         imageView.do {
-            $0.backgroundColor = .gray600
             $0.roundCorners(cornerRadius: 16)
             $0.contentMode = .scaleAspectFill
         }
