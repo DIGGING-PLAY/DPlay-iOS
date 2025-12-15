@@ -145,7 +145,7 @@ private extension MyPageViewController {
     //MARK: - @objc Method
         
     func profileEditButtonTapped() {
-        print("profileEditButtonTapped")
+        viewModel.goToProfileEdit()
     }
 }
 

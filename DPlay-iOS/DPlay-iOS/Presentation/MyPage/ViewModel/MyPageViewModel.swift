@@ -64,3 +64,12 @@ extension MyPageViewModel {
         }
     }
 }
+
+extension MyPageViewModel {
+    
+    // MARK: - Coordinator
+
+    func goToProfileEdit() {
+        coordinator?.goToProfileEdit()
+    }
+}

@@ -22,6 +22,9 @@
 		D01C6D862EE47AB0009C9AF8 /* MyPageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D842EE47AAB009C9AF8 /* MyPageUseCase.swift */; };
 		D01C6D892EE66505009C9AF8 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D882EE664FF009C9AF8 /* MyPageViewModel.swift */; };
 		D01C6D8B2EE66830009C9AF8 /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D8A2EE6682B009C9AF8 /* MyPageCoordinator.swift */; };
+		D01C6D912EE7512E009C9AF8 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D8D2EE7512E009C9AF8 /* ProfileEditViewController.swift */; };
+		D01C6D922EE7512E009C9AF8 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D8F2EE7512E009C9AF8 /* ProfileEditViewModel.swift */; };
+		D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D942EEBF122009C9AF8 /* ProfileEditNavigationBarView.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
 		D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */; };
@@ -149,6 +152,9 @@
 		D01C6D842EE47AAB009C9AF8 /* MyPageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCase.swift; sourceTree = "<group>"; };
 		D01C6D882EE664FF009C9AF8 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		D01C6D8A2EE6682B009C9AF8 /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
+		D01C6D8D2EE7512E009C9AF8 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		D01C6D8F2EE7512E009C9AF8 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
+		D01C6D942EEBF122009C9AF8 /* ProfileEditNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditNavigationBarView.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
@@ -406,6 +412,40 @@
 				D01C6D882EE664FF009C9AF8 /* MyPageViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D01C6D8C2EE750E1009C9AF8 /* ProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D932EEBF0A1009C9AF8 /* Component */,
+				D01C6D8E2EE7512E009C9AF8 /* View */,
+				D01C6D902EE7512E009C9AF8 /* ViewModel */,
+			);
+			path = ProfileEdit;
+			sourceTree = "<group>";
+		};
+		D01C6D8E2EE7512E009C9AF8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D8D2EE7512E009C9AF8 /* ProfileEditViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D01C6D902EE7512E009C9AF8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D8F2EE7512E009C9AF8 /* ProfileEditViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D01C6D932EEBF0A1009C9AF8 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D01C6D942EEBF122009C9AF8 /* ProfileEditNavigationBarView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		D05A62E92EC1A3C900B56DFD /* Splash */ = {
@@ -775,6 +815,7 @@
 				D01893FA2ECA5C7E002A48C1 /* Onboarding */,
 				EFCBCEA52EC9B25300BA7740 /* MusicDetail */,
 				D017CD2D2EDB2A6F001CD763 /* MyPage */,
+				D01C6D8C2EE750E1009C9AF8 /* ProfileEdit */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1219,6 +1260,7 @@
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
 				D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */,
 				D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */,
+				D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				D01C6D812EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
@@ -1239,6 +1281,8 @@
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
 				D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */,
+				D01C6D912EE7512E009C9AF8 /* ProfileEditViewController.swift in Sources */,
+				D01C6D922EE7512E009C9AF8 /* ProfileEditViewModel.swift in Sources */,
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EFCBCF382ECC761700BA7740 /* MusicDetailService.swift in Sources */,

@@ -26,6 +26,13 @@ final class MyPageCoordinator: Coordinator {
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
+    
+    func goToProfileEdit() {
+        let vm = ProfileEditViewModel(useCase: myPageUseCase, coordinator: self)
+        let vc = ProfileEditViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.pushViewController(vc, animated: true)
+    }
 
     func pop() {
         navigationController.popViewController(animated: true)
