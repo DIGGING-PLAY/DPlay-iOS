@@ -5,15 +5,15 @@
 //  Created by 조혜린 on 11/17/25.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 final class ProfileEditViewModel: ObservableObject {
     
     //MARK: - Property Wrappers
     
-    @Published var nickname: String = ""
-    @Published var selectedImageData: Data?
+    @Published var nickname: String?
+    @Published var profileImg: UIImage?
     @Published var nicknameValidationState: NicknameValidationState = .empty
     
     //MARK: - Properties
@@ -27,7 +27,14 @@ final class ProfileEditViewModel: ObservableObject {
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: MyPageCoordinator?) {
+    init(
+        nickname: String,
+        profileImg: UIImage?,
+        useCase: MyPageUseCase,
+        coordinator: MyPageCoordinator?
+    ) {
+        self.nickname = nickname
+        self.profileImg = profileImg
         self.useCase = useCase
         self.coordinator = coordinator
         
@@ -46,6 +53,7 @@ private extension ProfileEditViewModel {
             .dropFirst()
             .receive(on: RunLoop.main)
             .sink { [weak self] text in
+                guard let text else { return }
                 self?.updateNicknameInputState(text)
             }
             .store(in: &cancellables)
@@ -73,10 +81,9 @@ extension ProfileEditViewModel {
     //MARK: - Method
     
     func startEdittingProfile() {
-        print("입력된 닉네임: \(nickname)")
         Task {
             do {
-//                try await useCase.editProfile(nickname: nickname, image: selectedImageData)
+                try await useCase.patchUserProfile(nickname: nickname, profileImg: profileImg)
                 nicknameValidationState = .valid
                 try await Task.sleep(nanoseconds: 1_000_000_000)
                 popToPrevious()

@@ -33,7 +33,7 @@ struct Post {
 struct User {
     let id: Int
     let nickname: String
-    let profileImage: String
+    let profileImage: String?
 }
 
 struct Track {

@@ -24,7 +24,7 @@ struct MyPageProfileDataDTO: Decodable {
 struct MyPageUserDTO: Decodable {
     let userId: Int
     let nickname: String
-    let image: String
+    var image: String?
 }
 
 // MARK: - DTO to Entity

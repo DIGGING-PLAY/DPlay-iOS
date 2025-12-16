@@ -143,8 +143,8 @@ enum MockMyPage {
         code: 2000,
         message: "요청이 성공했습니다.",
         data: MyPageTracksDataDTO(
-            visibleLimit: 5,
-            totalCount: 5,
+            visibleLimit: 13,
+            totalCount: 13,
             nextCursor: nil,
             isHost: true,
             items: [
@@ -190,6 +190,86 @@ enum MockMyPage {
                 ),
                 MyPageTrackItemDTO(
                     postId: 5,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "플랑크톤",
+                        coverImg: "https://image.bugsm.co.kr/album/images/200/3563/356344.jpg?version=20240702024304",
+                        artistName: "쏜애플"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 6,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "한계",
+                        coverImg: "https://image.bugsm.co.kr/album/images/500/204200/20420099.jpg",
+                        artistName: "백예린"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 7,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "Ling Ling",
+                        coverImg: "https://image.bugsm.co.kr/album/images/500/40796/4079641.jpg",
+                        artistName: "검정치마"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 8,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "Summer",
+                        coverImg: "https://postfiles.pstatic.net/MjAyMTA1MjdfMjA4/MDAxNjIyMTE3NDA3NDUz.O95ruz0Ij8uRVe8bSOQ6_-W2sYIVVUYJJSUiKVnZDrIg.rku_esoSmtHYPswzDYXu-vnRFdqwlOiEeqCrc6x-fSYg.JPEG.ekek9812/IMG_0814.jpg?type=w773",
+                        artistName: "The Volunteers"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 9,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "플랑크톤",
+                        coverImg: "https://image.bugsm.co.kr/album/images/200/3563/356344.jpg?version=20240702024304",
+                        artistName: "쏜애플"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 10,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "한계",
+                        coverImg: "https://image.bugsm.co.kr/album/images/500/204200/20420099.jpg",
+                        artistName: "백예린"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 11,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "Ling Ling",
+                        coverImg: "https://image.bugsm.co.kr/album/images/500/40796/4079641.jpg",
+                        artistName: "검정치마"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 12,
+                    track: MyPageTrackDTO(
+                        trackId: "apple:1742310021",
+                        songTitle: "Summer",
+                        coverImg: "https://postfiles.pstatic.net/MjAyMTA1MjdfMjA4/MDAxNjIyMTE3NDA3NDUz.O95ruz0Ij8uRVe8bSOQ6_-W2sYIVVUYJJSUiKVnZDrIg.rku_esoSmtHYPswzDYXu-vnRFdqwlOiEeqCrc6x-fSYg.JPEG.ekek9812/IMG_0814.jpg?type=w773",
+                        artistName: "The Volunteers"
+                    ),
+                    content: nil
+                ),
+                MyPageTrackItemDTO(
+                    postId: 13,
                     track: MyPageTrackDTO(
                         trackId: "apple:1742310021",
                         songTitle: "플랑크톤",

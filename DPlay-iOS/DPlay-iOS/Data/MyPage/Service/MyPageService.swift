@@ -11,6 +11,7 @@ protocol MyPageService {
     func fetchUserProfile() async throws -> MyPageProfileResponseDTO
     func fetchRegisteredTracks() async throws -> MyPageTracksResponseDTO
     func fetchArchiveTracks() async throws -> MyPageTracksResponseDTO
+    func updateUserProfile(nickname: String?, profileImg: Data?) async throws
 }
 
 final class MockMyPageService: MyPageService {
@@ -25,4 +26,6 @@ final class MockMyPageService: MyPageService {
     func fetchArchiveTracks() async throws -> MyPageTracksResponseDTO {
         return MockMyPage.archiveTracksSample
     }
+    
+    func updateUserProfile(nickname: String? = nil, profileImg: Data? = nil) async throws { }
 }

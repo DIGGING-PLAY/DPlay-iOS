@@ -69,7 +69,9 @@ extension MyPageViewModel {
     
     // MARK: - Coordinator
 
-    func goToProfileEdit() {
-        coordinator?.goToProfileEdit()
+    func goToProfileEdit(profileImage: UIImage? = nil) {
+        let nickname = userProfile?.user.nickname ?? ""
+        
+        coordinator?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
     }
 }

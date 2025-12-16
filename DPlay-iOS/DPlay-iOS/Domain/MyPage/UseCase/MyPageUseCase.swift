@@ -5,12 +5,13 @@
 //  Created by 조혜린 on 12/2/25.
 //
 
-import Foundation
+import UIKit
 
 protocol MyPageUseCase {
     func getUserProfile() async throws -> UserProfile
     func getRegisteredTracks() async throws -> MyPageMusics
     func getArchiveTracks() async throws -> MyPageMusics
+    func patchUserProfile(nickname: String?, profileImg: UIImage?) async throws
 }
 
 final class DefaultMyPageUseCase: MyPageUseCase {
@@ -37,5 +38,11 @@ final class DefaultMyPageUseCase: MyPageUseCase {
         let data = try await repository.fetchArchiveTracks()
         
         return data
+    }
+    
+    func patchUserProfile(nickname: String?, profileImg: UIImage?) async throws {
+        let profileImgData = profileImg?.jpegData(compressionQuality: 0.9)
+        
+        try await repository.updateUserProfile(nickname: nickname, profileImg: profileImgData)
     }
 }

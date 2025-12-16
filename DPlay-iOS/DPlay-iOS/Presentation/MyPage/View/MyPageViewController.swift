@@ -145,7 +145,15 @@ private extension MyPageViewController {
     //MARK: - @objc Method
         
     func profileEditButtonTapped() {
-        viewModel.goToProfileEdit()
+        let profileImage: UIImage?
+        
+        if viewModel.userProfile?.user.profileImage == nil {
+            profileImage = nil
+        } else {
+            profileImage = profileEditButton.getProfileUIImage()
+        }
+        
+        viewModel.goToProfileEdit(profileImage: profileImage)
     }
 }
 

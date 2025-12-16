@@ -19,8 +19,10 @@ final class ProfileEditViewController: UIViewController {
     private let viewModel: ProfileEditViewModel
     private var cancellables = Set<AnyCancellable>()
     
-    private var signUpButtonBottomConstraint: Constraint?
-    
+    private var editButtonBottomConstraint: Constraint?
+    private var initialNickname: String?
+    private var initialProfileImage: UIImage?
+
     //MARK: - UI Properties
 
     private let navigationBarView = ProfileEditNavigationBarView()
@@ -31,12 +33,15 @@ final class ProfileEditViewController: UIViewController {
     private let clearButton = UIButton()
     private let textLengthLabel = UILabel()
     private let nicknameDescriptionLabel = UILabel()
-    private let signUpButton = UIButton()
+    private let editButton = UIButton()
 
     //MARK: - Life Cycle
     
     init(viewModel: ProfileEditViewModel) {
         self.viewModel = viewModel
+        self.initialNickname = viewModel.nickname
+        self.initialProfileImage = viewModel.profileImg
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -72,18 +77,18 @@ private extension ProfileEditViewController {
             $0.showsVerticalScrollIndicator = false
         }
         
+        imageSelectButton.do {
+            if let img = viewModel.profileImg {
+                $0.setProfileImage(type: .selectedImage(img))
+            }
+        }
+        
         nicknameTextField.do {
             $0.backgroundColor = .gray100
             $0.textColor = .dplay_black
             $0.tintColor = .dplay_pink
+            $0.text = viewModel.nickname
             $0.font = .dplayFont(.bodySemi16)
-            $0.attributedPlaceholder = NSAttributedString(
-                string: "닉네임을 입력해주세요",
-                attributes: [
-                    .font: UIFont.dplayFont(.bodySemi16),
-                    .foregroundColor: UIColor.gray400
-                ]
-            )
             $0.returnKeyType = .done
             $0.delegate = self
             $0.addPadding(left: 12)
@@ -113,7 +118,7 @@ private extension ProfileEditViewController {
             $0.setTextStyle(.capMedi12)
         }
 
-        signUpButton.do {
+        editButton.do {
             $0.setTitle("수정하기", for: .normal)
             $0.setTitleColor(.gray400, for: .normal)
             $0.titleLabel?.setTextStyle(.bodyBold16)
@@ -124,7 +129,7 @@ private extension ProfileEditViewController {
     }
     
     func setupHierarchy() {
-        view.addSubviews(navigationBarView, scrollView, signUpButton)
+        view.addSubviews(navigationBarView, scrollView, editButton)
         scrollView.addSubview(contentView)
         contentView.addSubviews(
             imageSelectButton,
@@ -143,7 +148,7 @@ private extension ProfileEditViewController {
         scrollView.snp.makeConstraints {
             $0.top.equalTo(navigationBarView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalTo(signUpButton.snp.top)
+            $0.bottom.equalTo(editButton.snp.top)
         }
         
         contentView.snp.makeConstraints {
@@ -174,11 +179,11 @@ private extension ProfileEditViewController {
             $0.leading.equalToSuperview().inset(20)
         }
         
-        signUpButton.snp.makeConstraints {
+        editButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
             
-            signUpButtonBottomConstraint = $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16).constraint
+            editButtonBottomConstraint = $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16).constraint
         }
     }
 }
@@ -187,37 +192,28 @@ private extension ProfileEditViewController {
     
     //MARK: - @objc Method
     
-    /// 키보드 표시/숨김 변화에 따라 하단 버튼 위치와 스크롤을 조정합니다.
-    /// - Parameter notification: 키보드 프레임/애니메이션 정보가 담긴 Notification
     func handleKeyboard(_ notification: Notification) {
-        // Notification에서 키보드 최종 프레임, 애니메이션 시간/곡선을 안전하게 추출
         guard let userInfo = notification.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
               let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval,
               let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
         
-        // 키보드가 화면에 올라와 있는지 여부 판단
         let isKeyboardShowing = keyboardFrame.origin.y < UIScreen.main.bounds.height
-        // 키보드 높이에 맞춰 하단 버튼(bottom constraint) 인셋 계산 (세이프에리어 보정 + 기본 16 간격)
         let bottomInset = isKeyboardShowing ? keyboardFrame.height - view.safeAreaInsets.bottom + 16 : 0
-        // signUpButton의 하단 제약 업데이트
-        signUpButtonBottomConstraint?.update(inset: bottomInset)
         
-        // 시스템 키보드 애니메이션과 동일한 타이밍/커브로 레이아웃 변경 애니메이션
+        editButtonBottomConstraint?.update(inset: bottomInset)
+        
         UIView.animate(withDuration: duration,
                        delay: 0,
                        options: UIView.AnimationOptions(rawValue: curve << 16),
                        animations: {
-            // 레이아웃 변경 반영
             self.view.layoutIfNeeded()
             
-            // 키보드가 올라오면 마지막 콘텐츠가 가려지지 않도록 스크롤을 하단으로 이동
             if isKeyboardShowing {
                 let bottomOffset = CGPoint(x: 0,
                                            y: max(self.scrollView.contentSize.height - self.scrollView.bounds.height + self.scrollView.contentInset.bottom, 0))
                 self.scrollView.setContentOffset(bottomOffset, animated: true)
             }
-            // 키보드가 내려가면 스크롤을 초기 위치로 복귀
             else {
                 self.scrollView.setContentOffset(.zero, animated: true)
             }
@@ -230,13 +226,14 @@ private extension ProfileEditViewController {
             primaryButtonTitle: "앨범에서 선택하기",
             secondaryButtonTitle: "기본 이미지로 변경하기",
             primaryAction: {
-                print("앨범에서 선택하기 탭")
                 self.presentImagePicker()
             },
             secondaryAction: {
-                print("기본 이미지로 변경하기 탭")
+                if self.initialProfileImage != nil {
+                    self.updateEditButtonState(isEnabled: true)
+                }
                 self.imageSelectButton.setProfileImage(type: .defaultImage)
-                self.viewModel.selectedImageData = nil
+                self.viewModel.profileImg = nil
             }
         )
         
@@ -254,7 +251,7 @@ private extension ProfileEditViewController {
         viewModel.nicknameValidationState = .empty
     }
 
-    func signUpButtonTapped() {
+    func editButtonTapped() {
         viewModel.startEdittingProfile()
     }
 }
@@ -266,7 +263,7 @@ private extension ProfileEditViewController {
     func setupTarget() {
         imageSelectButton.addTarget(self, action: #selector(imageSelectButtonTapped), for: .touchUpInside)
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
     func bindNavigationBar() {
@@ -277,6 +274,8 @@ private extension ProfileEditViewController {
     
     func bindViewModel() {
         viewModel.$nicknameValidationState
+            .dropFirst()
+            .receive(on: RunLoop.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
                 print(state)
@@ -321,24 +320,25 @@ private extension ProfileEditViewController {
             viewModel.nickname = ""
             textLengthLabel.text = "0/10"
             clearButton.isHidden = true
-            updateSignUpButtonState(isEnabled: false)
+            updateEditButtonState(isEnabled: false)
         case .valid:
-            signUpButton.isEnabled = false
+            editButton.isEnabled = false
         case .normal:
-            updateSignUpButtonState(isEnabled: true)
+            let isEditted = nicknameTextField.text != initialNickname
+            updateEditButtonState(isEnabled: isEditted)
         case .invalid:
-            updateSignUpButtonState(isEnabled: false)
+            updateEditButtonState(isEnabled: false)
         }
     }
     
-    func updateSignUpButtonState(isEnabled: Bool) {
-        signUpButton.isEnabled = isEnabled
+    func updateEditButtonState(isEnabled: Bool) {
+        editButton.isEnabled = isEnabled
         if isEnabled {
-            signUpButton.setTitleColor(.white, for: .normal)
-            signUpButton.backgroundColor = .dplay_pink
+            editButton.setTitleColor(.white, for: .normal)
+            editButton.backgroundColor = .dplay_pink
         } else {
-            signUpButton.setTitleColor(.gray400, for: .normal)
-            signUpButton.backgroundColor = .gray200
+            editButton.setTitleColor(.gray400, for: .normal)
+            editButton.backgroundColor = .gray200
         }
     }
     
@@ -376,7 +376,6 @@ extension ProfileEditViewController: UITextFieldDelegate {
             textLengthLabel.text = "\(text.count)/10"
             clearButton.isHidden = text.isEmpty
         }
-
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -398,10 +397,10 @@ extension ProfileEditViewController: PHPickerViewControllerDelegate {
             guard let self else { return }
             
             DispatchQueue.main.async {
-                if let uiImage = object as? UIImage,
-                   let imageData = uiImage.jpegData(compressionQuality: 0.9) {
-                    self.viewModel.selectedImageData = imageData
+                if let uiImage = object as? UIImage {
+                    self.viewModel.profileImg = uiImage
                     self.imageSelectButton.setProfileImage(type: .selectedImage(uiImage))
+                    self.updateEditButtonState(isEnabled: true)
                 } else {
                     print("프로필 이미지 로드 실패")
                 }
