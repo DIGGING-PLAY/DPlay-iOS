@@ -15,6 +15,7 @@ final class MusicDetailNavigationBar: UIView {
     // MARK: - Properties
     
     var onTapBack: (() -> Void)?
+    var onTapMenu: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -44,18 +45,18 @@ private extension MusicDetailNavigationBar {
         backButton.do {
             $0.setImage(ImageLiterals.img_back, for: .normal)
             $0.contentMode = .scaleAspectFit
-            $0.tintColor = .black
+            $0.tintColor = .dplay_black
         }
         
         dateLabel.do {
             $0.text = "10월 12일"
             $0.setTextStyle(.titleBold18)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
         
         menuButton.do {
             $0.setImage(ImageLiterals.img_dot_menu, for: .normal)
-            $0.tintColor = .black
+            $0.tintColor = .dplay_black
         }
     }
     
@@ -87,8 +88,12 @@ private extension MusicDetailNavigationBar {
     
     //MARK: - @objc Method
     
-    private func didTapBack() {
+    func didTapBack() {
         onTapBack?()
+    }
+    
+    func didTapMenu() {
+          onTapMenu?()
     }
 }
 
@@ -97,5 +102,6 @@ private extension MusicDetailNavigationBar {
     
     func setupTarget() {
         backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+        menuButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside) 
     }
 }

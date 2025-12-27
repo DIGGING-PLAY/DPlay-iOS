@@ -42,7 +42,7 @@ private extension HomeNavigationBarView {
         
         menuButton.do {
             $0.setImage(IconLiterals.ic_list_24, for: .normal)
-            $0.tintColor = .black
+            $0.tintColor = .dplay_black
         }
     }
     

@@ -68,9 +68,15 @@
 		EF2560392EBDD3EE003E65C9 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560382EBDD3EE003E65C9 /* HomeRepository.swift */; };
 		EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560382EBDD3EE003E65C9 /* HomeRepository.swift */; };
 		EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */; };
+		EF4B8DBB2F003682009101C4 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DBA2F003682009101C4 /* UIApplication+.swift */; };
 		EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */; };
 		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
-		EF7537D72EC838DE00F28DE3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537D62EC838DE00F28DE3 /* TabBarController.swift */; };
+		EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */; };
+		EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94782ED80F16001B56B8 /* ToastView.swift */; };
+		EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A947E2ED80F23001B56B8 /* ToastManager.swift */; };
+		EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */; };
+		EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */; };
+		EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */; };
 		EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
 		EFA5C3812EB31488001F1627 /* DPlay_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C37F2EB31488001F1627 /* DPlay_iOSTests.swift */; };
@@ -82,6 +88,19 @@
 		EFA5C4042EB31CAB001F1627 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = EFA5C4032EB31CAB001F1627 /* Alamofire */; };
 		EFA5C4072EB31CDF001F1627 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EFA5C4062EB31CDF001F1627 /* Kingfisher */; };
 		EFA5C40C2EB5DA8E001F1627 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */; };
+		EFAA43272EDD942900BEC1AC /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA43262EDD942900BEC1AC /* BaseAPI.swift */; };
+		EFAA43292EDD943100BEC1AC /* BaseAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA43282EDD943100BEC1AC /* BaseAPIService.swift */; };
+		EFAA432D2EDD944300BEC1AC /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA432C2EDD944300BEC1AC /* NetworkLogger.swift */; };
+		EFAA432F2EDD944D00BEC1AC /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA432E2EDD944D00BEC1AC /* NetworkSession.swift */; };
+		EFAA43312EDD945400BEC1AC /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA43302EDD945400BEC1AC /* NetworkResult.swift */; };
+		EFAA45AF2EDD959200BEC1AC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45AE2EDD959200BEC1AC /* Config.swift */; };
+		EFAA45B12EDD965A00BEC1AC /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45B02EDD965A00BEC1AC /* Encodable+.swift */; };
+		EFAA45B32EDD968F00BEC1AC /* BaseResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45B22EDD968F00BEC1AC /* BaseResponseDTO.swift */; };
+		EFAA45BF2EDD9AE400BEC1AC /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45BE2EDD9AE400BEC1AC /* HomeAPI.swift */; };
+		EFAA45CF2EDDB22200BEC1AC /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45CB2EDDB22200BEC1AC /* AuthInterceptor.swift */; };
+		EFAA45D02EDDB22200BEC1AC /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45CC2EDDB22200BEC1AC /* KeychainManager.swift */; };
+		EFAA45D12EDDB22200BEC1AC /* TokenRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45CD2EDDB22200BEC1AC /* TokenRefreshManager.swift */; };
+		EFAA45D32EE015A600BEC1AC /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45D22EE015A600BEC1AC /* AppError.swift */; };
 		EFCBCE8D2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8C2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift */; };
 		EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8C2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift */; };
 		EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */; };
@@ -118,6 +137,17 @@
 		EFCBCF382ECC761700BA7740 /* MusicDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF372ECC761700BA7740 /* MusicDetailService.swift */; };
 		EFCBCF392ECC761700BA7740 /* MusicDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF372ECC761700BA7740 /* MusicDetailService.swift */; };
 		EFCBCF3B2ECC77A600BA7740 /* MusicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF3A2ECC77A600BA7740 /* MusicDetailViewModel.swift */; };
+		EFCBCF432ED4983400BA7740 /* MusicAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF422ED4983400BA7740 /* MusicAddViewController.swift */; };
+		EFCBCF472ED4989B00BA7740 /* MusicAddNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF462ED4989B00BA7740 /* MusicAddNavigationBarView.swift */; };
+		EFCBCF4D2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF4C2ED49A6F00BA7740 /* MusicAddResponseDTO.swift */; };
+		EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF4C2ED49A6F00BA7740 /* MusicAddResponseDTO.swift */; };
+		EFCBCF522ED49AE900BA7740 /* MusicAddMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF512ED49AE900BA7740 /* MusicAddMock.swift */; };
+		EFCBCF562ED49BD400BA7740 /* SongSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF552ED49BD400BA7740 /* SongSearchCell.swift */; };
+		EFCBCF582ED49D7700BA7740 /* MusicAddCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF572ED49D7700BA7740 /* MusicAddCoordinator.swift */; };
+		EFCBCF5A2ED4AA7200BA7740 /* MusicAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF592ED4AA7200BA7740 /* MusicAddViewModel.swift */; };
+		EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF5B2ED587A400BA7740 /* MusicCommentViewController.swift */; };
+		EFCBCF5E2ED58B0300BA7740 /* MusicCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF5D2ED58B0300BA7740 /* MusicCommentViewModel.swift */; };
+		EFCBCF682ED58E0900BA7740 /* MusicCommentNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCF672ED58E0900BA7740 /* MusicCommentNavigationBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,9 +219,15 @@
 		EF2560352EBDD220003E65C9 /* HomeViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUseCase.swift; sourceTree = "<group>"; };
 		EF2560382EBDD3EE003E65C9 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		EF4B8DBA2F003682009101C4 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
-		EF7537D62EC838DE00F28DE3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGuidePopupView.swift; sourceTree = "<group>"; };
+		EF5A94782ED80F16001B56B8 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		EF5A947E2ED80F23001B56B8 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationPopupView.swift; sourceTree = "<group>"; };
+		EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSheetView.swift; sourceTree = "<group>"; };
+		EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C3502EB3061C001F1627 /* DPlay-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +238,19 @@
 		EFA5C3832EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPlay_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EFA5C3882EB3149C001F1627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		EFAA43262EDD942900BEC1AC /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
+		EFAA43282EDD943100BEC1AC /* BaseAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPIService.swift; sourceTree = "<group>"; };
+		EFAA432C2EDD944300BEC1AC /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		EFAA432E2EDD944D00BEC1AC /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
+		EFAA43302EDD945400BEC1AC /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		EFAA45AE2EDD959200BEC1AC /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		EFAA45B02EDD965A00BEC1AC /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		EFAA45B22EDD968F00BEC1AC /* BaseResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponseDTO.swift; sourceTree = "<group>"; };
+		EFAA45BE2EDD9AE400BEC1AC /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
+		EFAA45CB2EDDB22200BEC1AC /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		EFAA45CC2EDDB22200BEC1AC /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		EFAA45CD2EDDB22200BEC1AC /* TokenRefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshManager.swift; sourceTree = "<group>"; };
+		EFAA45D22EE015A600BEC1AC /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		EFCBCE8C2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedSongsResponseDTO.swift; sourceTree = "<group>"; };
 		EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		EFCBCE942EC9A91100BA7740 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -232,6 +281,16 @@
 		EFCBCF342ECC75F900BA7740 /* MusicDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailRepository.swift; sourceTree = "<group>"; };
 		EFCBCF372ECC761700BA7740 /* MusicDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailService.swift; sourceTree = "<group>"; };
 		EFCBCF3A2ECC77A600BA7740 /* MusicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailViewModel.swift; sourceTree = "<group>"; };
+		EFCBCF422ED4983400BA7740 /* MusicAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAddViewController.swift; sourceTree = "<group>"; };
+		EFCBCF462ED4989B00BA7740 /* MusicAddNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAddNavigationBarView.swift; sourceTree = "<group>"; };
+		EFCBCF4C2ED49A6F00BA7740 /* MusicAddResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAddResponseDTO.swift; sourceTree = "<group>"; };
+		EFCBCF512ED49AE900BA7740 /* MusicAddMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAddMock.swift; sourceTree = "<group>"; };
+		EFCBCF552ED49BD400BA7740 /* SongSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSearchCell.swift; sourceTree = "<group>"; };
+		EFCBCF572ED49D7700BA7740 /* MusicAddCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAddCoordinator.swift; sourceTree = "<group>"; };
+		EFCBCF592ED4AA7200BA7740 /* MusicAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAddViewModel.swift; sourceTree = "<group>"; };
+		EFCBCF5B2ED587A400BA7740 /* MusicCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCommentViewController.swift; sourceTree = "<group>"; };
+		EFCBCF5D2ED58B0300BA7740 /* MusicCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCommentViewModel.swift; sourceTree = "<group>"; };
+		EFCBCF672ED58E0900BA7740 /* MusicCommentNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCommentNavigationBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -722,14 +781,32 @@
 			isa = PBXGroup;
 			children = (
 				EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */,
+				EF5A94812ED83B0A001B56B8 /* RecommendationPopupView.swift */,
 			);
 			path = SubView;
+			sourceTree = "<group>";
+		};
+		EF5A94792ED80F16001B56B8 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				EF5A94782ED80F16001B56B8 /* ToastView.swift */,
+				EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */,
+			);
+			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		EF5A947F2ED80F23001B56B8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				EF5A947E2ED80F23001B56B8 /* ToastManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		EF7537D42EC838A900F28DE3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EF7537D62EC838DE00F28DE3 /* TabBarController.swift */,
+				EF7537D62EC838DE00F28DE3 /* MainTabBarController.swift */,
 				EF7537F22EC848C100F28DE3 /* CustomTabBarView.swift */,
 			);
 			path = View;
@@ -768,6 +845,7 @@
 			children = (
 				EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */,
 				EFA5C3892EB3149C001F1627 /* App */,
+				EFAA43252EDD942100BEC1AC /* Network */,
 				EFA5C3A72EB31696001F1627 /* Data */,
 				EFA5C3952EB314D8001F1627 /* Domain */,
 				EFA5C38D2EB314B3001F1627 /* Presentation */,
@@ -814,6 +892,8 @@
 				EFA5C3AA2EB316B6001F1627 /* Home */,
 				D01893FA2ECA5C7E002A48C1 /* Onboarding */,
 				EFCBCEA52EC9B25300BA7740 /* MusicDetail */,
+				EFCBCF3D2ED4972B00BA7740 /* MusicAdd */,
+				EFCBCF602ED58D9C00BA7740 /* MusicComment */,
 				D017CD2D2EDB2A6F001CD763 /* MyPage */,
 				D01C6D8C2EE750E1009C9AF8 /* ProfileEdit */,
 			);
@@ -871,6 +951,7 @@
 			children = (
 				D01893F72ECA54D0002A48C1 /* Auth */,
 				EFCBCF182ECC747A00BA7740 /* MusicDetail */,
+				EFCBCF492ED49A4400BA7740 /* MusicAdd */,
 				EFA5C3A62EB31696001F1627 /* Home */,
 				D05B9A652ECB50F6001379C4 /* Onboarding */,
 				D0C550052EDFE51A0003E4B0 /* MyPage */,
@@ -890,9 +971,10 @@
 		EFA5C3DE2EB31849001F1627 /* Mocks & Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				EF25603C2EBDD5D4003E65C9 /* Home */,
 				D01C6D7C2EE46CD0009C9AF8 /* MyPage */,
 				EFCBCF322ECC75CF00BA7740 /* MusicDetail */,
-				EF25603C2EBDD5D4003E65C9 /* Home */,
+				EFCBCF502ED49ABC00BA7740 /* MusicAdd */,
 			);
 			path = "Mocks & Stubs";
 			sourceTree = "<group>";
@@ -901,6 +983,8 @@
 			isa = PBXGroup;
 			children = (
 				D05B6C372ED6DE0E003F25E5 /* DPlayButtonModalViewController.swift */,
+				EF5A94792ED80F16001B56B8 /* CommonUI */,
+				EF5A947F2ED80F23001B56B8 /* Manager */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -930,6 +1014,49 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		EFAA43252EDD942100BEC1AC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				EFAA45C32EDDAD0400BEC1AC /* Core */,
+				EFAA45C52EDDAD1000BEC1AC /* API */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		EFAA45C32EDDAD0400BEC1AC /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EFAA45AE2EDD959200BEC1AC /* Config.swift */,
+				EFAA45CE2EDDB22200BEC1AC /* Auth */,
+				EFAA432C2EDD944300BEC1AC /* NetworkLogger.swift */,
+				EFAA432E2EDD944D00BEC1AC /* NetworkSession.swift */,
+				EFAA43302EDD945400BEC1AC /* NetworkResult.swift */,
+				EFAA45B22EDD968F00BEC1AC /* BaseResponseDTO.swift */,
+				EFAA43282EDD943100BEC1AC /* BaseAPIService.swift */,
+				EFAA43262EDD942900BEC1AC /* BaseAPI.swift */,
+				EFAA45D22EE015A600BEC1AC /* AppError.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EFAA45C52EDDAD1000BEC1AC /* API */ = {
+			isa = PBXGroup;
+			children = (
+				EFAA45BE2EDD9AE400BEC1AC /* HomeAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		EFAA45CE2EDDB22200BEC1AC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				EFAA45CB2EDDB22200BEC1AC /* AuthInterceptor.swift */,
+				EFAA45CD2EDDB22200BEC1AC /* TokenRefreshManager.swift */,
+				EFAA45CC2EDDB22200BEC1AC /* KeychainManager.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		EFCBCE932EC9A8FD00BA7740 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -937,6 +1064,7 @@
 				EFCBCE962EC9A91900BA7740 /* HomeCoordinator.swift */,
 				EFCBCE9A2EC9A9E300BA7740 /* Coordinator.swift */,
 				EFCBCEA62EC9B46B00BA7740 /* TabBarCoordinator.swift */,
+				EFCBCF572ED49D7700BA7740 /* MusicAddCoordinator.swift */,
 				D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */,
 				D01C6D8A2EE6682B009C9AF8 /* MyPageCoordinator.swift */,
 			);
@@ -980,8 +1108,10 @@
 				EFCBCED32EC9B57C00BA7740 /* UIStackView+.swift */,
 				EFCBCED42EC9B57C00BA7740 /* UITextField+.swift */,
 				EFCBCED52EC9B57C00BA7740 /* UIView+.swift */,
+				EFAA45B02EDD965A00BEC1AC /* Encodable+.swift */,
 				D0D8FDB42ED5703500F75191 /* UIViewController+.swift */,
 				D0D8FDC22ED61D8900F75191 /* NSObject+.swift */,
+				EF4B8DBA2F003682009101C4 /* UIApplication+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1089,6 +1219,108 @@
 				EFCBCF312ECC75CF00BA7740 /* MockMusicDetail.swift */,
 			);
 			path = MusicDetail;
+			sourceTree = "<group>";
+		};
+		EFCBCF3D2ED4972B00BA7740 /* MusicAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF402ED4981F00BA7740 /* View */,
+				EFCBCF412ED4982100BA7740 /* ViewModel */,
+			);
+			path = MusicAdd;
+			sourceTree = "<group>";
+		};
+		EFCBCF402ED4981F00BA7740 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF452ED4988E00BA7740 /* SubView */,
+				EFCBCF542ED49BCD00BA7740 /* Cell */,
+				EFCBCF422ED4983400BA7740 /* MusicAddViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EFCBCF412ED4982100BA7740 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF592ED4AA7200BA7740 /* MusicAddViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EFCBCF452ED4988E00BA7740 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF462ED4989B00BA7740 /* MusicAddNavigationBarView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		EFCBCF492ED49A4400BA7740 /* MusicAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF4B2ED49A5300BA7740 /* DTO */,
+			);
+			path = MusicAdd;
+			sourceTree = "<group>";
+		};
+		EFCBCF4B2ED49A5300BA7740 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF4C2ED49A6F00BA7740 /* MusicAddResponseDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		EFCBCF502ED49ABC00BA7740 /* MusicAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF512ED49AE900BA7740 /* MusicAddMock.swift */,
+			);
+			path = MusicAdd;
+			sourceTree = "<group>";
+		};
+		EFCBCF542ED49BCD00BA7740 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF552ED49BD400BA7740 /* SongSearchCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		EFCBCF602ED58D9C00BA7740 /* MusicComment */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF642ED58DC400BA7740 /* View */,
+				EFCBCF5B2ED587A400BA7740 /* MusicCommentViewController.swift */,
+				EFCBCF632ED58DC200BA7740 /* ViewModel */,
+			);
+			path = MusicComment;
+			sourceTree = "<group>";
+		};
+		EFCBCF632ED58DC200BA7740 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF5D2ED58B0300BA7740 /* MusicCommentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EFCBCF642ED58DC400BA7740 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF662ED58DE200BA7740 /* SubView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EFCBCF662ED58DE200BA7740 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				EFCBCF672ED58E0900BA7740 /* MusicCommentNavigationBarView.swift */,
+				EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1252,22 +1484,36 @@
 				D0C5500D2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				D05B6C382ED6DE58003F25E5 /* DPlayButtonModalViewController.swift in Sources */,
 				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
+				EFAA45B32EDD968F00BEC1AC /* BaseResponseDTO.swift in Sources */,
+				EFAA45CF2EDDB22200BEC1AC /* AuthInterceptor.swift in Sources */,
+				EFAA45D32EE015A600BEC1AC /* AppError.swift in Sources */,
+				EFAA45D02EDDB22200BEC1AC /* KeychainManager.swift in Sources */,
+				EFAA45D12EDDB22200BEC1AC /* TokenRefreshManager.swift in Sources */,
+				EFAA43312EDD945400BEC1AC /* NetworkResult.swift in Sources */,
 				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
+				EFAA43292EDD943100BEC1AC /* BaseAPIService.swift in Sources */,
+				EFAA432F2EDD944D00BEC1AC /* NetworkSession.swift in Sources */,
+				EFAA432D2EDD944300BEC1AC /* NetworkLogger.swift in Sources */,
 				D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */,
 				D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */,
 				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
+				EFCBCF5E2ED58B0300BA7740 /* MusicCommentViewModel.swift in Sources */,
+				EFCBCF472ED4989B00BA7740 /* MusicAddNavigationBarView.swift in Sources */,
 				EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
 				D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */,
 				D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */,
 				D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
+				EFAA45AF2EDD959200BEC1AC /* Config.swift in Sources */,
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				D01C6D812EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCEA72EC9B46B00BA7740 /* TabBarCoordinator.swift in Sources */,
 				EFCBCEEA2EC9B57C00BA7740 /* UIStackView+.swift in Sources */,
+				EFCBCF522ED49AE900BA7740 /* MusicAddMock.swift in Sources */,
 				EFCBCEEB2EC9B57C00BA7740 /* UIColor+.swift in Sources */,
 				D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */,
+				EFCBCF682ED58E0900BA7740 /* MusicCommentNavigationBarView.swift in Sources */,
 				EFCBCEEC2EC9B57C00BA7740 /* UIView+.swift in Sources */,
 				D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */,
 				D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */,
@@ -1275,16 +1521,21 @@
 				EFCBCF2B2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EFCBCF202ECC751F00BA7740 /* MusicDetailResponseDTO.swift in Sources */,
 				EFCBCEED2EC9B57C00BA7740 /* UITextField+.swift in Sources */,
+				EFAA43272EDD942900BEC1AC /* BaseAPI.swift in Sources */,
 				EFCBCEEE2EC9B57C00BA7740 /* Iamge&IconLiterals.swift in Sources */,
 				EFCBCEEF2EC9B57C00BA7740 /* UILabel+.swift in Sources */,
+				EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */,
 				EFCBCEF02EC9B57C00BA7740 /* UIFont+.swift in Sources */,
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
 				D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */,
+				EF4B8DBB2F003682009101C4 /* UIApplication+.swift in Sources */,
 				D01C6D912EE7512E009C9AF8 /* ProfileEditViewController.swift in Sources */,
 				D01C6D922EE7512E009C9AF8 /* ProfileEditViewModel.swift in Sources */,
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
+				EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
+				EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */,
 				EFCBCF382ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
 				D0C54FF52EDB80040003E4B0 /* MyPageCollectionViewLayout.swift in Sources */,
@@ -1293,13 +1544,20 @@
 				D01C6D7B2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
 				EFCBCF362ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
+				EFCBCF432ED4983400BA7740 /* MusicAddViewController.swift in Sources */,
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
+				EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */,
+				EFCBCF582ED49D7700BA7740 /* MusicAddCoordinator.swift in Sources */,
 				D01C6D7E2EE46CE2009C9AF8 /* MockMyPage.swift in Sources */,
 				EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */,
+				EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */,
 				EFCBCE9F2EC9B1DA00BA7740 /* MusicDetailViewController.swift in Sources */,
+				EFCBCF5A2ED4AA7200BA7740 /* MusicAddViewModel.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFCBCE9D2EC9ABB900BA7740 /* MockHomeFeed.swift in Sources */,
 				EFCBCF3B2ECC77A600BA7740 /* MusicDetailViewModel.swift in Sources */,
+				EFAA45BF2EDD9AE400BEC1AC /* HomeAPI.swift in Sources */,
+				EFCBCF562ED49BD400BA7740 /* SongSearchCell.swift in Sources */,
 				D0C54FFA2EDB8E800003E4B0 /* ArchiveCell.swift in Sources */,
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
@@ -1312,12 +1570,15 @@
 				D05B6C362ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift in Sources */,
 				D0C550162EE01A760003E4B0 /* MyPageTrack.swift in Sources */,
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
+				EFAA45B12EDD965A00BEC1AC /* Encodable+.swift in Sources */,
+				EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */,
 				D0C5500B2EDFE5C80003E4B0 /* MyPageProfileDTO.swift in Sources */,
 				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,
 				D0C54FF82EDB80E30003E4B0 /* RegisteredMusicCell.swift in Sources */,
 				D0C550122EE019D50003E4B0 /* UserProfile.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
-				EF7537D72EC838DE00F28DE3 /* TabBarController.swift in Sources */,
+				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
+				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */,
 				D017CD332EDB4F96001CD763 /* MyPageNavigationBarView.swift in Sources */,
@@ -1347,6 +1608,7 @@
 				D0C550152EE01A760003E4B0 /* MyPageTrack.swift in Sources */,
 				EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */,
 				EF2560312EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
+				EFCBCF4D2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
 				EFCBCF392ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
@@ -1389,6 +1651,7 @@
 /* Begin XCBuildConfiguration section */
 		EFA5C3642EB3061C001F1627 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1465,6 +1728,7 @@
 		};
 		EFA5C3662EB3061C001F1627 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1586,6 +1850,7 @@
 		};
 		EFA5C3692EB3061C001F1627 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1630,6 +1895,7 @@
 		};
 		EFA5C36C2EB3061C001F1627 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

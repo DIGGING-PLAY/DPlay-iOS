@@ -17,7 +17,7 @@ final class HomeViewController: UIViewController {
     
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()
@@ -29,7 +29,9 @@ final class HomeViewController: UIViewController {
     private let questionLabel = UILabel()
     private let questionTitleLabel = UILabel()
     
+    private var popupView: RecommendationPopupView?
     private let musicStateButton = UIButton()
+    private let musicScrapButton = UIButton()
     private let editorCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
@@ -55,6 +57,7 @@ final class HomeViewController: UIViewController {
         setupHierarchy()
         setupLayout()
         setupDelegate()
+        setupTarget()
         bind()
     }
 }
@@ -69,7 +72,7 @@ private extension HomeViewController {
         todayDateLabel.do {
             $0.text = "10월 12일의 발견"
             $0.setTextStyle(.titleBold18)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
         
         refreshButton.do {
@@ -100,7 +103,7 @@ private extension HomeViewController {
         
         questionTitleLabel.do {
             $0.text = "여행 갈 때 플레이리스트에 꼭 넣는 노래는?"
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.setTextStyle(.bodySemi14)
         }
         
@@ -109,52 +112,29 @@ private extension HomeViewController {
             config.image = IconLiterals.ic_editor
             config.baseForegroundColor = .dplay_pink
             config.imagePadding = 4
-            config.cornerStyle = .capsule
             
             var titleAttr = AttributedString("EDITOR")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = .dplay_pink
             config.attributedTitle = titleAttr
-            
             $0.configuration = config
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
+            $0.backgroundColor = .white
+            $0.roundCorners(cornerRadius: 15)
+        }
+        
+        musicScrapButton.do {
+            $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
+            $0.backgroundColor = .gray600
+            $0.roundCorners(cornerRadius: 12)
         }
         
         editorCollectionView.do {
-            let layout = UICollectionViewCompositionalLayout { section, env in
-                let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(279),
-                    heightDimension: .absolute(300)
-                )
-                
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(279),
-                    heightDimension: .absolute(300)
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: groupSize,
-                    subitems: [item]
-                )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .groupPaging
-                section.interGroupSpacing = 13
-                section.contentInsets = NSDirectionalEdgeInsets(
-                    top: 0,
-                    leading: 48,
-                    bottom: 0,
-                    trailing: 48
-                )
-                
-                return section
-            }
-            
-            $0.setCollectionViewLayout(layout, animated: false)
+            $0.backgroundColor = .clear
+            $0.setCollectionViewLayout(makeEditorLayout(), animated: false)
             $0.register(MusicAlbumCell.self, forCellWithReuseIdentifier: MusicAlbumCell.identifier)
+            $0.showsHorizontalScrollIndicator = false
         }
     }
     
@@ -165,7 +145,8 @@ private extension HomeViewController {
             refreshButton,
             questionContainerView,
             musicStateButton,
-            editorCollectionView
+            editorCollectionView,
+            musicScrapButton
         )
         
         questionContainerView.addSubviews(
@@ -218,9 +199,15 @@ private extension HomeViewController {
         
         musicStateButton.snp.makeConstraints {
             $0.top.equalTo(questionContainerView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().inset(136)
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
             $0.width.equalTo(100)
+        }
+        
+        musicScrapButton.snp.makeConstraints {
+            $0.trailing.equalTo(editorCollectionView.snp.trailing).inset(view.bounds.width * 0.15)
+            $0.top.equalTo(editorCollectionView.snp.top)
+            $0.size.equalTo(44)
         }
         
         editorCollectionView.snp.makeConstraints {
@@ -231,8 +218,87 @@ private extension HomeViewController {
     }
 }
 
+private extension HomeViewController {
+
+    // MARK: - Layout Constants
+    
+    enum Layout {
+        static let cardHeight: CGFloat = 300
+        static let cardFraction: CGFloat = 0.7 // 화면 대비 카드 전체 너비 비율
+        static let horizontalInsetFraction: CGFloat = (1 - cardFraction) / 2 // 양쪽 여백 비율
+        static let groupSpacingFraction: CGFloat = 0.08 // 카드 간 간격 비율
+    }
+
+    // MARK: - Make Layout
+    func makeEditorLayout() -> UICollectionViewLayout {
+
+        return UICollectionViewCompositionalLayout { section, env in
+            // 현재 화면 width
+            let containerWidth = env.container.contentSize.width
+
+            // 아이템 크기 (가로는 비율, 세로는 그룹에 의해 결정)
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            // 그룹 크기
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(Layout.cardFraction),
+                heightDimension: .absolute(Layout.cardHeight)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+
+            // Section 세팅
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .groupPaging
+
+            section.interGroupSpacing = containerWidth * Layout.groupSpacingFraction
+
+            // 좌우 inset도 비율 기반
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: containerWidth * Layout.horizontalInsetFraction,
+                bottom: 0,
+                trailing: containerWidth * Layout.horizontalInsetFraction
+            )
+
+            /// 스크롤 이벤트 잡는 부분 - 마지막 cell에서 isLocked가 참일때 스크롤시 팝업 표시
+            section.visibleItemsInvalidationHandler = { items, offset, env in
+                
+                // 현재 페이지 계산
+                let pageWidth = env.container.contentSize.width * Layout.cardFraction
+                let currentPage = Int((offset.x + pageWidth / 2) / pageWidth)
+
+                // 마지막 페이지(= locked 셀) 접근 시 팝업 표시
+                if currentPage == self.viewModel.posts.count,
+                   self.viewModel.isLocked {
+                    self.showLockedPopup()
+                }
+            }
+
+            return section
+        }
+    }
+}
+
+
 @objc private extension HomeViewController {
+    
     //MARK: - @objc Method
+    
+    func handleScrapTapped() {
+        ToastManager.shared.show(
+            message: "보관함에 추가했어요",
+            actionText: "보러가기"
+        ) { [weak self] in
+            //self?.navigateToStorage()
+        }
+    }
 }
 
 extension HomeViewController {
@@ -240,9 +306,11 @@ extension HomeViewController {
     // MARK: - Method
     
     private func bind() {
-        viewModel.$posts.sink { [weak self] _ in
-            self?.editorCollectionView.reloadData()
-        }.store(in: &cancellables)
+        viewModel.$posts
+            .sink { [weak self] _ in
+                self?.editorCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
     }
     
     private func loadData() {
@@ -259,8 +327,13 @@ private extension HomeViewController {
         editorCollectionView.dataSource = self
     }
     
-    func setupTarget() {
-        //addTarget
+    private func setupTarget() {
+        musicScrapButton.addAction(
+            UIAction { [weak self] _ in
+                self?.handleScrapTapped()
+            },
+            for: .touchUpInside
+        )
     }
 }
 
@@ -285,5 +358,49 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = viewModel.posts[indexPath.item]
         viewModel.didSelectPost(post)
+    }
+    
+}
+
+// MARK: - Popup Methods
+
+extension HomeViewController {
+    
+    private func showLockedPopup() {
+        guard popupView == nil else { return }
+        guard let window = UIApplication.shared.keyWindow else { return }
+
+        let popup = RecommendationPopupView()
+        popup.configure(
+            action: { [weak self] in
+                self?.hidePopup()
+            },
+            close: { [weak self] in
+                self?.hidePopup()
+            }
+        )
+
+        self.popupView = popup
+        window.addSubview(popup)
+
+        popup.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
+        popup.alpha = 0
+        UIView.animate(withDuration: 0.25) {
+            popup.alpha = 1
+        }
+    }
+    
+    private func hidePopup() {
+        guard let popup = popupView else { return }
+
+        UIView.animate(withDuration: 0.25, animations: {
+            popup.alpha = 0
+        }) { _ in
+            popup.removeFromSuperview()
+            self.popupView = nil
+        }
     }
 }
