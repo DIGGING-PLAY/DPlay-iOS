@@ -10,11 +10,16 @@ import UIKit
 import SnapKit
 import Then
 
+enum ProfileImageType {
+    case defaultImage
+    case selectedImage(UIImage)
+}
+
 final class ProfileImageSelectButton: UIButton {
         
     //MARK: - UI Properties
 
-    private let profileImageView = UIImageView()
+    private let profileImageView = UIImageView(image: ImageLiterals.img_profile)
     private let plusImageView = UIImageView(image: IconLiterals.ic_circle_plus)
     
     //MARK: - Init
@@ -38,6 +43,7 @@ private extension ProfileImageSelectButton {
     
     func setupStyle() {
         profileImageView.do {
+            $0.contentMode = .scaleAspectFill
             $0.roundCorners(cornerRadius: 58)
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
@@ -56,6 +62,20 @@ private extension ProfileImageSelectButton {
         
         plusImageView.snp.makeConstraints {
             $0.trailing.bottom.equalToSuperview()
+        }
+    }
+}
+
+extension ProfileImageSelectButton {
+    
+    //MARK: - setup
+    
+    func setProfileImage(type: ProfileImageType) {
+        switch type {
+        case .defaultImage:
+            profileImageView.image = ImageLiterals.img_profile
+        case .selectedImage(let image):
+            profileImageView.image = image
         }
     }
 }

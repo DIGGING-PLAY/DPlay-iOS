@@ -13,6 +13,7 @@ final class ProfileSettingViewModel: ObservableObject {
     //MARK: - Property Wrappers
     
     @Published var nickname: String = ""
+    @Published var selectedImageData: Data?
     @Published var nicknameValidationState: NicknameValidationState = .empty
     
     //MARK: - Properties
@@ -71,13 +72,14 @@ extension ProfileSettingViewModel {
     
     //MARK: - Method
     
-    func startSignUp(image: Data? = nil) {
+    func startSignUp() {
         print("입력된 닉네임: \(nickname)")
         Task {
             do {
-                try await useCase.singUp(nickname: nickname, image: image)
-                
+                try await useCase.singUp(nickname: nickname, image: selectedImageData)
                 nicknameValidationState = .valid
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                goToOverview()
             } catch let error as NicknameError {
                 if error == .duplicate {
                     nicknameValidationState = .invalid(.duplicate)
@@ -91,6 +93,10 @@ extension ProfileSettingViewModel {
 extension ProfileSettingViewModel {
     
     // MARK: - Coordinator
+
+    func goToOverview() {
+        coordinator?.goToOverview()
+    }
 
     func popToPrevious() {
         coordinator?.pop()
