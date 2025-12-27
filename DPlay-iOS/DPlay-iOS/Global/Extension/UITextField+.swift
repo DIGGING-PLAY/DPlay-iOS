@@ -19,7 +19,6 @@ extension UITextField {
             rightViewMode = .always
         }
     }
-    
 }
 
 extension UITextField {

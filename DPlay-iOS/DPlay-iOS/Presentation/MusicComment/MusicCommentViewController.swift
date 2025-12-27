@@ -47,6 +47,7 @@ final class MusicCommentViewController: UIViewController {
         setupLayout()
         setupDelegate()
         setupTarget()
+        hideKeyboardWhenTappedAround()
     }
     
     init(viewModel: MusicCommentViewModel) {
