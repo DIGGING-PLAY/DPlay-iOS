@@ -13,6 +13,7 @@
 		D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
+		D05B17572EF25410007E2D93 /* ToggleSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B17562EF25408007E2D93 /* ToggleSwitch.swift */; };
 		D05B6C2D2ED6A33C003F25E5 /* OverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */; };
 		D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */; };
 		D05B6C362ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */; };
@@ -149,6 +150,7 @@
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D05B17562EF25408007E2D93 /* ToggleSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSwitch.swift; sourceTree = "<group>"; };
 		D05B6C2C2ED6A335003F25E5 /* OverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewModel.swift; sourceTree = "<group>"; };
 		D05B6C2F2ED6C6B9003F25E5 /* NotificationPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewController.swift; sourceTree = "<group>"; };
 		D05B6C342ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionViewModel.swift; sourceTree = "<group>"; };
@@ -386,6 +388,22 @@
 				D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D05B174C2EF24C45007E2D93 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				D05B17532EF24CB7007E2D93 /* Component */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		D05B17532EF24CB7007E2D93 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D05B17562EF25408007E2D93 /* ToggleSwitch.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		D05B6C2B2ED69E64003F25E5 /* ViewModel */ = {
@@ -697,6 +715,7 @@
 				EFCBCEA52EC9B25300BA7740 /* MusicDetail */,
 				EFCBCF3D2ED4972B00BA7740 /* MusicAdd */,
 				EFCBCF602ED58D9C00BA7740 /* MusicComment */,
+				D05B174C2EF24C45007E2D93 /* Setting */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1348,6 +1367,7 @@
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */,
+				D05B17572EF25410007E2D93 /* ToggleSwitch.swift in Sources */,
 				D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */,
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
