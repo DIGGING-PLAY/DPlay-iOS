@@ -42,6 +42,7 @@ enum IconLiterals {
     static var ic_circle_close: UIImage { .load(name: "ic_circle_close") }
     static var ic_circle_plus: UIImage { .load(name: "ic_circle_plus") }
     static var ic_alert_24: UIImage { .load(name: "ic_alert_24")}
+    static var ic_warning_40: UIImage { .load(name: "ic_warning_40") }
 }
 
 enum ImageLiterals {
