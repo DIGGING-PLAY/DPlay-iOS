@@ -55,7 +55,7 @@ private extension SongSearchCell {
         
         titleLabel.do {
             $0.setTextStyle(.bodySemi16)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
         
         artistLabel.do {

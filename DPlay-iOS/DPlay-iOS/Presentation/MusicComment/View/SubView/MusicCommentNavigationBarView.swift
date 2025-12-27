@@ -43,13 +43,13 @@ private extension MusicCommentNavigationBarView {
         backButton.do {
             $0.setImage(ImageLiterals.img_back, for: .normal)
             $0.contentMode = .scaleAspectFit
-            $0.tintColor = .black
+            $0.tintColor = .dplay_black
         }
 
         navigationLabel.do {
             $0.text = "노래 등록하기"
             $0.setTextStyle(.titleBold18)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
     }
     

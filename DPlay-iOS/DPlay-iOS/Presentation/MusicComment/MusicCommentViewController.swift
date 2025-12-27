@@ -21,6 +21,8 @@ final class MusicCommentViewController: UIViewController {
     
     // MARK: - UI Properties
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     private let navigationBarView = MusicCommentNavigationBarView()
     
     private let titleLabel = UILabel()
@@ -69,7 +71,7 @@ private extension MusicCommentViewController {
             $0.text = "노래에 대한\n이야기를 작성해보세요!"
             $0.setTextStyle(.titleBold24)
             $0.numberOfLines = 2
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
         
         coverImageView.do {
@@ -83,7 +85,7 @@ private extension MusicCommentViewController {
         songTitleLabel.do {
             $0.text = "내일에서 온 티켓"
             $0.setTextStyle(.titleBold18)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.textAlignment = .center
         }
         
@@ -102,7 +104,7 @@ private extension MusicCommentViewController {
         
         textView.do {
             $0.backgroundColor = .clear
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
         
         placeholderLabel.do {
@@ -158,16 +160,21 @@ private extension MusicCommentViewController {
     func setupHierarchy() {
         view.addSubviews(
             navigationBarView,
+            scrollView,
+            registerButton
+        )
+        
+        scrollView.addSubview(contentView)
+        textViewContainer.addSubviews(textView, placeholderLabel, countLabel)
+        
+        contentView.addSubviews(
             titleLabel,
             coverImageView,
             songTitleLabel,
             artistLabel,
             textViewContainer,
-            guideButton,
-            registerButton
+            guideButton
         )
-        
-        textViewContainer.addSubviews(textView, placeholderLabel, countLabel)
     }
     
     // MARK: - Layout
@@ -179,15 +186,32 @@ private extension MusicCommentViewController {
             $0.height.equalTo(44)
         }
         
+        registerButton.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.height.equalTo(61)
+        }
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(registerButton.snp.top)
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).offset(20)
+            $0.top.equalToSuperview().inset(20)
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
         
         coverImageView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(132)
+            $0.size.equalTo(132)
         }
         
         songTitleLabel.snp.makeConstraints {
@@ -209,17 +233,17 @@ private extension MusicCommentViewController {
         textView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(16)
             $0.horizontalEdges.equalToSuperview().inset(12)
-            $0.height.equalTo(130)
+            $0.bottom.equalToSuperview().inset(40)
         }
-        
+
         placeholderLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(16)
         }
-        
+
         countLabel.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(12)
         }
         
         guideButton.snp.makeConstraints {
@@ -227,12 +251,7 @@ private extension MusicCommentViewController {
             $0.leading.equalToSuperview().inset(16)
             $0.height.equalTo(36)
             $0.width.equalTo(127)
-        }
-        
-        registerButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-            $0.height.equalTo(61)
+            $0.bottom.equalToSuperview().inset(150) // contentView의 마지막 더 알아보기 가려짐 방지
         }
     }
 }

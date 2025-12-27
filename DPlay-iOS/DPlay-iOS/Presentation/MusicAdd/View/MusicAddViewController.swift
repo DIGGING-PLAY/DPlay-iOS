@@ -63,7 +63,7 @@ private extension MusicAddViewController {
         titleLabel.do {
             $0.text = "추천하고 싶은\n노래를 검색해보세요!"
             $0.setTextStyle(.titleBold24)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.numberOfLines = 2
         }
         

@@ -72,7 +72,7 @@ private extension HomeViewController {
         todayDateLabel.do {
             $0.text = "10월 12일의 발견"
             $0.setTextStyle(.titleBold18)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
         
         refreshButton.do {
@@ -103,7 +103,7 @@ private extension HomeViewController {
         
         questionTitleLabel.do {
             $0.text = "여행 갈 때 플레이리스트에 꼭 넣는 노래는?"
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.setTextStyle(.bodySemi14)
         }
         
@@ -368,7 +368,7 @@ extension HomeViewController {
     
     private func showLockedPopup() {
         guard popupView == nil else { return }
-        guard let window = getKeyWindow() else { return }
+        guard let window = UIApplication.shared.keyWindow else { return }
 
         let popup = RecommendationPopupView()
         popup.configure(
@@ -391,15 +391,6 @@ extension HomeViewController {
         UIView.animate(withDuration: 0.25) {
             popup.alpha = 1
         }
-    }
-    
-    /// UIWindow는 화면 전체를 담당하는 루트 컨테이너 여기 위에 추가하면 전체 화면 최상단에 추가 가능
-    /// 팝업을 탭바 영역까지 적용하기 위함
-    private func getKeyWindow() -> UIWindow? {
-        return UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
     }
     
     private func hidePopup() {

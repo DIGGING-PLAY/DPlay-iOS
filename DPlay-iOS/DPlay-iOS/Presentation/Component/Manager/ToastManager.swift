@@ -28,7 +28,8 @@ final class ToastManager {
         actionText: String? = nil,
         action: (() -> Void)? = nil
     ) {
-        guard let window = getKeyWindow() else { return }
+        
+        guard let window = UIApplication.shared.keyWindow else { return }
 
         // 기존 hide 예약 취소
         hideWorkItem?.cancel()
@@ -107,13 +108,5 @@ final class ToastManager {
             animations()
             completion(true)
         }
-    }
-
-    // 최신 Scene 기반 keyWindow 획득
-    private func getKeyWindow() -> UIWindow? {
-        UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
     }
 }

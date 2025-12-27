@@ -121,7 +121,7 @@ private extension MusicDetailViewController {
         musicTitle.do {
             $0.setTextStyle(.titleBold18)
             $0.text = "내일에서 온 티켓"
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.textAlignment = .center
         }
         
@@ -343,8 +343,8 @@ private extension MusicDetailViewController {
     
     func presentReportSheet() {
 
-        guard let window = keyWindow() else { return }
-
+        guard let window = UIApplication.shared.keyWindow else { return }
+        
         let sheet = ReportSheetView()
         
         sheet.closeHandler = { [weak sheet] in
@@ -359,13 +359,6 @@ private extension MusicDetailViewController {
         window.addSubview(sheet)
         sheet.snp.makeConstraints { $0.edges.equalToSuperview() }
         sheet.present()
-    }
-
-    func keyWindow() -> UIWindow? {
-        return UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
     }
 }
 

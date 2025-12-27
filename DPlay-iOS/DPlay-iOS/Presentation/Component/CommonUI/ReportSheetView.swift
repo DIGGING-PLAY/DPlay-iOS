@@ -73,12 +73,12 @@ private extension ReportSheetView {
         titleLabel.do {
             $0.text = "신고 사유를 선택해주세요"
             $0.setTextStyle(.titleBold18)
-            $0.textColor = .black
+            $0.textColor = .dplay_black
         }
 
         closeButton.do {
             $0.setImage(IconLiterals.ic_close_24, for: .normal)
-            $0.tintColor = .black
+            $0.tintColor = .dplay_black
             $0.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
         }
 
@@ -219,7 +219,7 @@ private extension ReportSheetView {
     func updateConfirmButton() {
         let enabled = (selectedReason != nil)
         confirmButton.isEnabled = enabled
-        confirmButton.backgroundColor = enabled ? .black : .gray200
+        confirmButton.backgroundColor = enabled ? .dplay_black : .gray200
         confirmButton.setTitleColor(enabled ? .white : .gray400, for: .normal)
     }
 

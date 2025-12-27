@@ -67,7 +67,7 @@ private extension RecommendationPopupView {
         
         titleLabel.do {
             $0.text = "더 많은 추천을 만나고 싶나요?"
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.setTextStyle(.bodyBold16)
             $0.textAlignment = .center
             $0.numberOfLines = 0
