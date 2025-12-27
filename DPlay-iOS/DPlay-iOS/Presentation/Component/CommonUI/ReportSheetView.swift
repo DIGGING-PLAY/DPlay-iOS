@@ -66,7 +66,7 @@ private extension ReportSheetView {
 
         containerView.do {
             $0.backgroundColor = .white
-            $0.roundCorners(cornerRadius: 12)
+            $0.roundCorners(cornerRadius: 16)
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
         
@@ -116,7 +116,7 @@ private extension ReportSheetView {
         containerView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(343)
+            $0.height.equalTo(355)
         }
 
         titleLabel.snp.makeConstraints {
@@ -125,6 +125,7 @@ private extension ReportSheetView {
         }
 
         closeButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(28.5)
             $0.centerY.equalTo(titleLabel)
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(32)
@@ -139,7 +140,7 @@ private extension ReportSheetView {
             $0.top.equalTo(stackView.snp.bottom).offset(12)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalTo(safeAreaLayoutGuide).inset(16)
-            $0.height.equalTo(56)
+            $0.height.equalTo(53)
         }
     }
 }
@@ -210,7 +211,6 @@ private extension ReportSheetView {
             config?.image = isSelected ? IconLiterals.ic_check_circle_20 : nil
             config?.imagePadding = 10
             button.configuration = config
-            
             button.backgroundColor = isSelected ? .gray100 : .white
         }
     }

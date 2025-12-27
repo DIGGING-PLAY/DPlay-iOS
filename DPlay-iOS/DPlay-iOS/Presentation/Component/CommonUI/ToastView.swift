@@ -39,10 +39,9 @@ final class ToastView: UIView {
 private extension ToastView {
     
     func setupStyle() {
-        self.do {
-            $0.backgroundColor = .gray500
-            $0.roundCorners(cornerRadius: 8)
-        }
+        
+        backgroundColor = .gray500
+        roundCorners(cornerRadius: 8)
         
         iconView.do {
             $0.image = IconLiterals.ic_check_circle_selected_24

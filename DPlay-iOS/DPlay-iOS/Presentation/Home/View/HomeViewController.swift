@@ -297,15 +297,13 @@ private extension HomeViewController {
     
     //MARK: - @objc Method
     
-    func didTapScrap() {
-        musicScrapButton.addAction(UIAction { [weak self] _ in
-            ToastManager.shared.show(
-                message: "보관함에 추가했어요",
-                actionText: "보러가기"
-            ) {
-                //self?.navigateToStorage()
-            }
-        }, for: .touchDown)
+    func handleScrapTapped() {
+        ToastManager.shared.show(
+            message: "보관함에 추가했어요",
+            actionText: "보러가기"
+        ) { [weak self] in
+            //self?.navigateToStorage()
+        }
     }
 }
 
@@ -335,8 +333,13 @@ private extension HomeViewController {
         editorCollectionView.dataSource = self
     }
     
-    func setupTarget() {
-        musicScrapButton.addTarget(self, action: #selector(didTapScrap), for: .touchUpInside)
+    private func setupTarget() {
+        musicScrapButton.addAction(
+            UIAction { [weak self] _ in
+                self?.handleScrapTapped()
+            },
+            for: .touchUpInside
+        )
     }
 }
 

@@ -12,7 +12,7 @@ final class HomeCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
 
-    private let service = HomeNetworkService()  // or DefaultHomeService()
+    private let service = MockHomeService() 
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
 

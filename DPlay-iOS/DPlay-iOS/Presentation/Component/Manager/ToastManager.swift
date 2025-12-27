@@ -15,10 +15,14 @@ final class ToastManager {
     static let shared = ToastManager()
     private init() {}
 
+    // MARK: - Properties
+
     private var toastView: ToastView?
+    private var hideWorkItem: DispatchWorkItem?
+    private var isAnimating = false
 
     // MARK: - Public API
-    
+
     func show(
         message: String,
         actionText: String? = nil,
@@ -26,13 +30,27 @@ final class ToastManager {
     ) {
         guard let window = getKeyWindow() else { return }
 
-        // 기존 토스트 제거
-        toastView?.removeFromSuperview()
+        // 기존 hide 예약 취소
+        hideWorkItem?.cancel()
+        hideWorkItem = nil
+
+        // 기존 토스트가 있다면 애니메이션으로 제거
+        if toastView != nil {
+            hideToast(animated: false)
+        }
 
         let toast = ToastView()
-        toast.configure(message: message, actionText: actionText, action: action)
+        toast.configure(
+            message: message,
+            actionText: actionText,
+            action: { [weak self] in
+                action?()
+                self?.hideToast()
+            }
+        )
+
         window.addSubview(toast)
-        self.toastView = toast
+        toastView = toast
 
         toast.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
@@ -40,40 +58,62 @@ final class ToastManager {
             $0.height.equalTo(56)
         }
 
-        // 초기 위치 — 아래 숨기기
+        // 초기 상태
         toast.transform = CGAffineTransform(translationX: 0, y: 80)
         toast.alpha = 0
 
         // 등장 애니메이션
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.35) {
             toast.transform = .identity
             toast.alpha = 1
         }
 
-        // 4초 뒤 자동 숨김
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in
+        // 자동 숨김 예약
+        let workItem = DispatchWorkItem { [weak self] in
             self?.hideToast()
         }
+        hideWorkItem = workItem
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: workItem)
     }
 
     // MARK: - Private Methods
-    
-    private func hideToast() {
-        guard let toast = toastView else { return }
 
-        UIView.animate(withDuration: 0.5, animations: {
+    private func hideToast(animated: Bool = true) {
+        guard let toast = toastView, !isAnimating else { return }
+
+        isAnimating = true
+        hideWorkItem?.cancel()
+        hideWorkItem = nil
+
+        let animations = {
             toast.transform = CGAffineTransform(translationX: 0, y: 80)
             toast.alpha = 0
-        }, completion: { _ in
+        }
+
+        let completion: (Bool) -> Void = { [weak self] _ in
             toast.removeFromSuperview()
-        })
+            self?.toastView = nil
+            self?.isAnimating = false
+        }
+
+        if animated {
+            UIView.animate(
+                withDuration: 0.35,
+                animations: animations,
+                completion: completion
+            )
+        } else {
+            animations()
+            completion(true)
+        }
     }
 
-    // 최신 Scene 기반 안전한 keyWindow 찾기
+    // 최신 Scene 기반 keyWindow 획득
     private func getKeyWindow() -> UIWindow? {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-            return nil
-        }
-        return windowScene.windows.first { $0.isKeyWindow }
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
     }
 }
