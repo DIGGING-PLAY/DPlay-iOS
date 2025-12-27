@@ -28,13 +28,26 @@ enum SettingsItem: CaseIterable {
             return "개인정보 처리방침"
         }
     }
+    
+    var redirectURL: URL? {
+        switch self {
+        case .notice:
+            return URL(string: "https://www.notion.so/2d13aeb558c980919796c2b4d7109369?source=copy_link")
+        case .inquiry:
+            return URL(string: "https://forms.gle/reQb2nmhjSqXVvnq7")
+        case .termsOfService:
+            return URL(string: "https://www.notion.so/2d13aeb558c9801fb8c2db2ae6ac2c3e?source=copy_link")
+        case .privacyPolicy:
+            return URL(string: "https://www.notion.so/2d13aeb558c98003b480f83b06245430?source=copy_link")
+        }
+    }
 }
 
 final class SettingItemButton: UIButton {
     
     //MARK: - Properties
     
-    private let itemType: SettingsItem
+    let itemType: SettingsItem
         
     //MARK: - UI Properties
 
