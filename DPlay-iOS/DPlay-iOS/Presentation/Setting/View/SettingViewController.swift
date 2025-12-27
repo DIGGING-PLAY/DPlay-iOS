@@ -203,6 +203,47 @@ private extension SettingViewController {
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)
     }
+    
+    func logoutButtonTapped() {
+        AlertWindowManager.shared.present(
+            title: "로그아웃하시겠어요?",
+            actions: [
+                AlertAction(
+                    buttonTitle: "취소",
+                    style: .secondaryLeft,
+                    onTap: {
+                        print("취소 선택")
+                    }),
+                AlertAction(
+                    buttonTitle: "로그아웃",
+                    style: .primaryRight,
+                    onTap: {
+                        print("로그아웃 선택")
+                    })
+            ],
+        )
+    }
+    
+    func deleteAccountButtonTapped() {
+        AlertWindowManager.shared.present(
+            title: "정말 탈퇴하시겠어요?",
+            message: "작성하신 글, 좋아요한 글, 저장한 글 등 모든 기록이 삭제되며 복구가 불가능해요.",
+            actions: [
+                AlertAction(
+                    buttonTitle: "탈퇴하기",
+                    style: .secondaryLeft,
+                    onTap: {
+                        print("탈퇴하기 선택")
+                    }),
+                AlertAction(
+                    buttonTitle: "머무르기",
+                    style: .primaryRight,
+                    onTap: {
+                        print("머무르기 선택")
+                    })
+            ],
+        )
+    }
 }
 
 private extension SettingViewController {
@@ -215,6 +256,8 @@ private extension SettingViewController {
         inquiryButton.addTarget(self, action: #selector(settingItemButtonTapped(_:)), for: .touchUpInside)
         termsOfServiceButton.addTarget(self, action: #selector(settingItemButtonTapped(_:)), for: .touchUpInside)
         privacyPolicyButton.addTarget(self, action: #selector(settingItemButtonTapped(_:)), for: .touchUpInside)
+        logoutButton.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
+        deleteAccountButton.addTarget(self, action: #selector(deleteAccountButtonTapped), for: .touchUpInside)
     }
     
     func bindNavigationBar() {

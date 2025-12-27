@@ -25,6 +25,9 @@
 		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
 		D06645BA2F00629D008A1B44 /* SettingItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645B92F006292008A1B44 /* SettingItemButton.swift */; };
+		D06645BE2F0081B4008A1B44 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645BD2F0081AE008A1B44 /* AlertAction.swift */; };
+		D06645C02F0081F6008A1B44 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645BF2F0081E8008A1B44 /* AlertViewController.swift */; };
+		D06645C22F008218008A1B44 /* AlertWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C12F00820E008A1B44 /* AlertWindowManager.swift */; };
 		D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */; };
 		D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4ABC2ED0E05400DB0107 /* AuthService.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
@@ -166,6 +169,9 @@
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
 		D06645B92F006292008A1B44 /* SettingItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemButton.swift; sourceTree = "<group>"; };
+		D06645BD2F0081AE008A1B44 /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		D06645BF2F0081E8008A1B44 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		D06645C12F00820E008A1B44 /* AlertWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowManager.swift; sourceTree = "<group>"; };
 		D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 		D06B4ABC2ED0E05400DB0107 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
@@ -508,6 +514,16 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		D06645BB2F008145008A1B44 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				D06645BD2F0081AE008A1B44 /* AlertAction.swift */,
+				D06645BF2F0081E8008A1B44 /* AlertViewController.swift */,
+				D06645C12F00820E008A1B44 /* AlertWindowManager.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		D06645BC2F00815F008A1B44 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -836,6 +852,7 @@
 			isa = PBXGroup;
 			children = (
 				D06645BC2F00815F008A1B44 /* Modal */,
+				D06645BB2F008145008A1B44 /* Alert */,
 				EF5A94792ED80F16001B56B8 /* CommonUI */,
 				EF5A947F2ED80F23001B56B8 /* Manager */,
 			);
@@ -1378,6 +1395,7 @@
 				EFCBCEF02EC9B57C00BA7740 /* UIFont+.swift in Sources */,
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
+				D06645C02F0081F6008A1B44 /* AlertViewController.swift in Sources */,
 				D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */,
 				EF4B8DBB2F003682009101C4 /* UIApplication+.swift in Sources */,
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
@@ -1392,10 +1410,12 @@
 				EFCBCF362ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
 				EFCBCF432ED4983400BA7740 /* MusicAddViewController.swift in Sources */,
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
+				D06645BE2F0081B4008A1B44 /* AlertAction.swift in Sources */,
 				EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */,
 				EFCBCF582ED49D7700BA7740 /* MusicAddCoordinator.swift in Sources */,
 				EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */,
 				EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */,
+				D06645C22F008218008A1B44 /* AlertWindowManager.swift in Sources */,
 				EFCBCE9F2EC9B1DA00BA7740 /* MusicDetailViewController.swift in Sources */,
 				EFCBCF5A2ED4AA7200BA7740 /* MusicAddViewModel.swift in Sources */,
 				D06645BA2F00629D008A1B44 /* SettingItemButton.swift in Sources */,
