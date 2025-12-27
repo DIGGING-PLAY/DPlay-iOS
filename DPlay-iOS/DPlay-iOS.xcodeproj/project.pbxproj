@@ -508,6 +508,14 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		D06645BC2F00815F008A1B44 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				D05B6C372ED6DE0E003F25E5 /* DPlayButtonModalViewController.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
 		D06B4AB82ED0DC0300DB0107 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -827,7 +835,7 @@
 		EFA5C3FB2EB31BA0001F1627 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				D05B6C372ED6DE0E003F25E5 /* DPlayButtonModalViewController.swift */,
+				D06645BC2F00815F008A1B44 /* Modal */,
 				EF5A94792ED80F16001B56B8 /* CommonUI */,
 				EF5A947F2ED80F23001B56B8 /* Manager */,
 			);
