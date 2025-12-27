@@ -96,6 +96,7 @@ private extension MusicCommentViewController {
         textViewContainer.do {
             $0.backgroundColor = .gray100
             $0.roundCorners(cornerRadius: 12)
+            $0.tintColor = .dplay_pink
         }
         
         textView.do {

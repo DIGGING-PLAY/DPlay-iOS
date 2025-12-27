@@ -130,12 +130,6 @@ private extension HomeViewController {
             $0.roundCorners(cornerRadius: 12)
         }
         
-        musicScrapButton.do {
-            $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
-            $0.backgroundColor = .gray600
-            $0.roundCorners(cornerRadius: 12)
-        }
-        
         editorCollectionView.do {
             $0.backgroundColor = .clear
             $0.setCollectionViewLayout(makeEditorLayout(), animated: false)
@@ -400,7 +394,7 @@ extension HomeViewController {
     }
     
     /// UIWindow는 화면 전체를 담당하는 루트 컨테이너 여기 위에 추가하면 전체 화면 최상단에 추가 가능
-    /// 탭바 영역까지 적용하기 위함
+    /// 팝업을 탭바 영역까지 적용하기 위함
     private func getKeyWindow() -> UIWindow? {
         return UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }

@@ -18,8 +18,9 @@ final class MusicAddViewController: UIViewController {
     private let viewModel: MusicAddViewModel
     
     private var cancellables = Set<AnyCancellable>()
-    private var results: [MusicAddResponseDTO] = []
+    private var results: [MusicAddResponseDTO] = [] // 추후 엔티티로 수정 예정
     private var selectedIndex: IndexPath?
+    private var committedQuery: String?
     
     // MARK: - UI Properties
     
@@ -28,18 +29,14 @@ final class MusicAddViewController: UIViewController {
     private let searchTextField = UITextField()
     private let rightButton = UIButton(type: .custom)
     private let searchContainerView = UIView()
+    private let searchButton = UIButton(type: .custom)
+    private let clearButton = UIButton(type: .custom)
     private let tableView = UITableView()
     private let nextButton = UIButton()
     
-    // MARK: - Life Cycle
+    private let emptyResultLabel = UILabel()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-    }
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +46,8 @@ final class MusicAddViewController: UIViewController {
         setupLayout()
         setupDelegate()
         setupTarget()
-        setupRightButton()
         bindNavigationBar()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,12 +86,33 @@ private extension MusicAddViewController {
             $0.placeholder = "노래 제목이나 아티스트명을 검색해주세요"
             $0.setTextStyle(.bodySemi16)
             $0.clearButtonMode = .never
+            $0.tintColor = .dplay_pink
+        }
+        
+        searchButton.do {
+            $0.setImage(IconLiterals.ic_search_20, for: .normal)
+            $0.tintColor = .gray400
+        }
+        
+        clearButton.do {
+            $0.setImage(IconLiterals.ic_close_20, for: .normal)
+            $0.tintColor = .gray400
+            //$0.isHidden = true
         }
         
         tableView.do {
             $0.register(SongSearchCell.self, forCellReuseIdentifier: SongSearchCell.identifier)
             $0.isHidden = true
             $0.separatorStyle = .none
+            $0.backgroundView = emptyResultLabel
+        }
+        
+        emptyResultLabel.do {
+            $0.text = "일치하는 검색 결과가 없어요"
+            $0.setTextStyle(.bodySemi14)
+            $0.textColor = .gray400
+            $0.textAlignment = .center
+            $0.isHidden = true
         }
         
         nextButton.do {
@@ -115,8 +133,12 @@ private extension MusicAddViewController {
             tableView,
             nextButton
         )
-        
-        searchContainerView.addSubview(searchTextField)
+
+        searchContainerView.addSubviews(
+            searchTextField,
+            searchButton,
+            clearButton
+        )
     }
     
     func setupLayout() {
@@ -143,6 +165,19 @@ private extension MusicAddViewController {
             $0.horizontalEdges.equalToSuperview().inset(12)
         }
         
+        searchButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(12)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(24)
+        }
+        
+        clearButton.snp.makeConstraints {
+            //$0.edges.equalTo(searchButton)
+            $0.trailing.equalToSuperview().inset(32)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(24)
+        }
+        
         tableView.snp.makeConstraints {
             $0.top.equalTo(searchContainerView.snp.bottom).offset(12)
             $0.horizontalEdges.equalToSuperview()
@@ -161,69 +196,37 @@ private extension MusicAddViewController {
     
     // MARK: - @objc Method
     
-    func textFieldDidChange(_ textField: UITextField) {
-        let text = textField.text ?? ""
-        setSearchIcon() // 입력 중에는 항상 돋보기 아이콘
-        if text.isEmpty {
-            tableView.isHidden = true
-            results.removeAll()
-            tableView.reloadData()
-            updateNextButton()
-        } else {
-            tableView.isHidden = false
-            mockSearch(text: text)
-        }
+    func textDidChange() {
+        //updateRightButtons()
+        committedQuery = nil
+        selectedIndex = nil
+        updateNextButton()
+    }
+
+    func didTapSearch() {
+        guard let query = searchTextField.text, !query.isEmpty else { return }
+        committedQuery = query
+        selectedIndex = nil
+
+        mockSearch(text: query)
+        updateEmptyView()
+        tableView.isHidden = false
+        updateNextButton()
+        view.endEditing(true)
+    }
+
+    func didTapClear() {
+        searchTextField.text = ""
+        committedQuery = nil
+        selectedIndex = nil
+        updateRightButtons()
+        updateNextButton()
     }
 
     func didTapNext() {
         guard let index = selectedIndex else { return }
-        
-        let selectedTrack = results[index.row]
-        let trackId = selectedTrack.trackId
+        let trackId = results[index.row].trackId
         viewModel.didTapNext(trackId: trackId)
-    }
-    
-    /// 버튼의 따른 액션 정의
-    func didTapRightButton() {
-        if rightButton.currentImage == IconLiterals.ic_close_20 {
-            searchTextField.text = ""
-            setSearchIcon()
-            searchTextField.sendActions(for: .editingChanged)
-            return
-        }
-        
-        // 돋보기 → 검색 기능 실행
-        let query = searchTextField.text ?? ""
-        mockSearch(text: query)
-    }
-    
-    private func keyboardWillHide() {
-        setClearIcon()
-    }
-}
-
-extension MusicAddViewController {
-    private func bindNavigationBar() {
-        navigationBarView.onTapBack = { [weak self] in
-            self?.viewModel.didTapBack()
-        }
-    }
-    
-    /// 기본은 돋보기 아이콘 키보드가 내려가면 close 아이콘
-    private func setupRightButton() {
-        rightButton.tintColor = .gray400
-        rightButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        rightButton.addTarget(self, action: #selector(didTapRightButton), for: .touchUpInside)
-        searchTextField.setRightButton(rightButton)
-        setSearchIcon()
-    }
-    
-    private func setSearchIcon() {
-        rightButton.setImage(IconLiterals.ic_search_20, for: .normal)
-    }
-
-    private func setClearIcon() {
-        rightButton.setImage(IconLiterals.ic_close_20, for: .normal)
     }
 }
 
@@ -238,15 +241,26 @@ private extension MusicAddViewController {
     }
     
     func setupTarget() {
-        searchTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        searchTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        searchButton.addTarget(self, action: #selector(didTapSearch), for: .touchUpInside)
+        clearButton.addTarget(self, action: #selector(didTapClear), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
     }
     
     func updateNextButton() {
-        let enabled = (selectedIndex != nil)
+        let enabled =
+            committedQuery != nil &&
+            selectedIndex != nil
+
         nextButton.isEnabled = enabled
-        nextButton.setTitleColor(.white, for: .normal)
-        nextButton.backgroundColor = enabled ? .dplay_pink : .gray400
+        nextButton.backgroundColor = enabled ? .dplay_pink : .gray200
+        nextButton.setTitleColor(enabled ? .white : .gray400, for: .normal)
+    }
+    
+    func updateRightButtons() {
+        let hasText = !(searchTextField.text ?? "").isEmpty
+        searchButton.isHidden = hasText
+        clearButton.isHidden = !hasText
     }
     
     // ⭐ MOCK 검색 (API 붙이면 여기 수정)
@@ -254,9 +268,28 @@ private extension MusicAddViewController {
         results = MusicAddMock.mockItems
         tableView.reloadData()
     }
+    
+    func updateEmptyView() {
+        let shouldShowEmpty =
+            committedQuery != nil &&
+            results.isEmpty
+
+        tableView.backgroundView?.isHidden = !shouldShowEmpty
+    }
+}
+
+// MARK: - Navigation
+
+private extension MusicAddViewController {
+    func bindNavigationBar() {
+        navigationBarView.onTapBack = { [weak self] in
+            self?.viewModel.didTapBack()
+        }
+    }
 }
 
 // MARK: - UITableView Delegate
+
 extension MusicAddViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -269,8 +302,7 @@ extension MusicAddViewController: UITableViewDelegate, UITableViewDataSource {
         else { return UITableViewCell() }
         
         let item = results[indexPath.row]
-        let isSelected = selectedIndex == indexPath
-        cell.configure(item: item, isSelected: isSelected)
+        cell.configure(item: item, isSelected: selectedIndex == indexPath)
         return cell
     }
     
@@ -278,11 +310,10 @@ extension MusicAddViewController: UITableViewDelegate, UITableViewDataSource {
         selectedIndex = indexPath
         updateNextButton()
         tableView.reloadData()
-        searchTextField.resignFirstResponder()
-        setClearIcon()
     }
 }
 
 // MARK: - UITextField Delegate
+
 extension MusicAddViewController: UITextFieldDelegate {}
 

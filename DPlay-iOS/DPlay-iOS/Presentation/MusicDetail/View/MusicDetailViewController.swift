@@ -321,8 +321,8 @@ private extension MusicDetailViewController {
     }
 }
 
-extension MusicDetailViewController {
-    private func bind() {
+private extension MusicDetailViewController {
+    func bind() {
         
         viewModel.$detail
             .receive(on: DispatchQueue.main)
@@ -341,17 +341,7 @@ extension MusicDetailViewController {
             .store(in: &cancellables)
     }
     
-    private func bindNavigationBar() {
-        navigationBarView.onTapBack = { [weak self] in
-            self?.viewModel.didTapBack()
-        }
-        
-        navigationBarView.onTapMenu = { [weak self] in
-            self?.presentReportSheet()
-        }
-    }
-    
-    private func presentReportSheet() {
+    func presentReportSheet() {
 
         guard let window = keyWindow() else { return }
 
@@ -371,10 +361,24 @@ extension MusicDetailViewController {
         sheet.present()
     }
 
-    private func keyWindow() -> UIWindow? {
+    func keyWindow() -> UIWindow? {
         return UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }
             .first { $0.isKeyWindow }
+    }
+}
+
+// MARK: - Navigation
+
+private extension MusicDetailViewController {
+    func bindNavigationBar() {
+        navigationBarView.onTapBack = { [weak self] in
+            self?.viewModel.didTapBack()
+        }
+        
+        navigationBarView.onTapMenu = { [weak self] in
+            self?.presentReportSheet()
+        }
     }
 }

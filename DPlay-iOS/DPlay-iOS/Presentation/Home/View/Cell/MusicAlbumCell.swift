@@ -14,7 +14,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "MusicAlbumCell"
+    static let identifier = MusicAlbumCell.className
     
     // MARK: - UI Properties
     

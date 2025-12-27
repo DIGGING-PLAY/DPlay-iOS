@@ -15,7 +15,7 @@ final class SongSearchCell: UITableViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "SongSearchCell"
+    static let identifier = SongSearchCell.className
     
     // MARK: - UI Properties
     
@@ -118,5 +118,6 @@ extension SongSearchCell {
         }
         
         checkmarkImageView.isHidden = !isSelected
+        backgroundColor = isSelected ? .gray200 : .white
     }
 }
