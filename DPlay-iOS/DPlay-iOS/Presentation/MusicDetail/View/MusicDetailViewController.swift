@@ -54,7 +54,7 @@ final class MusicDetailViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) { fatalError() }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadData()
@@ -106,23 +106,22 @@ private extension MusicDetailViewController {
             config.image = IconLiterals.ic_editor
             config.baseForegroundColor = .dplay_pink
             config.imagePadding = 4
-            config.cornerStyle = .capsule
             
             var titleAttr = AttributedString("EDITOR")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = .dplay_pink
             config.attributedTitle = titleAttr
-            
-            $0.backgroundColor = .white
             $0.configuration = config
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
+            $0.backgroundColor = .white
+            $0.roundCorners(cornerRadius: 15)
         }
         
         musicTitle.do {
             $0.setTextStyle(.titleBold18)
             $0.text = "내일에서 온 티켓"
-            $0.textColor = .black
+            $0.textColor = .dplay_black
             $0.textAlignment = .center
         }
         
@@ -322,8 +321,8 @@ private extension MusicDetailViewController {
     }
 }
 
-extension MusicDetailViewController {
-    private func bind() {
+private extension MusicDetailViewController {
+    func bind() {
         
         viewModel.$detail
             .receive(on: DispatchQueue.main)
@@ -342,9 +341,37 @@ extension MusicDetailViewController {
             .store(in: &cancellables)
     }
     
-    private func bindNavigationBar() {
+    func presentReportSheet() {
+
+        guard let window = UIApplication.shared.keyWindow else { return }
+        
+        let sheet = ReportSheetView()
+        
+        sheet.closeHandler = { [weak sheet] in
+            sheet?.dismiss()
+        }
+
+        sheet.confirmHandler = { [weak sheet] reason in
+            print("신고 사유:", reason.rawValue)
+            sheet?.dismiss()
+        }
+
+        window.addSubview(sheet)
+        sheet.snp.makeConstraints { $0.edges.equalToSuperview() }
+        sheet.present()
+    }
+}
+
+// MARK: - Navigation
+
+private extension MusicDetailViewController {
+    func bindNavigationBar() {
         navigationBarView.onTapBack = { [weak self] in
             self?.viewModel.didTapBack()
+        }
+        
+        navigationBarView.onTapMenu = { [weak self] in
+            self?.presentReportSheet()
         }
     }
 }
