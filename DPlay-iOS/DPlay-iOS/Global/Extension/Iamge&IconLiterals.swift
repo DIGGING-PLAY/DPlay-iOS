@@ -56,6 +56,8 @@ enum ImageLiterals {
     static var img_wordmark_pink: UIImage { .load(name: "img_wordmark_pink") }
     static var img_wordmark_white: UIImage { .load(name: "img_wordmark_white") }
     static var img_key: UIImage { .load(name: "img_key") }
+    static var img_onboarding_1: UIImage { .load(name: "img_onboarding_1") }
+    static var img_onboarding_2: UIImage { .load(name: "img_onboarding_2") }
     static var img_onboarding_3: UIImage { .load(name: "img_onboarding_3") }
     static var img_profile: UIImage { .load(name: "img_profile")}
 }
