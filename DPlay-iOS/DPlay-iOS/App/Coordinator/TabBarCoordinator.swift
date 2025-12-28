@@ -19,15 +19,16 @@ final class TabBarCoordinator: Coordinator {
         homeCoordinator.start()
         
         // 2) My Flow
-        //        let myNav = UINavigationController()
-        //        let myCoordinator = MyCoordinator(navigationController: myNav)
-        //        myCoordinator.start()
+        let myPageNav = UINavigationController()
+        let myPageCoordinator = MyPageCoordinator(navigationController: myPageNav)
+        myPageCoordinator.start()
         
-        childCoordinators = [homeCoordinator]
+        childCoordinators = [homeCoordinator, myPageCoordinator]
         
         // 3) TabBarController에 전달
         rootViewController.setViewControllers([
             homeNav,
+            myPageNav
         ])
         
         rootViewController.onTapAdd = { [weak self] in
