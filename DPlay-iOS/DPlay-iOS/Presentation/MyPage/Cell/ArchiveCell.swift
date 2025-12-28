@@ -85,7 +85,6 @@ private extension ArchiveCell {
         }
     }
 
-    
     func setupHierarchy() {
         addSubviews(
             imageView,
