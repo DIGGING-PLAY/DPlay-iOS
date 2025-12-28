@@ -226,17 +226,26 @@ private extension ProfileEditViewController {
             primaryButtonTitle: "앨범에서 선택하기",
             secondaryButtonTitle: "기본 이미지로 변경하기",
             primaryAction: {
+                // "앨범에서 선택하기"에 해당하는 액션
+                
+                //PHPickerViewController 호출하여 이미지 선택 화면 노출
                 self.presentImagePicker()
             },
             secondaryAction: {
+                // "기본 이미지로 변경하기"에 해당하는 액션
+                
+                //현재 이미지가 기본 이미지가 아니라면 "수정하기" 버튼의 상태 변경
                 if self.initialProfileImage != nil {
                     self.updateEditButtonState(isEnabled: true)
                 }
+                
+                //프로필 이미지를 기본 이미지로 변경, 데이터 값 nil로 변경
                 self.imageSelectButton.setProfileImage(type: .defaultImage)
                 self.viewModel.profileImg = nil
             }
         )
         
+        //선언한 DPlayButtonModalViewController 노출
         if let sheet = modal.sheetPresentationController {
             sheet.detents = [
                 .custom { _ in 140 }
