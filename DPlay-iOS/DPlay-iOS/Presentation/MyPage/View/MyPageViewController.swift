@@ -28,7 +28,7 @@ final class MyPageViewController: UIViewController {
     private let labelStackView = UIStackView()
     private let profileEditButton = ProfileEditButton()
     private let segmentedControl = MyPageSegmentedControl()
-    private let musicsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: MyPageCollectionViewLayoutFactory.registeredMusicsLayout())
+    private let musicsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: MyPageCollectionViewLayout.registeredMusicsLayout())
 
     //MARK: - Life Cycle
     
@@ -213,7 +213,7 @@ private extension MyPageViewController {
             if self.selectedTabIndex == 1 {
                 self.selectedTabIndex = 0
                 self.musicsCollectionView.setCollectionViewLayout(
-                    MyPageCollectionViewLayoutFactory.registeredMusicsLayout(),
+                    MyPageCollectionViewLayout.registeredMusicsLayout(),
                     animated: false
                 ) { _ in
                     self.musicsCollectionView.reloadData()
@@ -227,7 +227,7 @@ private extension MyPageViewController {
             if self.selectedTabIndex == 0 {
                 self.selectedTabIndex = 1
                 self.musicsCollectionView.setCollectionViewLayout(
-                    MyPageCollectionViewLayoutFactory.archiveLayout(),
+                    MyPageCollectionViewLayout.archiveLayout(),
                     animated: false
                 ) { _ in
                     guard (self.viewModel.archiveMusics != nil) else {

@@ -1,5 +1,5 @@
 //
-//  MyPageCollectionViewLayoutFactory.swift
+//  MyPageCollectionViewLayout.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/27/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyPageCollectionViewLayoutFactory {
+final class MyPageCollectionViewLayout {
     static func registeredMusicsLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -23,7 +23,7 @@ final class MyPageCollectionViewLayoutFactory {
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 12
-        section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
+        section.contentInsets = .init(top: 16, leading: 16, bottom: 44, trailing: 16)
 
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -55,7 +55,7 @@ final class MyPageCollectionViewLayoutFactory {
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 12
-            section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
+            section.contentInsets = .init(top: 16, leading: 16, bottom: 44, trailing: 16)
             
             return section
         }
