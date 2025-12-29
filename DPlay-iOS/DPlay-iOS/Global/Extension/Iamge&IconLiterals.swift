@@ -42,6 +42,10 @@ enum IconLiterals {
     static var ic_circle_close: UIImage { .load(name: "ic_circle_close") }
     static var ic_circle_plus: UIImage { .load(name: "ic_circle_plus") }
     static var ic_alert_24: UIImage { .load(name: "ic_alert_24")}
+    static var ic_circle_edit: UIImage { .load(name: "ic_circle_edit") }
+    static var ic_more_g_20: UIImage { .load(name: "ic_more_g_20") }
+    static var ic_setting_24: UIImage { .load(name: "ic_setting_24") }
+    static var ic_play_28: UIImage { .load(name: "ic_play_28") }
     static var ic_warning_40: UIImage { .load(name: "ic_warning_40") }
 }
 
@@ -53,6 +57,8 @@ enum ImageLiterals {
     static var img_wordmark_pink: UIImage { .load(name: "img_wordmark_pink") }
     static var img_wordmark_white: UIImage { .load(name: "img_wordmark_white") }
     static var img_key: UIImage { .load(name: "img_key") }
+    static var img_onboarding_1: UIImage { .load(name: "img_onboarding_1") }
+    static var img_onboarding_2: UIImage { .load(name: "img_onboarding_2") }
     static var img_onboarding_3: UIImage { .load(name: "img_onboarding_3") }
     static var img_profile: UIImage { .load(name: "img_profile")}
 }

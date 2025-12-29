@@ -28,8 +28,8 @@ final class OverviewViewController: UIViewController {
         "마음에 드는 곡에 반응을 남기고,\n보관함에 추가할 수 있어요"
     ]
     private let onboardingImages: [UIImage] = [
-        ImageLiterals.img_onboarding_3,
-        ImageLiterals.img_onboarding_3,
+        ImageLiterals.img_onboarding_1,
+        ImageLiterals.img_onboarding_2,
         ImageLiterals.img_onboarding_3
     ]
     
