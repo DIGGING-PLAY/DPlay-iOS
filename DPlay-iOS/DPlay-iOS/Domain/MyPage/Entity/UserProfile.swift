@@ -9,7 +9,5 @@ import Foundation
 
 struct UserProfile {
     let user: User
-    let isHost: Bool
-    let pushOn: Bool
     let postTotalCount: Int
 }

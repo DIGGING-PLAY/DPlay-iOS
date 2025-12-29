@@ -33,8 +33,6 @@ extension MyPageProfileDataDTO {
     func toEntity() -> UserProfile {
         UserProfile(
             user: user.toEntity(),
-            isHost: isHost,
-            pushOn: pushOn,
             postTotalCount: postTotalCount
         )
     }

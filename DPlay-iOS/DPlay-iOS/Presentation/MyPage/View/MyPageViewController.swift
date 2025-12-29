@@ -147,7 +147,7 @@ private extension MyPageViewController {
     func profileEditButtonTapped() {
         let profileImage: UIImage?
         
-        if viewModel.userProfile?.user.profileImage == nil {
+        if viewModel.userProfileResult?.profile.user.profileImage == nil {
             profileImage = nil
         } else {
             profileImage = profileEditButton.getProfileUIImage()
@@ -166,14 +166,14 @@ private extension MyPageViewController {
     }
     
     func bindViewModel() {
-        viewModel.$userProfile
-            .sink { [weak self] profile in
+        viewModel.$userProfileResult
+            .sink { [weak self] result in
                 guard let self else { return }
                 
-                let nickname = profile?.user.nickname ?? ""
-                let postCount = profile?.postTotalCount ?? Int()
-                let profileImageUrl = profile?.user.profileImage ?? ""
-                let isHost = profile?.isHost ?? false
+                let nickname = result?.profile.user.nickname ?? ""
+                let postCount = result?.profile.postTotalCount ?? Int()
+                let profileImageUrl = result?.profile.user.profileImage ?? ""
+                let isHost = result?.isHost ?? false
                 
                 nicknameLabel.text = nickname
                 musicCountLabel.text = "총 \(postCount)개의 노래를 공유했어요"
@@ -268,7 +268,6 @@ private extension MyPageViewController {
         }
 
         present(modal, animated: true)
-
     }
 }
 

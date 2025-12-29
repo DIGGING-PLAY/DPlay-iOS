@@ -13,7 +13,7 @@ final class MyPageViewModel: ObservableObject {
     
     //MARK: - Property Wrappers
     
-    @Published var userProfile: UserProfile?
+    @Published var userProfileResult: MyPageUserProfileResult?
     @Published var registeredMusics: MyPageMusics?
     @Published var archiveMusics: MyPageMusics?
     
@@ -36,9 +36,9 @@ extension MyPageViewModel {
     
     func loadUserProfile() async {
         do {
-            let userProfile = try await useCase.getUserProfile()
+            let result = try await useCase.getUserProfile()
             
-            self.userProfile = userProfile
+            self.userProfileResult = result
         } catch {
             print("ERROR:", error)
         }
@@ -70,7 +70,7 @@ extension MyPageViewModel {
     // MARK: - Coordinator
 
     func goToProfileEdit(profileImage: UIImage? = nil) {
-        let nickname = userProfile?.user.nickname ?? ""
+        let nickname = userProfileResult?.profile.user.nickname ?? ""
         
         coordinator?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
     }

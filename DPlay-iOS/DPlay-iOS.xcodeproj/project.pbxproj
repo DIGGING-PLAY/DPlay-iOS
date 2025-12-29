@@ -34,6 +34,8 @@
 		D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A602ECB4D5E001379C4 /* Nickname.swift */; };
 		D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */; };
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
+		D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */; };
+		D06645C62F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */; };
 		D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */; };
 		D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4ABC2ED0E05400DB0107 /* AuthService.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
@@ -194,6 +196,7 @@
 		D05B9A602ECB4D5E001379C4 /* Nickname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nickname.swift; sourceTree = "<group>"; };
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
+		D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCaseModel.swift; sourceTree = "<group>"; };
 		D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 		D06B4ABC2ED0E05400DB0107 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
@@ -460,6 +463,7 @@
 		D01C6D832EE47AA2009C9AF8 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				D06645C32F02685A008A1B44 /* Model */,
 				D01C6D842EE47AAB009C9AF8 /* MyPageUseCase.swift */,
 			);
 			path = UseCase;
@@ -611,6 +615,14 @@
 				D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		D06645C32F02685A008A1B44 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D06B4AB82ED0DC0300DB0107 /* DTO */ = {
@@ -1488,6 +1500,7 @@
 				EFAA45CF2EDDB22200BEC1AC /* AuthInterceptor.swift in Sources */,
 				EFAA45D32EE015A600BEC1AC /* AppError.swift in Sources */,
 				EFAA45D02EDDB22200BEC1AC /* KeychainManager.swift in Sources */,
+				D06645C62F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
 				EFAA45D12EDDB22200BEC1AC /* TokenRefreshManager.swift in Sources */,
 				EFAA43312EDD945400BEC1AC /* NetworkResult.swift in Sources */,
 				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
@@ -1613,6 +1626,7 @@
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
 				EFCBCF2A2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EF2560372EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				EFCBCE8D2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
