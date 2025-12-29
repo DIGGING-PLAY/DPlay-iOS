@@ -40,10 +40,7 @@ struct MyPageTrackDTO: Decodable {
 extension MyPageTracksDataDTO {
     func toEntity() -> MyPageMusics {
         MyPageMusics(
-            visibleLimit: visibleLimit,
             totalCount: totalCount,
-            nextCursor: nextCursor,
-            isHost: isHost,
             items: items.map { $0.toEntity() }
         )
     }

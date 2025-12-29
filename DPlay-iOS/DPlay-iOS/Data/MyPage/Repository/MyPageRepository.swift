@@ -9,8 +9,8 @@ import Foundation
 
 protocol MyPageRepository {
     func fetchUserProfile() async throws -> MyPageUserProfileResult
-    func fetchRegisteredTracks() async throws -> MyPageMusics
-    func fetchArchiveTracks() async throws -> MyPageMusics
+    func fetchRegisteredTracks() async throws -> MyPageTrackResult
+    func fetchArchiveTracks() async throws -> MyPageTrackResult
     func updateUserProfile(nickname: String?, profileImg: Data?) async throws
 }
 
@@ -35,18 +35,32 @@ final class DefaultMyPageRepository: MyPageRepository {
         return result
     }
 
-    func fetchRegisteredTracks() async throws -> MyPageMusics {
+    func fetchRegisteredTracks() async throws -> MyPageTrackResult {
         let response = try await service.fetchRegisteredTracks()
-        let entity = response.data.toEntity()
+        
+        let musics = response.data.toEntity()
+        let result = MyPageTrackResult(
+            musics: musics,
+            visibleLimit: response.data.visibleLimit,
+            nextCursor: response.data.nextCursor,
+            isHost: response.data.isHost
+        )
 
-        return entity
+        return result
     }
 
-    func fetchArchiveTracks() async throws -> MyPageMusics {
+    func fetchArchiveTracks() async throws -> MyPageTrackResult {
         let response = try await service.fetchArchiveTracks()
-        let entity = response.data.toEntity()
 
-        return entity
+        let musics = response.data.toEntity()
+        let result = MyPageTrackResult(
+            musics: musics,
+            visibleLimit: response.data.visibleLimit,
+            nextCursor: response.data.nextCursor,
+            isHost: response.data.isHost
+        )
+
+        return result
     }
     
     func updateUserProfile(nickname: String? = nil, profileImg: Data? = nil) async throws { }

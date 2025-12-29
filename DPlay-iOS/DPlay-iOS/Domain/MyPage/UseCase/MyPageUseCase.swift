@@ -9,8 +9,8 @@ import UIKit
 
 protocol MyPageUseCase {
     func getUserProfile() async throws -> MyPageUserProfileResult
-    func getRegisteredTracks() async throws -> MyPageMusics
-    func getArchiveTracks() async throws -> MyPageMusics
+    func getRegisteredTracks() async throws -> MyPageTrackResult
+    func getArchiveTracks() async throws -> MyPageTrackResult
     func patchUserProfile(nickname: String?, profileImg: UIImage?) async throws
 }
 
@@ -28,13 +28,13 @@ final class DefaultMyPageUseCase: MyPageUseCase {
         return data
     }
     
-    func getRegisteredTracks() async throws -> MyPageMusics {
+    func getRegisteredTracks() async throws -> MyPageTrackResult {
         let data = try await repository.fetchRegisteredTracks()
         
         return data
     }
     
-    func getArchiveTracks() async throws -> MyPageMusics {
+    func getArchiveTracks() async throws -> MyPageTrackResult {
         let data = try await repository.fetchArchiveTracks()
         
         return data

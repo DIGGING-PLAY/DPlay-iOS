@@ -14,8 +14,8 @@ final class MyPageViewModel: ObservableObject {
     //MARK: - Property Wrappers
     
     @Published var userProfileResult: MyPageUserProfileResult?
-    @Published var registeredMusics: MyPageMusics?
-    @Published var archiveMusics: MyPageMusics?
+    @Published var registeredMusicsResult: MyPageTrackResult?
+    @Published var archiveMusicsResult: MyPageTrackResult?
     
     //MARK: - Dependencies
     
@@ -46,9 +46,9 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let registeredMusics = try await useCase.getRegisteredTracks()
+            let result = try await useCase.getRegisteredTracks()
             
-            self.registeredMusics = registeredMusics
+            self.registeredMusicsResult = result
         } catch {
             print("ERROR:", error)
         }
@@ -56,9 +56,9 @@ extension MyPageViewModel {
     
     func loadArchiveMusics() async {
         do {
-            let archiveMusics = try await useCase.getArchiveTracks()
+            let result = try await useCase.getArchiveTracks()
 
-            self.archiveMusics = archiveMusics
+            self.archiveMusicsResult = result
         } catch {
             print("ERROR:", error)
         }

@@ -183,14 +183,14 @@ private extension MyPageViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$registeredMusics
+        viewModel.$registeredMusicsResult
             .sink { [weak self] _ in
                 guard let self else { return }
                 
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
         
-        viewModel.$archiveMusics
+        viewModel.$archiveMusicsResult
             .sink { [weak self] _ in
                 guard let self else { return }
                 
@@ -230,7 +230,7 @@ private extension MyPageViewController {
                     MyPageCollectionViewLayout.archiveLayout(),
                     animated: false
                 ) { _ in
-                    guard (self.viewModel.archiveMusics != nil) else {
+                    guard (self.viewModel.archiveMusicsResult != nil) else {
                         Task { await self.viewModel.loadArchiveMusics() }
                         return
                     }
@@ -276,9 +276,9 @@ private extension MyPageViewController {
 extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if selectedTabIndex == 0 {
-            return viewModel.registeredMusics?.totalCount ?? 0
+            return viewModel.registeredMusicsResult?.musics.totalCount ?? 0
         } else {
-            return viewModel.archiveMusics?.totalCount ?? 0
+            return viewModel.archiveMusicsResult?.musics.totalCount ?? 0
         }
     }
     
@@ -290,8 +290,8 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                 for: indexPath
             ) as? RegisteredMusicCell else { return UICollectionViewCell() }
             
-            if let data = viewModel.registeredMusics, let isHost = data.isHost {
-                cell.configureCell(isHost: isHost, with: data.items[indexPath.item])
+            if let data = viewModel.registeredMusicsResult, let isHost = data.isHost {
+                cell.configureCell(isHost: isHost, with: data.musics.items[indexPath.item])
                 
                 if isHost {
                     cell.onTapMoreButton = { [weak self] in
@@ -316,7 +316,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                 for: indexPath
             ) as? ArchiveCell else { return UICollectionViewCell() }
             
-            if let models = viewModel.archiveMusics?.items {
+            if let models = viewModel.archiveMusicsResult?.musics.items {
                 cell.configureCell(with: models[indexPath.item])
             }
             

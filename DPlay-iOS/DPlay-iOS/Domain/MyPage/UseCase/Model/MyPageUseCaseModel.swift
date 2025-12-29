@@ -10,3 +10,10 @@ struct MyPageUserProfileResult {
     let isHost: Bool
     var pushOn: Bool?
 }
+
+struct MyPageTrackResult {
+    let musics: MyPageMusics
+    let visibleLimit: Int
+    let nextCursor: String?
+    let isHost: Bool?
+}
