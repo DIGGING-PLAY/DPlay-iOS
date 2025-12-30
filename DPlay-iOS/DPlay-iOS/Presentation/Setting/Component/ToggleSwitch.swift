@@ -18,6 +18,9 @@ final class ToggleSwitch: UIControl {
     var onColor: UIColor = .dplay_pink { didSet { updateUI(animated: false) } }
     var offColor: UIColor = .gray300 { didSet { updateUI(animated: false) } }
     var circleColor: UIColor = .white { didSet { circleView.backgroundColor = circleColor } }
+    
+    //MARK: - Constraints
+    
     private var circleLeadingConstraint: Constraint?
     private var circleTrailingConstraint: Constraint?
 
