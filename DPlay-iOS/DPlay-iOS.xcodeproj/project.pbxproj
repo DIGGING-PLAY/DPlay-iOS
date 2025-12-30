@@ -40,6 +40,7 @@
 		D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */; };
 		D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */; };
 		D06645C62F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */; };
+		D06645C82F03627C008A1B44 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C72F03626E008A1B44 /* UINavigationController+.swift */; };
 		D06645BA2F00629D008A1B44 /* SettingItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645B92F006292008A1B44 /* SettingItemButton.swift */; };
 		D06645BE2F0081B4008A1B44 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645BD2F0081AE008A1B44 /* AlertAction.swift */; };
 		D06645C02F0081F6008A1B44 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645BF2F0081E8008A1B44 /* AlertViewController.swift */; };
@@ -209,6 +210,7 @@
 		D05B9A632ECB5069001379C4 /* OnboardingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUseCase.swift; sourceTree = "<group>"; };
 		D05B9A672ECB5109001379C4 /* OnboardingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRepository.swift; sourceTree = "<group>"; };
 		D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCaseModel.swift; sourceTree = "<group>"; };
+		D06645C72F03626E008A1B44 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		D06645B92F006292008A1B44 /* SettingItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemButton.swift; sourceTree = "<group>"; };
 		D06645BD2F0081AE008A1B44 /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
 		D06645BF2F0081E8008A1B44 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
@@ -1194,6 +1196,7 @@
 				EFCBCED52EC9B57C00BA7740 /* UIView+.swift */,
 				EFAA45B02EDD965A00BEC1AC /* Encodable+.swift */,
 				D0D8FDB42ED5703500F75191 /* UIViewController+.swift */,
+				D06645C72F03626E008A1B44 /* UINavigationController+.swift */,
 				D0D8FDC22ED61D8900F75191 /* NSObject+.swift */,
 				EF4B8DBA2F003682009101C4 /* UIApplication+.swift */,
 			);
@@ -1581,6 +1584,7 @@
 				EFAA43292EDD943100BEC1AC /* BaseAPIService.swift in Sources */,
 				EFAA432F2EDD944D00BEC1AC /* NetworkSession.swift in Sources */,
 				EFAA432D2EDD944300BEC1AC /* NetworkLogger.swift in Sources */,
+				D06645C82F03627C008A1B44 /* UINavigationController+.swift in Sources */,
 				D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */,
 				D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */,
 				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
