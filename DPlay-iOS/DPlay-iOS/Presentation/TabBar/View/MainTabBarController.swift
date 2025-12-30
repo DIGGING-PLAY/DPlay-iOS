@@ -25,6 +25,12 @@ final class MainTabBarController: UIViewController {
     private let tabBarView = CustomTabBarView()
     private let containerView = UIView()
     
+    //MARK: - Constraints
+    
+    private let tabBarHeight: CGFloat = 90
+    private var containerBottomConstraint: Constraint?
+    private var tabBarBottomConstraint: Constraint?
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -54,12 +60,15 @@ private extension MainTabBarController {
     func setupLayout() {
         containerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(tabBarView.snp.top)
+            
+            containerBottomConstraint = $0.bottom.equalToSuperview().inset(tabBarHeight).constraint
         }
         
         tabBarView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(90)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(tabBarHeight)
+
+            tabBarBottomConstraint = $0.bottom.equalToSuperview().constraint
         }
     }
 }
@@ -107,7 +116,39 @@ private extension MainTabBarController {
 }
 
 extension MainTabBarController {
-    func setTabBarHidden(_ hidden: Bool) {
-        tabBarView.isHidden = hidden
+    func setTabBarHidden(_ hidden: Bool, animated: Bool = true) {
+        let inset = hidden ? 0 : tabBarHeight
+        let bottomOffset = hidden ? (tabBarHeight + view.safeAreaInsets.bottom) : 0
+        
+        if tabBarView.isHidden == hidden { return }
+        
+        //제약 조건 업데이트
+        containerBottomConstraint?.update(inset: inset)
+        tabBarBottomConstraint?.update(offset: bottomOffset)
+        
+        tabBarView.isHidden = false
+        
+        // 탭바를 화면 밖으로 내림(숨김) / 원위치(표시)
+        tabBarBottomConstraint?.update(inset: hidden ? -90 : 0)
+        
+        let animations = {
+            self.tabBarView.alpha = hidden ? 0 : 1
+            self.view.layoutIfNeeded()
+        }
+        
+        let completion: (Bool) -> Void = { _ in
+            self.tabBarView.isHidden = hidden
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.25,
+                           delay: 0,
+                           options: [.curveEaseInOut, .allowUserInteraction],
+                           animations: animations,
+                           completion: completion)
+        } else {
+            animations()
+            completion(true)
+        }
     }
 }
