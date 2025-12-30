@@ -53,6 +53,7 @@ final class SettingViewController: UIViewController {
         setupLayout()
         setupTarget()
         bindNavigationBar()
+        bindToggleSwitch()
     }
 }
 
@@ -195,6 +196,7 @@ private extension SettingViewController {
 
     func toggleSwitchChanged(_ sender: ToggleSwitch) {
         print("toggle:", sender.isOn)
+        viewModel.pushOn = sender.isOn
     }
     
     func settingItemButtonTapped(_ sender: SettingItemButton) {
@@ -262,11 +264,11 @@ private extension SettingViewController {
     
     func bindNavigationBar() {
         navigationBarView.onTapBackButton = {
-//            self.viewModel.popToPrevious()
+            self.viewModel.popToPrevious()
         }
     }
-}
-
-#Preview {
-    SettingViewController(viewModel: SettingViewModel())
+    
+    func bindToggleSwitch() {
+        pushToggleSwitch.setOn(viewModel.pushOn, animated: false)
+    }
 }

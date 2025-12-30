@@ -34,6 +34,14 @@ final class MyPageCoordinator: Coordinator {
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func goToSetting(pushOn: Bool) {
+        let vm = SettingViewModel(pushOn: pushOn, coordinator: self)
+        let vc = SettingViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
+    }
 
     func pop() {
         navigationController.popViewController(animated: true)

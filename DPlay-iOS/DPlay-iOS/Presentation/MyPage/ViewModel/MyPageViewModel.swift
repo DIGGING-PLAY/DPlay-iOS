@@ -74,4 +74,10 @@ extension MyPageViewModel {
         
         coordinator?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
     }
+    
+    func goToSetting() {
+        let pushOn = userProfileResult?.pushOn ?? false
+        
+        coordinator?.goToSetting(pushOn: pushOn)
+    }
 }

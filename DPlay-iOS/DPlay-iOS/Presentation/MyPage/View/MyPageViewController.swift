@@ -200,7 +200,7 @@ private extension MyPageViewController {
     
     func bindNavigationBar() {
         navigationBarView.onTapSettingButton = {
-            print("settingButtonTapped")
+            self.viewModel.goToSetting()
         }
         
         navigationBarView.onTapBackButton = {
