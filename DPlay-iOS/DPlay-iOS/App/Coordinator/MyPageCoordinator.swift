@@ -31,10 +31,14 @@ final class MyPageCoordinator: Coordinator {
         let vm = ProfileEditViewModel(nickname: nickname, profileImg: profileImg, useCase: myPageUseCase, coordinator: self)
         let vc = ProfileEditViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
 
     func pop() {
         navigationController.popViewController(animated: true)
+        if navigationController.viewControllers.count == 1 {
+            navigationController.rootTabBarController()?.setTabBarHidden(false)
+        }
     }
 }
