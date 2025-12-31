@@ -49,7 +49,7 @@ private extension QuestionPostsNavigationBarView {
         }
         
         dateLabel.do {
-            $0.text = "10월 12일"
+            $0.text = " "
             $0.setTextStyle(.titleBold18)
             $0.textColor = .dplay_black
         }
@@ -88,5 +88,11 @@ private extension QuestionPostsNavigationBarView {
     
     func setupTarget() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+}
+
+extension QuestionPostsNavigationBarView {
+    func setDateTitle(_ date: String) {
+        dateLabel.text = date
     }
 }

@@ -85,6 +85,8 @@
 		D0D071AD2F04FD9200B9EE00 /* QuestionPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071AC2F04FD3700B9EE00 /* QuestionPostsViewController.swift */; };
 		D0D071B12F04FDD800B9EE00 /* QuestionPostsNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B02F04FDC400B9EE00 /* QuestionPostsNavigationBarView.swift */; };
 		D0D071B42F04FF8600B9EE00 /* QuestionPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */; };
+		D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */; };
+		D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
@@ -266,6 +268,8 @@
 		D0D071AC2F04FD3700B9EE00 /* QuestionPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsViewController.swift; sourceTree = "<group>"; };
 		D0D071B02F04FDC400B9EE00 /* QuestionPostsNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsNavigationBarView.swift; sourceTree = "<group>"; };
 		D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostCell.swift; sourceTree = "<group>"; };
+		D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsViewModel.swift; sourceTree = "<group>"; };
+		D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockQuestionPosts.swift; sourceTree = "<group>"; };
 		D0D8FDB42ED5703500F75191 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
@@ -928,6 +932,7 @@
 		D0D071962F04E30D00B9EE00 /* PostHistory */ = {
 			isa = PBXGroup;
 			children = (
+				D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */,
 				D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */,
 			);
 			path = PostHistory;
@@ -1007,6 +1012,14 @@
 				D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D0D071B52F050AEB00B9EE00 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D0D8FDBB2ED59CA000F75191 /* Overview */ = {
@@ -1782,6 +1795,7 @@
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
 				D05B17522EF24CA9007E2D93 /* SettingViewController.swift in Sources */,
 				D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */,
+				D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */,
 				D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */,
 				D0C5500D2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				D05B6C382ED6DE58003F25E5 /* DPlayButtonModalViewController.swift in Sources */,
@@ -1857,6 +1871,7 @@
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
 				D06645BE2F0081B4008A1B44 /* AlertAction.swift in Sources */,
 				EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */,
+				D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */,
 				D0D071B12F04FDD800B9EE00 /* QuestionPostsNavigationBarView.swift in Sources */,
 				EFCBCF582ED49D7700BA7740 /* MusicAddCoordinator.swift in Sources */,
 				D01C6D7E2EE46CE2009C9AF8 /* MockMyPage.swift in Sources */,

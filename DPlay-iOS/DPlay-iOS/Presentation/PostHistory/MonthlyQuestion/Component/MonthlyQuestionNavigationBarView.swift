@@ -54,7 +54,7 @@ private extension MonthlyQuestionNavigationBarView {
             config.imagePlacement = .trailing
             config.imagePadding = 4
             config.baseForegroundColor = .dplay_black
-            config.title = "2025년 10월"
+            config.title = " "
             config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
                 var out = incoming
                 out.font = .dplayFont(.titleBold18)

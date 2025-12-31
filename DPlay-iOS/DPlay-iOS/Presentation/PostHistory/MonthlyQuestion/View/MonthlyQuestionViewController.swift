@@ -113,6 +113,8 @@ private extension MonthlyQuestionViewController {
     }
     
     func bindNavigationBar() {
+        navigationBarView.setMonthButtonTitle(year: viewModel.selectedYear,
+                                              month: viewModel.selectedMonth)
         navigationBarView.onTapBackButton = { [weak self] in
             guard let self else { return }
             
@@ -175,5 +177,6 @@ extension MonthlyQuestionViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.goToQuestionPosts()
     }
 }

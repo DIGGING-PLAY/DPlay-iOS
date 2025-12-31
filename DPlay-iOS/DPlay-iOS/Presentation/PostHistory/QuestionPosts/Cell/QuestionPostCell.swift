@@ -181,14 +181,13 @@ extension QuestionPostCell {
     
     //MARK: - Configure
     
-//    func configureCell(isHost: Bool, with model: MyPageTrackPost) {
-//        guard let url = URL(string: model.track.coverImage) else { return }
-//        
-//        imageView.kf.setImage(with: url)
-//        musicTitleLabel.text = model.track.title
-//        artistNameLabel.text = model.track.artist
-//        commentLabel.text = model.content
-//        moreButton.isHidden = !isHost
-//        playButton.isHidden = isHost
-//    }
+    func configureCell(post: QuestionPostsItemDTO) {
+        guard let url = URL(string: post.track.coverImg) else { return }
+        
+        coverImageView.kf.setImage(with: url)
+        musicTitleLabel.text = post.track.songTitle
+        artistNameLabel.text = post.track.artistName
+        commentLabel.text = post.content
+        editorBadgeImageView.isHidden = !post.isEditorPick
+    }
 }

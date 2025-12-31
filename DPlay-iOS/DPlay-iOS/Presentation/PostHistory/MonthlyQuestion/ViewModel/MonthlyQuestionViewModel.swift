@@ -58,6 +58,10 @@ extension MonthlyQuestionViewModel {
     
     // MARK: - Coordinator
     
+    func goToQuestionPosts() {
+        coordinator?.goToQuestionPosts()
+    }
+    
     func popToPrevious() {
         coordinator?.pop()
     }

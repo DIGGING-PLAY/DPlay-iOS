@@ -15,7 +15,7 @@ final class QuestionPostsViewController: UIViewController {
     
     //MARK: - Properties
     
-//    private let viewModel: QuestionPostsViewModel
+    private let viewModel: QuestionPostsViewModel
     private var cancellables = Set<AnyCancellable>()
     
     //MARK: - UI Properties
@@ -26,14 +26,14 @@ final class QuestionPostsViewController: UIViewController {
     private let questionLabel = UILabel()
     private let questionTitleLabel = UILabel()
     private let totalCountLabel = UILabel()
-    private let questionsTableView = UITableView()
+    private let postsTableView = UITableView()
     private let backgroundColorView = UIView()
     private let emptyLabel = UILabel()
 
     //MARK: - Life Cycle
     
-    init(/*viewModel: QuestionPostsViewModel*/) {
-//        self.viewModel = viewModel
+    init(viewModel: QuestionPostsViewModel) {
+        self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -86,18 +86,18 @@ private extension QuestionPostsViewController {
         }
         
         questionTitleLabel.do {
-            $0.text = "여행 갈 때 플레이리스트에 꼭 넣는 노래는?"
+            $0.text = " "
             $0.textColor = .dplay_black
             $0.setTextStyle(.bodySemi14)
         }
         
         totalCountLabel.do {
-            $0.text = "총 24개의 곡"
+            $0.text = " "
             $0.textColor = .gray500
             $0.setTextStyle(.capMedi12)
         }
 
-        questionsTableView.do {
+        postsTableView.do {
             $0.backgroundColor = .clear
             $0.register(QuestionPostCell.self, forCellReuseIdentifier: QuestionPostCell.className)
             $0.separatorStyle = .none
@@ -119,7 +119,7 @@ private extension QuestionPostsViewController {
             backgroundColorView,
         )
         
-        backgroundColorView.addSubview(questionsTableView)
+        backgroundColorView.addSubview(postsTableView)
         
         questionContainerView.addSubviews(
             questionImage,
@@ -167,7 +167,7 @@ private extension QuestionPostsViewController {
             $0.horizontalEdges.bottom.equalToSuperview()
         }
 
-        questionsTableView.snp.makeConstraints {
+        postsTableView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
         }
@@ -179,18 +179,28 @@ private extension QuestionPostsViewController {
     // MARK: - Private Method
         
     func bindViewModel() {
+        viewModel.$sample
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] data in
+                guard let self, let data else { return }
+                
+                navigationBarView.setDateTitle(data.date)
+                questionTitleLabel.text = data.title
+                totalCountLabel.text = "총 \(data.totalCount)개의 곡"
+                postsTableView.reloadData()
+            }.store(in: &cancellables)
     }
     
     func bindNavigationBar() {
         navigationBarView.onTapBackButton = { [weak self] in
             guard let self else { return }
             
-//            viewModel.popToPrevious()
+            viewModel.popToPrevious()
         }
     }
     
     func loadData() {
-//        Task { await viewModel.loadMonthlyQuestions() }
+        Task { await viewModel.loadQuestionPosts() }
     }
 }
 
@@ -199,27 +209,24 @@ private extension QuestionPostsViewController {
 extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return viewModel.sample?.items.count ?? 0
     }
 
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(
+        guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: QuestionPostCell.className,
                 for: indexPath
-            ) as? QuestionPostCell
+        ) as? QuestionPostCell, let data = viewModel.sample
         else { return UITableViewCell() }
+        
+        cell.configureCell(post: data.items[indexPath.row])
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
-}
-
-#Preview {
-    QuestionPostsViewController()
 }

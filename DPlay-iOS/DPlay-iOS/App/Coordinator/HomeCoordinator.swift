@@ -49,6 +49,14 @@ final class HomeCoordinator: Coordinator {
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func goToQuestionPosts() {
+        let vm = QuestionPostsViewModel(coordinator: self)
+        let vc = QuestionPostsViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
+    }
 
     func pop() {
         navigationController.popViewController(animated: true)
