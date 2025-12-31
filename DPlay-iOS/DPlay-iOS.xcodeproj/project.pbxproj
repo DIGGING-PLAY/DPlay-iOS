@@ -29,6 +29,7 @@
 		D025991C2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991A2F0427C30054D604 /* MonthlyQuestionDTO.swift */; };
 		D025991E2F042E760054D604 /* QuestionPostsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991D2F042E690054D604 /* QuestionPostsDTO.swift */; };
 		D025991F2F042E760054D604 /* QuestionPostsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991D2F042E690054D604 /* QuestionPostsDTO.swift */; };
+		D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */; };
 		D025992D2F04506A0054D604 /* MonthlyQuestionNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */; };
 		D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02599312F045EC50054D604 /* QuestionsCell.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
@@ -71,6 +72,7 @@
 		D0C550152EE01A760003E4B0 /* MyPageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550142EE01A560003E4B0 /* MyPageTrack.swift */; };
 		D0C550162EE01A760003E4B0 /* MyPageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550142EE01A560003E4B0 /* MyPageTrack.swift */; };
 		D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */; };
+		D0D071952F04D01D00B9EE00 /* MonthlyQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
@@ -205,6 +207,7 @@
 		D01C6D942EEBF122009C9AF8 /* ProfileEditNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditNavigationBarView.swift; sourceTree = "<group>"; };
 		D025991A2F0427C30054D604 /* MonthlyQuestionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionDTO.swift; sourceTree = "<group>"; };
 		D025991D2F042E690054D604 /* QuestionPostsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsDTO.swift; sourceTree = "<group>"; };
+		D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionViewController.swift; sourceTree = "<group>"; };
 		D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionNavigationBarView.swift; sourceTree = "<group>"; };
 		D02599312F045EC50054D604 /* QuestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCell.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +245,7 @@
 		D0C550112EE019CE0003E4B0 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		D0C550142EE01A560003E4B0 /* MyPageTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTrack.swift; sourceTree = "<group>"; };
 		D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalViewController.swift; sourceTree = "<group>"; };
+		D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionViewModel.swift; sourceTree = "<group>"; };
 		D0D8FDB42ED5703500F75191 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
@@ -567,11 +571,21 @@
 			path = PostHistory;
 			sourceTree = "<group>";
 		};
+		D02599222F0432820054D604 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D02599252F0432EB0054D604 /* MonthlyQuestion */ = {
 			isa = PBXGroup;
 			children = (
 				D025992B2F0450400054D604 /* Component */,
 				D02599302F045EBC0054D604 /* Cell */,
+				D02599222F0432820054D604 /* View */,
+				D0D071932F04CFFF00B9EE00 /* ViewModel */,
 			);
 			path = MonthlyQuestion;
 			sourceTree = "<group>";
@@ -880,6 +894,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D0D071932F04CFFF00B9EE00 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D0D071962F04E30D00B9EE00 /* PostHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */,
+			);
+			path = PostHistory;
+			sourceTree = "<group>";
+		};
 		D0D8FDBB2ED59CA000F75191 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
@@ -1137,6 +1167,7 @@
 		EFA5C3DE2EB31849001F1627 /* Mocks & Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				D0D071962F04E30D00B9EE00 /* PostHistory */,
 				EF25603C2EBDD5D4003E65C9 /* Home */,
 				D01C6D7C2EE46CD0009C9AF8 /* MyPage */,
 				EFCBCF322ECC75CF00BA7740 /* MusicDetail */,
@@ -1642,6 +1673,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0D071952F04D01D00B9EE00 /* MonthlyQuestionViewModel.swift in Sources */,
 				D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */,
 				D05B17502EF24C5F007E2D93 /* SettingViewModel.swift in Sources */,
 				D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */,
@@ -1759,6 +1791,7 @@
 				D025992D2F04506A0054D604 /* MonthlyQuestionNavigationBarView.swift in Sources */,
 				D025991B2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */,
 				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
