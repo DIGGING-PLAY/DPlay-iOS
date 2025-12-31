@@ -18,3 +18,15 @@ struct MonthlyQuestionDTO: Decodable {
     let questionId: Int
     let title: String
 }
+
+// MARK: - DTO to Entity
+
+extension MonthlyQuestionDTO {
+    func toEntity() -> MonthlyQuestion {
+        MonthlyQuestion(
+            id: questionId,
+            day: day,
+            title: title
+        )
+    }
+}

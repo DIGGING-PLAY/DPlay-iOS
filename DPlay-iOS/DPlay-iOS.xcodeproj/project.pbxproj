@@ -76,6 +76,8 @@
 		D0D071982F04E32C00B9EE00 /* MockMonthlyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */; };
 		D0D0719B2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */; };
 		D0D0719C2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */; };
+		D0D071A12F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */; };
+		D0D071A22F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
@@ -251,6 +253,7 @@
 		D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionViewModel.swift; sourceTree = "<group>"; };
 		D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMonthlyQuestion.swift; sourceTree = "<group>"; };
 		D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHistoryService.swift; sourceTree = "<group>"; };
+		D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestion.swift; sourceTree = "<group>"; };
 		D0D8FDB42ED5703500F75191 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
@@ -924,6 +927,22 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		D0D0719E2F04F16100B9EE00 /* PostHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0719F2F04F1AB00B9EE00 /* Entity */,
+			);
+			path = PostHistory;
+			sourceTree = "<group>";
+		};
+		D0D0719F2F04F1AB00B9EE00 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		D0D8FDBB2ED59CA000F75191 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
@@ -1115,6 +1134,7 @@
 				D01893E62ECA4C77002A48C1 /* Auth */,
 				EFCBCF142ECC743F00BA7740 /* MusicDetail */,
 				EFA5C4012EB31C18001F1627 /* Home */,
+				D0D0719E2F04F16100B9EE00 /* PostHistory */,
 				D05B9A5B2ECB4B04001379C4 /* Onboarding */,
 				D0C5500F2EE017AD0003E4B0 /* MyPage */,
 			);
@@ -1788,6 +1808,7 @@
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */,
+				D0D071A12F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */,
 				D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */,
 				D01C6D892EE66505009C9AF8 /* MyPageViewModel.swift in Sources */,
 				D05B17572EF25410007E2D93 /* ToggleSwitch.swift in Sources */,
@@ -1847,6 +1868,7 @@
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				D0D071A22F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */,
 				D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
 				EFCBCF2A2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EF2560372EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
