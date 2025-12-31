@@ -70,6 +70,7 @@
 		D0C550132EE019D50003E4B0 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550112EE019CE0003E4B0 /* UserProfile.swift */; };
 		D0C550152EE01A760003E4B0 /* MyPageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550142EE01A560003E4B0 /* MyPageTrack.swift */; };
 		D0C550162EE01A760003E4B0 /* MyPageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550142EE01A560003E4B0 /* MyPageTrack.swift */; };
+		D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
@@ -240,6 +241,7 @@
 		D0C5500C2EE011570003E4B0 /* MyPageTracksDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTracksDTO.swift; sourceTree = "<group>"; };
 		D0C550112EE019CE0003E4B0 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		D0C550142EE01A560003E4B0 /* MyPageTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTrack.swift; sourceTree = "<group>"; };
+		D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalViewController.swift; sourceTree = "<group>"; };
 		D0D8FDB42ED5703500F75191 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 		D02599202F04325B0054D604 /* PostHistory */ = {
 			isa = PBXGroup;
 			children = (
+				D0D0718A2F04B4AB00B9EE00 /* MonthPicker */,
 				D02599252F0432EB0054D604 /* MonthlyQuestion */,
 			);
 			path = PostHistory;
@@ -859,6 +862,22 @@
 				D0C550142EE01A560003E4B0 /* MyPageTrack.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		D0D0718A2F04B4AB00B9EE00 /* MonthPicker */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0718B2F04B53000B9EE00 /* View */,
+			);
+			path = MonthPicker;
+			sourceTree = "<group>";
+		};
+		D0D0718B2F04B53000B9EE00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D0D8FDBB2ED59CA000F75191 /* Overview */ = {
@@ -1720,6 +1739,7 @@
 				D0C54FFA2EDB8E800003E4B0 /* ArchiveCell.swift in Sources */,
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */,
 				D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */,
 				D01C6D892EE66505009C9AF8 /* MyPageViewModel.swift in Sources */,
 				D05B17572EF25410007E2D93 /* ToggleSwitch.swift in Sources */,
