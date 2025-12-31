@@ -5,6 +5,7 @@
 //  Created by 조혜린 on 12/31/25.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
@@ -15,6 +16,7 @@ final class MonthlyQuestionViewController: UIViewController {
     //MARK: - Properties
     
     private let viewModel: MonthlyQuestionViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - UI Properties
 
@@ -47,6 +49,7 @@ final class MonthlyQuestionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
      
+        loadData()
     }
 }
 
@@ -99,6 +102,13 @@ private extension MonthlyQuestionViewController {
     // MARK: - Private Method
         
     func bindViewModel() {
+        viewModel.$monthlyQuestions
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                questionsTableView.reloadData()
+            }.store(in: &cancellables)
     }
     
     func bindNavigationBar() {
@@ -118,6 +128,7 @@ private extension MonthlyQuestionViewController {
                     self.viewModel.selectedYear = selectedYear
                     self.viewModel.selectedMonth = selectedMonth
                     self.navigationBarView.setMonthButtonTitle(year: selectedYear, month: selectedMonth)
+                    Task { await self.viewModel.loadMonthlyQuestions() }
                 })
             
             if let sheet = modal.sheetPresentationController {
@@ -130,6 +141,10 @@ private extension MonthlyQuestionViewController {
             present(modal, animated: true)
         }
     }
+    
+    func loadData() {
+        Task { await viewModel.loadMonthlyQuestions() }
+    }
 }
 
 // MARK: - UITableView
@@ -137,7 +152,7 @@ private extension MonthlyQuestionViewController {
 extension MonthlyQuestionViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return viewModel.monthlyQuestions?.count ?? 0
     }
 
     func tableView(
@@ -150,6 +165,10 @@ extension MonthlyQuestionViewController: UITableViewDelegate, UITableViewDataSou
                 for: indexPath
             ) as? QuestionsCell
         else { return UITableViewCell() }
+        
+        if let questions = viewModel.monthlyQuestions {
+            cell.configure(question: questions[indexPath.row])
+        }
 
         return cell
     }

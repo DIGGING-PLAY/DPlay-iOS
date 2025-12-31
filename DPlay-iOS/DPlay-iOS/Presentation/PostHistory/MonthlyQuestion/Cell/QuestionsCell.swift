@@ -114,5 +114,8 @@ extension QuestionsCell {
     
     // MARK: - Configure
     
-    
+    func configure(question: MonthlyQuestion) {
+        dayLabel.text = question.day
+        questionLabel.text = question.title
+    }
 }

@@ -11,25 +11,46 @@ import Combine
 @MainActor
 final class MonthlyQuestionViewModel: ObservableObject {
     
+    //MARK: - Properties
+    
     private let currentDate = Date()
     
     //MARK: - Property Wrappers
     
     @Published var selectedYear: Int
     @Published var selectedMonth: Int
+    @Published var monthlyQuestions: [MonthlyQuestion]?
 
     //MARK: - Dependencies
     
+    private let useCase: PostHistoryUseCase
     weak var coordinator: HomeCoordinator?
     
     //MARK: - Init
     
     init(
+        useCase: PostHistoryUseCase,
         coordinator: HomeCoordinator?
     ) {
+        self.useCase = useCase
         self.coordinator = coordinator
         selectedYear = Calendar.current.component(.year, from: currentDate)
         selectedMonth = Calendar.current.component(.month, from: currentDate)
+    }
+}
+
+extension MonthlyQuestionViewModel {
+    
+    //MARK: - Method
+    
+    func loadMonthlyQuestions() async {
+        do {
+            let result = try await useCase.getMonthlyQuestions(year: selectedYear, month: selectedMonth)
+            
+            self.monthlyQuestions = result
+        } catch {
+            print("ERROR:", error)
+        }
     }
 }
 

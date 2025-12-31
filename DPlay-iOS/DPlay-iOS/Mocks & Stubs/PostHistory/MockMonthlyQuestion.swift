@@ -15,7 +15,7 @@ enum MockMonthlyQuestion {
         data: MonthlyQuestionsDataDTO(
             questions: [
                 MonthlyQuestionDTO(day: "1일",  questionId: 1,  title: "여행 갈 때 플레이리스트에 꼭 넣는 노래는?"),
-                MonthlyQuestionDTO(day: "2일",  questionId: 2,  title: "겨울이 오면 꼭 들어야하는 노래"),
+                MonthlyQuestionDTO(day: "2일",  questionId: 2,  title: "겨울이 오면 꼭 들어야하는 노래는?"),
                 MonthlyQuestionDTO(day: "3일",  questionId: 3,  title: "비 오는 날 들으면 더 좋은 노래는?"),
                 MonthlyQuestionDTO(day: "4일",  questionId: 4,  title: "아침에 기분 좋게 시작할 때 듣는 노래는?"),
                 MonthlyQuestionDTO(day: "5일",  questionId: 5,  title: "공부/집중할 때 반복 재생하는 노래는?"),

@@ -15,6 +15,10 @@ final class HomeCoordinator: Coordinator {
     private let service = MockHomeService() 
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
+    
+    private let postHistoryService = MockPostHistoryService()
+    private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
+    private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -39,7 +43,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func goToMonthlyQuestion() {
-        let vm = MonthlyQuestionViewModel(coordinator: self)
+        let vm = MonthlyQuestionViewModel(useCase: postHistoryUseCase, coordinator: self)
         let vc = MonthlyQuestionViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
