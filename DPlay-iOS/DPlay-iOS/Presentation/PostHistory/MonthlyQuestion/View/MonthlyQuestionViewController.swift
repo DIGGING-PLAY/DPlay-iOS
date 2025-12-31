@@ -64,6 +64,7 @@ private extension MonthlyQuestionViewController {
             $0.register(QuestionsCell.self, forCellReuseIdentifier: QuestionsCell.className)
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
+            $0.backgroundView = emptyLabel
             $0.delegate = self
             $0.dataSource = self
         }
