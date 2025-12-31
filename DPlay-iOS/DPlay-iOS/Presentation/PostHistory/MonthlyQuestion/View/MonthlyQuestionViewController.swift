@@ -102,14 +102,18 @@ private extension MonthlyQuestionViewController {
     }
     
     func bindNavigationBar() {
-        navigationBarView.onTapBackButton = {
-            print("backButtonTapped")
+        navigationBarView.onTapBackButton = { [weak self] in
+            guard let self else { return }
+            
+            viewModel.popToPrevious()
         }
         
-        navigationBarView.onTapMonthSelectButton = {
+        navigationBarView.onTapMonthSelectButton = { [weak self] in
+            guard let self else { return }
+            
             let modal = MonthPickerModalViewController(
-                selectedYear: self.viewModel.selectedYear,
-                selectedMonth: self.viewModel.selectedMonth,
+                selectedYear: viewModel.selectedYear,
+                selectedMonth: viewModel.selectedMonth,
                 onTapSelectButton: { selectedYear, selectedMonth in
                     self.viewModel.selectedYear = selectedYear
                     self.viewModel.selectedMonth = selectedMonth
@@ -123,7 +127,7 @@ private extension MonthlyQuestionViewController {
                 sheet.prefersGrabberVisible = false
             }
             
-            self.present(modal, animated: true)
+            present(modal, animated: true)
         }
     }
 }

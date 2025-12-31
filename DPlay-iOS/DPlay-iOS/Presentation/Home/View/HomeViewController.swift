@@ -58,6 +58,7 @@ final class HomeViewController: UIViewController {
         setupLayout()
         setupDelegate()
         setupTarget()
+        bindNavigationBar()
         bind()
     }
 }
@@ -304,6 +305,14 @@ private extension HomeViewController {
 extension HomeViewController {
     
     // MARK: - Method
+    
+    private func bindNavigationBar() {
+        navigationBarView.onTapMenu = { [weak self] in
+            guard let self else { return }
+            
+            viewModel.goToMonthlyQuestion()
+        }
+    }
     
     private func bind() {
         viewModel.$posts

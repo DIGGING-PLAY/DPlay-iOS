@@ -38,6 +38,15 @@ final class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func goToMonthlyQuestion() {
+        let vm = MonthlyQuestionViewModel(coordinator: self)
+        let vc = MonthlyQuestionViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
+    }
+
+    
     private func rootTabBarController() -> MainTabBarController? {
         navigationController
             .view.window?
