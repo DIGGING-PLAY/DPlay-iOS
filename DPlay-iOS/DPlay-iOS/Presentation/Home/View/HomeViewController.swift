@@ -391,6 +391,25 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
+    /// 셀이 재사용 되기 때문에 애니메이션이 날아감
+    /// 셀이 보일때 이 셀이 회전 되어야 하는 셀인지를 판단해서 계속 음악 재생중에 앨범 커버가 돌도록 구현
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        guard let albumCell = cell as? MusicAlbumCell else { return }
+
+        let post = viewModel.posts[indexPath.item]
+
+        let shouldRotate =
+            post.track.id == AudioPlayerManager.shared.currentTrackId &&
+            albumCell.cellId == playingCellId &&
+            AudioPlayerManager.shared.isPlaying
+
+        albumCell.setPlaying(shouldRotate)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = viewModel.posts[indexPath.item]
         viewModel.didSelectPost(post)
