@@ -13,20 +13,9 @@ protocol HomeService {
     func scrap(postId: Int, isScrapped: Bool) async throws
 }
 
-// MARK: - MockHomeService
-
-final class MockHomeService: HomeService {
-    func fetchHomeFeed() async throws -> HomeFeedResponseDTO {
-        return MockHomeFeed.sample
-    }
-    
-    func like(postId: Int) async throws {}
-    func scrap(postId: Int, isScrapped: Bool) async throws {}
-}
-
 // MARK: - HomeNetworkService
 
-final class HomeNetworkService: HomeService {
+final class HomeNetworkServiceImpl: HomeService {
     
     private let apiService: BaseAPIService
     
