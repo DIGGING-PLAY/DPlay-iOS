@@ -15,7 +15,8 @@ final class MusicAlbumCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = MusicAlbumCell.className
-
+    // 같은 음악 앨범 커버가 같이 돌아가는 걸 방지 하기 위함, 같은 노래라도 내가 누른 음악 커바만 돌아가기
+    var cellId: UUID = UUID()
     var onTapPlay: (() -> Void)?
     
     // MARK: - UI Properties

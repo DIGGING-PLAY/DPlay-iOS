@@ -17,6 +17,7 @@ final class HomeViewController: UIViewController {
     
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
+    private var playingCellId: UUID?
 
     // MARK: - UI Properties
     
@@ -46,10 +47,10 @@ final class HomeViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError() }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        loadData()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,7 @@ final class HomeViewController: UIViewController {
         setupTarget()
         bind()
         bindAudioState()
+        loadData()
     }
 }
 
@@ -323,18 +325,20 @@ extension HomeViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] trackId, isPlaying in
                 guard let self else { return }
-                
-                // 지금 화면에 실제로 보이는 셀들만 배열로 가져오는 것
+
                 for cell in self.editorCollectionView.visibleCells {
                     guard
                         let albumCell = cell as? MusicAlbumCell,
                         let indexPath = self.editorCollectionView.indexPath(for: albumCell)
                     else { continue }
-                    
-                    let post = self.viewModel.posts[indexPath.item]
-                    let isCurrent = post.track.id == trackId
 
-                    albumCell.setPlaying(isCurrent && isPlaying)
+                    let post = self.viewModel.posts[indexPath.item]
+                    let shouldRotate =
+                        post.track.id == trackId &&   // 지금 재생 중인 노래인가?
+                        albumCell.cellId == playingCellId && // 내가 눌렀던 그 셀인가? (같은 앨범이라도)
+                        isPlaying                     // 실제로 재생 중인가?
+
+                    albumCell.setPlaying(shouldRotate)
                 }
             }
             .store(in: &cancellables)
@@ -380,6 +384,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.configure(with: post)
         
         cell.onTapPlay = { [weak self] in
+            self?.playingCellId = cell.cellId
             self?.viewModel.didTapPreview(post: post)
         }
         
