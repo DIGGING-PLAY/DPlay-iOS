@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Mock Preview Response
 
 enum MockPreviewMusic {
-    static let sample = MusicResponseDTO(
+    static let sample = PreviewMusicResponseDTO(
         status: true,
         code: 2000,
         message: "요청이 성공했습니다.",

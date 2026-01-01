@@ -59,6 +59,7 @@ final class HomeViewController: UIViewController {
         setupDelegate()
         setupTarget()
         bind()
+        bindAudioState()
     }
 }
 
@@ -308,6 +309,33 @@ extension HomeViewController {
         viewModel.$posts
             .sink { [weak self] _ in
                 self?.editorCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Cell 앨범 커버 회전
+    
+    /// AudioPlayerManager를 구독하고 지금 화면에 보이는 MusicAlbumCell들을 전부 순회하면서, 각 셀이 가리키는 트랙 ID와
+    /// 현재 재생 중인 오디오의 트랙 ID를 비교하여 맞으면 해당 cell의 앨범 커버를 회전 시킴
+    private func bindAudioState() {
+        AudioPlayerManager.shared.$currentTrackId
+            .combineLatest(AudioPlayerManager.shared.$isPlaying)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] trackId, isPlaying in
+                guard let self else { return }
+                
+                // 지금 화면에 실제로 보이는 셀들만 배열로 가져오는 것
+                for cell in self.editorCollectionView.visibleCells {
+                    guard
+                        let albumCell = cell as? MusicAlbumCell,
+                        let indexPath = self.editorCollectionView.indexPath(for: albumCell)
+                    else { continue }
+                    
+                    let post = self.viewModel.posts[indexPath.item]
+                    let isCurrent = post.track.id == trackId
+
+                    albumCell.setPlaying(isCurrent && isPlaying)
+                }
             }
             .store(in: &cancellables)
     }
