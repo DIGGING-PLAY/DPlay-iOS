@@ -13,6 +13,10 @@ final class TabBarCoordinator: Coordinator {
     let rootViewController = MainTabBarController()
     
     func start() {
+        
+        // 오디오 세션 미리 활성화
+        AudioPlayerManager.shared.prepareAudioSession()
+        
         // 1) Home Flow
         let homeNav = UINavigationController()
         let homeCoordinator = HomeCoordinator(navigationController: homeNav)
