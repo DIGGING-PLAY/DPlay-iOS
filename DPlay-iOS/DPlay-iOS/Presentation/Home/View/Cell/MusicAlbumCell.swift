@@ -15,6 +15,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = MusicAlbumCell.className
+    var onTapPlay: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -39,6 +40,7 @@ final class MusicAlbumCell: UICollectionViewCell {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -205,6 +207,22 @@ private extension MusicAlbumCell {
             $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(44)
         }
+    }
+}
+
+private extension MusicAlbumCell {
+    
+    // MARK: - Private Method
+    private func setupTarget() {
+        musicStreamingButton.addTarget(
+            self,
+            action: #selector(playTapped),
+            for: .touchUpInside
+        )
+    }
+
+    @objc private func playTapped() {
+        onTapPlay?()
     }
 }
 

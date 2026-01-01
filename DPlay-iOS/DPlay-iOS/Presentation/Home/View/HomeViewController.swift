@@ -286,7 +286,6 @@ private extension HomeViewController {
     }
 }
 
-
 @objc private extension HomeViewController {
     
     //MARK: - @objc Method
@@ -352,6 +351,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = viewModel.posts[indexPath.row]
         cell.configure(with: post)
         
+        cell.onTapPlay = { [weak self] in
+            self?.viewModel.didTapPreview(post: post)
+        }
+        
         return cell
     }
     
@@ -359,7 +362,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let post = viewModel.posts[indexPath.item]
         viewModel.didSelectPost(post)
     }
-    
 }
 
 // MARK: - Popup Methods
