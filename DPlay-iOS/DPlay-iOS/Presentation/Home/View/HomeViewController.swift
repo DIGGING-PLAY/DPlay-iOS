@@ -38,6 +38,10 @@ final class HomeViewController: UIViewController {
         collectionViewLayout: UICollectionViewFlowLayout()
     )
     
+    // Haptic 관련
+    private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
+    private var lastHapticIndex: Int?
+    
     // MARK: - Life Cycle
     
     init(viewModel: HomeViewModel) {
@@ -47,10 +51,10 @@ final class HomeViewController: UIViewController {
     
     required init?(coder: NSCoder) { fatalError() }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        loadData()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+        hapticGenerator.prepare()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +65,6 @@ final class HomeViewController: UIViewController {
         setupTarget()
         bind()
         bindAudioState()
-        loadData()
     }
 }
 
@@ -281,6 +284,13 @@ private extension HomeViewController {
                 if currentPage == self.viewModel.posts.count,
                    self.viewModel.isLocked {
                     self.showLockedPopup()
+                }
+                
+                // 이전 인덱스와 다를 때만 햅틱 발생
+                if self.lastHapticIndex != currentPage {
+                    self.lastHapticIndex = currentPage
+                    self.hapticGenerator.impactOccurred()
+                    self.hapticGenerator.prepare()
                 }
             }
 
