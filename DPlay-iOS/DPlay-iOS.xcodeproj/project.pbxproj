@@ -98,6 +98,7 @@
 		EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */; };
 		EF4B8DF52F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */; };
 		EF4B8DF72F0A5F84009101C4 /* LockedAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */; };
+		EF4B8DF92F0A9C9E009101C4 /* HomeFeedBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF82F0A9C9E009101C4 /* HomeFeedBadgeView.swift */; };
 		EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */; };
 		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
 		EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */; };
@@ -270,6 +271,7 @@
 		EF4B8DF02F06841F009101C4 /* MockHomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeService.swift; sourceTree = "<group>"; };
 		EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPreviewNetworkService.swift; sourceTree = "<group>"; };
 		EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedAlbumCell.swift; sourceTree = "<group>"; };
+		EF4B8DF82F0A9C9E009101C4 /* HomeFeedBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedBadgeView.swift; sourceTree = "<group>"; };
 		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
 		EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGuidePopupView.swift; sourceTree = "<group>"; };
@@ -981,6 +983,7 @@
 			children = (
 				EF5A94782ED80F16001B56B8 /* ToastView.swift */,
 				EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */,
+				EF4B8DF82F0A9C9E009101C4 /* HomeFeedBadgeView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -1798,6 +1801,7 @@
 				EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,
 				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
+				EF4B8DF92F0A9C9E009101C4 /* HomeFeedBadgeView.swift in Sources */,
 				EF4B8DE02F0677FB009101C4 /* PreviewMusicRepository.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */,
