@@ -57,7 +57,7 @@ extension HomeViewModel {
 // MARK: - 음악 재생
 extension HomeViewModel {
 
-    func didTapPreview(post: Post) {
+    func didTapPreview(post: Post, playId: UUID) {
         Task {
             do {
                 let session = try await previewMusicUseCase.execute(
@@ -68,7 +68,7 @@ extension HomeViewModel {
                 AudioPlayerManager.shared.playPreview(
                     sessionId: session.sessionId,
                     trackId: session.trackId,
-                    streamURL: session.streamURL
+                    streamURL: session.streamURL, playId: playId
                 )
 
             } catch {

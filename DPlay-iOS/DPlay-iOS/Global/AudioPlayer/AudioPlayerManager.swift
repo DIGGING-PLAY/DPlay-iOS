@@ -28,6 +28,7 @@ final class AudioPlayerManager {
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var currentTrackId: String?
     @Published private(set) var currentSessionId: String?
+    @Published private(set) var currentPlayId: UUID?
 
     private init() {
         configureAudioSession()
@@ -43,8 +44,29 @@ extension AudioPlayerManager {
     func playPreview(
         sessionId: String,
         trackId: String,
-        streamURL: URL
+        streamURL: URL,
+        playId: UUID?
     ) {
+        
+        // 1. 같은 셀에서 다시 재생 버튼을 누른 경우만 토글 동작
+        //    - trackId + playId가 모두 같은 경우
+        //    - 동일한 트랙을 여러 셀이 가질 수 있기 때문에 playId로 UI 출처를 구분
+        if currentTrackId == trackId,
+           currentPlayId == playId {
+
+            if isPlaying {
+                stopInternal()
+            } else {
+                player?.play()
+                isPlaying = true
+            }
+            return
+        }
+
+        // 2. 다른 셀에서 재생 버튼을 누른 경우
+        //    - 기존 재생 음악을 무조건 종료하고
+        //    - 새 음악을 즉시 재생 (전환 재생)
+        stopInternal()
         
         isLoading = true
         isPlaying = false
@@ -61,6 +83,7 @@ extension AudioPlayerManager {
         // 트랙을 재생 중인지 기록
         currentTrackId = trackId
         currentSessionId = sessionId
+        currentPlayId = playId
         
         // 재생 아이템의 생명주기를 감시한다
         observeItemEnd(item)
@@ -147,6 +170,7 @@ private extension AudioPlayerManager {
         isLoading = false
         currentTrackId = nil
         currentSessionId = nil
+        currentPlayId = nil
     }
 }
 

@@ -411,7 +411,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
          cell.onTapPlay = { [weak self] in
              self?.playingCellId = cell.cellId
-             self?.viewModel.didTapPreview(post: post)
+             self?.viewModel.didTapPreview(post: post, playId: cell.cellId)
          }
         
         return cell
