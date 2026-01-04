@@ -147,7 +147,6 @@ private extension MonthPickerModalViewController {
             onTapSelectButton?(selectedYear, selectedMonth)
         }
     }
-    
 }
 
 private extension MonthPickerModalViewController {

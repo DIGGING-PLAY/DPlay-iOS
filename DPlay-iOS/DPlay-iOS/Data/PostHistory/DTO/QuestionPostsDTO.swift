@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias QuestionPostsResponseDTO = BaseResponseDTO<MonthlyQuestionsDataDTO>
+typealias QuestionPostsResponseDTO = BaseResponseDTO<QuestionPostsDataDTO>
 
 struct QuestionPostsDataDTO: Decodable {
     let questionId: Int

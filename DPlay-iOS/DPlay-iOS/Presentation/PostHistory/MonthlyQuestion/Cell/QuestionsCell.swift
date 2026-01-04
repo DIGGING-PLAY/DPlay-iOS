@@ -89,7 +89,6 @@ private extension QuestionsCell {
     }
     
     func setupLayout() {
-        
         dayView.snp.makeConstraints {
             $0.width.equalTo(52)
         }
