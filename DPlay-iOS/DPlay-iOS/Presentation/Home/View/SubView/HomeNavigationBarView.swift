@@ -12,6 +12,10 @@ import Then
 
 final class HomeNavigationBarView: UIView {
     
+    // MARK: - Actions
+    
+    var onTapMenu: (() -> Void)?
+    
     // MARK: - UI Properties
     
     private let logoImageView = UIImageView()
@@ -24,6 +28,7 @@ final class HomeNavigationBarView: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -62,5 +67,22 @@ private extension HomeNavigationBarView {
             $0.centerY.equalToSuperview()
             $0.size.equalTo(24)
         }
+    }
+}
+
+@objc private extension HomeNavigationBarView {
+    
+    //MARK: - @objc Method
+    
+    private func menuButtonTapped() {
+        onTapMenu?()
+    }
+}
+
+private extension HomeNavigationBarView {
+    // MARK: - Private Method
+    
+    func setupTarget() {
+        menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
     }
 }
