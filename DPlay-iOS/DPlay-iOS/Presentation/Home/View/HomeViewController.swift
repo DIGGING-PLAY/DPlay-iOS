@@ -140,6 +140,7 @@ private extension HomeViewController {
             $0.backgroundColor = .clear
             $0.setCollectionViewLayout(makeEditorLayout(), animated: false)
             $0.register(MusicAlbumCell.self, forCellWithReuseIdentifier: MusicAlbumCell.identifier)
+            $0.register(LockedAlbumCell.self, forCellWithReuseIdentifier: LockedAlbumCell.identifier)
             $0.showsHorizontalScrollIndicator = false
         }
     }
@@ -281,7 +282,7 @@ private extension HomeViewController {
                 let currentPage = Int((offset.x + pageWidth / 2) / pageWidth)
 
                 // 마지막 페이지(= locked 셀) 접근 시 팝업 표시
-                if currentPage == self.viewModel.posts.count,
+                if currentPage == self.viewModel.posts.count + 1,
                    self.viewModel.isLocked {
                     self.showLockedPopup()
                 }
@@ -382,21 +383,36 @@ private extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.posts.count
+        let count = viewModel.posts.count
+        return viewModel.isLocked ? count + 1 : count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: MusicAlbumCell.identifier,
-            for: indexPath
-        ) as? MusicAlbumCell else { return UICollectionViewCell() }
-        let post = viewModel.posts[indexPath.row]
-        cell.configure(with: post)
         
-        cell.onTapPlay = { [weak self] in
-            self?.playingCellId = cell.cellId
-            self?.viewModel.didTapPreview(post: post)
-        }
+        let postCount = viewModel.posts.count
+
+         // 마지막 + isLocked → 잠금 셀
+         if viewModel.isLocked && indexPath.item == postCount {
+             let cell = collectionView.dequeueReusableCell(
+                 withReuseIdentifier: LockedAlbumCell.identifier,
+                 for: indexPath
+             ) as! LockedAlbumCell
+             return cell
+         }
+
+         // 일반 게시글 셀
+         let cell = collectionView.dequeueReusableCell(
+             withReuseIdentifier: MusicAlbumCell.identifier,
+             for: indexPath
+         ) as! MusicAlbumCell
+
+         let post = viewModel.posts[indexPath.item]
+         cell.configure(with: post)
+
+         cell.onTapPlay = { [weak self] in
+             self?.playingCellId = cell.cellId
+             self?.viewModel.didTapPreview(post: post)
+         }
         
         return cell
     }
@@ -423,6 +439,21 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = viewModel.posts[indexPath.item]
         viewModel.didSelectPost(post)
+    }
+    
+    
+    /// 셀을 선택하기 직전에 무조건 호출됨
+    /// 글 작성 안했으면 마지막 LockedAlbumCell에서 터치 불가 popupView 띄우기
+    func collectionView(
+        _ collectionView: UICollectionView,
+        shouldSelectItemAt indexPath: IndexPath
+    ) -> Bool {
+
+        if viewModel.isLocked && indexPath.item == viewModel.posts.count {
+            showLockedPopup()
+            return false
+        }
+        return true
     }
 }
 

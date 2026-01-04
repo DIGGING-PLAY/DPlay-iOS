@@ -97,6 +97,7 @@
 		EF4B8DF22F06841F009101C4 /* MockHomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF02F06841F009101C4 /* MockHomeService.swift */; };
 		EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */; };
 		EF4B8DF52F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */; };
+		EF4B8DF72F0A5F84009101C4 /* LockedAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */; };
 		EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */; };
 		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
 		EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */; };
@@ -268,6 +269,7 @@
 		EF4B8DED2F068375009101C4 /* MockPreviewMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPreviewMusic.swift; sourceTree = "<group>"; };
 		EF4B8DF02F06841F009101C4 /* MockHomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeService.swift; sourceTree = "<group>"; };
 		EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPreviewNetworkService.swift; sourceTree = "<group>"; };
+		EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedAlbumCell.swift; sourceTree = "<group>"; };
 		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
 		EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGuidePopupView.swift; sourceTree = "<group>"; };
@@ -868,6 +870,7 @@
 			isa = PBXGroup;
 			children = (
 				EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */,
+				EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1703,6 +1706,7 @@
 				EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
 				D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */,
+				EF4B8DF72F0A5F84009101C4 /* LockedAlbumCell.swift in Sources */,
 				D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */,
 				D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
