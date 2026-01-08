@@ -17,6 +17,8 @@ enum IconLiterals {
     static var ic_heart_p: UIImage { .load(name: "ic_heart_p_24") }
     static var ic_editor: UIImage { .load(name: "ic_editor") }
     static var ic_editor_20: UIImage { .load(name: "ic_editor_20") }
+    static var ic_new: UIImage { .load(name: "ic_new_20") }
+    static var ic_best: UIImage { .load(name: "ic_best_20") }
     static var ic_dplay_smallLogo: UIImage { .load(name: "ic_dplay_smallLogo") }
     static var ic_dplay_bigLogo: UIImage { .load(name: "ic_dplay_bigLogo") }
     static var ic_bookmark_24: UIImage { .load(name: "ic_bookmark_24") }
@@ -63,6 +65,7 @@ enum ImageLiterals {
     static var img_onboarding_2: UIImage { .load(name: "img_onboarding_2") }
     static var img_onboarding_3: UIImage { .load(name: "img_onboarding_3") }
     static var img_profile: UIImage { .load(name: "img_profile")}
+    static var img_lock: UIImage { .load(name: "img_lock")}
 }
 
 extension UIImage {

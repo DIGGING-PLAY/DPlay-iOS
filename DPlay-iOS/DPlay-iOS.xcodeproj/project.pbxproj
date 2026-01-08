@@ -103,6 +103,25 @@
 		EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560382EBDD3EE003E65C9 /* HomeRepository.swift */; };
 		EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */; };
 		EF4B8DBB2F003682009101C4 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DBA2F003682009101C4 /* UIApplication+.swift */; };
+		EF4B8DC12F067270009101C4 /* AudioPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DBF2F067270009101C4 /* AudioPlayerManager.swift */; };
+		EF4B8DD02F067637009101C4 /* PreviewMusicResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DCE2F067637009101C4 /* PreviewMusicResponseDTO.swift */; };
+		EF4B8DD12F067637009101C4 /* PreviewMusicResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DCE2F067637009101C4 /* PreviewMusicResponseDTO.swift */; };
+		EF4B8DD92F0676A5009101C4 /* PreviewMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DD82F0676A5009101C4 /* PreviewMusic.swift */; };
+		EF4B8DDA2F0676A5009101C4 /* PreviewMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DD82F0676A5009101C4 /* PreviewMusic.swift */; };
+		EF4B8DE02F0677FB009101C4 /* PreviewMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DDF2F0677FB009101C4 /* PreviewMusicRepository.swift */; };
+		EF4B8DE12F0677FB009101C4 /* PreviewMusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DDF2F0677FB009101C4 /* PreviewMusicRepository.swift */; };
+		EF4B8DE32F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DE22F0678BD009101C4 /* PreviewMusicUseCase.swift */; };
+		EF4B8DE42F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DE22F0678BD009101C4 /* PreviewMusicUseCase.swift */; };
+		EF4B8DE62F068039009101C4 /* PreviewMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DE52F068039009101C4 /* PreviewMusicService.swift */; };
+		EF4B8DE72F068039009101C4 /* PreviewMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DE52F068039009101C4 /* PreviewMusicService.swift */; };
+		EF4B8DE92F068180009101C4 /* PreviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DE82F068180009101C4 /* PreviewAPI.swift */; };
+		EF4B8DEF2F068375009101C4 /* MockPreviewMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DED2F068375009101C4 /* MockPreviewMusic.swift */; };
+		EF4B8DF12F06841F009101C4 /* MockHomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF02F06841F009101C4 /* MockHomeService.swift */; };
+		EF4B8DF22F06841F009101C4 /* MockHomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF02F06841F009101C4 /* MockHomeService.swift */; };
+		EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */; };
+		EF4B8DF52F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */; };
+		EF4B8DF72F0A5F84009101C4 /* LockedAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */; };
+		EF4B8DF92F0A9C9E009101C4 /* HomeFeedBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4B8DF82F0A9C9E009101C4 /* HomeFeedBadgeView.swift */; };
 		EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */; };
 		EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */; };
 		EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */; };
@@ -282,6 +301,18 @@
 		EF2560382EBDD3EE003E65C9 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		EF2560452EBDD8CB003E65C9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		EF4B8DBA2F003682009101C4 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		EF4B8DBF2F067270009101C4 /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
+		EF4B8DCE2F067637009101C4 /* PreviewMusicResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMusicResponseDTO.swift; sourceTree = "<group>"; };
+		EF4B8DD82F0676A5009101C4 /* PreviewMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMusic.swift; sourceTree = "<group>"; };
+		EF4B8DDF2F0677FB009101C4 /* PreviewMusicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMusicRepository.swift; sourceTree = "<group>"; };
+		EF4B8DE22F0678BD009101C4 /* PreviewMusicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMusicUseCase.swift; sourceTree = "<group>"; };
+		EF4B8DE52F068039009101C4 /* PreviewMusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMusicService.swift; sourceTree = "<group>"; };
+		EF4B8DE82F068180009101C4 /* PreviewAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAPI.swift; sourceTree = "<group>"; };
+		EF4B8DED2F068375009101C4 /* MockPreviewMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPreviewMusic.swift; sourceTree = "<group>"; };
+		EF4B8DF02F06841F009101C4 /* MockHomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeService.swift; sourceTree = "<group>"; };
+		EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPreviewNetworkService.swift; sourceTree = "<group>"; };
+		EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedAlbumCell.swift; sourceTree = "<group>"; };
+		EF4B8DF82F0A9C9E009101C4 /* HomeFeedBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedBadgeView.swift; sourceTree = "<group>"; };
 		EF55682E2EC72BB600A1EEED /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAlbumCell.swift; sourceTree = "<group>"; };
 		EF5A94712ED5B286001B56B8 /* CommentGuidePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGuidePopupView.swift; sourceTree = "<group>"; };
@@ -1063,6 +1094,7 @@
 			isa = PBXGroup;
 			children = (
 				EF5568322EC72F9E00A1EEED /* MusicAlbumCell.swift */,
+				EF4B8DF62F0A5F84009101C4 /* LockedAlbumCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1083,6 +1115,82 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		EF4B8DC02F067270009101C4 /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DBF2F067270009101C4 /* AudioPlayerManager.swift */,
+			);
+			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
+		EF4B8DCA2F067624009101C4 /* PreviewMusic */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DCF2F067637009101C4 /* DTO */,
+				EF4B8DDD2F0677D2009101C4 /* Repository */,
+				EF4B8DDE2F0677D7009101C4 /* Service */,
+			);
+			path = PreviewMusic;
+			sourceTree = "<group>";
+		};
+		EF4B8DCF2F067637009101C4 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DCE2F067637009101C4 /* PreviewMusicResponseDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		EF4B8DD42F06768A009101C4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DD82F0676A5009101C4 /* PreviewMusic.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		EF4B8DD52F06768A009101C4 /* PreviewMusic */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DD42F06768A009101C4 /* Entity */,
+				EF4B8DD72F067696009101C4 /* UseCase */,
+			);
+			path = PreviewMusic;
+			sourceTree = "<group>";
+		};
+		EF4B8DD72F067696009101C4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DE22F0678BD009101C4 /* PreviewMusicUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		EF4B8DDD2F0677D2009101C4 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DDF2F0677FB009101C4 /* PreviewMusicRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		EF4B8DDE2F0677D7009101C4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DE52F068039009101C4 /* PreviewMusicService.swift */,
+				EF4B8DF32F06853E009101C4 /* MockPreviewNetworkService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EF4B8DEE2F068375009101C4 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				EF4B8DED2F068375009101C4 /* MockPreviewMusic.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		EF55682D2EC72BAB00A1EEED /* SubView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1097,6 +1205,7 @@
 			children = (
 				EF5A94782ED80F16001B56B8 /* ToastView.swift */,
 				EF5A94872ED87D46001B56B8 /* ReportSheetView.swift */,
+				EF4B8DF82F0A9C9E009101C4 /* HomeFeedBadgeView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -1212,6 +1321,7 @@
 		EFA5C3952EB314D8001F1627 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				EF4B8DD52F06768A009101C4 /* PreviewMusic */,
 				D01893E62ECA4C77002A48C1 /* Auth */,
 				EFCBCF142ECC743F00BA7740 /* MusicDetail */,
 				EFA5C4012EB31C18001F1627 /* Home */,
@@ -1242,6 +1352,7 @@
 			isa = PBXGroup;
 			children = (
 				EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */,
+				EF4B8DF02F06841F009101C4 /* MockHomeService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1259,6 +1370,7 @@
 		EFA5C3A72EB31696001F1627 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				EF4B8DCA2F067624009101C4 /* PreviewMusic */,
 				D01893F72ECA54D0002A48C1 /* Auth */,
 				EFCBCF182ECC747A00BA7740 /* MusicDetail */,
 				EFCBCF492ED49A4400BA7740 /* MusicAdd */,
@@ -1283,6 +1395,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D071962F04E30D00B9EE00 /* PostHistory */,
+				EF4B8DEE2F068375009101C4 /* Music */,
 				EF25603C2EBDD5D4003E65C9 /* Home */,
 				D01C6D7C2EE46CD0009C9AF8 /* MyPage */,
 				EFCBCF322ECC75CF00BA7740 /* MusicDetail */,
@@ -1356,6 +1469,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAA45BE2EDD9AE400BEC1AC /* HomeAPI.swift */,
+				EF4B8DE82F068180009101C4 /* PreviewAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1454,6 +1568,7 @@
 		EFCBCEE12EC9B57C00BA7740 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				EF4B8DC02F067270009101C4 /* AudioPlayer */,
 				EFCBCED62EC9B57C00BA7740 /* Extension */,
 				EFCBCEE02EC9B57C00BA7740 /* Resource */,
 			);
@@ -1808,6 +1923,7 @@
 				EFAA45D02EDDB22200BEC1AC /* KeychainManager.swift in Sources */,
 				D06645C62F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
 				EFAA45D12EDDB22200BEC1AC /* TokenRefreshManager.swift in Sources */,
+				EF4B8DDA2F0676A5009101C4 /* PreviewMusic.swift in Sources */,
 				EFAA43312EDD945400BEC1AC /* NetworkResult.swift in Sources */,
 				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,
 				EFAA43292EDD943100BEC1AC /* BaseAPIService.swift in Sources */,
@@ -1822,6 +1938,7 @@
 				EF25603A2EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
 				D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */,
+				EF4B8DF72F0A5F84009101C4 /* LockedAlbumCell.swift in Sources */,
 				D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */,
 				D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
@@ -1842,6 +1959,7 @@
 				EFCBCF2B2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EFCBCF202ECC751F00BA7740 /* MusicDetailResponseDTO.swift in Sources */,
 				EFCBCEED2EC9B57C00BA7740 /* UITextField+.swift in Sources */,
+				EF4B8DD02F067637009101C4 /* PreviewMusicResponseDTO.swift in Sources */,
 				EFAA43272EDD942900BEC1AC /* BaseAPI.swift in Sources */,
 				EFCBCEEE2EC9B57C00BA7740 /* Iamge&IconLiterals.swift in Sources */,
 				EFCBCEEF2EC9B57C00BA7740 /* UILabel+.swift in Sources */,
@@ -1875,6 +1993,7 @@
 				EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */,
 				D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */,
 				D0D071B12F04FDD800B9EE00 /* QuestionPostsNavigationBarView.swift in Sources */,
+				EF4B8DEF2F068375009101C4 /* MockPreviewMusic.swift in Sources */,
 				EFCBCF582ED49D7700BA7740 /* MusicAddCoordinator.swift in Sources */,
 				D01C6D7E2EE46CE2009C9AF8 /* MockMyPage.swift in Sources */,
 				EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */,
@@ -1891,6 +2010,7 @@
 				EFCBCF562ED49BD400BA7740 /* SongSearchCell.swift in Sources */,
 				D0C54FFA2EDB8E800003E4B0 /* ArchiveCell.swift in Sources */,
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
+				EF4B8DC12F067270009101C4 /* AudioPlayerManager.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */,
 				D0D071A12F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */,
@@ -1903,8 +2023,11 @@
 				D05B9A642ECB5072001379C4 /* OnboardingUseCase.swift in Sources */,
 				D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */,
 				D05B6C362ED6CFA4003F25E5 /* NotificationPermissionViewModel.swift in Sources */,
+				EF4B8DE92F068180009101C4 /* PreviewAPI.swift in Sources */,
 				D0C550162EE01A760003E4B0 /* MyPageTrack.swift in Sources */,
+				EF4B8DE62F068039009101C4 /* PreviewMusicService.swift in Sources */,
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
+				EF4B8DF22F06841F009101C4 /* MockHomeService.swift in Sources */,
 				EFAA45B12EDD965A00BEC1AC /* Encodable+.swift in Sources */,
 				D0D071A52F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */,
 				EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */,
@@ -1914,10 +2037,14 @@
 				D0C550122EE019D50003E4B0 /* UserProfile.swift in Sources */,
 				D025992D2F04506A0054D604 /* MonthlyQuestionNavigationBarView.swift in Sources */,
 				D025991B2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */,
+				EF4B8DE42F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
 				D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */,
+				EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,
 				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
+				EF4B8DF92F0A9C9E009101C4 /* HomeFeedBadgeView.swift in Sources */,
+				EF4B8DE02F0677FB009101C4 /* PreviewMusicRepository.swift in Sources */,
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */,
 				D017CD332EDB4F96001CD763 /* MyPageNavigationBarView.swift in Sources */,
@@ -1945,6 +2072,7 @@
 				D01C6D852EE47AB0009C9AF8 /* MyPageUseCase.swift in Sources */,
 				D0C5500A2EDFE5C80003E4B0 /* MyPageProfileDTO.swift in Sources */,
 				D0C550132EE019D50003E4B0 /* UserProfile.swift in Sources */,
+				EF4B8DF52F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,
 				EFCBCF212ECC751F00BA7740 /* MusicDetailResponseDTO.swift in Sources */,
 				D0C550152EE01A760003E4B0 /* MyPageTrack.swift in Sources */,
 				EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */,
@@ -1954,16 +2082,22 @@
 				EFCBCF392ECC761700BA7740 /* MusicDetailService.swift in Sources */,
 				D0D0719B2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */,
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
+				EF4B8DD12F067637009101C4 /* PreviewMusicResponseDTO.swift in Sources */,
 				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */,
 				D0D071A22F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */,
+				EF4B8DE32F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
+				EF4B8DF12F06841F009101C4 /* MockHomeService.swift in Sources */,
 				D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
 				EFCBCF2A2ECC755C00BA7740 /* MusicDetailEntitys.swift in Sources */,
 				EF2560372EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				EFCBCE8D2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
+				EF4B8DD92F0676A5009101C4 /* PreviewMusic.swift in Sources */,
 				EFA5C3862EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift in Sources */,
 				D0D071A62F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */,
+				EF4B8DE72F068039009101C4 /* PreviewMusicService.swift in Sources */,
 				EF2560392EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
+				EF4B8DE12F0677FB009101C4 /* PreviewMusicRepository.swift in Sources */,
 				EFCBCF352ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
 				D0D071AA2F04F48700B9EE00 /* PostHistoryUseCase.swift in Sources */,
 				D025991C2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */,
