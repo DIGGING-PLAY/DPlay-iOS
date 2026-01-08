@@ -298,13 +298,22 @@ private extension HomeViewController {
     
     //MARK: - @objc Method
     
+    @objc
     func handleScrapTapped() {
-        ToastManager.shared.show(
-            message: "보관함에 추가했어요",
-            actionText: "보러가기"
-        ) { [weak self] in
-            //self?.navigateToStorage()
+        guard currentPageIndex < viewModel.posts.count else { return }
+
+        let post = viewModel.posts[currentPageIndex]
+
+        Task {
+            await viewModel.toggleScrap(postId: post.id)
         }
+
+        ToastManager.shared.show(
+            message: post.isScrapped
+                ? "보관함에서 삭제했어요"
+                : "보관함에 추가했어요",
+            actionText: "보러가기"
+        )
     }
 }
 
@@ -339,10 +348,17 @@ extension HomeViewController {
             musicScrapButton.isHidden = true
             return
         }
-        
+
         let post = viewModel.posts[currentPageIndex]
+
         musicStateBadgeView.configure(badge: post.badges)
         musicScrapButton.isHidden = false
+
+        let image = post.isScrapped
+            ? IconLiterals.ic_bookmark_fill_24
+            : IconLiterals.ic_bookmark_24
+
+        musicScrapButton.setImage(image, for: .normal)
     }
     
     // MARK: - Cell 앨범 커버 회전
