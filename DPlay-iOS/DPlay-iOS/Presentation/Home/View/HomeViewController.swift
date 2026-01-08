@@ -449,6 +449,12 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             self?.viewModel.didTapPreview(post: post, playId: cell.cellId)
         }
         
+        cell.onTapLike = { [weak self] in
+            Task {
+                await self?.viewModel.toggleLike(postId: post.id)
+            }
+        }
+        
         return cell
     }
     

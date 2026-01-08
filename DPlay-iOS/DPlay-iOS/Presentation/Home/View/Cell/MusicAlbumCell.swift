@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import Kingfisher
 
 final class MusicAlbumCell: UICollectionViewCell {
     
@@ -18,6 +19,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     // 같은 음악 앨범 커버가 같이 돌아가는 걸 방지 하기 위함, 같은 노래라도 내가 누른 음악 커바만 돌아가기
     var cellId: UUID = UUID()
     var onTapPlay: (() -> Void)?
+    var onTapLike: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -51,7 +53,10 @@ final class MusicAlbumCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        stopRotating()  
+        stopRotating()
+        
+        // 빠르게 스크롤시 이전셀 이미지 보이는 현상 방지
+        musicAlbumCoverImageView.kf.cancelDownloadTask()
     }
 }
 
@@ -220,16 +225,32 @@ private extension MusicAlbumCell {
 private extension MusicAlbumCell {
     
     // MARK: - Private Method
-    private func setupTarget() {
+    func setupTarget() {
         musicStreamingButton.addTarget(
             self,
             action: #selector(playTapped),
             for: .touchUpInside
         )
+        
+        userHeartButton
+            .addTarget(
+                self,
+                action: #selector(
+                    handleLikeTapped
+                ),
+                for: .touchUpInside
+            )
+    }
+}
+
+@objc private extension MusicAlbumCell {
+    
+    func playTapped() {
+        onTapPlay?()
     }
 
-    @objc private func playTapped() {
-        onTapPlay?()
+    func handleLikeTapped() {
+        onTapLike?()
     }
 }
 
@@ -238,16 +259,26 @@ private extension MusicAlbumCell {
 extension MusicAlbumCell {
     
     func configure(with post: Post) {
-        //if let url = URL(string: post.track.coverImage) {
-        //    musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
-        // }
+        if let url = URL(string: post.track.coverImage) {
+             musicAlbumCoverImageView.kf.setImage(
+                 with: url,
+                 placeholder: nil,
+                 options: [
+                     .transition(.fade(0.2)),
+                     .cacheOriginalImage
+                 ]
+             )
+         } else {
+             musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
+         }
         userNameLabel.text = post.user.nickname
         userProfileImageView.image = UIImage(named: "img_mock_profile")
         userCommentLabel.text = post.content
+        let image = post.isScrapped
+        ? IconLiterals.ic_heart_w
+        : IconLiterals.ic_heart_w_fill
+        userHeartButton.setImage(image, for: .normal)
         heartCountLabel.text = "\(post.like.count)"
-        let scrapIcon = post.isScrapped
-        ? IconLiterals.ic_bookmark_fill_24
-        : IconLiterals.ic_bookmark_24
     }
     
     func setPlaying(_ isPlaying: Bool) {
