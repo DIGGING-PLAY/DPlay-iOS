@@ -10,6 +10,10 @@ import Foundation
 // MARK: - MockHomeService
 
 final class MockHomeService: HomeService {
+    func toggleLike(postId: Int, isLiked: Bool) async throws {}
+    
+    func toggleScrap(postId: Int, isScrapped: Bool) async throws {}
+    
     func fetchHomeFeed() async throws -> HomeFeedResponseDTO {
         return MockHomeFeed.sample
     }

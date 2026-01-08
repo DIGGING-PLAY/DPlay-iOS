@@ -9,8 +9,8 @@ import Foundation
 
 protocol HomeRepository {
     func fetchHomeFeed() async throws -> HomeFeed
-    func updateLike(id: Int) async throws
-    func updateScrap(id: Int, isScrapped: Bool) async throws
+    func toggleLike(id: Int, isLiked: Bool) async throws
+    func toggleScrap(id: Int, isScrapped: Bool) async throws
 }
 
 final class DefaultHomeRepository: HomeRepository {
@@ -21,21 +21,33 @@ final class DefaultHomeRepository: HomeRepository {
         self.service = service
     }
 
+    // MARK: - Home Feed
+
     func fetchHomeFeed() async throws -> HomeFeed {
         let responseDTO = try await service.fetchHomeFeed()
 
         guard let data = responseDTO.data else {
             throw AppError.emptyData
         }
-        
+
         return data.toEntity()
     }
 
-    func updateLike(id: Int) async throws {
-        try await service.like(postId: id)
+    // MARK: - Like / Unlike
+
+    func toggleLike(id: Int, isLiked: Bool) async throws {
+        try await service.toggleLike(
+            postId: id,
+            isLiked: isLiked
+        )
     }
 
-    func updateScrap(id: Int, isScrapped: Bool) async throws {
-        try await service.scrap(postId: id, isScrapped: isScrapped)
+    // MARK: - Scrap / Unscrap
+
+    func toggleScrap(id: Int, isScrapped: Bool) async throws {
+        try await service.toggleScrap(
+            postId: id,
+            isScrapped: isScrapped
+        )
     }
 }
