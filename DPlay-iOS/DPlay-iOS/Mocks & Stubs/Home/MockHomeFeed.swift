@@ -24,12 +24,12 @@ enum MockHomeFeed {
                     isScrapped: true,
                     content: "진짜 나오자마자 들었는데 이 노래가 최고 출근곡, 퇴근곡, 노동곡 다 되는 짱제로! 일하는 매장에서도 수십 번씩 틀고 있어요. 모두가 알아야 돼..",
                     badges: HomeFeedBadgesDTO(
-                        isEditorPick: false,
-                        isPopular: true,
-                        isNew: true
+                        isEditorPick: true,
+                        isPopular: false,
+                        isNew: false
                     ),
                     track: HomeFeedTrackDTO(
-                        trackId: "apple:203948",
+                        trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
@@ -51,10 +51,10 @@ enum MockHomeFeed {
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: false,
                         isPopular: true,
-                        isNew: true
+                        isNew: false
                     ),
                     track: HomeFeedTrackDTO(
-                        trackId: "apple:203948",
+                        trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
@@ -76,11 +76,11 @@ enum MockHomeFeed {
                     content: "그냥 좋아요 이 노래",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: false,
-                        isPopular: true,
+                        isPopular: false,
                         isNew: true
                     ),
                     track: HomeFeedTrackDTO(
-                        trackId: "apple:203948",
+                        trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
@@ -100,12 +100,12 @@ enum MockHomeFeed {
                     isScrapped: true,
                     content: "그냥 좋아요 이 노래",
                     badges: HomeFeedBadgesDTO(
-                        isEditorPick: false,
-                        isPopular: true,
-                        isNew: true
+                        isEditorPick: true,
+                        isPopular: false,
+                        isNew: false
                     ),
                     track: HomeFeedTrackDTO(
-                        trackId: "apple:203948",
+                        trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"

@@ -25,9 +25,25 @@ final class HomeCoordinator: Coordinator {
     }
 
     func start() {
-        let vm = HomeViewModel(useCase: useCase, coordinator: self)
-        let vc = HomeViewController(viewModel: vm)
-        navigationController.isNavigationBarHidden = true  
+        
+        // 서버 연결후 Mock 갈아 끼우기
+        let homeService: HomeService = MockHomeService()
+        let previewService: PreviewNetworkService = MockPreviewNetworkService()
+        
+        let homeRepository = DefaultHomeRepository(service: homeService)
+        let previewRepository = DefaultPreviewMusicRepository(service: previewService)
+        
+        let homeUseCase = DefaultHomeViewUseCase(repository: homeRepository)
+        let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
+        
+        let viewModel = HomeViewModel(
+            homeViewUseCase: homeUseCase,
+            previewMusicUseCase: previewUseCase,
+            coordinator: self
+        )
+        
+        let vc = HomeViewController(viewModel: viewModel)
+        navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
 

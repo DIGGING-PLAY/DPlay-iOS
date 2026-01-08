@@ -15,6 +15,9 @@ final class MusicAlbumCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = MusicAlbumCell.className
+    // 같은 음악 앨범 커버가 같이 돌아가는 걸 방지 하기 위함, 같은 노래라도 내가 누른 음악 커바만 돌아가기
+    var cellId: UUID = UUID()
+    var onTapPlay: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -39,10 +42,16 @@ final class MusicAlbumCell: UICollectionViewCell {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupTarget()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        stopRotating()  
     }
 }
 
@@ -208,7 +217,26 @@ private extension MusicAlbumCell {
     }
 }
 
+private extension MusicAlbumCell {
+    
+    // MARK: - Private Method
+    private func setupTarget() {
+        musicStreamingButton.addTarget(
+            self,
+            action: #selector(playTapped),
+            for: .touchUpInside
+        )
+    }
+
+    @objc private func playTapped() {
+        onTapPlay?()
+    }
+}
+
+// MARK: - Home VC에서 바인딩
+
 extension MusicAlbumCell {
+    
     func configure(with post: Post) {
         //if let url = URL(string: post.track.coverImage) {
         //    musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
@@ -220,5 +248,35 @@ extension MusicAlbumCell {
         let scrapIcon = post.isScrapped
         ? IconLiterals.ic_bookmark_fill_24
         : IconLiterals.ic_bookmark_24
+    }
+    
+    func setPlaying(_ isPlaying: Bool) {
+        if isPlaying {
+            startRotating()
+        } else {
+            stopRotating()
+        }
+    }
+}
+
+// MARK: - 회전 애니메이션
+
+private extension MusicAlbumCell {
+
+    func startRotating() {
+        guard musicAlbumCoverImageView.layer.animation(forKey: "rotation") == nil else { return }
+
+        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotation.fromValue = 0
+        rotation.toValue = Double.pi * 2
+        rotation.duration = 8.0              // 한 바퀴 8초 (느긋하게)
+        rotation.repeatCount = .infinity
+        rotation.isRemovedOnCompletion = false
+
+        musicAlbumCoverImageView.layer.add(rotation, forKey: "rotation")
+    }
+
+    func stopRotating() {
+        musicAlbumCoverImageView.layer.removeAnimation(forKey: "rotation")
     }
 }
