@@ -120,6 +120,10 @@ extension HomeViewModel {
     func goToMonthlyQuestion() {
         coordinator?.goToMonthlyQuestion()
     }
+    
+    func goToScrapTab() {
+        coordinator?.goToScrapTab()
+    }
 }
 
 // MARK: - 음악 재생

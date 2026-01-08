@@ -297,21 +297,24 @@ private extension HomeViewController {
 @objc private extension HomeViewController {
     
     //MARK: - @objc Method
-
+    
     func handleScrapTapped() {
         guard currentPageIndex < viewModel.posts.count else { return }
-
+        
         let post = viewModel.posts[currentPageIndex]
-
+        
         Task {
             await viewModel.toggleScrap(postId: post.id)
         }
-
+        
         ToastManager.shared.show(
             message: post.isScrapped
-                ? "보관함에서 삭제했어요"
-                : "보관함에 추가했어요",
-            actionText: "보러가기"
+            ? "보관함에서 삭제했어요"
+            : "보관함에 추가했어요",
+            actionText: "보러가기",
+            action: { [weak self] in
+                self?.viewModel.goToScrapTab()
+            }
         )
     }
     
@@ -345,15 +348,15 @@ extension HomeViewController {
             .store(in: &cancellables)
         
         viewModel.$question
-               .compactMap { $0 }
-               .receive(on: DispatchQueue.main)
-               .sink { [weak self] question in
-                   guard let self else { return }
-
-                   self.questionTitleLabel.text = question.title
-                   self.todayDateLabel.text = self.formatDate(question.date)
-               }
-               .store(in: &cancellables)
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] question in
+                guard let self else { return }
+                
+                self.questionTitleLabel.text = question.title
+                self.todayDateLabel.text = self.formatDate(question.date)
+            }
+            .store(in: &cancellables)
     }
     
     /// 현재 CollectionView에서 보고 있는 페이지(index)에 맞춰
@@ -364,16 +367,16 @@ extension HomeViewController {
             musicScrapButton.isHidden = true
             return
         }
-
+        
         let post = viewModel.posts[currentPageIndex]
-
+        
         musicStateBadgeView.configure(badge: post.badges)
         musicScrapButton.isHidden = false
-
+        
         let image = post.isScrapped
-            ? IconLiterals.ic_bookmark_fill_24
-            : IconLiterals.ic_bookmark_24
-
+        ? IconLiterals.ic_bookmark_fill_24
+        : IconLiterals.ic_bookmark_24
+        
         musicScrapButton.setImage(image, for: .normal)
     }
     
@@ -410,15 +413,15 @@ extension HomeViewController {
         // "2025-10-19" → "10월 19일의 발견"
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-
+        
         guard let date = formatter.date(from: dateString) else {
             return ""
         }
-
+        
         let displayFormatter = DateFormatter()
         displayFormatter.locale = Locale(identifier: "ko_KR")
         displayFormatter.dateFormat = "M월 d일의 발견"
-
+        
         return displayFormatter.string(from: date)
     }
     

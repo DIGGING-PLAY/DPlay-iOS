@@ -9,6 +9,8 @@ import UIKit
 
 final class HomeCoordinator: Coordinator {
 
+    weak var parentCoordinator: TabBarCoordinator?
+    
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
 
@@ -74,6 +76,10 @@ final class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
 
+    func goToScrapTab() {
+         parentCoordinator?.switchToMyPageTab()
+     }
+    
     func pop() {
         navigationController.popViewController(animated: true)
         if navigationController.viewControllers.count == 1 {
