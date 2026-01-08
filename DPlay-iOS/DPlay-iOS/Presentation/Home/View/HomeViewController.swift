@@ -333,6 +333,7 @@ extension HomeViewController {
         
         let post = viewModel.posts[currentPageIndex]
         musicStateBadgeView.configure(badge: post.badges)
+        musicScrapButton.isHidden = false
     }
     
     // MARK: - Cell 앨범 커버 회전

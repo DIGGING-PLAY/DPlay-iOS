@@ -901,14 +901,14 @@
 			path = AudioPlayer;
 			sourceTree = "<group>";
 		};
-		EF4B8DCA2F067624009101C4 /* MusicPreview */ = {
+		EF4B8DCA2F067624009101C4 /* PreviewMusic */ = {
 			isa = PBXGroup;
 			children = (
 				EF4B8DCF2F067637009101C4 /* DTO */,
 				EF4B8DDD2F0677D2009101C4 /* Repository */,
 				EF4B8DDE2F0677D7009101C4 /* Service */,
 			);
-			path = MusicPreview;
+			path = PreviewMusic;
 			sourceTree = "<group>";
 		};
 		EF4B8DCF2F067637009101C4 /* DTO */ = {
@@ -927,13 +927,13 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		EF4B8DD52F06768A009101C4 /* MusicPreview */ = {
+		EF4B8DD52F06768A009101C4 /* PreviewMusic */ = {
 			isa = PBXGroup;
 			children = (
 				EF4B8DD42F06768A009101C4 /* Entity */,
 				EF4B8DD72F067696009101C4 /* UseCase */,
 			);
-			path = MusicPreview;
+			path = PreviewMusic;
 			sourceTree = "<group>";
 		};
 		EF4B8DD72F067696009101C4 /* UseCase */ = {
@@ -1097,7 +1097,7 @@
 		EFA5C3952EB314D8001F1627 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				EF4B8DD52F06768A009101C4 /* MusicPreview */,
+				EF4B8DD52F06768A009101C4 /* PreviewMusic */,
 				D01893E62ECA4C77002A48C1 /* Auth */,
 				EFCBCF142ECC743F00BA7740 /* MusicDetail */,
 				EFA5C4012EB31C18001F1627 /* Home */,
@@ -1145,7 +1145,7 @@
 		EFA5C3A72EB31696001F1627 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				EF4B8DCA2F067624009101C4 /* MusicPreview */,
+				EF4B8DCA2F067624009101C4 /* PreviewMusic */,
 				D01893F72ECA54D0002A48C1 /* Auth */,
 				EFCBCF182ECC747A00BA7740 /* MusicDetail */,
 				EFCBCF492ED49A4400BA7740 /* MusicAdd */,
