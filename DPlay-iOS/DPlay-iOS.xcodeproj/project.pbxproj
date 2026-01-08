@@ -249,6 +249,7 @@
 		D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
+		D09780712F1031CF00AAF7A6 /* DPlay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DPlay-iOS.entitlements"; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
 		D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -1148,6 +1149,7 @@
 		EFA5C3772EB31484001F1627 /* DPlay-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D09780712F1031CF00AAF7A6 /* DPlay-iOS.entitlements */,
 				EFA5C40B2EB5DA8E001F1627 /* Config.xcconfig */,
 				EFA5C3892EB3149C001F1627 /* App */,
 				EFAA43252EDD942100BEC1AC /* Network */,
@@ -2001,6 +2003,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DPlay-iOS/DPlay-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
@@ -2039,6 +2042,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DPlay-iOS/DPlay-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
