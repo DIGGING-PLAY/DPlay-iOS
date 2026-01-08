@@ -132,8 +132,8 @@
 		EFAA45D32EE015A600BEC1AC /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA45D22EE015A600BEC1AC /* AppError.swift */; };
 		EFCBCE8D2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8C2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift */; };
 		EFCBCE8E2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8C2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift */; };
-		EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */; };
-		EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */; };
+		EFCBCE902EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8F2EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift */; };
+		EFCBCE912EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE8F2EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift */; };
 		EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE942EC9A91100BA7740 /* AppCoordinator.swift */; };
 		EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE962EC9A91900BA7740 /* HomeCoordinator.swift */; };
 		EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCBCE9A2EC9A9E300BA7740 /* Coordinator.swift */; };
@@ -302,7 +302,7 @@
 		EFAA45CD2EDDB22200BEC1AC /* TokenRefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshManager.swift; sourceTree = "<group>"; };
 		EFAA45D22EE015A600BEC1AC /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		EFCBCE8C2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedSongsResponseDTO.swift; sourceTree = "<group>"; };
-		EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		EFCBCE8F2EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkServiceImpl.swift; sourceTree = "<group>"; };
 		EFCBCE942EC9A91100BA7740 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		EFCBCE962EC9A91900BA7740 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		EFCBCE9A2EC9A9E300BA7740 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -1123,7 +1123,7 @@
 		EFA5C3A52EB31696001F1627 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				EFCBCE8F2EC9A14A00BA7740 /* HomeService.swift */,
+				EFCBCE8F2EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift */,
 				EF4B8DF02F06841F009101C4 /* MockHomeService.swift */,
 			);
 			path = Service;
@@ -1794,7 +1794,7 @@
 				D0C54FF82EDB80E30003E4B0 /* RegisteredMusicCell.swift in Sources */,
 				D0C550122EE019D50003E4B0 /* UserProfile.swift in Sources */,
 				EF4B8DE42F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
-				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				EFCBCE912EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift in Sources */,
 				EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,
 				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
@@ -1834,7 +1834,7 @@
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				EF4B8DD12F067637009101C4 /* PreviewMusicResponseDTO.swift in Sources */,
 				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
-				EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				EFCBCE902EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift in Sources */,
 				EF4B8DE32F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
 				EF4B8DF12F06841F009101C4 /* MockHomeService.swift in Sources */,
 				D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,

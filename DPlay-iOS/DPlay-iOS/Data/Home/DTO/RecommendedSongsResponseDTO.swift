@@ -9,12 +9,8 @@ import Foundation
 
 // MARK: - HomeFeedResponseDTO
 
-struct HomeFeedResponseDTO: Decodable {
-    let status: Bool
-    let code: Int
-    let message: String
-    let data: HomeFeedDataDTO
-}
+typealias HomeFeedResponseDTO = BaseResponseDTO<HomeFeedDataDTO>
+
 
 // MARK: - HomeFeedDataDTO
 
@@ -75,8 +71,12 @@ struct HomeFeedLikeDTO: Decodable {
 
 extension HomeFeedDataDTO {
     func toEntity() -> HomeFeed {
-        .init(
-            question: Question(id: questionId, date: date, hasPosted: hasPosted),
+        HomeFeed(
+            question: Question(
+                id: questionId,
+                date: date,
+                hasPosted: hasPosted
+            ),
             totalCount: totalCount,
             locked: locked,
             posts: items.map { $0.toEntity() }

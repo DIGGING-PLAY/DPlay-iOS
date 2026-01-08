@@ -23,7 +23,12 @@ final class DefaultHomeRepository: HomeRepository {
 
     func fetchHomeFeed() async throws -> HomeFeed {
         let responseDTO = try await service.fetchHomeFeed()
-        return responseDTO.data.toEntity()
+
+        guard let data = responseDTO.data else {
+            throw AppError.emptyData
+        }
+        
+        return data.toEntity()
     }
 
     func updateLike(id: Int) async throws {
