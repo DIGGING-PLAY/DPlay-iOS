@@ -48,9 +48,14 @@ final class HomeViewModel: ObservableObject {
 }
 
 // MARK: - Coordinator
+
 extension HomeViewModel {
     func didSelectPost(_ post: Post) {
         coordinator?.goToMusicDetail(trackId: String(post.id))
+    }
+    
+    func goToMonthlyQuestion() {
+        coordinator?.goToMonthlyQuestion()
     }
 }
 

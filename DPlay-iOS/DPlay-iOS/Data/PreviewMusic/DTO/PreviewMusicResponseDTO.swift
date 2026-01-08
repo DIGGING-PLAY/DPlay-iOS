@@ -7,12 +7,8 @@
 
 import Foundation
 
-struct PreviewMusicResponseDTO: Decodable {
-    let status: Bool
-    let code: Int
-    let message: String
-    let data: PreviewTrackDataDTO
-}
+
+typealias PreviewMusicResponseDTO = BaseResponseDTO<PreviewTrackDataDTO>
 
 struct PreviewTrackDataDTO: Decodable {
     let sessionId: String

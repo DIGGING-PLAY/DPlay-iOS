@@ -99,14 +99,23 @@ extension HomeFeedPostDTO {
 }
 
 extension HomeFeedBadgesDTO {
-    func toEntity() -> Badges {
-        Badges(
-            isEditorPick: isEditorPick,
-            isPopular: isPopular,
-            isNew: isNew
-        )
+    func toEntity() -> HomeFeedBadge {
+        if isEditorPick {
+            return .editor
+        }
+
+        if isPopular {
+            return .best
+        }
+
+        if isNew {
+            return .new
+        }
+
+        return .nomal
     }
 }
+
 
 extension HomeFeedUserDTO {
     func toEntity() -> User {

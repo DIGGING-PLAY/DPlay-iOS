@@ -31,7 +31,11 @@ final class DefaultPreviewMusicRepository: PreviewMusicRepository {
             trackId: trackId,
             storefront: storefront
         )
-
-        return responseDTO.data.toEntity()
+        
+        guard let data = responseDTO.data else {
+                throw AppError.emptyData
+        }
+        
+        return data.toEntity()
     }
 }
