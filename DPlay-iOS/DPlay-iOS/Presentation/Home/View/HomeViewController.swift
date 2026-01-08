@@ -297,8 +297,7 @@ private extension HomeViewController {
 @objc private extension HomeViewController {
     
     //MARK: - @objc Method
-    
-    @objc
+
     func handleScrapTapped() {
         guard currentPageIndex < viewModel.posts.count else { return }
 
@@ -314,6 +313,12 @@ private extension HomeViewController {
                 : "보관함에 추가했어요",
             actionText: "보러가기"
         )
+    }
+    
+    private func refresh() {
+        Task {
+            await viewModel.loadHome()
+        }
     }
 }
 
@@ -338,6 +343,17 @@ extension HomeViewController {
                 self.updateTopStatusUIForCurrentPage()
             }
             .store(in: &cancellables)
+        
+        viewModel.$question
+               .compactMap { $0 }
+               .receive(on: DispatchQueue.main)
+               .sink { [weak self] question in
+                   guard let self else { return }
+
+                   self.questionTitleLabel.text = question.title
+                   self.todayDateLabel.text = self.formatDate(question.date)
+               }
+               .store(in: &cancellables)
     }
     
     /// 현재 CollectionView에서 보고 있는 페이지(index)에 맞춰
@@ -390,6 +406,22 @@ extension HomeViewController {
             .store(in: &cancellables)
     }
     
+    private func formatDate(_ dateString: String) -> String {
+        // "2025-10-19" → "10월 19일의 발견"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+        guard let date = formatter.date(from: dateString) else {
+            return ""
+        }
+
+        let displayFormatter = DateFormatter()
+        displayFormatter.locale = Locale(identifier: "ko_KR")
+        displayFormatter.dateFormat = "M월 d일의 발견"
+
+        return displayFormatter.string(from: date)
+    }
+    
     private func loadData() {
         Task { await viewModel.loadHome() }
     }
@@ -405,6 +437,13 @@ private extension HomeViewController {
     }
     
     private func setupTarget() {
+        refreshButton.addAction(
+            UIAction { [weak self] _ in
+                self?.refresh()
+            },
+            for: .touchUpInside
+        )
+        
         musicScrapButton.addAction(
             UIAction { [weak self] _ in
                 self?.handleScrapTapped()

@@ -11,7 +11,6 @@ import Foundation
 
 typealias HomeFeedResponseDTO = BaseResponseDTO<HomeFeedDataDTO>
 
-
 // MARK: - HomeFeedDataDTO
 
 struct HomeFeedDataDTO: Decodable {

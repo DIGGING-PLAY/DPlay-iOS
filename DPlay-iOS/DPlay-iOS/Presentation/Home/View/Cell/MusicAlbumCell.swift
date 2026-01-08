@@ -70,7 +70,7 @@ private extension MusicAlbumCell {
             $0.roundCorners(cornerRadius: 128)
             $0.image = ImageLiterals.img_card_cover
         }
-                
+        
         cardBackgroundView.do {
             $0.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.5)
             $0.roundCorners(
@@ -248,7 +248,7 @@ private extension MusicAlbumCell {
     func playTapped() {
         onTapPlay?()
     }
-
+    
     func handleLikeTapped() {
         onTapLike?()
     }
@@ -260,23 +260,23 @@ extension MusicAlbumCell {
     
     func configure(with post: Post) {
         if let url = URL(string: post.track.coverImage) {
-             musicAlbumCoverImageView.kf.setImage(
-                 with: url,
-                 placeholder: nil,
-                 options: [
-                     .transition(.fade(0.2)),
-                     .cacheOriginalImage
-                 ]
-             )
-         } else {
-             musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
-         }
+            musicAlbumCoverImageView.kf.setImage(
+                with: url,
+                placeholder: nil,
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+        } else {
+            musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
+        }
         userNameLabel.text = post.user.nickname
         userProfileImageView.image = UIImage(named: "img_mock_profile")
         userCommentLabel.text = post.content
-        let image = post.isScrapped
-        ? IconLiterals.ic_heart_w
-        : IconLiterals.ic_heart_w_fill
+        let image = post.like.isLiked
+            ? IconLiterals.ic_heart_w_fill
+            : IconLiterals.ic_heart_w
         userHeartButton.setImage(image, for: .normal)
         heartCountLabel.text = "\(post.like.count)"
     }
@@ -293,20 +293,20 @@ extension MusicAlbumCell {
 // MARK: - 회전 애니메이션
 
 private extension MusicAlbumCell {
-
+    
     func startRotating() {
         guard musicAlbumCoverImageView.layer.animation(forKey: "rotation") == nil else { return }
-
+        
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.fromValue = 0
         rotation.toValue = Double.pi * 2
         rotation.duration = 8.0              // 한 바퀴 8초 (느긋하게)
         rotation.repeatCount = .infinity
         rotation.isRemovedOnCompletion = false
-
+        
         musicAlbumCoverImageView.layer.add(rotation, forKey: "rotation")
     }
-
+    
     func stopRotating() {
         musicAlbumCoverImageView.layer.removeAnimation(forKey: "rotation")
     }
