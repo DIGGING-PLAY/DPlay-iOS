@@ -16,6 +16,7 @@ struct HomeFeed {
 
 struct Question {
     let id: Int
+    let title: String
     let date: String
     let hasPosted: Bool
 }

@@ -28,7 +28,7 @@ final class HomeCoordinator: Coordinator {
         
         // 서버 연결후 Mock 갈아 끼우기
         let homeService: HomeService = HomeNetworkServiceImpl()
-        let previewService: PreviewNetworkService = MockPreviewNetworkService()
+        let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
         
         let homeRepository = DefaultHomeRepository(service: homeService)
         let previewRepository = DefaultPreviewMusicRepository(service: previewService)

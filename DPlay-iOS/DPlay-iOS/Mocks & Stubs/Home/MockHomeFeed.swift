@@ -9,11 +9,11 @@ import Foundation
 
 enum MockHomeFeed {
     static let sample = HomeFeedResponseDTO(
-        success: true,
+        status: true,
         code: 2000,
         message: "요청이 성공했습니다.",
         data: HomeFeedDataDTO(
-            questionId: 12345,
+            questionId: 12345, title: "출근길에 꼭 듣는 노래는?",
             date: "2025-10-19",
             hasPosted: false,
             locked: true,

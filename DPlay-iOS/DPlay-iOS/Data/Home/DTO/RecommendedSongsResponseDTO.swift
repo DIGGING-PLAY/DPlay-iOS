@@ -16,6 +16,7 @@ typealias HomeFeedResponseDTO = BaseResponseDTO<HomeFeedDataDTO>
 
 struct HomeFeedDataDTO: Decodable {
     let questionId: Int
+    let title: String
     let date: String
     let hasPosted: Bool
     let locked: Bool
@@ -57,7 +58,7 @@ struct HomeFeedTrackDTO: Decodable {
 struct HomeFeedUserDTO: Decodable {
     let userId: Int
     let nickname: String
-    let profileImg: String
+    let profileImg: String?
 }
 
 // MARK: - HomeFeedLikeDTO
@@ -74,6 +75,7 @@ extension HomeFeedDataDTO {
         HomeFeed(
             question: Question(
                 id: questionId,
+                title: title,
                 date: date,
                 hasPosted: hasPosted
             ),
