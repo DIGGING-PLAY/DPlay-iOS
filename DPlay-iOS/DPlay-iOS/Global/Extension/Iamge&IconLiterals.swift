@@ -15,6 +15,8 @@ enum IconLiterals {
     static var ic_quote_down: UIImage { .load(name: "ic_quote_16_down") }
     static var ic_heart_w: UIImage { .load(name: "ic_heart_w_24") }
     static var ic_heart_p: UIImage { .load(name: "ic_heart_p_24") }
+    static var ic_editor: UIImage { .load(name: "ic_editor") }
+    static var ic_editor_20: UIImage { .load(name: "ic_editor_20") }
     static var ic_editor: UIImage { .load(name: "ic_editor_20") }
     static var ic_new: UIImage { .load(name: "ic_new_20") }
     static var ic_best: UIImage { .load(name: "ic_best_20") }
@@ -49,6 +51,7 @@ enum IconLiterals {
     static var ic_setting_24: UIImage { .load(name: "ic_setting_24") }
     static var ic_play_28: UIImage { .load(name: "ic_play_28") }
     static var ic_warning_40: UIImage { .load(name: "ic_warning_40") }
+    static var ic_arrow_down: UIImage { .load(name: "ic_arrow_down") }
 }
 
 enum ImageLiterals {

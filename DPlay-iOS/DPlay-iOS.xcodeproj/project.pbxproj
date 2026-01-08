@@ -25,6 +25,13 @@
 		D01C6D912EE7512E009C9AF8 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D8D2EE7512E009C9AF8 /* ProfileEditViewController.swift */; };
 		D01C6D922EE7512E009C9AF8 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D8F2EE7512E009C9AF8 /* ProfileEditViewModel.swift */; };
 		D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01C6D942EEBF122009C9AF8 /* ProfileEditNavigationBarView.swift */; };
+		D025991B2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991A2F0427C30054D604 /* MonthlyQuestionDTO.swift */; };
+		D025991C2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991A2F0427C30054D604 /* MonthlyQuestionDTO.swift */; };
+		D025991E2F042E760054D604 /* QuestionPostsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991D2F042E690054D604 /* QuestionPostsDTO.swift */; };
+		D025991F2F042E760054D604 /* QuestionPostsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025991D2F042E690054D604 /* QuestionPostsDTO.swift */; };
+		D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */; };
+		D025992D2F04506A0054D604 /* MonthlyQuestionNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */; };
+		D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02599312F045EC50054D604 /* QuestionsCell.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
 		D05B17502EF24C5F007E2D93 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B174F2EF24C59007E2D93 /* SettingViewModel.swift */; };
@@ -64,6 +71,22 @@
 		D0C550132EE019D50003E4B0 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550112EE019CE0003E4B0 /* UserProfile.swift */; };
 		D0C550152EE01A760003E4B0 /* MyPageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550142EE01A560003E4B0 /* MyPageTrack.swift */; };
 		D0C550162EE01A760003E4B0 /* MyPageTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C550142EE01A560003E4B0 /* MyPageTrack.swift */; };
+		D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */; };
+		D0D071952F04D01D00B9EE00 /* MonthlyQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */; };
+		D0D071982F04E32C00B9EE00 /* MockMonthlyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */; };
+		D0D0719B2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */; };
+		D0D0719C2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */; };
+		D0D071A12F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */; };
+		D0D071A22F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */; };
+		D0D071A52F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A42F04F2C900B9EE00 /* PostHistoryRepository.swift */; };
+		D0D071A62F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A42F04F2C900B9EE00 /* PostHistoryRepository.swift */; };
+		D0D071A92F04F48700B9EE00 /* PostHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A82F04F47E00B9EE00 /* PostHistoryUseCase.swift */; };
+		D0D071AA2F04F48700B9EE00 /* PostHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071A82F04F47E00B9EE00 /* PostHistoryUseCase.swift */; };
+		D0D071AD2F04FD9200B9EE00 /* QuestionPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071AC2F04FD3700B9EE00 /* QuestionPostsViewController.swift */; };
+		D0D071B12F04FDD800B9EE00 /* QuestionPostsNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B02F04FDC400B9EE00 /* QuestionPostsNavigationBarView.swift */; };
+		D0D071B42F04FF8600B9EE00 /* QuestionPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */; };
+		D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */; };
+		D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
 		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
@@ -215,6 +238,11 @@
 		D01C6D8D2EE7512E009C9AF8 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		D01C6D8F2EE7512E009C9AF8 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		D01C6D942EEBF122009C9AF8 /* ProfileEditNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditNavigationBarView.swift; sourceTree = "<group>"; };
+		D025991A2F0427C30054D604 /* MonthlyQuestionDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionDTO.swift; sourceTree = "<group>"; };
+		D025991D2F042E690054D604 /* QuestionPostsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsDTO.swift; sourceTree = "<group>"; };
+		D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionViewController.swift; sourceTree = "<group>"; };
+		D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionNavigationBarView.swift; sourceTree = "<group>"; };
+		D02599312F045EC50054D604 /* QuestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCell.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D05B174F2EF24C59007E2D93 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -249,6 +277,18 @@
 		D0C5500C2EE011570003E4B0 /* MyPageTracksDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTracksDTO.swift; sourceTree = "<group>"; };
 		D0C550112EE019CE0003E4B0 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		D0C550142EE01A560003E4B0 /* MyPageTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTrack.swift; sourceTree = "<group>"; };
+		D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalViewController.swift; sourceTree = "<group>"; };
+		D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionViewModel.swift; sourceTree = "<group>"; };
+		D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMonthlyQuestion.swift; sourceTree = "<group>"; };
+		D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHistoryService.swift; sourceTree = "<group>"; };
+		D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestion.swift; sourceTree = "<group>"; };
+		D0D071A42F04F2C900B9EE00 /* PostHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHistoryRepository.swift; sourceTree = "<group>"; };
+		D0D071A82F04F47E00B9EE00 /* PostHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHistoryUseCase.swift; sourceTree = "<group>"; };
+		D0D071AC2F04FD3700B9EE00 /* QuestionPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsViewController.swift; sourceTree = "<group>"; };
+		D0D071B02F04FDC400B9EE00 /* QuestionPostsNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsNavigationBarView.swift; sourceTree = "<group>"; };
+		D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostCell.swift; sourceTree = "<group>"; };
+		D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsViewModel.swift; sourceTree = "<group>"; };
+		D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockQuestionPosts.swift; sourceTree = "<group>"; };
 		D0D8FDB42ED5703500F75191 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
@@ -560,6 +600,70 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		D02599182F0426820054D604 /* PostHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D02599192F0426A60054D604 /* DTO */,
+				D0D071992F04EE8C00B9EE00 /* Service */,
+				D0D071A32F04F2BA00B9EE00 /* Repository */,
+			);
+			path = PostHistory;
+			sourceTree = "<group>";
+		};
+		D02599192F0426A60054D604 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D025991A2F0427C30054D604 /* MonthlyQuestionDTO.swift */,
+				D025991D2F042E690054D604 /* QuestionPostsDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D02599202F04325B0054D604 /* PostHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0718A2F04B4AB00B9EE00 /* MonthPicker */,
+				D02599252F0432EB0054D604 /* MonthlyQuestion */,
+				D0D071AB2F04FCF600B9EE00 /* QuestionPosts */,
+			);
+			path = PostHistory;
+			sourceTree = "<group>";
+		};
+		D02599222F0432820054D604 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D02599252F0432EB0054D604 /* MonthlyQuestion */ = {
+			isa = PBXGroup;
+			children = (
+				D025992B2F0450400054D604 /* Component */,
+				D02599302F045EBC0054D604 /* Cell */,
+				D02599222F0432820054D604 /* View */,
+				D0D071932F04CFFF00B9EE00 /* ViewModel */,
+			);
+			path = MonthlyQuestion;
+			sourceTree = "<group>";
+		};
+		D025992B2F0450400054D604 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		D02599302F045EBC0054D604 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D02599312F045EC50054D604 /* QuestionsCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		D05A62E92EC1A3C900B56DFD /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +936,123 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		D0D0718A2F04B4AB00B9EE00 /* MonthPicker */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0718B2F04B53000B9EE00 /* View */,
+			);
+			path = MonthPicker;
+			sourceTree = "<group>";
+		};
+		D0D0718B2F04B53000B9EE00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0718C2F04B53600B9EE00 /* MonthPickerModalViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D0D071932F04CFFF00B9EE00 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071942F04D01900B9EE00 /* MonthlyQuestionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D0D071962F04E30D00B9EE00 /* PostHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */,
+				D0D071972F04E31D00B9EE00 /* MockMonthlyQuestion.swift */,
+			);
+			path = PostHistory;
+			sourceTree = "<group>";
+		};
+		D0D071992F04EE8C00B9EE00 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0719A2F04EE9900B9EE00 /* PostHistoryService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D0D0719E2F04F16100B9EE00 /* PostHistory */ = {
+			isa = PBXGroup;
+			children = (
+				D0D0719F2F04F1AB00B9EE00 /* Entity */,
+				D0D071A72F04F47000B9EE00 /* UseCase */,
+			);
+			path = PostHistory;
+			sourceTree = "<group>";
+		};
+		D0D0719F2F04F1AB00B9EE00 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		D0D071A32F04F2BA00B9EE00 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071A42F04F2C900B9EE00 /* PostHistoryRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		D0D071A72F04F47000B9EE00 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071A82F04F47E00B9EE00 /* PostHistoryUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		D0D071AB2F04FCF600B9EE00 /* QuestionPosts */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071AF2F04FDAB00B9EE00 /* Component */,
+				D0D071B22F04FF6D00B9EE00 /* Cell */,
+				D0D071AE2F04FD9500B9EE00 /* View */,
+				D0D071B52F050AEB00B9EE00 /* ViewModel */,
+			);
+			path = QuestionPosts;
+			sourceTree = "<group>";
+		};
+		D0D071AE2F04FD9500B9EE00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071AC2F04FD3700B9EE00 /* QuestionPostsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D0D071AF2F04FDAB00B9EE00 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071B02F04FDC400B9EE00 /* QuestionPostsNavigationBarView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		D0D071B22F04FF6D00B9EE00 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		D0D071B52F050AEB00B9EE00 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D0D8FDBB2ED59CA000F75191 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,6 +1304,7 @@
 				D05A62E92EC1A3C900B56DFD /* Splash */,
 				D05A62F22EC1CF8200B56DFD /* Login */,
 				EFA5C3AA2EB316B6001F1627 /* Home */,
+				D02599202F04325B0054D604 /* PostHistory */,
 				D01893FA2ECA5C7E002A48C1 /* Onboarding */,
 				EFCBCEA52EC9B25300BA7740 /* MusicDetail */,
 				EFCBCF3D2ED4972B00BA7740 /* MusicAdd */,
@@ -1101,6 +1323,7 @@
 				D01893E62ECA4C77002A48C1 /* Auth */,
 				EFCBCF142ECC743F00BA7740 /* MusicDetail */,
 				EFA5C4012EB31C18001F1627 /* Home */,
+				D0D0719E2F04F16100B9EE00 /* PostHistory */,
 				D05B9A5B2ECB4B04001379C4 /* Onboarding */,
 				D0C5500F2EE017AD0003E4B0 /* MyPage */,
 			);
@@ -1150,6 +1373,7 @@
 				EFCBCF182ECC747A00BA7740 /* MusicDetail */,
 				EFCBCF492ED49A4400BA7740 /* MusicAdd */,
 				EFA5C3A62EB31696001F1627 /* Home */,
+				D02599182F0426820054D604 /* PostHistory */,
 				D05B9A652ECB50F6001379C4 /* Onboarding */,
 				D0C550052EDFE51A0003E4B0 /* MyPage */,
 			);
@@ -1168,6 +1392,7 @@
 		EFA5C3DE2EB31849001F1627 /* Mocks & Stubs */ = {
 			isa = PBXGroup;
 			children = (
+				D0D071962F04E30D00B9EE00 /* PostHistory */,
 				EF4B8DEE2F068375009101C4 /* Music */,
 				EF25603C2EBDD5D4003E65C9 /* Home */,
 				D01C6D7C2EE46CD0009C9AF8 /* MyPage */,
@@ -1676,6 +1901,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0D071952F04D01D00B9EE00 /* MonthlyQuestionViewModel.swift in Sources */,
 				D05B9A682ECB511C001379C4 /* OnboardingRepository.swift in Sources */,
 				D05B17502EF24C5F007E2D93 /* SettingViewModel.swift in Sources */,
 				D05B9A612ECB4DD4001379C4 /* Nickname.swift in Sources */,
@@ -1684,6 +1910,7 @@
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
 				D05B17522EF24CA9007E2D93 /* SettingViewController.swift in Sources */,
 				D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */,
+				D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */,
 				D01893F12ECA5345002A48C1 /* UserSession.swift in Sources */,
 				D0C5500D2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				D05B6C382ED6DE58003F25E5 /* DPlayButtonModalViewController.swift in Sources */,
@@ -1743,7 +1970,9 @@
 				EF4B8DBB2F003682009101C4 /* UIApplication+.swift in Sources */,
 				D01C6D912EE7512E009C9AF8 /* ProfileEditViewController.swift in Sources */,
 				D01C6D922EE7512E009C9AF8 /* ProfileEditViewModel.swift in Sources */,
+				D0D071982F04E32C00B9EE00 /* MockMonthlyQuestion.swift in Sources */,
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
+				D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */,
 				EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */,
@@ -1752,6 +1981,7 @@
 				D0C54FF52EDB80040003E4B0 /* MyPageCollectionViewLayout.swift in Sources */,
 				EF5568332EC72F9E00A1EEED /* MusicAlbumCell.swift in Sources */,
 				EFCBCF282ECC754B00BA7740 /* MusicDetailUseCase.swift in Sources */,
+				D0D071A92F04F48700B9EE00 /* PostHistoryUseCase.swift in Sources */,
 				D01C6D7B2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
 				EFCBCF362ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
@@ -1759,6 +1989,8 @@
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
 				D06645BE2F0081B4008A1B44 /* AlertAction.swift in Sources */,
 				EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */,
+				D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */,
+				D0D071B12F04FDD800B9EE00 /* QuestionPostsNavigationBarView.swift in Sources */,
 				EF4B8DEF2F068375009101C4 /* MockPreviewMusic.swift in Sources */,
 				EFCBCF582ED49D7700BA7740 /* MusicAddCoordinator.swift in Sources */,
 				D01C6D7E2EE46CE2009C9AF8 /* MockMyPage.swift in Sources */,
@@ -1767,6 +1999,7 @@
 				D06645C22F008218008A1B44 /* AlertWindowManager.swift in Sources */,
 				EFCBCE9F2EC9B1DA00BA7740 /* MusicDetailViewController.swift in Sources */,
 				EFCBCF5A2ED4AA7200BA7740 /* MusicAddViewModel.swift in Sources */,
+				D0D0719C2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */,
 				D06645BA2F00629D008A1B44 /* SettingItemButton.swift in Sources */,
 				EFA5C38A2EB3149C001F1627 /* AppDelegate.swift in Sources */,
 				EFCBCE9D2EC9ABB900BA7740 /* MockHomeFeed.swift in Sources */,
@@ -1777,6 +2010,9 @@
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
 				EF4B8DC12F067270009101C4 /* AudioPlayerManager.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
+				D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */,
+				D0D071A12F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */,
+				D0D071AD2F04FD9200B9EE00 /* QuestionPostsViewController.swift in Sources */,
 				D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */,
 				D01C6D892EE66505009C9AF8 /* MyPageViewModel.swift in Sources */,
 				D05B17572EF25410007E2D93 /* ToggleSwitch.swift in Sources */,
@@ -1791,13 +2027,17 @@
 				D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */,
 				EF4B8DF22F06841F009101C4 /* MockHomeService.swift in Sources */,
 				EFAA45B12EDD965A00BEC1AC /* Encodable+.swift in Sources */,
+				D0D071A52F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */,
 				EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */,
 				D0C5500B2EDFE5C80003E4B0 /* MyPageProfileDTO.swift in Sources */,
 				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,
 				D0C54FF82EDB80E30003E4B0 /* RegisteredMusicCell.swift in Sources */,
 				D0C550122EE019D50003E4B0 /* UserProfile.swift in Sources */,
+				D025992D2F04506A0054D604 /* MonthlyQuestionNavigationBarView.swift in Sources */,
+				D025991B2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */,
 				EF4B8DE42F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */,
 				EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,
 				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
@@ -1806,7 +2046,9 @@
 				EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */,
 				D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */,
 				D017CD332EDB4F96001CD763 /* MyPageNavigationBarView.swift in Sources */,
+				D025991E2F042E760054D604 /* QuestionPostsDTO.swift in Sources */,
 				EF7537F32EC848C100F28DE3 /* CustomTabBarView.swift in Sources */,
+				D0D071B42F04FF8600B9EE00 /* QuestionPostCell.swift in Sources */,
 				D01C6D8B2EE66830009C9AF8 /* MyPageCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1833,12 +2075,15 @@
 				D0C550152EE01A760003E4B0 /* MyPageTrack.swift in Sources */,
 				EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */,
 				EF2560312EBDD198003E65C9 /* HomeEntitys.swift in Sources */,
+				D025991F2F042E760054D604 /* QuestionPostsDTO.swift in Sources */,
 				EFCBCF4D2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
 				EFCBCF392ECC761700BA7740 /* MusicDetailService.swift in Sources */,
+				D0D0719B2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */,
 				D0C5500E2EE011570003E4B0 /* MyPageTracksDTO.swift in Sources */,
 				EF4B8DD12F067637009101C4 /* PreviewMusicResponseDTO.swift in Sources */,
 				D01C6D822EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCE902EC9A14A00BA7740 /* HomeService.swift in Sources */,
+				D0D071A22F04F1C200B9EE00 /* MonthlyQuestion.swift in Sources */,
 				EF4B8DE32F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
 				EF4B8DF12F06841F009101C4 /* MockHomeService.swift in Sources */,
 				D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
@@ -1847,10 +2092,13 @@
 				EFCBCE8D2EC99D3D00BA7740 /* RecommendedSongsResponseDTO.swift in Sources */,
 				EF4B8DD92F0676A5009101C4 /* PreviewMusic.swift in Sources */,
 				EFA5C3862EB3148C001F1627 /* DPlay_iOSUITestsLaunchTests.swift in Sources */,
+				D0D071A62F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */,
 				EF4B8DE72F068039009101C4 /* PreviewMusicService.swift in Sources */,
 				EF2560392EBDD3EE003E65C9 /* HomeRepository.swift in Sources */,
 				EF4B8DE12F0677FB009101C4 /* PreviewMusicRepository.swift in Sources */,
 				EFCBCF352ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
+				D0D071AA2F04F48700B9EE00 /* PostHistoryUseCase.swift in Sources */,
+				D025991C2F0427D50054D604 /* MonthlyQuestionDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
