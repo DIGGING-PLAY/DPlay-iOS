@@ -497,6 +497,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
         }
         
+        cell.onTapProfile = { [weak self] in
+            self?.viewModel.didTapUserProfile(userId: post.user.id)
+        }
+        
         return cell
     }
     

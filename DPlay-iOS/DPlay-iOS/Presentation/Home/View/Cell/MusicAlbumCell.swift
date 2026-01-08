@@ -20,6 +20,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     var cellId: UUID = UUID()
     var onTapPlay: (() -> Void)?
     var onTapLike: (() -> Void)?
+    var onTapProfile: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -28,6 +29,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let overlayView = UIView()
     
+    private let profileTapAreaView = UIView()
     private let userProfileImageView = UIImageView()
     private let userNameLabel = UILabel()
     private let userCommentQuoteUpImageView = UIImageView()
@@ -143,14 +145,18 @@ private extension MusicAlbumCell {
         )
         
         cardBackgroundView.addSubviews(
-            userProfileImageView,
-            userNameLabel,
+            profileTapAreaView,
             userCommentQuoteUpImageView,
             userCommentQuoteDownImageView,
             userCommentLabel,
             userHeartButton,
             heartCountLabel,
             musicStreamingButton
+        )
+        
+        profileTapAreaView.addSubviews(
+            userProfileImageView,
+            userNameLabel
         )
     }
     
@@ -170,6 +176,13 @@ private extension MusicAlbumCell {
         
         blurView.snp.makeConstraints { $0.edges.equalToSuperview() }
         overlayView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        
+        profileTapAreaView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.height.equalTo(44)
+            $0.width.greaterThanOrEqualTo(120)
+        }
         
         userProfileImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
@@ -193,7 +206,6 @@ private extension MusicAlbumCell {
             $0.leading.equalTo(userCommentQuoteUpImageView.snp.trailing).offset(4)
             $0.trailing.equalTo(userCommentQuoteDownImageView.snp.leading).offset(-4)
         }
-        
         
         userCommentQuoteDownImageView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
@@ -240,6 +252,13 @@ private extension MusicAlbumCell {
                 ),
                 for: .touchUpInside
             )
+        
+        let profileTap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleProfileTapped)
+        )
+        profileTapAreaView.isUserInteractionEnabled = true
+        profileTapAreaView.addGestureRecognizer(profileTap)
     }
 }
 
@@ -251,6 +270,11 @@ private extension MusicAlbumCell {
     
     func handleLikeTapped() {
         onTapLike?()
+    }
+    
+    func handleProfileTapped() {
+        print("프로필 눌림")
+        onTapProfile?()
     }
 }
 
@@ -279,6 +303,15 @@ extension MusicAlbumCell {
             : IconLiterals.ic_heart_w
         userHeartButton.setImage(image, for: .normal)
         heartCountLabel.text = "\(post.like.count)"
+        
+        // editor 작성 글이면 기본 이미지, 및 터치 불가능
+        if post.badges == .editor {
+            userProfileImageView.image = ImageLiterals.Img_editor_profile
+            profileTapAreaView.isUserInteractionEnabled = false
+        } else {
+            userProfileImageView.image = ImageLiterals.img_mock_profile
+            profileTapAreaView.isUserInteractionEnabled = true
+        }
     }
     
     func setPlaying(_ isPlaying: Bool) {

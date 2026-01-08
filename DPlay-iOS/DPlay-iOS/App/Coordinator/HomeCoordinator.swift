@@ -8,24 +8,24 @@
 import UIKit
 
 final class HomeCoordinator: Coordinator {
-
+    
     weak var parentCoordinator: TabBarCoordinator?
     
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-
-    private let service = MockHomeService() 
+    
+    private let service = MockHomeService()
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
     
     private let postHistoryService = MockPostHistoryService()
     private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
     private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         
         // 서버 연결후 Mock 갈아 끼우기
@@ -48,7 +48,7 @@ final class HomeCoordinator: Coordinator {
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
-
+    
     func goToMusicDetail(trackId: String) {
         let service = MockMusicDetailService()
         let repository = DefaultMusicDetailRepository(service: service)
@@ -75,10 +75,14 @@ final class HomeCoordinator: Coordinator {
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
-
+    
     func goToScrapTab() {
-         parentCoordinator?.switchToMyPageTab()
-     }
+        parentCoordinator?.switchToMyPageTab()
+    }
+    
+    func goToUserProfile() {
+        // 유저 프로필 탐색
+    }
     
     func pop() {
         navigationController.popViewController(animated: true)

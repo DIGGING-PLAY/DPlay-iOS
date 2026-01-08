@@ -124,6 +124,10 @@ extension HomeViewModel {
     func goToScrapTab() {
         coordinator?.goToScrapTab()
     }
+    
+    func didTapUserProfile(userId: Int) {
+        coordinator?.goToUserProfile()
+    }
 }
 
 // MARK: - 음악 재생
