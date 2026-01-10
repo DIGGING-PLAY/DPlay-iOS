@@ -52,12 +52,13 @@
 		D06645C52F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */; };
 		D06645C62F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */; };
 		D06645C82F03627C008A1B44 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C72F03626E008A1B44 /* UINavigationController+.swift */; };
-		D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */; };
+		D06B4ABA2ED0DC0E00DB0107 /* AuthResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */; };
 		D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4ABC2ED0E05400DB0107 /* AuthService.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
 		D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */; };
 		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
+		D09780982F12DE1300AAF7A6 /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */; };
 		D0C54FF52EDB80040003E4B0 /* MyPageCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */; };
@@ -262,13 +263,14 @@
 		D06645C12F00820E008A1B44 /* AlertWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowManager.swift; sourceTree = "<group>"; };
 		D06645C42F026869008A1B44 /* MyPageUseCaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUseCaseModel.swift; sourceTree = "<group>"; };
 		D06645C72F03626E008A1B44 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
-		D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
+		D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseDTO.swift; sourceTree = "<group>"; };
 		D06B4ABC2ED0E05400DB0107 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
 		D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D09780712F1031CF00AAF7A6 /* DPlay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DPlay-iOS.entitlements"; sourceTree = "<group>"; };
+		D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
 		D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -482,8 +484,8 @@
 			isa = PBXGroup;
 			children = (
 				D06B4AB82ED0DC0300DB0107 /* DTO */,
-				D01893F52ECA54D0002A48C1 /* Repository */,
 				D06B4ABB2ED0E04A00DB0107 /* Service */,
+				D01893F52ECA54D0002A48C1 /* Repository */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -836,7 +838,8 @@
 		D06B4AB82ED0DC0300DB0107 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				D06B4AB92ED0DC0A00DB0107 /* AuthDTO.swift */,
+				D09780962F12DDFB00AAF7A6 /* Request */,
+				D09780992F12DE1600AAF7A6 /* Response */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -889,6 +892,22 @@
 				D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D09780962F12DDFB00AAF7A6 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		D09780992F12DE1600AAF7A6 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		D0C54FF62EDB80CB0003E4B0 /* Cell */ = {
@@ -1968,7 +1987,7 @@
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
 				D06645C02F0081F6008A1B44 /* AlertViewController.swift in Sources */,
-				D06B4ABA2ED0DC0E00DB0107 /* AuthDTO.swift in Sources */,
+				D06B4ABA2ED0DC0E00DB0107 /* AuthResponseDTO.swift in Sources */,
 				EF4B8DBB2F003682009101C4 /* UIApplication+.swift in Sources */,
 				D01C6D912EE7512E009C9AF8 /* ProfileEditViewController.swift in Sources */,
 				D01C6D922EE7512E009C9AF8 /* ProfileEditViewModel.swift in Sources */,
@@ -1999,6 +2018,7 @@
 				EFCBCE952EC9A91100BA7740 /* AppCoordinator.swift in Sources */,
 				EF5A94722ED5B286001B56B8 /* CommentGuidePopupView.swift in Sources */,
 				D06645C22F008218008A1B44 /* AlertWindowManager.swift in Sources */,
+				D09780982F12DE1300AAF7A6 /* LoginRequestDTO.swift in Sources */,
 				EFCBCE9F2EC9B1DA00BA7740 /* MusicDetailViewController.swift in Sources */,
 				EFCBCF5A2ED4AA7200BA7740 /* MusicAddViewModel.swift in Sources */,
 				D0D0719C2F04EEA800B9EE00 /* PostHistoryService.swift in Sources */,

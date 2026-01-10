@@ -1,5 +1,5 @@
 //
-//  AuthDTO.swift
+//  AuthResponseDTO.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/22/25.
