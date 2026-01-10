@@ -269,8 +269,9 @@ private extension HomeViewController {
                 let currentPage = Int((offset.x + pageWidth / 2) / pageWidth)
                 
                 // 페이지가 바뀐 경우에만 처리
-                guard self.currentPageIndex != currentPage else { return }
-                self.currentPageIndex = currentPage
+                let safePage = min(currentPage, self.viewModel.posts.count - 1)
+                guard self.currentPageIndex != safePage else { return }
+                self.currentPageIndex = safePage
                 
                 // 현재 페이지에 맞는 badge 업데이트
                 self.updateTopStatusUIForCurrentPage()
@@ -299,18 +300,19 @@ private extension HomeViewController {
     //MARK: - @objc Method
     
     func handleScrapTapped() {
-        guard currentPageIndex < viewModel.posts.count else { return }
-        
-        let post = viewModel.posts[currentPageIndex]
-        
+        guard !viewModel.posts.isEmpty else { return }
+
+        let safeIndex = min(currentPageIndex, viewModel.posts.count - 1)
+        let post = viewModel.posts[safeIndex]
+
         Task {
             await viewModel.toggleScrap(postId: post.id)
         }
-        
+
         ToastManager.shared.show(
             message: post.isScrapped
-            ? "보관함에서 삭제했어요"
-            : "보관함에 추가했어요",
+                ? "보관함에서 삭제했어요"
+                : "보관함에 추가했어요",
             actionText: "보러가기",
             action: { [weak self] in
                 self?.viewModel.goToScrapTab()
@@ -362,24 +364,31 @@ extension HomeViewController {
     /// 현재 CollectionView에서 보고 있는 페이지(index)에 맞춰
     /// 상단 상태 UI(Badge, Scrap 버튼)를 동기화한다.
     private func updateTopStatusUIForCurrentPage() {
-        guard currentPageIndex < viewModel.posts.count else {
+
+        // 잠금 상태일 때만 예외 처리
+        if viewModel.isLocked && currentPageIndex >= viewModel.posts.count {
             musicStateBadgeView.hide()
             musicScrapButton.isHidden = true
             return
         }
-        
+
+        // 잠금이 아니면 항상 posts 범위로 보정
+        guard currentPageIndex < viewModel.posts.count else {
+            return
+        }
+
         let post = viewModel.posts[currentPageIndex]
-        
+
         musicStateBadgeView.configure(badge: post.badges)
         musicScrapButton.isHidden = false
-        
+
         let image = post.isScrapped
-        ? IconLiterals.ic_bookmark_fill_24
-        : IconLiterals.ic_bookmark_24
-        
+            ? IconLiterals.ic_bookmark_fill_24
+            : IconLiterals.ic_bookmark_24
+
         musicScrapButton.setImage(image, for: .normal)
     }
-    
+
     // MARK: - Cell 앨범 커버 회전
     
     /// AudioPlayerManager를 구독하고 지금 화면에 보이는 MusicAlbumCell들을 전부 순회하면서, 각 셀이 가리키는 트랙 ID와
