@@ -17,8 +17,8 @@ final class MusicAddCoordinator: Coordinator {
     }
 
     func start() {
-        let vm = MusicAddViewModel(coordinator: self)
-        let vc = MusicAddViewController(viewModel: vm)
+        let vm = MusicSearchViewModel(coordinator: self)
+        let vc = MusicSearchViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }

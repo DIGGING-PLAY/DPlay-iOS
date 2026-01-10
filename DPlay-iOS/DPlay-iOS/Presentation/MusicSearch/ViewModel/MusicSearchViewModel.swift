@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 @MainActor
-final class MusicAddViewModel: ObservableObject {
+final class MusicSearchViewModel: ObservableObject {
 
     weak var coordinator: MusicAddCoordinator?
     
@@ -20,7 +20,7 @@ final class MusicAddViewModel: ObservableObject {
 
 // MARK: - Coordinator
 
-extension MusicAddViewModel {
+extension MusicSearchViewModel {
     func didTapBack() {
         coordinator?.dismiss()
     }

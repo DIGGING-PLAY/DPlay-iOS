@@ -11,19 +11,19 @@ import Combine
 import SnapKit
 import Then
 
-final class MusicAddViewController: UIViewController {
+final class MusicSearchViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel: MusicAddViewModel
+    private let viewModel: MusicSearchViewModel
     
-    private var results: [MusicAddResponseDTO] = [] // 추후 엔티티로 변경
+    private var results: [MusicSearchResponseDTO] = [] // 추후 엔티티로 변경
     private var selectedIndex: IndexPath?
     private var committedQuery: String?
     
     // MARK: - UI Properties
     
-    private let navigationBarView = MusicAddNavigationBarView()
+    private let navigationBarView = MusicSearchNavigationBarView()
     private let titleLabel = UILabel()
     private let searchTextField = UITextField()
     private let clearButton = UIButton(type: .custom)
@@ -46,7 +46,7 @@ final class MusicAddViewController: UIViewController {
         hideKeyboardWhenTappedAround()
     }
     
-    init(viewModel: MusicAddViewModel) {
+    init(viewModel: MusicSearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -55,7 +55,7 @@ final class MusicAddViewController: UIViewController {
 }
 
 
-private extension MusicAddViewController {
+private extension MusicSearchViewController {
     
     func setupStyle() {
         view.backgroundColor = .white
@@ -160,7 +160,7 @@ private extension MusicAddViewController {
     }
 }
 
-@objc private extension MusicAddViewController {
+@objc private extension MusicSearchViewController {
     
     // MARK: - @objc Method
     
@@ -189,7 +189,7 @@ private extension MusicAddViewController {
     }
 }
 
-private extension MusicAddViewController {
+private extension MusicSearchViewController {
     
     // MARK: - Private Method
     
@@ -238,14 +238,14 @@ private extension MusicAddViewController {
 
       // ⭐ MOCK 검색
       func mockSearch(text: String) {
-          results = MusicAddMock.mockItems
+          results = MusicSearchMock.mockItems
           tableView.reloadData()
       }
 }
 
 // MARK: - Navigation
 
-private extension MusicAddViewController {
+private extension MusicSearchViewController {
     func bindNavigationBar() {
         navigationBarView.onTapBack = { [weak self] in
             self?.viewModel.didTapBack()
@@ -255,7 +255,7 @@ private extension MusicAddViewController {
 
 // MARK: - UITableView Delegate
 
-extension MusicAddViewController: UITableViewDelegate, UITableViewDataSource {
+extension MusicSearchViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         results.count
@@ -289,7 +289,7 @@ extension MusicAddViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - UITextField Delegate
 
-extension MusicAddViewController: UITextFieldDelegate {
+extension MusicSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         performSearch()
         return true

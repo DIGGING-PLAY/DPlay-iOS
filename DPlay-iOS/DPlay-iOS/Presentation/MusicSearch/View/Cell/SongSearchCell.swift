@@ -109,7 +109,7 @@ private extension SongSearchCell {
 extension SongSearchCell {
     
     // MARK: - Configure
-    func configure(item: MusicAddResponseDTO, isSelected: Bool) {
+    func configure(item: MusicSearchResponseDTO, isSelected: Bool) {
         titleLabel.text = item.songTitle
         artistLabel.text = item.artistName
         
