@@ -13,7 +13,7 @@ final class OnboardingCoordinator: Coordinator {
     let navigationController: UINavigationController
     
     //auth
-    private let authService = MockAuthService()
+    private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
     private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
 
