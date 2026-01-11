@@ -61,6 +61,7 @@
 		D09780782F10337900AAF7A6 /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */; };
 		D097807A2F103D7400AAF7A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780792F103D7000AAF7A6 /* AuthAPI.swift */; };
 		D09780982F12DE1300AAF7A6 /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */; };
+		D097809C2F12E20200AAF7A6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097809B2F12E1FC00AAF7A6 /* LoginViewModel.swift */; };
 		D097809E2F12E44F00AAF7A6 /* AuthFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097809D2F12E44800AAF7A6 /* AuthFlowCoordinator.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */; };
@@ -276,6 +277,7 @@
 		D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		D09780792F103D7000AAF7A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
+		D097809B2F12E1FC00AAF7A6 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D097809D2F12E44800AAF7A6 /* AuthFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFlowCoordinator.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				D05A62F42EC1CF9200B56DFD /* View */,
+				D097809A2F12E1F100AAF7A6 /* ViewModel */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -914,6 +917,14 @@
 				D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		D097809A2F12E1F100AAF7A6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D097809B2F12E1FC00AAF7A6 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		D0C54FF62EDB80CB0003E4B0 /* Cell */ = {
@@ -1975,6 +1986,7 @@
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				D01C6D812EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
 				EFCBCEA72EC9B46B00BA7740 /* TabBarCoordinator.swift in Sources */,
+				D097809C2F12E20200AAF7A6 /* LoginViewModel.swift in Sources */,
 				EFCBCEEA2EC9B57C00BA7740 /* UIStackView+.swift in Sources */,
 				EFCBCF522ED49AE900BA7740 /* MusicAddMock.swift in Sources */,
 				EFCBCEEB2EC9B57C00BA7740 /* UIColor+.swift in Sources */,
