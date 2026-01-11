@@ -59,6 +59,7 @@
 		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
 		D09780782F10337900AAF7A6 /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */; };
+		D097807A2F103D7400AAF7A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780792F103D7000AAF7A6 /* AuthAPI.swift */; };
 		D09780982F12DE1300AAF7A6 /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */; };
@@ -272,6 +273,7 @@
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D09780712F1031CF00AAF7A6 /* DPlay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DPlay-iOS.entitlements"; sourceTree = "<group>"; };
 		D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
+		D09780792F103D7000AAF7A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
@@ -1489,6 +1491,7 @@
 		EFAA45C52EDDAD1000BEC1AC /* API */ = {
 			isa = PBXGroup;
 			children = (
+				D09780792F103D7000AAF7A6 /* AuthAPI.swift */,
 				EFAA45BE2EDD9AE400BEC1AC /* HomeAPI.swift */,
 				EF4B8DE82F068180009101C4 /* PreviewAPI.swift */,
 			);
@@ -2034,6 +2037,7 @@
 				EFCBCF562ED49BD400BA7740 /* SongSearchCell.swift in Sources */,
 				D0C54FFA2EDB8E800003E4B0 /* ArchiveCell.swift in Sources */,
 				EF55682F2EC72BB600A1EEED /* HomeNavigationBarView.swift in Sources */,
+				D097807A2F103D7400AAF7A6 /* AuthAPI.swift in Sources */,
 				EF4B8DC12F067270009101C4 /* AudioPlayerManager.swift in Sources */,
 				EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */,
 				D0D0718D2F04B54000B9EE00 /* MonthPickerModalViewController.swift in Sources */,
