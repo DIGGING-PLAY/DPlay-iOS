@@ -24,17 +24,13 @@ final class DefaultAuthUseCase: AuthUseCase {
     
     // 1. 애플 로그인
     func loginWithApple(appleIdentityToken: String) async throws {
-        let userSession = try await authRepository.loginWithApple(appleIdentityToken: appleIdentityToken)
+        try authRepository.deleteTokens() //키체인 내부의 토큰으로 요청이 날라가는 것을 방지하기 위해 저장된 토큰 삭제 (임시 방편)
         
-        print("AccessToken: \(userSession.accessToken)")
-        print("RefreshToken: \(userSession.refreshToken)")
-
-//        KeyChainManager 호출하여 토큰 저장 로직 실행
-//        예시)
-//        try KeyChainManager.save(
-//            accessToken: userSession.accessToken,
-//            refreshToken: userSession..refreshToken
-//        )
+        let userSession = try await authRepository.loginWithApple(appleIdentityToken: appleIdentityToken)
+        try authRepository.saveTokens(userSession)
+        
+        print("AccessToken: \(KeychainManager.shared.accessToken)")
+        print("RefreshToken: \(KeychainManager.shared.refreshToken)")
     }
     
     // 2. 토큰 재발급
@@ -60,6 +56,6 @@ final class DefaultAuthUseCase: AuthUseCase {
     // 4. 로그아웃
     func logout() async throws {
         try await authRepository.logout()
+        try authRepository.deleteTokens()
     }
-
 }
