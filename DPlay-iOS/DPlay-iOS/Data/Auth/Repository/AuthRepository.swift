@@ -12,6 +12,8 @@ protocol AuthRepository {
     func refreshAccessToken(refreshToken: String) async throws -> UserSession
     func singUp(nickname: String, image: Data?) async throws -> UserSession
     func logout() async throws
+    func saveTokens(_ userData: UserSession) throws
+    func deleteTokens() throws
 }
 
 final class DefaultAuthRepository: AuthRepository {
@@ -21,10 +23,14 @@ final class DefaultAuthRepository: AuthRepository {
     init(service: AuthService) {
         self.service = service
     }
+    
+    //MARK: - API Func
 
     func loginWithApple(appleIdentityToken: String) async throws -> UserSession {
         let response = try await service.loginWithApple(appleIdentityToken: appleIdentityToken)
-        let entity = response.toEntity()
+        
+        guard let data = response.data else { throw AppError.emptyData }
+        let entity = data.toEntity()
 
         return entity
     }
@@ -45,5 +51,16 @@ final class DefaultAuthRepository: AuthRepository {
     
     func logout() async throws {
         try await service.logout()
+    }
+    
+    //MARK: - KeychainManager Func
+    
+    func saveTokens(_ userData: UserSession) throws {
+        KeychainManager.shared.accessToken = userData.accessToken
+        KeychainManager.shared.refreshToken = userData.refreshToken
+    }
+    
+    func deleteTokens() throws {
+        KeychainManager.shared.clearAll()
     }
 }
