@@ -63,6 +63,7 @@
 		D09780982F12DE1300AAF7A6 /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */; };
 		D097809C2F12E20200AAF7A6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097809B2F12E1FC00AAF7A6 /* LoginViewModel.swift */; };
 		D097809E2F12E44F00AAF7A6 /* AuthFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097809D2F12E44800AAF7A6 /* AuthFlowCoordinator.swift */; };
+		D09780A02F12E44F00AAF7A6 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097809F2F12E44F00AAF7A6 /* AppRouter.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */; };
 		D0C54FF52EDB80040003E4B0 /* MyPageCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */; };
@@ -279,6 +280,7 @@
 		D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestDTO.swift; sourceTree = "<group>"; };
 		D097809B2F12E1FC00AAF7A6 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D097809D2F12E44800AAF7A6 /* AuthFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFlowCoordinator.swift; sourceTree = "<group>"; };
+		D097809F2F12E44F00AAF7A6 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
 		D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -1327,6 +1329,7 @@
 		EFA5C3892EB3149C001F1627 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D097809F2F12E44F00AAF7A6 /* AppRouter.swift */,
 				EFCBCE932EC9A8FD00BA7740 /* Coordinator */,
 				EFA5C3882EB3149C001F1627 /* AppDelegate.swift */,
 				EFA5C3752EB31484001F1627 /* SceneDelegate.swift */,
@@ -2005,6 +2008,7 @@
 				EFCBCEEE2EC9B57C00BA7740 /* Iamge&IconLiterals.swift in Sources */,
 				EFCBCEEF2EC9B57C00BA7740 /* UILabel+.swift in Sources */,
 				EF5A94802ED80F23001B56B8 /* ToastManager.swift in Sources */,
+				D09780A02F12E44F00AAF7A6 /* AppRouter.swift in Sources */,
 				EFCBCEF02EC9B57C00BA7740 /* UIFont+.swift in Sources */,
 				EFCBCF332ECC75CF00BA7740 /* MockMusicDetail.swift in Sources */,
 				EFCBCEF12EC9B57C00BA7740 /* UIImage+.swift in Sources */,
