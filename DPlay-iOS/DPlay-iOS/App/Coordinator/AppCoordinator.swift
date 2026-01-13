@@ -12,35 +12,41 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
 
     private let window: UIWindow
+    private let router: AppRouter
 
-    init(window: UIWindow) {
+    init(window: UIWindow, router: AppRouter) {
         self.window = window
+        self.router = router
     }
 
     func start() {
-        let authFlowCoordinator = AuthFlowCoordinator()
-        childCoordinators.append(authFlowCoordinator)
-        
-        // 메인 탭바로 root 교체하는 클로저
-        authFlowCoordinator.onFinishAuthFlow = { [weak self, weak authFlowCoordinator] in
+        router.onRouteChange = { [weak self] route in
             guard let self else { return }
-            
-            if let authFlowCoordinator {
-                self.removeChild(authFlowCoordinator)
+            switch route {
+            case .auth:
+                self.showAuth()
+            case .mainTabBar:
+                self.showMainTabBar()
             }
-            
-            self.showMainTabBar()
         }
         
-        authFlowCoordinator.start()
-        setRootViewController(authFlowCoordinator.rootViewController, animated: false)
+        showAuth()
     }
 }
 
 private extension AppCoordinator {
+    func showAuth() {
+        let authCoordinator = AuthFlowCoordinator(router: router)
+        childCoordinators = [authCoordinator]
+        
+        authCoordinator.start()
+        
+        setRootViewController(authCoordinator.rootViewController, animated: true)
+    }
+    
     func showMainTabBar() {
-        let tabBarCoordinator = TabBarCoordinator()
-        childCoordinators.append(tabBarCoordinator)
+        let tabBarCoordinator = TabBarCoordinator(router: router)
+        childCoordinators = [tabBarCoordinator]
         tabBarCoordinator.start()
         
         setRootViewController(tabBarCoordinator.rootViewController, animated: true)

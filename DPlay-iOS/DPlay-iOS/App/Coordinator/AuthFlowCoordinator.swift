@@ -11,13 +11,16 @@ final class AuthFlowCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     var rootViewController = UIViewController()
-    
-    var onFinishAuthFlow: (() -> Void)?
-    
+        
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
     private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
+    private let router: AppRouter
 
+    init(router: AppRouter) {
+        self.router = router
+    }
+    
     func start() {
         let vc = SplashViewController()
         rootViewController = vc
@@ -42,6 +45,18 @@ extension AuthFlowCoordinator {
     
     func goToMainTabBar() {
         //window의 roorViewController를 변경하기 위해 AppCoordinator에게 요청
-        onFinishAuthFlow?()
+        router.goMainTabBar()
+    }
+    
+    func startOnboardingFlow() {
+        let onboardingNav = UINavigationController()
+        let onboardingCoordinator = MusicAddCoordinator(navigationController: onboardingNav)
+        childCoordinators.append(onboardingCoordinator)
+        onboardingCoordinator.start()
+
+        onboardingNav.modalPresentationStyle = .fullScreen
+        onboardingNav.modalTransitionStyle = .crossDissolve
+        
+        rootViewController.present(onboardingNav, animated: true)
     }
 }
