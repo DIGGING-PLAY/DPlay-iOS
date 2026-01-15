@@ -9,10 +9,11 @@ import UIKit
 
 final class HomeCoordinator: Coordinator {
     
-    weak var parentCoordinator: TabBarCoordinator?
-    
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
+    
+    /// 상위(TabBar)로 네비게이션 요청을 전달하는 클로저
+    var onRequestSwitchToMyPage: (() -> Void)?
     
     private let service = MockHomeService()
     private lazy var repository = DefaultHomeRepository(service: service)
@@ -29,7 +30,7 @@ final class HomeCoordinator: Coordinator {
     func start() {
         
         // 서버 연결후 Mock 갈아 끼우기
-        let homeService: HomeService = HomeNetworkServiceImpl()
+        let homeService: HomeService = MockHomeService()
         let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
         
         let homeRepository = DefaultHomeRepository(service: homeService)
@@ -77,7 +78,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func goToScrapTab() {
-        parentCoordinator?.switchToMyPageTab()
+        onRequestSwitchToMyPage?()
     }
     
     func goToUserProfile() {

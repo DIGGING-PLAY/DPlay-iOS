@@ -45,9 +45,9 @@ enum MockHomeFeed {
                     )
                 ),
                 HomeFeedPostDTO(
-                    postId: 111,
+                    postId: 133,
                     isScrapped: true,
-                    content: "그냥 좋아요 이 노래",
+                    content: "그냥 좋아요 이 노래 1",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: false,
                         isPopular: true,
@@ -71,9 +71,9 @@ enum MockHomeFeed {
                 ),
                 
                 HomeFeedPostDTO(
-                    postId: 111,
+                    postId: 121,
                     isScrapped: true,
-                    content: "그냥 좋아요 이 노래",
+                    content: "그냥 좋아요 이 노래 2",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: false,
                         isPopular: false,
@@ -96,9 +96,9 @@ enum MockHomeFeed {
                     )
                 ),
                 HomeFeedPostDTO(
-                    postId: 111,
+                    postId: 311,
                     isScrapped: true,
-                    content: "그냥 좋아요 이 노래",
+                    content: "그냥 좋아요 이 노래 3",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: true,
                         isPopular: false,
