@@ -16,10 +16,8 @@ final class MusicSearchViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: MusicSearchViewModel
-    
-    private var results: [MusicSearchResponseDTO] = [] // 추후 엔티티로 변경
+    private var cancellables = Set<AnyCancellable>()
     private var selectedIndex: IndexPath?
-    private var committedQuery: String?
     
     // MARK: - UI Properties
     
@@ -32,11 +30,18 @@ final class MusicSearchViewController: UIViewController {
     
     private let emptyResultLabel = UILabel()
     
+    
     // MARK: - Life Cycle
+    
+    init(viewModel: MusicSearchViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupStyle()
         setupHierarchy()
         setupLayout()
@@ -44,11 +49,6 @@ final class MusicSearchViewController: UIViewController {
         setupTarget()
         bindNavigationBar()
         hideKeyboardWhenTappedAround()
-    }
-    
-    init(viewModel: MusicSearchViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) { fatalError() }
@@ -74,16 +74,16 @@ private extension MusicSearchViewController {
             $0.tintColor = .dplay_pink
             $0.placeholder = "노래 제목이나 아티스트명을 검색해주세요"
             $0.returnKeyType = .search
-
+            
             // 왼쪽 패딩
             $0.addPadding(left: 12)
-
+            
             // 오른쪽 clear 버튼 영역 (ProfileSetting과 동일 패턴)
             let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 53))
             rightView.addSubview(clearButton)
-
+            
             clearButton.frame = CGRect(x: 6, y: 0, width: 20, height: 53)
-
+            
             $0.rightView = rightView
             $0.rightViewMode = .never
         }
@@ -160,12 +160,27 @@ private extension MusicSearchViewController {
     }
 }
 
+private extension MusicSearchViewController {
+
+    func bind() {
+        viewModel.$tracks
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tracks in
+                guard let self else { return }
+
+                self.tableView.reloadData()
+                self.tableView.isHidden = tracks.isEmpty
+                self.emptyResultLabel.isHidden = !tracks.isEmpty
+            }
+            .store(in: &cancellables)
+    }
+}
+
 @objc private extension MusicSearchViewController {
     
     // MARK: - @objc Method
     
     func textDidChange() {
-        committedQuery = nil
         selectedIndex = nil
         updateClearButtonVisibility()
         updateNextButton()
@@ -173,10 +188,7 @@ private extension MusicSearchViewController {
     
     func didTapClear() {
         searchTextField.text = ""
-        committedQuery = nil
         selectedIndex = nil
-        results.removeAll()
-        
         tableView.isHidden = true
         updateClearButtonVisibility()
         updateNextButton()
@@ -184,63 +196,54 @@ private extension MusicSearchViewController {
     
     func didTapNext() {
         guard let index = selectedIndex else { return }
-        let trackId = results[index.row].trackId
+        let trackId = viewModel.tracks[index.row].trackId
         viewModel.didTapNext(trackId: trackId)
     }
 }
 
 private extension MusicSearchViewController {
-    
-    // MARK: - Private Method
-    
+
+    // MARK: - Setup
+
     func setupDelegate() {
-          tableView.delegate = self
-          tableView.dataSource = self
-          searchTextField.delegate = self
-      }
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchTextField.delegate = self
+    }
 
-      func setupTarget() {
-          searchTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-          clearButton.addTarget(self, action: #selector(didTapClear), for: .touchUpInside)
-          nextButton.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
-      }
+    func setupTarget() {
+        searchTextField.addTarget(
+            self,
+            action: #selector(textDidChange),
+            for: .editingChanged
+        )
 
-      func performSearch() {
-          guard let query = searchTextField.text, !query.isEmpty else { return }
+        clearButton.addTarget(
+            self,
+            action: #selector(didTapClear),
+            for: .touchUpInside
+        )
 
-          committedQuery = query
-          selectedIndex = nil
+        nextButton.addTarget(
+            self,
+            action: #selector(didTapNext),
+            for: .touchUpInside
+        )
+    }
+    
+    // MARK: - NextButton 활성화 관련
 
-          mockSearch(text: query)
-          updateEmptyView()
+    func updateNextButton() {
+        let enabled = selectedIndex != nil
+        nextButton.isEnabled = enabled
+        nextButton.backgroundColor = enabled ? .dplay_pink : .gray200
+        nextButton.setTitleColor(enabled ? .white : .gray400, for: .normal)
+    }
 
-          tableView.isHidden = false
-          updateNextButton()
-          view.endEditing(true)
-      }
-
-      func updateNextButton() {
-          let enabled = committedQuery != nil && selectedIndex != nil
-          nextButton.isEnabled = enabled
-          nextButton.backgroundColor = enabled ? .dplay_pink : .gray200
-          nextButton.setTitleColor(enabled ? .white : .gray400, for: .normal)
-      }
-
-      func updateClearButtonVisibility() {
-          let hasText = !(searchTextField.text ?? "").isEmpty
-          searchTextField.rightViewMode = hasText ? .always : .never
-      }
-
-      func updateEmptyView() {
-          let shouldShowEmpty = committedQuery != nil && results.isEmpty
-          tableView.backgroundView?.isHidden = !shouldShowEmpty
-      }
-
-      // ⭐ MOCK 검색
-      func mockSearch(text: String) {
-          results = MusicSearchMock.mockItems
-          tableView.reloadData()
-      }
+    func updateClearButtonVisibility() {
+        let hasText = !(searchTextField.text ?? "").isEmpty
+        searchTextField.rightViewMode = hasText ? .always : .never
+    }
 }
 
 // MARK: - Navigation
@@ -258,24 +261,26 @@ private extension MusicSearchViewController {
 extension MusicSearchViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        results.count
+        viewModel.tracks.count
     }
 
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: SongSearchCell.identifier,
-                for: indexPath
-            ) as? SongSearchCell
-        else { return UITableViewCell() }
 
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: SongSearchCell.identifier,
+            for: indexPath
+        ) as! SongSearchCell
+
+        let track = viewModel.tracks[indexPath.row]
+        
         cell.configure(
-            item: results[indexPath.row],
+            item: track,
             isSelected: selectedIndex == indexPath
         )
+        
         return cell
     }
 
@@ -284,14 +289,37 @@ extension MusicSearchViewController: UITableViewDelegate, UITableViewDataSource 
         updateNextButton()
         tableView.reloadData()
     }
-}
 
+    /// 셀 하나가 “화면에 나타나기 직전”에 호출
+    /// viewModel에게 더 필요한지 여부를 전달, nextCursor 값 있으면 tracks 업데이트 됨
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
+        Task {
+            await viewModel.loadMoreIfNeeded(currentIndex: indexPath.row)
+        }
+    }
+}
 
 // MARK: - UITextField Delegate
 
 extension MusicSearchViewController: UITextFieldDelegate {
+    
+    /// 키보드에서 Enter 입력시 호출
+    /// 검색 이후 ViewModel tracks 업데이트
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        performSearch()
+        guard let query = textField.text, !query.isEmpty else { return true }
+
+        selectedIndex = nil
+        updateNextButton()
+        view.endEditing(true)
+
+        Task {
+            await viewModel.search(keyword: query)
+        }
+
         return true
     }
 }
