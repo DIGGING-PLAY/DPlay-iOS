@@ -5,7 +5,7 @@
 //  Created by 조혜린 on 11/17/25.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 final class ProfileSettingViewModel: ObservableObject {
@@ -13,7 +13,7 @@ final class ProfileSettingViewModel: ObservableObject {
     //MARK: - Property Wrappers
     
     @Published var nickname: String = ""
-    @Published var selectedImageData: Data?
+    @Published var selectedImageData: UIImage?
     @Published var nicknameValidationState: NicknameValidationState = .empty
     
     //MARK: - Properties
@@ -80,10 +80,11 @@ extension ProfileSettingViewModel {
     //MARK: - Method
     
     func startSignUp() {
-        print("입력된 닉네임: \(nickname)")
+        let body = SignupRequestDTO(platform: "APPLE", nickname: nickname)
+        
         Task {
             do {
-                try await useCase.singUp(nickname: nickname, image: selectedImageData)
+                try await useCase.singUp(appleIdentityToken: appleIdentityToken, signupRequestBody: body, profileImg: selectedImageData)
                 nicknameValidationState = .valid
                 try await Task.sleep(nanoseconds: 1_000_000_000)
                 goToOverview()

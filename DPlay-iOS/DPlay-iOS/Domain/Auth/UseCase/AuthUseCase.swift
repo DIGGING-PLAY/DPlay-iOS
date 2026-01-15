@@ -5,12 +5,12 @@
 //  Created by 조혜린 on 11/12/25.
 //
 
-import Foundation
+import UIKit
 
 protocol AuthUseCase {
     func loginWithApple(appleIdentityToken: String) async throws
     func refreshAccessToken(refreshToken: String) async throws
-    func singUp(nickname: String, image: Data?) async throws
+    func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws
     func logout() async throws
 }
 
@@ -44,13 +44,12 @@ final class DefaultAuthUseCase: AuthUseCase {
     }
     
     // 3. 회원가입
-    func singUp(nickname: String, image: Data?) async throws {
-        let userSession = try await authRepository.singUp(nickname: nickname, image: image)
+    func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws {
+        let profileImgData = profileImg?.jpegData(compressionQuality: 0.5)
+        //업로드 파일 용량으로 인한 413 에러를 반환하는 관계로 임의로 0.5로 지정 (논의 필요)
         
-        print("AccessToken: \(userSession.accessToken)")
-        print("RefreshToken: \(userSession.refreshToken)")
-        
-        //KeyChainManager 호출하여 토큰 저장 로직 실행
+        let userSession = try await authRepository.singUp(appleIdentityToken: appleIdentityToken, signupRequestBody: signupRequestBody, profileImg: profileImgData)
+        try authRepository.saveTokens(userSession)
     }
 
     // 4. 로그아웃

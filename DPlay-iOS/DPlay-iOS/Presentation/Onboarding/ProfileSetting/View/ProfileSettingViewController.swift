@@ -414,9 +414,8 @@ extension ProfileSettingViewController: PHPickerViewControllerDelegate {
             guard let self else { return }
             
             DispatchQueue.main.async {
-                if let uiImage = object as? UIImage,
-                   let imageData = uiImage.jpegData(compressionQuality: 0.9) {
-                    self.viewModel.selectedImageData = imageData
+                if let uiImage = object as? UIImage {
+                    self.viewModel.selectedImageData = uiImage
                     self.imageSelectButton.setProfileImage(type: .selectedImage(uiImage))
                 } else {
                     print("프로필 이미지 로드 실패")
