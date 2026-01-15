@@ -17,14 +17,50 @@ final class BaseAPIService {
         _ api: BaseAPI,
         _ type: T.Type
     ) async -> NetworkResult<T> {
-
+        
         return await withCheckedContinuation { continuation in
+            
+            //multipart면 upload
+            if let multipartAPI = api as? MultipartAPI {
+                
+                NetworkSession.shared.session
+                    .upload(
+                        multipartFormData: { form in
+                            multipartAPI.buildMultipartFormData(form)
+                        },
+                        with: multipartAPI
+                    )
+                    .validate(statusCode: 200..<300)
+                    .responseData { response in
+                        guard let status = response.response?.statusCode else {
+                            continuation.resume(returning: .networkFail)
+                            return
+                        }
 
+                        switch response.result {
+
+                        case .success(let data):
+                            do {
+                                let decoded = try JSONDecoder().decode(T.self, from: data)
+                                continuation.resume(returning: .success(decoded))
+                            } catch {
+                                print("❌ Decoding Error:", error)
+                                continuation.resume(returning: .decodeError)
+                            }
+
+                        case .failure:
+                            continuation.resume(returning: self.mapStatusCode(status))
+                        }
+                    }
+                
+                return
+            }
+            
+            //일반 JSON이면 request
             NetworkSession.shared.session
                 .request(api)
                 .validate(statusCode: 200..<600)
                 .responseData { response in
-
                     guard let status = response.response?.statusCode else {
                         continuation.resume(returning: .networkFail)
                         return
