@@ -25,7 +25,6 @@ final class AudioPlayerManager {
     // MARK: - State (외부 구독)
 
     @Published private(set) var isPlaying: Bool = false
-    @Published private(set) var isLoading: Bool = false
     @Published private(set) var currentTrackId: String?
     @Published private(set) var currentSessionId: String?
     @Published private(set) var currentPlayId: UUID?
@@ -48,7 +47,7 @@ extension AudioPlayerManager {
         playId: UUID?
     ) {
         
-        // 1. 같은 셀에서 다시 재생 버튼을 누른 경우만 토글 동작
+        // 1. 같은 셀에서 다시 재생 버튼을 누른 경우 - 재생, 멈춤 제어
         //    - trackId + playId가 모두 같은 경우
         //    - 동일한 트랙을 여러 셀이 가질 수 있기 때문에 playId로 UI 출처를 구분
         if currentTrackId == trackId,
@@ -68,7 +67,6 @@ extension AudioPlayerManager {
         //    - 새 음악을 즉시 재생 (전환 재생)
         stopInternal()
         
-        isLoading = true
         isPlaying = false
 
         let item = AVPlayerItem(url: streamURL) // URL기반 재생할 아이템을 만듬
@@ -116,14 +114,14 @@ extension AudioPlayerManager {
 private extension AudioPlayerManager {
     
     /// 아이템 로딩 상태 감지 (readyToPlay)
-    /// 즉 재생 아이템 상태를 구독해서 상태가 readyToPlay 준비 완료면 재생
+    /// 즉 재생 아이템 상태를 구독해서 상태가 readyToPlay 준비 완료면 재생 상태로 값을 변경
+    /// 이건 Cell 쪽 앨범 회전과 관련 있음  isPlaying 이 값을 구독해서 회전중임
     func observeItemStatus(_ item: AVPlayerItem) {
         item.publisher(for: \.status)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 switch status {
                 case .readyToPlay:
-                    self?.isLoading = false
                     self?.isPlaying = true
 
                 case .failed:
@@ -167,7 +165,6 @@ private extension AudioPlayerManager {
         player?.replaceCurrentItem(with: nil)
 
         isPlaying = false
-        isLoading = false
         currentTrackId = nil
         currentSessionId = nil
         currentPlayId = nil

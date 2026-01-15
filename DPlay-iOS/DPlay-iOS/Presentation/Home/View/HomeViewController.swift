@@ -630,7 +630,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.onTapPlay = { [weak self] in
             self?.playingCellId = cell.cellId
-            self?.viewModel.didTapPreview(post: post, playId: cell.cellId)
+            self?.viewModel.didTapPreview(post: post, playCellId: cell.cellId)
         }
         
         cell.onTapLike = { [weak self] in
@@ -659,8 +659,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let shouldRotate =
         post.track.id == AudioPlayerManager.shared.currentTrackId &&
-        albumCell.cellId == playingCellId &&
-        AudioPlayerManager.shared.isPlaying
+        albumCell.cellId == playingCellId && AudioPlayerManager.shared.isPlaying
         
         albumCell.setPlaying(shouldRotate)
     }
