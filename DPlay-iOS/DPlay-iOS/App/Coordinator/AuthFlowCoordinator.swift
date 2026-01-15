@@ -45,18 +45,10 @@ extension AuthFlowCoordinator {
     
     func goToMainTabBar() {
         //window의 roorViewController를 변경하기 위해 AppCoordinator에게 요청
-        router.goMainTabBar()
+        router.goToMainTabBar()
     }
     
-    func startOnboardingFlow() {
-        let onboardingNav = UINavigationController()
-        let onboardingCoordinator = MusicAddCoordinator(navigationController: onboardingNav)
-        childCoordinators.append(onboardingCoordinator)
-        onboardingCoordinator.start()
-
-        onboardingNav.modalPresentationStyle = .fullScreen
-        onboardingNav.modalTransitionStyle = .crossDissolve
-        
-        rootViewController.present(onboardingNav, animated: true)
+    func goToOnboarding(appleIdentityToken: String) {
+        router.goToOnboarding(appleIdentityToken: appleIdentityToken)
     }
 }

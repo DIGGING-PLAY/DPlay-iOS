@@ -16,9 +16,12 @@ final class OnboardingCoordinator: Coordinator {
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
     private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
+    
+    private let appleIdentityToken: String
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, appleIdentityToken: String) {
         self.navigationController = navigationController
+        self.appleIdentityToken = appleIdentityToken
     }
 
     func start() {
@@ -29,7 +32,11 @@ final class OnboardingCoordinator: Coordinator {
     }
     
     func goToProfileSetting() {
-        let vm = ProfileSettingViewModel(useCase: authUseCase, coordinator: self)
+        let vm = ProfileSettingViewModel(
+            useCase: authUseCase,
+            coordinator: self,
+            appleIdentityToken: appleIdentityToken
+        )
         let vc = ProfileSettingViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.pushViewController(vc, animated: true)

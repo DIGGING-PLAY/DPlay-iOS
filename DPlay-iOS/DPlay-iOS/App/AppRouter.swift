@@ -7,12 +7,16 @@
 
 enum AppRoute {
     case auth
+    case onboarding(appleIdentityToken: String)
     case mainTabBar
 }
 
 final class AppRouter {
     var onRouteChange: ((AppRoute) -> Void)?
 
-    func goAuth() { onRouteChange?(.auth) }
-    func goMainTabBar() { onRouteChange?(.mainTabBar) }
+    func goToAuth() { onRouteChange?(.auth) }
+    func goToOnboarding(appleIdentityToken: String) {
+        onRouteChange?(.onboarding(appleIdentityToken: appleIdentityToken))
+    }
+    func goToMainTabBar() { onRouteChange?(.mainTabBar) }
 }

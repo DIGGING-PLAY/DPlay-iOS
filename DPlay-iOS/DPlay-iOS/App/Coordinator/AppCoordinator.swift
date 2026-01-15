@@ -25,6 +25,8 @@ final class AppCoordinator: Coordinator {
             switch route {
             case .auth:
                 self.showAuth()
+            case .onboarding(let token):
+                self.showOnboardingFlow(appleIdentityToken: token)
             case .mainTabBar:
                 self.showMainTabBar()
             }
@@ -42,6 +44,16 @@ private extension AppCoordinator {
         authCoordinator.start()
         
         setRootViewController(authCoordinator.rootViewController, animated: true)
+    }
+    
+    func showOnboardingFlow(appleIdentityToken: String) {
+        let onboardingNav = UINavigationController()
+        let onboardingCoordinator = OnboardingCoordinator(navigationController: onboardingNav, appleIdentityToken: appleIdentityToken)
+        childCoordinators = [onboardingCoordinator]
+        
+        onboardingCoordinator.start()
+        
+        setRootViewController(onboardingCoordinator.navigationController, animated: true)
     }
     
     func showMainTabBar() {

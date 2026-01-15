@@ -25,11 +25,18 @@ final class ProfileSettingViewModel: ObservableObject {
     private let useCase: AuthUseCase
     weak var coordinator: OnboardingCoordinator?
     
+    private var appleIdentityToken: String
+    
     //MARK: - Init
     
-    init(useCase: AuthUseCase, coordinator: OnboardingCoordinator?) {
+    init(
+        useCase: AuthUseCase,
+        coordinator: OnboardingCoordinator?,
+        appleIdentityToken: String
+    ) {
         self.useCase = useCase
         self.coordinator = coordinator
+        self.appleIdentityToken = appleIdentityToken
         
         setupNicknameObserver()
     }
