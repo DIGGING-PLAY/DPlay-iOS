@@ -20,7 +20,9 @@ final class TabBarCoordinator: Coordinator {
         // 1) Home Flow
         let homeNav = UINavigationController()
         let homeCoordinator = HomeCoordinator(navigationController: homeNav)
-        homeCoordinator.parentCoordinator = self
+        homeCoordinator.onRequestSwitchToMyPage = { [weak self] in
+            self?.switchToMyPageTab()
+        }
         homeCoordinator.start()
         
         // 2) My Flow
