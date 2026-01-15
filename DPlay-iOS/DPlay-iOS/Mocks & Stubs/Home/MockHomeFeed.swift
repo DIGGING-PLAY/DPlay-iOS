@@ -13,7 +13,7 @@ enum MockHomeFeed {
         code: 2000,
         message: "요청이 성공했습니다.",
         data: HomeFeedDataDTO(
-            questionId: 12345,
+            questionId: 12345, title: "출근길에 꼭 듣는 노래는?",
             date: "2025-10-19",
             hasPosted: false,
             locked: true,
@@ -45,9 +45,9 @@ enum MockHomeFeed {
                     )
                 ),
                 HomeFeedPostDTO(
-                    postId: 111,
+                    postId: 133,
                     isScrapped: true,
-                    content: "그냥 좋아요 이 노래",
+                    content: "그냥 좋아요 이 노래 1",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: false,
                         isPopular: true,
@@ -71,9 +71,9 @@ enum MockHomeFeed {
                 ),
                 
                 HomeFeedPostDTO(
-                    postId: 111,
+                    postId: 121,
                     isScrapped: true,
-                    content: "그냥 좋아요 이 노래",
+                    content: "그냥 좋아요 이 노래 2",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: false,
                         isPopular: false,
@@ -96,9 +96,9 @@ enum MockHomeFeed {
                     )
                 ),
                 HomeFeedPostDTO(
-                    postId: 111,
+                    postId: 311,
                     isScrapped: true,
-                    content: "그냥 좋아요 이 노래",
+                    content: "그냥 좋아요 이 노래 3",
                     badges: HomeFeedBadgesDTO(
                         isEditorPick: true,
                         isPopular: false,

@@ -33,20 +33,13 @@ final class BaseAPIService {
                     switch response.result {
 
                     case .success(let data):
-                        
-                        // BaseResponseDTO<T> 로 감싸기
-                        if let decoded = try? JSONDecoder().decode(BaseResponseDTO<T>.self, from: data) {
-
-                            if decoded.success {
-                                continuation.resume(returning: .success(decoded.data))
-                                return
-                            } else {
-                                // 단순히 서버에서 success: false 내려주는 경우
-                                continuation.resume(returning: .serverError)
-                                return
-                            }
+                        do {
+                            let decoded = try JSONDecoder().decode(T.self, from: data)
+                            continuation.resume(returning: .success(decoded))
+                        } catch {
+                            print("❌ Decoding Error:", error)
+                            continuation.resume(returning: .decodeError)
                         }
-                        continuation.resume(returning: .decodeError)
 
                     case .failure:
                         continuation.resume(returning: self.mapStatusCode(status))

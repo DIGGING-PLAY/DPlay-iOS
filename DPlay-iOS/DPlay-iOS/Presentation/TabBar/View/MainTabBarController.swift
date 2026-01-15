@@ -152,3 +152,13 @@ extension MainTabBarController {
         }
     }
 }
+
+extension MainTabBarController {
+
+    /// 외부(Coordinator)에서 탭 전환용
+    func select(index: Int) {
+        guard index >= 0, index < viewControllers.count else { return }
+        switchTo(index: index)
+        tabBarView.updateSelected(index)
+    }
+}

@@ -153,7 +153,7 @@ extension CustomTabBarView {
     
     // MARK: - Method
     
-    private func updateSelected(_ index: Int) {
+    func updateSelected(_ index: Int) {
         selectedIndex = index
         
         if index == 0 {

@@ -18,14 +18,14 @@ extension PreviewAPI: BaseAPI {
     var path: String {
         switch self {
         case .previewTrack(let trackId, _):
-            return "/api/v1/tracks/preview/\(trackId)"
+            return "/tracks/preview/\(trackId)"
         }
     }
 
     var method: HTTPMethod {
         switch self {
         case .previewTrack:
-            return .post
+            return .get
         }
     }
 
