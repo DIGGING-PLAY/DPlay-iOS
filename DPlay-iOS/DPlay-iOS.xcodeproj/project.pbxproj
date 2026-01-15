@@ -99,6 +99,7 @@
 		D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */; };
 		D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */; };
 		D0D8FDC32ED61D9100F75191 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDC22ED61D8900F75191 /* NSObject+.swift */; };
+		D0DE02512F194BE4005B2EEF /* SignupRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE02502F194BD2005B2EEF /* SignupRequestDTO.swift */; };
 		D0F278EB2ED44C87001D788E /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */; };
 		EF0030122EC1FC43009E6532 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0030102EC1FC43009E6532 /* HomeViewController.swift */; };
 		EF2560302EBDD198003E65C9 /* HomeEntitys.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */; };
@@ -306,6 +307,7 @@
 		D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImageCell.swift; sourceTree = "<group>"; };
 		D0D8FDC22ED61D8900F75191 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
+		D0DE02502F194BD2005B2EEF /* SignupRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequestDTO.swift; sourceTree = "<group>"; };
 		D0F278EA2ED44C7C001D788E /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		EF0030102EC1FC43009E6532 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EF25602F2EBDD198003E65C9 /* HomeEntitys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntitys.swift; sourceTree = "<group>"; };
@@ -908,6 +910,7 @@
 		D09780962F12DDFB00AAF7A6 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				D0DE02502F194BD2005B2EEF /* SignupRequestDTO.swift */,
 				D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */,
 			);
 			path = Request;
@@ -2088,6 +2091,7 @@
 				EF4B8DE42F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift in Sources */,
 				D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */,
+				D0DE02512F194BE4005B2EEF /* SignupRequestDTO.swift in Sources */,
 				EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,
 				EF5A94882ED87D46001B56B8 /* ReportSheetView.swift in Sources */,
 				EF7537D72EC838DE00F28DE3 /* MainTabBarController.swift in Sources */,
