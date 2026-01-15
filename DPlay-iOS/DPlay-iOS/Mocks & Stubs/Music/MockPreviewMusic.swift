@@ -11,7 +11,7 @@ import Foundation
 
 enum MockPreviewMusic {
     static let sample = PreviewMusicResponseDTO(
-        success: true,
+        status: true,
         code: 2000,
         message: "요청이 성공했습니다.",
         data: PreviewTrackDataDTO(

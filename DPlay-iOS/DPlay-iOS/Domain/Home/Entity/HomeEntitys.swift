@@ -16,6 +16,7 @@ struct HomeFeed {
 
 struct Question {
     let id: Int
+    let title: String
     let date: String
     let hasPosted: Bool
 }
@@ -53,4 +54,28 @@ enum HomeFeedBadge: Equatable {
     case best
     case new
     case nomal
+}
+
+extension Post {
+
+    func updated(
+        isScrapped: Bool? = nil,
+        isLiked: Bool? = nil,
+        likeCount: Int? = nil
+    ) -> Post {
+        let updatedLike = Like(
+            isLiked: isLiked ?? like.isLiked,
+            count: likeCount ?? like.count
+        )
+
+        return Post(
+            id: id,
+            content: content,
+            user: user,
+            track: track,
+            like: updatedLike,
+            badges: badges,
+            isScrapped: isScrapped ?? self.isScrapped
+        )
+    }
 }

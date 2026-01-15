@@ -9,38 +9,36 @@ import Foundation
 
 protocol HomeService {
     func fetchHomeFeed() async throws -> HomeFeedResponseDTO
-    func like(postId: Int) async throws
-    func scrap(postId: Int, isScrapped: Bool) async throws
+    func toggleLike(postId: Int, isLiked: Bool) async throws
+    func toggleScrap(postId: Int, isScrapped: Bool) async throws
 }
 
 // MARK: - HomeNetworkService
 
 final class HomeNetworkServiceImpl: HomeService {
-    
+
     private let apiService: BaseAPIService
-    
-    // DI 가능 → 테스트 가능하도록 만듦
-    
+
+    // DI 가능 → 테스트 가능
     init(apiService: BaseAPIService = BaseAPIService()) {
         self.apiService = apiService
     }
-    
+
     // MARK: - Home Feed
-    
+
     func fetchHomeFeed() async throws -> HomeFeedResponseDTO {
         let result = await apiService.request(
             HomeAPI.fetchHomeFeed,
             HomeFeedResponseDTO.self
         )
-        
+
         switch result {
-            
         case .success(let dto):
-            guard let dto = dto else {
+            guard let dto else {
                 throw AppError.emptyData
             }
             return dto
-            
+
         case .unauthorized: throw AppError.unauthorized
         case .notFound:     throw AppError.notFound
         case .decodeError:  throw AppError.decodeError
@@ -50,15 +48,16 @@ final class HomeNetworkServiceImpl: HomeService {
         default:            throw AppError.unknown
         }
     }
-    
-    // MARK: - Like
-    
-    func like(postId: Int) async throws {
-        let result = await apiService.request(
-            HomeAPI.likePost(postId: postId),
-            EmptyDTO.self
-        )
-        
+
+    // MARK: - Like / Unlike
+
+    func toggleLike(postId: Int, isLiked: Bool) async throws {
+        let api = isLiked
+            ? HomeAPI.unlikePost(postId: postId)
+            : HomeAPI.likePost(postId: postId)
+
+        let result = await apiService.request(api, EmptyDTO.self)
+
         switch result {
         case .success:
             return
@@ -68,16 +67,16 @@ final class HomeNetworkServiceImpl: HomeService {
             throw AppError.serverError
         }
     }
-    
+
     // MARK: - Scrap / Unscrap
-    
-    func scrap(postId: Int, isScrapped: Bool) async throws {
+
+    func toggleScrap(postId: Int, isScrapped: Bool) async throws {
         let api = isScrapped
-        ? HomeAPI.scrap(postId: postId)
-        : HomeAPI.unscrap(postId: postId)
-        
+            ? HomeAPI.unscrap(postId: postId)
+            : HomeAPI.scrap(postId: postId)
+
         let result = await apiService.request(api, EmptyDTO.self)
-        
+
         switch result {
         case .success:
             return

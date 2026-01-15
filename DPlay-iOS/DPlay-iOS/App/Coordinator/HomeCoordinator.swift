@@ -8,27 +8,30 @@
 import UIKit
 
 final class HomeCoordinator: Coordinator {
-
+    
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-
-    private let service = MockHomeService() 
+    
+    /// 상위(TabBar)로 네비게이션 요청을 전달하는 클로저
+    var onRequestSwitchToMyPage: (() -> Void)?
+    
+    private let service = MockHomeService()
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
     
     private let postHistoryService = MockPostHistoryService()
     private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
     private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         
         // 서버 연결후 Mock 갈아 끼우기
         let homeService: HomeService = MockHomeService()
-        let previewService: PreviewNetworkService = MockPreviewNetworkService()
+        let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
         
         let homeRepository = DefaultHomeRepository(service: homeService)
         let previewRepository = DefaultPreviewMusicRepository(service: previewService)
@@ -46,7 +49,7 @@ final class HomeCoordinator: Coordinator {
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
-
+    
     func goToMusicDetail(trackId: String) {
         let service = MockMusicDetailService()
         let repository = DefaultMusicDetailRepository(service: service)
@@ -73,7 +76,15 @@ final class HomeCoordinator: Coordinator {
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
-
+    
+    func goToScrapTab() {
+        onRequestSwitchToMyPage?()
+    }
+    
+    func goToUserProfile() {
+        // 유저 프로필 탐색
+    }
+    
     func pop() {
         navigationController.popViewController(animated: true)
         if navigationController.viewControllers.count == 1 {

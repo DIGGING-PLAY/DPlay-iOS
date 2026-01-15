@@ -20,6 +20,9 @@ final class TabBarCoordinator: Coordinator {
         // 1) Home Flow
         let homeNav = UINavigationController()
         let homeCoordinator = HomeCoordinator(navigationController: homeNav)
+        homeCoordinator.onRequestSwitchToMyPage = { [weak self] in
+            self?.switchToMyPageTab()
+        }
         homeCoordinator.start()
         
         // 2) My Flow
@@ -51,5 +54,11 @@ private extension TabBarCoordinator {
 
         addNav.modalPresentationStyle = .fullScreen
         rootViewController.present(addNav, animated: true) 
+    }
+}
+
+extension TabBarCoordinator {
+    func switchToMyPageTab() {
+        rootViewController.select(index: 1) // MyPage 탭 이동
     }
 }

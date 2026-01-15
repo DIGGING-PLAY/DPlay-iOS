@@ -8,10 +8,14 @@
 import Foundation
 
 import Alamofire
+// HomeAPI.swift
+
+import Alamofire
 
 enum HomeAPI {
     case fetchHomeFeed
     case likePost(postId: Int)
+    case unlikePost(postId: Int)
     case scrap(postId: Int)
     case unscrap(postId: Int)
 }
@@ -23,13 +27,12 @@ extension HomeAPI: BaseAPI {
         case .fetchHomeFeed:
             return "/posts/today"
 
-        case .likePost(let postId):
+        case .likePost(let postId),
+             .unlikePost(let postId):
             return "/posts/\(postId)/likes"
 
-        case .scrap(let postId):
-            return "/posts/\(postId)/scraps"
-
-        case .unscrap(let postId):
+        case .scrap(let postId),
+             .unscrap(let postId):
             return "/posts/\(postId)/scraps"
         }
     }
@@ -41,6 +44,9 @@ extension HomeAPI: BaseAPI {
 
         case .likePost:
             return .post
+
+        case .unlikePost:
+            return .delete
 
         case .scrap:
             return .post

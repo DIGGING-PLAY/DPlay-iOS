@@ -11,6 +11,12 @@ import Combine
 import SnapKit
 import Then
 
+private enum PageState: Equatable{
+    case post(Int)   // n번째 게시글
+    case locked      // 잠금 셀
+    case invalid     // 계산 오류, 데이터 불일치
+}
+
 final class HomeViewController: UIViewController {
     
     // MARK: - Properties
@@ -18,7 +24,9 @@ final class HomeViewController: UIViewController {
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
     private var playingCellId: UUID?
-    private var currentPageIndex: Int = 0
+    private var currentPage: PageState = .post(0)
+    private var isRefreshing = false
+    private var scrapToggleIndex: Int?
     
     // MARK: - UI Properties
     
@@ -212,6 +220,70 @@ private extension HomeViewController {
 
 private extension HomeViewController {
     
+    // MARK: - Delegate & Target & Data load
+    
+    func setupDelegate() {
+        editorCollectionView.delegate = self
+        editorCollectionView.dataSource = self
+    }
+    
+    func setupTarget() {
+        refreshButton.addAction(
+            UIAction { [weak self] _ in
+                self?.refresh()
+            },
+            for: .touchUpInside
+        )
+        
+        musicScrapButton.addAction(
+            UIAction { [weak self] _ in
+                self?.handleScrapTapped()
+            },
+            for: .touchUpInside
+        )
+    }
+    
+    func refresh() {
+        Task {
+            isRefreshing = true
+            AudioPlayerManager.shared.stop()
+            playingCellId = nil
+            await viewModel.loadHome()
+            resetToFirstPage()
+        }
+    }
+    
+    func loadData() {
+        Task { await viewModel.loadHome() }
+    }
+}
+
+@objc private extension HomeViewController {
+    
+    //MARK: - @objc Method
+    
+    func handleScrapTapped() {
+        guard case .post(let index) = currentPage else { return }
+        
+        let post = viewModel.posts[index]
+        scrapToggleIndex = index
+        
+        Task {
+            await viewModel.toggleScrap(postId: post.id)
+        }
+        
+        ToastManager.shared.show(
+            message: post.isScrapped ? "보관함에서 삭제했어요" : "보관함에 추가했어요",
+            actionText: "보러가기",
+            action: { [weak self] in
+                self?.viewModel.goToScrapTab()
+            }
+        )
+    }
+}
+
+private extension HomeViewController {
+    
     // MARK: - Layout Constants
     
     enum Layout {
@@ -260,227 +332,135 @@ private extension HomeViewController {
                 trailing: containerWidth * Layout.horizontalInsetFraction
             )
             
-            /// 스크롤 이벤트 잡는 부분 - 마지막 cell에서 isLocked가 참일때 스크롤시 팝업 표시
-            section.visibleItemsInvalidationHandler = { [weak self] items, offset, env in
+            /// 스크롤 이벤트 잡는 부분 - scrollViewDidScroll 같은 효과
+            section.visibleItemsInvalidationHandler = { [weak self] _, offset, env in
                 guard let self else { return }
-                
-                // 현재 페이지 계산
-                let pageWidth = env.container.contentSize.width * Layout.cardFraction
-                let currentPage = Int((offset.x + pageWidth / 2) / pageWidth)
-                
-                // 페이지가 바뀐 경우에만 처리
-                guard self.currentPageIndex != currentPage else { return }
-                self.currentPageIndex = currentPage
-                
-                // 현재 페이지에 맞는 badge 업데이트
-                self.updateTopStatusUIForCurrentPage()
-                
-                // locked 셀 다음 슬라이드 접근 시 팝업
-                if currentPage == self.viewModel.posts.count + 1,
-                   self.viewModel.isLocked {
-                    self.showLockedPopup()
-                }
-                
-                // 햅틱 관련 코드
-                if self.lastHapticIndex != currentPage {
-                    self.lastHapticIndex = currentPage
-                    self.hapticGenerator.impactOccurred()
-                    self.hapticGenerator.prepare()
-                }
+                // 1. 현재 스크롤 위치 판단
+                let page = self.pageNumber(offsetX: offset.x, width: env.container.contentSize.width)
+                // 2. 페이지 상태 갱신
+                self.updateCurrentPage(page)
+                // 3. 페이지 바뀔 때 햅틱
+                self.playHapticIfNeeded(page)
             }
-            
             return section
         }
     }
-}
-
-@objc private extension HomeViewController {
     
-    //MARK: - @objc Method
+    // MARK: - 현재 페이지 상태 관련
     
-    func handleScrapTapped() {
-        ToastManager.shared.show(
-            message: "보관함에 추가했어요",
-            actionText: "보러가기"
-        ) { [weak self] in
-            //self?.navigateToStorage()
-        }
-    }
-}
-
-extension HomeViewController {
-    
-    // MARK: - Method
-    
-    private func bindNavigationBar() {
-        navigationBarView.onTapMenu = { [weak self] in
-            guard let self else { return }
-            
-            viewModel.goToMonthlyQuestion()
-        }
+    /// 페이지 계산 로직 현재 보여지는 카드뷰 index(0, 1, 2, …) 을 계산
+    /// 반환값: 현재 카드뷰 인덱스
+    func pageNumber(offsetX: CGFloat, width: CGFloat) -> Int {
+        let pageWidth = width * Layout.cardFraction
+        return Int((offsetX + pageWidth / 2) / pageWidth)
     }
     
-    private func bind() {
-        viewModel.$posts
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] posts in
-                guard let self else { return }
-                self.editorCollectionView.reloadData()
-                self.updateTopStatusUIForCurrentPage()
+    /// 페이지 상태 갱신
+    /*
+     posts.count = 5
+     index: 0 1 2 3 4 [5]
+     ↑
+     locked cell
+     */
+    func updateCurrentPage(_ page: Int) {
+        
+        let nextPage: PageState
+        
+        if page < viewModel.posts.count {
+            nextPage = .post(page)
+        } else if page == viewModel.posts.count && viewModel.isLocked {
+            nextPage = .locked
+        } else {
+            nextPage = .invalid
+        }
+        if currentPage == nextPage { return }
+        currentPage = nextPage
+        
+        onPageChanged()
+    }
+    
+    /// 페이지 변경 시 발생하는 이벤트 묶음
+    func onPageChanged() {
+        updateTopUI()
+        showLockedPopupIfNeeded()
+    }
+    
+    /// 현재 페이지 상태에 맞게 상단 UI 업데이트 제어 함수
+    /// viewModel.posts.indices.contains(index) 이유 : 새로고침 직후 등  Posts 안에 알맞은 인덱스가 존재할때만 UI 업데이트
+    func updateTopUI() {
+        
+        switch currentPage {
+        case .post(let index):
+            guard viewModel.posts.indices.contains(index) else {
+                hideTopUI()
+                return
             }
-            .store(in: &cancellables)
-    }
-    
-    /// 현재 CollectionView에서 보고 있는 페이지(index)에 맞춰
-    /// 상단 상태 UI(Badge, Scrap 버튼)를 동기화한다.
-    private func updateTopStatusUIForCurrentPage() {
-        guard currentPageIndex < viewModel.posts.count else {
-            musicStateBadgeView.hide()
-            musicScrapButton.isHidden = true
+            
+            let post = viewModel.posts[index]
+            showTopUI(post)
+            
+        case .locked:
+            hideTopUI()
+        case .invalid:
             return
         }
-        
-        let post = viewModel.posts[currentPageIndex]
+    }
+    
+    func showTopUI(_ post: Post) {
         musicStateBadgeView.configure(badge: post.badges)
         musicScrapButton.isHidden = false
+        
+        let image = post.isScrapped
+        ? IconLiterals.ic_bookmark_fill_24
+        : IconLiterals.ic_bookmark_24
+        
+        musicScrapButton.setImage(image, for: .normal)
     }
     
-    // MARK: - Cell 앨범 커버 회전
-    
-    /// AudioPlayerManager를 구독하고 지금 화면에 보이는 MusicAlbumCell들을 전부 순회하면서, 각 셀이 가리키는 트랙 ID와
-    /// 현재 재생 중인 오디오의 트랙 ID를 비교하여 맞으면 해당 cell의 앨범 커버를 회전 시킴
-    private func bindAudioState() {
-        AudioPlayerManager.shared.$currentTrackId
-            .combineLatest(AudioPlayerManager.shared.$isPlaying)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] trackId, isPlaying in
-                guard let self else { return }
-                
-                for cell in self.editorCollectionView.visibleCells {
-                    guard
-                        let albumCell = cell as? MusicAlbumCell,
-                        let indexPath = self.editorCollectionView.indexPath(for: albumCell)
-                    else { continue }
-                    
-                    let post = self.viewModel.posts[indexPath.item]
-                    let shouldRotate =
-                    post.track.id == trackId &&   // 지금 재생 중인 노래인가?
-                    albumCell.cellId == playingCellId && // 내가 눌렀던 그 셀인가? (같은 앨범이라도)
-                    isPlaying                     // 실제로 재생 중인가?
-                    
-                    albumCell.setPlaying(shouldRotate)
-                }
-            }
-            .store(in: &cancellables)
+    func hideTopUI() {
+        musicStateBadgeView.hide()
+        musicScrapButton.isHidden = true
     }
     
-    private func loadData() {
-        Task { await viewModel.loadHome() }
-    }
-}
-
-private extension HomeViewController {
-    
-    // MARK: - Private Method
-    
-    func setupDelegate() {
-        editorCollectionView.delegate = self
-        editorCollectionView.dataSource = self
-    }
-    
-    private func setupTarget() {
-        musicScrapButton.addAction(
-            UIAction { [weak self] _ in
-                self?.handleScrapTapped()
-            },
-            for: .touchUpInside
+    /// 새로고침 이후 스크롤 UI 및 Cell 첫 번째로 위치하게 하는 메서드
+    func resetToFirstPage() {
+        currentPage = .post(0)
+        lastHapticIndex = nil
+        
+        editorCollectionView.scrollToItem(
+            at: IndexPath(item: 0, section: 0),
+            at: .centeredHorizontally,
+            animated: true
         )
-    }
-}
-
-// MARK: - UICollectionView
-
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = viewModel.posts.count
-        return viewModel.isLocked ? count + 1 : count
+        
+        onPageChanged()
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let postCount = viewModel.posts.count
-        
-        // 마지막 + isLocked → 잠금 셀
-        if viewModel.isLocked && indexPath.item == postCount {
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: LockedAlbumCell.identifier,
-                for: indexPath
-            ) as! LockedAlbumCell
-            return cell
-        }
-        
-        // 일반 게시글 셀
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: MusicAlbumCell.identifier,
-            for: indexPath
-        ) as! MusicAlbumCell
-        
-        let post = viewModel.posts[indexPath.item]
-        cell.configure(with: post)
-        
-        cell.onTapPlay = { [weak self] in
-            self?.playingCellId = cell.cellId
-            self?.viewModel.didTapPreview(post: post, playId: cell.cellId)
-        }
-        
-        return cell
-    }
+    // MARK: - PopUp & Haptic
     
-    /// 셀이 재사용 되기 때문에 애니메이션이 날아감
-    /// 셀이 보일때 이 셀이 회전 되어야 하는 셀인지를 판단해서 계속 음악 재생중에 앨범 커버가 돌도록 구현
-    func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplay cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath
-    ) {
-        guard let albumCell = cell as? MusicAlbumCell else { return }
-        
-        let post = viewModel.posts[indexPath.item]
-        
-        let shouldRotate =
-        post.track.id == AudioPlayerManager.shared.currentTrackId &&
-        albumCell.cellId == playingCellId &&
-        AudioPlayerManager.shared.isPlaying
-        
-        albumCell.setPlaying(shouldRotate)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let post = viewModel.posts[indexPath.item]
-        viewModel.didSelectPost(post)
-    }
-    
-    
-    /// 셀을 선택하기 직전에 무조건 호출됨
-    /// 글 작성 안했으면 마지막 LockedAlbumCell에서 터치 불가 popupView 띄우기
-    func collectionView(
-        _ collectionView: UICollectionView,
-        shouldSelectItemAt indexPath: IndexPath
-    ) -> Bool {
-        
-        if viewModel.isLocked && indexPath.item == viewModel.posts.count {
+    /// 팝업 표시 함수
+    /// - currentPage .locked 상태이고 isLocked가 참일때 스크롤시 팝업 표시
+    func showLockedPopupIfNeeded() {
+        if currentPage == .locked && viewModel.isLocked {
             showLockedPopup()
-            return false
         }
-        return true
+    }
+    
+    /// 햅틱 발생 함수
+    func playHapticIfNeeded(_ page: Int) {
+        if lastHapticIndex == page { return }
+        
+        lastHapticIndex = page
+        hapticGenerator.impactOccurred()
+        hapticGenerator.prepare()
     }
 }
 
 // MARK: - Popup Methods
 
-extension HomeViewController {
+private extension HomeViewController {
     
-    private func showLockedPopup() {
+    func showLockedPopup() {
         guard popupView == nil else { return }
         guard let window = UIApplication.shared.keyWindow else { return }
         
@@ -507,7 +487,7 @@ extension HomeViewController {
         }
     }
     
-    private func hidePopup() {
+    func hidePopup() {
         guard let popup = popupView else { return }
         
         UIView.animate(withDuration: 0.25, animations: {
@@ -516,5 +496,190 @@ extension HomeViewController {
             popup.removeFromSuperview()
             self.popupView = nil
         }
+    }
+}
+
+private extension HomeViewController {
+    
+    // MARK: - 바인딩 관련
+    
+    func bindNavigationBar() {
+        navigationBarView.onTapMenu = { [weak self] in
+            guard let self else { return }
+            
+            viewModel.goToMonthlyQuestion()
+        }
+    }
+    
+    func bind() {
+        // Posts 데이터 바인딩
+        viewModel.$posts
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] posts in
+                guard let self else { return }
+                
+                // 스크랩 토글에 의한 이벤트일 경우: 셀 리로드 없이 상단 UI만 업데이트
+                if self.scrapToggleIndex != nil {
+                    self.scrapToggleIndex = nil
+                    self.updateTopUI()
+                    return
+                }
+                
+                // 일반 데이터 로딩/새로고침인 경우: 전체 리로드
+                self.editorCollectionView.reloadData()
+                
+                if self.isRefreshing {
+                    self.resetToFirstPage()
+                    self.isRefreshing = false
+                } else {
+                    // 앱 최초 진입 대응
+                    self.updateTopUI()
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Question 데이터 바인딩
+        viewModel.$question
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] question in
+                guard let self else { return }
+                
+                self.questionTitleLabel.text = question.title
+                self.todayDateLabel.text = self.formatDate(question.date)
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    // MARK: - Cell 앨범 커버 회전
+    
+    /// AudioPlayerManager를 구독하고 지금 화면에 보이는 MusicAlbumCell들을 전부 순회하면서, 각 셀이 가리키는 트랙 ID와
+    /// 현재 재생 중인 오디오의 트랙 ID를 비교하여 맞으면 해당 cell의 앨범 커버를 회전 시킴
+    func bindAudioState() {
+        AudioPlayerManager.shared.$currentTrackId
+            .combineLatest(AudioPlayerManager.shared.$isPlaying)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] trackId, isPlaying in
+                guard let self else { return }
+                
+                for cell in self.editorCollectionView.visibleCells {
+                    guard
+                        let albumCell = cell as? MusicAlbumCell,
+                        let indexPath = self.editorCollectionView.indexPath(for: albumCell)
+                    else { continue }
+                    
+                    let post = self.viewModel.posts[indexPath.item]
+                    let shouldRotate =
+                    post.track.id == trackId &&   // 지금 재생 중인 노래인가?
+                    albumCell.cellId == playingCellId && // 내가 눌렀던 그 셀인가? (같은 앨범이라도)
+                    isPlaying                     // 실제로 재생 중인가?
+                    
+                    albumCell.setPlaying(shouldRotate)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func formatDate(_ dateString: String) -> String {
+        // "2025-10-19" → "10월 19일의 발견"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let date = formatter.date(from: dateString) else {
+            return ""
+        }
+        
+        let displayFormatter = DateFormatter()
+        displayFormatter.locale = Locale(identifier: "ko_KR")
+        displayFormatter.dateFormat = "M월 d일의 발견"
+        
+        return displayFormatter.string(from: date)
+    }
+}
+
+// MARK: - UICollectionView
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let count = viewModel.posts.count
+        return viewModel.isLocked ? count + 1 : count // 잠금 상태면 Lock Cell 생성 필요
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let postCount = viewModel.posts.count
+        
+        // 마지막 + isLocked → 잠금 셀
+        if viewModel.isLocked && indexPath.item == postCount {
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: LockedAlbumCell.identifier,
+                for: indexPath
+            ) as! LockedAlbumCell
+            return cell
+        }
+        
+        // 일반 게시글 셀
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: MusicAlbumCell.identifier,
+            for: indexPath
+        ) as! MusicAlbumCell
+        
+        let post = viewModel.posts[indexPath.item]
+        cell.configure(with: post)
+        
+        cell.onTapPlay = { [weak self] in
+            self?.playingCellId = cell.cellId
+            self?.viewModel.didTapPreview(post: post, playCellId: cell.cellId)
+        }
+        
+        cell.onTapLike = { [weak self] in
+            Task {
+                await self?.viewModel.toggleLike(postId: post.id)
+            }
+        }
+        
+        cell.onTapProfile = { [weak self] in
+            self?.viewModel.didTapUserProfile(userId: post.user.id)
+        }
+        
+        return cell
+    }
+    
+    /// 셀이 재사용 되기 때문에 애니메이션이 날아감
+    /// 셀이 보일때 이 셀이 회전 되어야 하는 셀인지를 판단해서 계속 음악 재생중에 앨범 커버가 돌도록 구현
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        guard let albumCell = cell as? MusicAlbumCell else { return }
+        
+        let post = viewModel.posts[indexPath.item]
+        
+        let shouldRotate =
+        post.track.id == AudioPlayerManager.shared.currentTrackId &&
+        albumCell.cellId == playingCellId && AudioPlayerManager.shared.isPlaying
+        
+        albumCell.setPlaying(shouldRotate)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = viewModel.posts[indexPath.item]
+        viewModel.didSelectPost(post)
+    }
+    
+    /// 셀을 선택하기 직전에 무조건 호출됨
+    /// 글 작성 안했으면 마지막 LockedAlbumCell에서 터치 불가 popupView 띄우기
+    func collectionView(
+        _ collectionView: UICollectionView,
+        shouldSelectItemAt indexPath: IndexPath
+    ) -> Bool {
+        
+        if viewModel.isLocked && indexPath.item == viewModel.posts.count {
+            showLockedPopup()
+            return false
+        }
+        return true
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import Kingfisher
 
 final class MusicAlbumCell: UICollectionViewCell {
     
@@ -18,6 +19,8 @@ final class MusicAlbumCell: UICollectionViewCell {
     // 같은 음악 앨범 커버가 같이 돌아가는 걸 방지 하기 위함, 같은 노래라도 내가 누른 음악 커바만 돌아가기
     var cellId: UUID = UUID()
     var onTapPlay: (() -> Void)?
+    var onTapLike: (() -> Void)?
+    var onTapProfile: (() -> Void)?
     
     // MARK: - UI Properties
     
@@ -26,6 +29,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let overlayView = UIView()
     
+    private let profileTapAreaView = UIView()
     private let userProfileImageView = UIImageView()
     private let userNameLabel = UILabel()
     private let userCommentQuoteUpImageView = UIImageView()
@@ -51,7 +55,10 @@ final class MusicAlbumCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        stopRotating()  
+        stopRotating()
+        
+        // 빠르게 스크롤시 이전셀 이미지 보이는 현상 방지
+        musicAlbumCoverImageView.kf.cancelDownloadTask()
     }
 }
 
@@ -65,7 +72,7 @@ private extension MusicAlbumCell {
             $0.roundCorners(cornerRadius: 128)
             $0.image = ImageLiterals.img_card_cover
         }
-                
+        
         cardBackgroundView.do {
             $0.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.5)
             $0.roundCorners(
@@ -138,14 +145,18 @@ private extension MusicAlbumCell {
         )
         
         cardBackgroundView.addSubviews(
-            userProfileImageView,
-            userNameLabel,
+            profileTapAreaView,
             userCommentQuoteUpImageView,
             userCommentQuoteDownImageView,
             userCommentLabel,
             userHeartButton,
             heartCountLabel,
             musicStreamingButton
+        )
+        
+        profileTapAreaView.addSubviews(
+            userProfileImageView,
+            userNameLabel
         )
     }
     
@@ -165,6 +176,13 @@ private extension MusicAlbumCell {
         
         blurView.snp.makeConstraints { $0.edges.equalToSuperview() }
         overlayView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        
+        profileTapAreaView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.height.equalTo(44)
+            $0.width.greaterThanOrEqualTo(120)
+        }
         
         userProfileImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
@@ -188,7 +206,6 @@ private extension MusicAlbumCell {
             $0.leading.equalTo(userCommentQuoteUpImageView.snp.trailing).offset(4)
             $0.trailing.equalTo(userCommentQuoteDownImageView.snp.leading).offset(-4)
         }
-        
         
         userCommentQuoteDownImageView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
@@ -220,16 +237,44 @@ private extension MusicAlbumCell {
 private extension MusicAlbumCell {
     
     // MARK: - Private Method
-    private func setupTarget() {
+    func setupTarget() {
         musicStreamingButton.addTarget(
             self,
             action: #selector(playTapped),
             for: .touchUpInside
         )
+        
+        userHeartButton
+            .addTarget(
+                self,
+                action: #selector(
+                    handleLikeTapped
+                ),
+                for: .touchUpInside
+            )
+        
+        let profileTap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleProfileTapped)
+        )
+        profileTapAreaView.isUserInteractionEnabled = true
+        profileTapAreaView.addGestureRecognizer(profileTap)
     }
+}
 
-    @objc private func playTapped() {
+@objc private extension MusicAlbumCell {
+    
+    func playTapped() {
         onTapPlay?()
+    }
+    
+    func handleLikeTapped() {
+        onTapLike?()
+    }
+    
+    func handleProfileTapped() {
+        print("프로필 눌림")
+        onTapProfile?()
     }
 }
 
@@ -238,16 +283,35 @@ private extension MusicAlbumCell {
 extension MusicAlbumCell {
     
     func configure(with post: Post) {
-        //if let url = URL(string: post.track.coverImage) {
-        //    musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
-        // }
+        if let url = URL(string: post.track.coverImage) {
+            musicAlbumCoverImageView.kf.setImage(
+                with: url,
+                placeholder: nil,
+                options: [
+                    .transition(.fade(0.2)),
+                    .cacheOriginalImage
+                ]
+            )
+        } else {
+            musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
+        }
         userNameLabel.text = post.user.nickname
         userProfileImageView.image = UIImage(named: "img_mock_profile")
         userCommentLabel.text = post.content
+        let image = post.like.isLiked
+            ? IconLiterals.ic_heart_w_fill
+            : IconLiterals.ic_heart_w
+        userHeartButton.setImage(image, for: .normal)
         heartCountLabel.text = "\(post.like.count)"
-        let scrapIcon = post.isScrapped
-        ? IconLiterals.ic_bookmark_fill_24
-        : IconLiterals.ic_bookmark_24
+        
+        // editor 작성 글이면 기본 이미지, 및 터치 불가능
+        if post.badges == .editor {
+            userProfileImageView.image = ImageLiterals.Img_editor_profile
+            profileTapAreaView.isUserInteractionEnabled = false
+        } else {
+            userProfileImageView.image = ImageLiterals.img_mock_profile
+            profileTapAreaView.isUserInteractionEnabled = true
+        }
     }
     
     func setPlaying(_ isPlaying: Bool) {
@@ -262,20 +326,20 @@ extension MusicAlbumCell {
 // MARK: - 회전 애니메이션
 
 private extension MusicAlbumCell {
-
+    
     func startRotating() {
         guard musicAlbumCoverImageView.layer.animation(forKey: "rotation") == nil else { return }
-
+        
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.fromValue = 0
         rotation.toValue = Double.pi * 2
         rotation.duration = 8.0              // 한 바퀴 8초 (느긋하게)
         rotation.repeatCount = .infinity
         rotation.isRemovedOnCompletion = false
-
+        
         musicAlbumCoverImageView.layer.add(rotation, forKey: "rotation")
     }
-
+    
     func stopRotating() {
         musicAlbumCoverImageView.layer.removeAnimation(forKey: "rotation")
     }
