@@ -6,10 +6,34 @@
 //
 import Foundation
 
-struct MusicSearchResponseDTO: Codable, Hashable {
+typealias MusicSearchResponseDTO = BaseResponseDTO<MusicSearchDataDTO>
+
+struct MusicSearchDataDTO: Decodable {
+    let query: String
+    let storefront: String
+    let limit: Int
+    let nextCursor: String?
+    let items: [MusicTrackItemDTO]
+}
+
+typealias TrackDetailResponseDTO = BaseResponseDTO<MusicTrackItemDTO>
+
+struct MusicTrackItemDTO: Decodable {
     let trackId: String
     let songTitle: String
     let artistName: String
     let coverImg: String
     let isrc: String
+}
+
+extension MusicTrackItemDTO {
+    func toEntity() -> MusicTrack {
+        MusicTrack(
+            trackId: trackId,
+            title: songTitle,
+            artist: artistName,
+            coverURL: URL(string: coverImg),
+            isrc: isrc
+        )
+    }
 }
