@@ -18,34 +18,24 @@ enum MusicSearchAPI {
         storefront: String,
         cursor: String?
     )
-    
-    /// 노래 상세 조회
-    case fetchTrackDetail(
-        trackId: String,
-        storefront: String
-    )
 }
 
 extension MusicSearchAPI: BaseAPI {
-
+    
     var path: String {
         switch self {
         case .searchTracks:
             return "/tracks"
-            
-        case .fetchTrackDetail(let trackId, _):
-            return "/tracks/\(trackId)"
         }
     }
-
+    
     var method: HTTPMethod {
         switch self {
-        case .searchTracks,
-             .fetchTrackDetail:
+        case .searchTracks:
             return .get
         }
     }
-
+    
     var query: Parameters? {
         switch self {
         case let .searchTracks(query, limit, storefront, cursor):
@@ -58,14 +48,9 @@ extension MusicSearchAPI: BaseAPI {
                 params["cursor"] = cursor
             }
             return params
-
-        case let .fetchTrackDetail(_, storefront):
-            return [
-                "storefront": storefront
-            ]
         }
     }
-
+    
     var body: Encodable? {
         return nil
     }
