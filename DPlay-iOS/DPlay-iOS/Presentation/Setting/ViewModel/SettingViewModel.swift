@@ -17,16 +17,28 @@ final class SettingViewModel: ObservableObject {
     
     //MARK: - Dependencies
     
+    private let useCase: AuthUseCase
     weak var coordinator: MyPageCoordinator?
     
     //MARK: - Init
     
     init(
         pushOn: Bool,
-        coordinator: MyPageCoordinator?
+        coordinator: MyPageCoordinator?,
+        useCase: AuthUseCase
     ) {
         self.pushOn = pushOn
         self.coordinator = coordinator
+        self.useCase = useCase
+    }
+}
+
+extension SettingViewModel {
+    
+    //MARK: - Method
+    
+    func setNotification(pushOn: Bool) async throws {
+        try await useCase.setNotification(pushOn: pushOn)
     }
 }
 

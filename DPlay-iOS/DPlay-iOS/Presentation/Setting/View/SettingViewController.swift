@@ -195,7 +195,9 @@ private extension SettingViewController {
     //MARK: - @objc Method
 
     func toggleSwitchChanged(_ sender: ToggleSwitch) {
-        print("toggle:", sender.isOn)
+        Task {
+            try await viewModel.setNotification(pushOn: sender.isOn)
+        }
         viewModel.pushOn = sender.isOn
     }
     

@@ -20,6 +20,10 @@ final class MyPageCoordinator: Coordinator {
     private let myPageService = MyPageServiceImpl()
     private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
     private lazy var myPageUseCase = DefaultMyPageUseCase(repository: myPageRepository)
+    
+    private let authService = AuthServiceImpl()
+    private lazy var authRepository = DefaultAuthRepository(service: authService)
+    private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -42,7 +46,7 @@ final class MyPageCoordinator: Coordinator {
     }
     
     func goToSetting(pushOn: Bool) {
-        let vm = SettingViewModel(pushOn: pushOn, coordinator: self)
+        let vm = SettingViewModel(pushOn: pushOn, coordinator: self, useCase: authUseCase)
         let vc = SettingViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
