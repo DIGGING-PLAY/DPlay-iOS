@@ -17,6 +17,10 @@ final class MyPageViewModel: ObservableObject {
     @Published var registeredMusicsResult: MyPageTrackResult?
     @Published var archiveMusicsResult: MyPageTrackResult?
     
+    //MARK: - Properties
+    
+    private let userId: Int
+    
     //MARK: - Dependencies
     
     private let useCase: MyPageUseCase
@@ -24,9 +28,10 @@ final class MyPageViewModel: ObservableObject {
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: MyPageCoordinator?) {
+    init(useCase: MyPageUseCase, coordinator: MyPageCoordinator?, userId: Int) {
         self.useCase = useCase
         self.coordinator = coordinator
+        self.userId = userId
     }
 }
 
@@ -36,7 +41,7 @@ extension MyPageViewModel {
     
     func loadUserProfile() async {
         do {
-            let result = try await useCase.getUserProfile()
+            let result = try await useCase.getUserProfile(userId: userId)
             
             self.userProfileResult = result
         } catch {

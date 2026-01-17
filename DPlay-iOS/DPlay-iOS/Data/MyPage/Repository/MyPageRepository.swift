@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MyPageRepository {
-    func fetchUserProfile() async throws -> MyPageUserProfileResult
+    func fetchUserProfile(userId: Int) async throws -> MyPageUserProfileResult
     func fetchRegisteredTracks() async throws -> MyPageTrackResult
     func fetchArchiveTracks() async throws -> MyPageTrackResult
     func updateUserProfile(nickname: String?, profileImg: Data?) async throws
@@ -22,8 +22,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         self.service = service
     }
 
-    func fetchUserProfile() async throws -> MyPageUserProfileResult {
-        let response = try await service.fetchUserProfile()
+    func fetchUserProfile(userId: Int) async throws -> MyPageUserProfileResult {
+        let response = try await service.fetchUserProfile(userId: userId)
         
         let userProfile = response.data.toEntity()
         let result = MyPageUserProfileResult(
