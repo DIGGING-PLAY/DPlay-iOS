@@ -11,7 +11,7 @@ protocol MyPageService {
     func fetchUserProfile(userId: Int) async throws -> MyPageProfileResponseDTO
     func fetchRegisteredTracks(userId: Int) async throws -> MyPageTracksResponseDTO
     func fetchArchiveTracks(userId: Int) async throws -> MyPageTracksResponseDTO
-    func updateUserProfile(nickname: String?, profileImg: Data?) async throws
+    func updateUserProfile(changeProfileRequest: UpdateProfileRequestDTO, profileImg: Data?) async throws
 }
 
 final class MyPageServiceImpl: MyPageService {
@@ -90,5 +90,22 @@ final class MyPageServiceImpl: MyPageService {
         }
     }
     
-    func updateUserProfile(nickname: String? = nil, profileImg: Data? = nil) async throws { }
+    func updateUserProfile(changeProfileRequest: UpdateProfileRequestDTO, profileImg: Data?) async throws {
+        let result = await apiService.request(
+            UploadAPI.updateUserProfile(changeProfileRequest: changeProfileRequest, profileImg: profileImg),
+            EmptyDTO.self
+        )
+        
+        switch result {
+        case .success:
+            return
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        case .conflict:     throw NicknameError.duplicate
+        default:            throw AppError.unknown
+        }
+    }
 }

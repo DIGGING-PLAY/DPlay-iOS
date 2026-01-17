@@ -63,5 +63,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         return result
     }
     
-    func updateUserProfile(nickname: String? = nil, profileImg: Data? = nil) async throws { }
+    func updateUserProfile(nickname: String?, profileImg: Data?) async throws {
+        let requestBody = UpdateProfileRequestDTO(nickname: nickname)
+        try await service.updateUserProfile(changeProfileRequest: requestBody, profileImg: profileImg)
+    }
 }

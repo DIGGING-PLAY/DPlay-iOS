@@ -26,8 +26,8 @@ final class MyPageCoordinator: Coordinator {
     }
 
     func start() {
-        //로그인 연결 후 userID 저장해둔 값으로 변경 예정
-        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: 17)
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: userId)
         let vc = MyPageViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
