@@ -24,11 +24,11 @@ final class MyPageViewModel: ObservableObject {
     //MARK: - Dependencies
     
     private let useCase: MyPageUseCase
-    weak var coordinator: MyPageCoordinator?
+    weak var coordinator: MyPageCoordinating?
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: MyPageCoordinator?, userId: Int) {
+    init(useCase: MyPageUseCase, coordinator: MyPageCoordinating?, userId: Int) {
         self.useCase = useCase
         self.coordinator = coordinator
         self.userId = userId
@@ -77,12 +77,16 @@ extension MyPageViewModel {
     func goToProfileEdit(profileImage: UIImage? = nil) {
         let nickname = userProfileResult?.profile.user.nickname ?? ""
         
-        coordinator?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
+        (coordinator as? MyPageCoordinator)?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
     }
     
     func goToSetting() {
         let pushOn = userProfileResult?.pushOn ?? false
         
-        coordinator?.goToSetting(pushOn: pushOn)
+        (coordinator as? MyPageCoordinator)?.goToSetting(pushOn: pushOn)
+    }
+    
+    func popToPrevious() {
+        coordinator?.pop()
     }
 }

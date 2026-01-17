@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol MyPageCoordinating: AnyObject {
+    func goToMusicDetail()
+    func pop()
+}
+
 final class MyPageCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
@@ -49,5 +54,11 @@ final class MyPageCoordinator: Coordinator {
         if navigationController.viewControllers.count == 1 {
             navigationController.rootTabBarController()?.setTabBarHidden(false)
         }
+    }
+}
+
+extension MyPageCoordinator: MyPageCoordinating {
+    func goToMusicDetail() {
+        
     }
 }

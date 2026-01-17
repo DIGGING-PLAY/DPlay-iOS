@@ -23,6 +23,10 @@ final class HomeCoordinator: Coordinator {
     private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
     private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
     
+    private let myPageService = MyPageServiceImpl()
+    private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
+    private lazy var myPageUseCase = DefaultMyPageUseCase(repository: myPageRepository)
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -81,8 +85,13 @@ final class HomeCoordinator: Coordinator {
         onRequestSwitchToMyPage?()
     }
     
-    func goToUserProfile() {
-        // 유저 프로필 탐색
+    func goToUserProfile(userId: Int) {
+        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: userId)
+        let vc = MyPageViewController(viewModel: vm)
+        
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func pop() {
@@ -90,5 +99,11 @@ final class HomeCoordinator: Coordinator {
         if navigationController.viewControllers.count == 1 {
             navigationController.rootTabBarController()?.setTabBarHidden(false)
         }
+    }
+}
+
+extension HomeCoordinator: MyPageCoordinating {
+    func goToMusicDetail() {
+        
     }
 }

@@ -204,7 +204,7 @@ private extension MyPageViewController {
         }
         
         navigationBarView.onTapBackButton = {
-            print("backButtonTapped")
+            self.viewModel.popToPrevious()
         }
     }
     
