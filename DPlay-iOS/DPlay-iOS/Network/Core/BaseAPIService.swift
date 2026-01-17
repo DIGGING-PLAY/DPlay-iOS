@@ -59,7 +59,7 @@ final class BaseAPIService {
             //일반 JSON이면 request
             NetworkSession.shared.session
                 .request(api)
-                .validate(statusCode: 200..<600)
+                .validate(statusCode: 200..<300)
                 .responseData { response in
                     guard let status = response.response?.statusCode else {
                         continuation.resume(returning: .networkFail)

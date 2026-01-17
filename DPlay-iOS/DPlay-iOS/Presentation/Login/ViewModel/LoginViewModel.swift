@@ -31,12 +31,13 @@ extension LoginViewModel {
         do {
             try await useCase.loginWithApple(appleIdentityToken: appleIdentityToken)
             coordinator?.goToMainTabBar()
+        } catch let error as AppError {
+            if error == .notFound {
+                //Apple Identity Token 같이 넘겨줌 (회원가입 시 사용)
+                coordinator?.goToOnboarding(appleIdentityToken: appleIdentityToken)
+            }
         } catch {
             print("❌ login failed:", error)
-            
-            //에러 케이스 .notFound인 경우 실행하도록 추후 수정 (존재하지 않는 회원)
-            //Apple Identity Token 같이 넘겨줌 (회원가입 시 사용)
-            coordinator?.goToOnboarding(appleIdentityToken: appleIdentityToken)
         }
     }
 }
