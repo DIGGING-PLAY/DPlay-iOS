@@ -9,7 +9,7 @@ import UIKit
 
 protocol AuthUseCase {
     func loginWithApple(appleIdentityToken: String) async throws
-    func refreshAccessToken(refreshToken: String) async throws
+    func refreshToken() async throws
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws
     func logout() async throws
 }
@@ -28,19 +28,12 @@ final class DefaultAuthUseCase: AuthUseCase {
         
         let userSession = try await authRepository.loginWithApple(appleIdentityToken: appleIdentityToken)
         try authRepository.saveTokens(userSession)
-        
-        print("AccessToken: \(KeychainManager.shared.accessToken)")
-        print("RefreshToken: \(KeychainManager.shared.refreshToken)")
     }
     
     // 2. 토큰 재발급
-    func refreshAccessToken(refreshToken: String) async throws {
-        let userSession = try await authRepository.refreshAccessToken(refreshToken: refreshToken)
-
-        print("AccessToken: \(userSession.accessToken)")
-        print("RefreshToken: \(userSession.refreshToken)")
-
-        //KeyChainManager 호출하여 토큰 저장 로직 실행
+    func refreshToken() async throws {
+        let userSession = try await authRepository.refreshToken()
+        try authRepository.saveTokens(userSession)
     }
     
     // 3. 회원가입

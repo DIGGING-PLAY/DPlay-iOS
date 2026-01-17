@@ -9,7 +9,7 @@ import Foundation
 
 protocol AuthRepository {
     func loginWithApple(appleIdentityToken: String) async throws -> UserSession
-    func refreshAccessToken(refreshToken: String) async throws -> UserSession
+    func refreshToken() async throws -> UserSession
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> UserSession
     func logout() async throws
     func saveTokens(_ userData: UserSession) throws
@@ -35,9 +35,11 @@ final class DefaultAuthRepository: AuthRepository {
         return entity
     }
     
-    func refreshAccessToken(refreshToken: String) async throws -> UserSession {
-        let response = try await service.refreshAccessToken(refreshToken: refreshToken)
-        let entity = response.toEntity()
+    func refreshToken() async throws -> UserSession {
+        let response = try await service.refreshToken()
+        
+        guard let data = response.data else { throw AppError.emptyData }
+        let entity = data.toEntity()
 
         return entity
     }

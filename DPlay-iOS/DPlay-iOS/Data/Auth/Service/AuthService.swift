@@ -9,7 +9,7 @@ import Foundation
 
 protocol AuthService {
     func loginWithApple(appleIdentityToken: String) async throws -> AuthResponseDTO
-    func refreshAccessToken(refreshToken: String) async throws -> AuthDataDTO
+    func refreshToken() async throws -> AuthResponseDTO
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> AuthResponseDTO
     func logout() async throws
 }
@@ -45,8 +45,27 @@ final class AuthServiceImpl: AuthService {
         }
     }
     
-    func refreshAccessToken(refreshToken: String) async throws -> AuthDataDTO {
-        return AuthDataDTO(userId: 0, accessToken: "", refreshToken: "")
+    func refreshToken() async throws -> AuthResponseDTO {
+        let result = await apiService.request(
+            AuthAPI.refreshToken,
+            AuthResponseDTO.self
+        )
+        
+        switch result {
+        case .success(let dto):
+            guard let dto = dto else {
+                throw AppError.emptyData
+            }
+            return dto
+            
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .decodeError:  throw AppError.decodeError
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        default:            throw AppError.unknown
+        }
     }
     
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> AuthResponseDTO {

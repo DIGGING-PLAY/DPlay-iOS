@@ -9,6 +9,7 @@ import Alamofire
 
 enum AuthAPI {
     case login(appleIdentityToken: String)
+    case refreshToken
 }
 
 extension AuthAPI: BaseAPI {
@@ -16,12 +17,14 @@ extension AuthAPI: BaseAPI {
     var path: String {
         switch self {
         case .login: return "/auth/login"
+        case .refreshToken: return "/auth/token/reissue"
         }
     }
     
     var method: HTTPMethod {
         switch self {
         case .login: return .post
+        case .refreshToken: return .patch
         }
     }
     
@@ -31,6 +34,7 @@ extension AuthAPI: BaseAPI {
         switch self {
         case .login:
             return LoginRequestDTO(platform: "APPLE")
+        default: return nil
         }
     }
     
@@ -38,6 +42,9 @@ extension AuthAPI: BaseAPI {
         switch self {
         case .login(let token):
             return ["Authorization": token]
+        case .refreshToken:
+            let refreshToken = KeychainManager.shared.refreshToken ?? ""
+            return ["Authorization": "Bearer \(refreshToken)"]
         }
     }
 }
