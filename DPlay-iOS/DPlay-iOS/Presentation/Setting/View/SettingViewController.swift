@@ -222,7 +222,9 @@ private extension SettingViewController {
                     buttonTitle: "로그아웃",
                     style: .primaryRight,
                     onTap: {
-                        print("로그아웃 선택")
+                        Task {
+                            try await self.viewModel.logout()
+                        }
                     })
             ],
         )
@@ -237,7 +239,9 @@ private extension SettingViewController {
                     buttonTitle: "탈퇴하기",
                     style: .secondaryLeft,
                     onTap: {
-                        print("탈퇴하기 선택")
+                        Task {
+                            try await self.viewModel.withdraw()
+                        }
                     }),
                 AlertAction(
                     buttonTitle: "머무르기",

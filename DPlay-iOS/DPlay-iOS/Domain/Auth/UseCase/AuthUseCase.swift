@@ -13,6 +13,7 @@ protocol AuthUseCase {
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
+    func withdraw() async throws
 }
 
 final class DefaultAuthUseCase: AuthUseCase {
@@ -57,6 +58,12 @@ final class DefaultAuthUseCase: AuthUseCase {
     // 5. 로그아웃
     func logout() async throws {
         try await authRepository.logout()
+        try authRepository.deleteTokens()
+    }
+    
+    // 6. 회원탈퇴
+    func withdraw() async throws {
+        try await authRepository.withdraw()
         try authRepository.deleteTokens()
     }
 }

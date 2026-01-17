@@ -40,6 +40,14 @@ extension SettingViewModel {
     func setNotification(pushOn: Bool) async throws {
         try await useCase.setNotification(pushOn: pushOn)
     }
+    
+    func logout() async throws {
+        try await useCase.logout()
+    }
+    
+    func withdraw() async throws {
+        try await useCase.withdraw()
+    }
 }
 
 extension SettingViewModel {
