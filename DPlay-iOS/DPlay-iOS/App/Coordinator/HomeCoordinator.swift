@@ -74,7 +74,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func goToQuestionPosts() {
-        let vm = QuestionPostsViewModel(coordinator: self)
+        let vm = QuestionPostsViewModel(useCase: postHistoryUseCase, coordinator: self)
         let vc = QuestionPostsViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)

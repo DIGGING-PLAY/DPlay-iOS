@@ -60,6 +60,8 @@
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
 		D0B944DC2F1C0216002B87FF /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B944DB2F1C020E002B87FF /* MyPageAPI.swift */; };
 		D0B944E02F1C25BB002B87FF /* PostHistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B944DF2F1C25AB002B87FF /* PostHistoryAPI.swift */; };
+		D0B944E22F1C2C0B002B87FF /* QuestionPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B944E12F1C2C00002B87FF /* QuestionPosts.swift */; };
+		D0B944E32F1C2C0B002B87FF /* QuestionPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B944E12F1C2C00002B87FF /* QuestionPosts.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */; };
 		D0C54FF52EDB80040003E4B0 /* MyPageCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */; };
@@ -272,6 +274,7 @@
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D0B944DB2F1C020E002B87FF /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		D0B944DF2F1C25AB002B87FF /* PostHistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHistoryAPI.swift; sourceTree = "<group>"; };
+		D0B944E12F1C2C00002B87FF /* QuestionPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPosts.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
 		D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -993,6 +996,7 @@
 		D0D0719F2F04F1AB00B9EE00 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				D0B944E12F1C2C00002B87FF /* QuestionPosts.swift */,
 				D0D071A02F04F1B600B9EE00 /* MonthlyQuestion.swift */,
 			);
 			path = Entity;
@@ -1914,6 +1918,7 @@
 				D01C6D862EE47AB0009C9AF8 /* MyPageUseCase.swift in Sources */,
 				D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */,
 				D01894122ECA6D3B002A48C1 /* AllAgreementButton.swift in Sources */,
+				D0B944E22F1C2C0B002B87FF /* QuestionPosts.swift in Sources */,
 				D05B17522EF24CA9007E2D93 /* SettingViewController.swift in Sources */,
 				D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */,
 				D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */,
@@ -2076,6 +2081,7 @@
 				D01C6D7A2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				EFCBCF272ECC754B00BA7740 /* MusicDetailUseCase.swift in Sources */,
 				D01C6D852EE47AB0009C9AF8 /* MyPageUseCase.swift in Sources */,
+				D0B944E32F1C2C0B002B87FF /* QuestionPosts.swift in Sources */,
 				D0C5500A2EDFE5C80003E4B0 /* MyPageProfileDTO.swift in Sources */,
 				D0C550132EE019D50003E4B0 /* UserProfile.swift in Sources */,
 				EF4B8DF52F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,

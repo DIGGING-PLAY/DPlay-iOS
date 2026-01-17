@@ -13,17 +13,20 @@ final class QuestionPostsViewModel: ObservableObject {
     
     //MARK: - Properties
     
-    @Published var sample: QuestionPostsDataDTO?
+    @Published var questionPosts: QuestionPosts?
 
     //MARK: - Dependencies
     
+    private let useCase: PostHistoryUseCase
     weak var coordinator: HomeCoordinator?
     
     //MARK: - Init
     
     init(
+        useCase: PostHistoryUseCase,
         coordinator: HomeCoordinator?
     ) {
+        self.useCase = useCase
         self.coordinator = coordinator
     }
 }
@@ -33,7 +36,13 @@ extension QuestionPostsViewModel {
     //MARK: - Method
     
     func loadQuestionPosts() async {
-        sample = MockQuestionPosts.sample
+        do {
+            let result = try await useCase.getQuestionPosts(questionId: 1)
+            
+            self.questionPosts = result
+        } catch {
+            print("ERROR:", error)
+        }
     }
 }
 

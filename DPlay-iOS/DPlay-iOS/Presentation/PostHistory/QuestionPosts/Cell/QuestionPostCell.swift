@@ -181,12 +181,12 @@ extension QuestionPostCell {
     
     //MARK: - Configure
     
-    func configureCell(post: QuestionPostsItemDTO) {
-        guard let url = URL(string: post.track.coverImg) else { return }
+    func configureCell(post: QuestionPost) {
+        guard let url = URL(string: post.track.coverImage) else { return }
         
         coverImageView.kf.setImage(with: url)
-        musicTitleLabel.text = post.track.songTitle
-        artistNameLabel.text = post.track.artistName
+        musicTitleLabel.text = post.track.title
+        artistNameLabel.text = post.track.artist
         commentLabel.text = post.content
         editorBadgeImageView.isHidden = !post.isEditorPick
     }

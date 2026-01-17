@@ -178,7 +178,7 @@ private extension QuestionPostsViewController {
     // MARK: - Private Method
         
     func bindViewModel() {
-        viewModel.$sample
+        viewModel.$questionPosts
             .receive(on: DispatchQueue.main)
             .sink { [weak self] data in
                 guard let self, let data else { return }
@@ -208,7 +208,7 @@ private extension QuestionPostsViewController {
 extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.sample?.items.count ?? 0
+        return viewModel.questionPosts?.items.count ?? 0
     }
 
     func tableView(
@@ -218,7 +218,7 @@ extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: QuestionPostCell.className,
                 for: indexPath
-        ) as? QuestionPostCell, let data = viewModel.sample
+        ) as? QuestionPostCell, let data = viewModel.questionPosts
         else { return UITableViewCell() }
         
         cell.configureCell(post: data.items[indexPath.row])

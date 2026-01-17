@@ -9,6 +9,7 @@ import Alamofire
 
 enum PostHistoryAPI {
     case fetchMonthlyQuestions(year: Int, month: Int)
+    case fetchQuestionPosts(questionId: Int)
 }
 
 extension PostHistoryAPI: BaseAPI {
@@ -16,6 +17,8 @@ extension PostHistoryAPI: BaseAPI {
         switch self {
         case .fetchMonthlyQuestions:
             return "/questions"
+        case .fetchQuestionPosts(let questionId):
+            return "/posts/\(questionId)"
         }
     }
 
@@ -30,6 +33,8 @@ extension PostHistoryAPI: BaseAPI {
         switch self {
         case .fetchMonthlyQuestions(let year, let month):
             return ["year": year, "month": month]
+        default:
+            return nil
         }
     }
     
