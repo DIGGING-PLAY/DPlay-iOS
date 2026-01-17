@@ -29,12 +29,14 @@ final class DefaultAuthUseCase: AuthUseCase {
         
         let userSession = try await authRepository.loginWithApple(appleIdentityToken: appleIdentityToken)
         try authRepository.saveTokens(userSession)
+        UserDefaults.standard.set(userSession.userId, forKey: "userId")
     }
     
     // 2. 토큰 재발급
     func refreshToken() async throws {
         let userSession = try await authRepository.refreshToken()
         try authRepository.saveTokens(userSession)
+        UserDefaults.standard.set(userSession.userId, forKey: "userId")
     }
     
     // 3. 회원가입
@@ -44,6 +46,7 @@ final class DefaultAuthUseCase: AuthUseCase {
         
         let userSession = try await authRepository.singUp(appleIdentityToken: appleIdentityToken, signupRequestBody: signupRequestBody, profileImg: profileImgData)
         try authRepository.saveTokens(userSession)
+        UserDefaults.standard.set(userSession.userId, forKey: "userId")
     }
     
     // 4. 푸시 알림 동의 여부 설정
