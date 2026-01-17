@@ -24,6 +24,7 @@ enum AppError: LocalizedError {
     case invalidParameter
     case operationFailed
     case unknown
+    case invalidCoverURL(String)
 
     var errorDescription: String? {
         switch self {
@@ -57,6 +58,8 @@ enum AppError: LocalizedError {
             return "요청을 처리하는 데 실패했습니다."
         case .unknown:
             return "알 수 없는 오류가 발생했습니다."
+        case .invalidCoverURL(_):
+            return "앨범 커버 URL이 유효하지 않습니다."
         }
     }
 }
