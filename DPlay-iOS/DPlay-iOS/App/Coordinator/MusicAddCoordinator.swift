@@ -28,7 +28,10 @@ final class MusicAddCoordinator: Coordinator {
     }
     
     func goToMusicComment(trackId: String) {
-        let vm = MusicCommentViewModel(trackId: trackId, coordinator: self)
+        let musicCommentservice = PostMusicCommentNetworkService()
+        let musicCommentRepository = DefaultPostMusicCommentRepository(service: musicCommentservice)
+        let musicCommentUseCase = DefaultPostMusicCommentUseCase(repository: musicCommentRepository)
+        let vm = MusicCommentViewModel(trackId: trackId, useCase: musicCommentUseCase, coordinator: self)
         let vc = MusicCommentViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.pushViewController(vc, animated: true)
