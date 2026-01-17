@@ -19,7 +19,7 @@ final class HomeCoordinator: Coordinator {
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
     
-    private let postHistoryService = MockPostHistoryService()
+    private let postHistoryService = PostHistoryServiceImpl()
     private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
     private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
     

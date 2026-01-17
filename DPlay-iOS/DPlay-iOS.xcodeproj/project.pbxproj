@@ -59,6 +59,7 @@
 		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
 		D0B944DC2F1C0216002B87FF /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B944DB2F1C020E002B87FF /* MyPageAPI.swift */; };
+		D0B944E02F1C25BB002B87FF /* PostHistoryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B944DF2F1C25AB002B87FF /* PostHistoryAPI.swift */; };
 		D0C54FF12EDB64B20003E4B0 /* ProfileEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */; };
 		D0C54FF32EDB72900003E4B0 /* MyPageSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */; };
 		D0C54FF52EDB80040003E4B0 /* MyPageCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */; };
@@ -270,6 +271,7 @@
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
 		D0B944DB2F1C020E002B87FF /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
+		D0B944DF2F1C25AB002B87FF /* PostHistoryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHistoryAPI.swift; sourceTree = "<group>"; };
 		D0C54FF02EDB64B20003E4B0 /* ProfileEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButton.swift; sourceTree = "<group>"; };
 		D0C54FF22EDB727C0003E4B0 /* MyPageSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSegmentedControl.swift; sourceTree = "<group>"; };
 		D0C54FF42EDB7FF50003E4B0 /* MyPageCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -1471,6 +1473,7 @@
 				EFAA45BE2EDD9AE400BEC1AC /* HomeAPI.swift */,
 				EF4B8DE82F068180009101C4 /* PreviewAPI.swift */,
 				D0B944DB2F1C020E002B87FF /* MyPageAPI.swift */,
+				D0B944DF2F1C25AB002B87FF /* PostHistoryAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1919,6 +1922,7 @@
 				D05B6C382ED6DE58003F25E5 /* DPlayButtonModalViewController.swift in Sources */,
 				D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */,
 				EFAA45B32EDD968F00BEC1AC /* BaseResponseDTO.swift in Sources */,
+				D0B944E02F1C25BB002B87FF /* PostHistoryAPI.swift in Sources */,
 				EFAA45CF2EDDB22200BEC1AC /* AuthInterceptor.swift in Sources */,
 				EFAA45D32EE015A600BEC1AC /* AppError.swift in Sources */,
 				EFAA45D02EDDB22200BEC1AC /* KeychainManager.swift in Sources */,
