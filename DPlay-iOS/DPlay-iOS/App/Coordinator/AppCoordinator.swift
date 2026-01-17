@@ -48,14 +48,8 @@ private extension AppCoordinator {
     
     func showOnboardingFlow(appleIdentityToken: String) {
         let onboardingNav = UINavigationController()
-        let onboardingCoordinator = OnboardingCoordinator(navigationController: onboardingNav, appleIdentityToken: appleIdentityToken)
+        let onboardingCoordinator = OnboardingCoordinator(router: router, navigationController: onboardingNav, appleIdentityToken: appleIdentityToken)
         childCoordinators = [onboardingCoordinator]
-        
-        onboardingCoordinator.onFinishOnboardingFlow = { [weak self] in
-            guard let self else { return }
-            
-            router.goToMainTabBar()
-        }
         
         onboardingCoordinator.start()
         

@@ -11,9 +11,9 @@ final class OnboardingCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-    
-    var onFinishOnboardingFlow: (() -> Void)?
-    
+        
+    private let router: AppRouter
+
     //auth
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
@@ -21,7 +21,8 @@ final class OnboardingCoordinator: Coordinator {
     
     private let appleIdentityToken: String
 
-    init(navigationController: UINavigationController, appleIdentityToken: String) {
+    init(router: AppRouter, navigationController: UINavigationController, appleIdentityToken: String) {
+        self.router = router
         self.navigationController = navigationController
         self.appleIdentityToken = appleIdentityToken
     }
@@ -59,7 +60,7 @@ final class OnboardingCoordinator: Coordinator {
     }
     
     func goToMainTabBar() {
-        onFinishOnboardingFlow?()
+        router.goToMainTabBar()
     }
 
     func pop() {
