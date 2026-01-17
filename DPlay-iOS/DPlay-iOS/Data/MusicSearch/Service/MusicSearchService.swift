@@ -12,8 +12,6 @@ protocol MusicSearchService {
         keyword: String,
         cursor: String?
     ) async throws -> MusicSearchResponseDTO
-
-    func fetchTrackDetail(trackId: String) async throws -> TrackDetailResponseDTO
 }
 
 final class MusicSearchNetworkService: MusicSearchService {
@@ -45,21 +43,6 @@ final class MusicSearchNetworkService: MusicSearchService {
             return dto
         default:
             throw AppError.serverError
-        }
-    }
-    
-    func fetchTrackDetail(trackId: String) async throws -> TrackDetailResponseDTO {
-        let result = await apiService.request(
-            MusicSearchAPI.fetchTrackDetail(trackId: trackId, storefront: "kr"),
-            TrackDetailResponseDTO.self
-        )
-
-        switch result {
-        case .success(let dto):
-            guard let dto else { throw AppError.emptyData }
-            return dto
-        case .unauthorized: throw AppError.unauthorized
-        default: throw AppError.serverError
         }
     }
 }

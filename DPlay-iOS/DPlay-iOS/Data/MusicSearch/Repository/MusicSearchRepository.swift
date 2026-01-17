@@ -12,8 +12,6 @@ protocol MusicSearchRepository {
         keyword: String,
         cursor: String?
     ) async throws -> MusicSearchResult
-    
-    func fetchTrackDetail(trackId: String) async throws -> MusicTrack
 }
 
 final class DefaultMusicSearchRepository: MusicSearchRepository {
@@ -23,32 +21,29 @@ final class DefaultMusicSearchRepository: MusicSearchRepository {
     init(service: MusicSearchService) {
         self.service = service
     }
-
+    
     func searchTracks(
         keyword: String,
         cursor: String?
     ) async throws -> MusicSearchResult {
-
+        
         let dto = try await service.searchTracks(
             keyword: keyword,
             cursor: cursor
         )
-
-        let tracks = dto.data?.items.map { $0.toEntity() } ?? []
-
+        
+        guard let data = dto.data else {
+            throw AppError.serverError
+        }
+        
+        var tracks: [MusicTrack] = []
+        for item in data.items {
+            tracks.append(try item.toEntity())
+        }
+        
         return MusicSearchResult(
             tracks: tracks,
-            nextCursor: dto.data?.nextCursor
+            nextCursor: data.nextCursor
         )
-    }
-    
-    func fetchTrackDetail(trackId: String) async throws -> MusicTrack {
-        let dto = try await service.fetchTrackDetail(trackId: trackId)
-
-        guard let data = dto.data else {
-            throw AppError.emptyData
-        }
-
-        return data.toEntity()
     }
 }

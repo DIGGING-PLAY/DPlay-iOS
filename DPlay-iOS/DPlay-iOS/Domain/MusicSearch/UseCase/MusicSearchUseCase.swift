@@ -14,11 +14,6 @@ protocol MusicSearchUseCase {
         keyword: String,
         cursor: String?
     ) async throws -> MusicSearchResult
-
-    /// 음악 상세 조회
-    func fetchTrackDetail(
-        trackId: String
-    ) async throws -> MusicTrack
 }
 
 //  DefaultMusicSearchUseCase.swift
@@ -43,17 +38,6 @@ final class DefaultMusicSearchUseCase: MusicSearchUseCase {
         try await repository.searchTracks(
             keyword: keyword,
             cursor: cursor
-        )
-    }
-
-    // MARK: - Track Detail
-
-    func fetchTrackDetail(
-        trackId: String
-    ) async throws -> MusicTrack {
-
-        try await repository.fetchTrackDetail(
-            trackId: trackId
         )
     }
 }

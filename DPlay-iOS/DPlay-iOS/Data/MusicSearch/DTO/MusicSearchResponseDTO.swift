@@ -27,12 +27,17 @@ struct MusicTrackItemDTO: Decodable {
 }
 
 extension MusicTrackItemDTO {
-    func toEntity() -> MusicTrack {
-        MusicTrack(
+    func toEntity() throws -> MusicTrack {
+       
+        guard let url = URL(string: coverImg) else {
+                throw AppError.invalidCoverURL(coverImg)
+        }
+        
+        return MusicTrack(
             trackId: trackId,
             title: songTitle,
             artist: artistName,
-            coverURL: URL(string: coverImg),
+            coverURL: url,
             isrc: isrc
         )
     }

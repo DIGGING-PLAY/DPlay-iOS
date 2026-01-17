@@ -16,6 +16,6 @@ struct MusicTrack {
     let trackId: String
     let title: String
     let artist: String
-    let coverURL: URL?
+    let coverURL: URL
     let isrc: String
 }
