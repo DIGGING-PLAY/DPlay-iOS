@@ -84,9 +84,4 @@ private extension AppCoordinator {
         }
         window.makeKeyAndVisible()
     }
-    
-    
-    func removeChild(_ coordinator: Coordinator) {
-        childCoordinators.removeAll { $0 === coordinator }
-    }
 }
