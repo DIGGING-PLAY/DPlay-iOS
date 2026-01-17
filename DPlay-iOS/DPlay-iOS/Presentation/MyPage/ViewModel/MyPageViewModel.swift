@@ -51,7 +51,7 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let result = try await useCase.getRegisteredTracks()
+            let result = try await useCase.getRegisteredTracks(userId: userId)
             
             self.registeredMusicsResult = result
         } catch {
@@ -61,7 +61,7 @@ extension MyPageViewModel {
     
     func loadArchiveMusics() async {
         do {
-            let result = try await useCase.getArchiveTracks()
+            let result = try await useCase.getArchiveTracks(userId: userId)
 
             self.archiveMusicsResult = result
         } catch {

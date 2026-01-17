@@ -9,6 +9,8 @@ import Alamofire
 
 enum MyPageAPI {
     case fetchUserProfile(userId: Int)
+    case fetchRegisteredTracks(userId: Int)
+    case fetchArchiveTracks(userId: Int)
 }
 
 extension MyPageAPI: BaseAPI {
@@ -16,12 +18,16 @@ extension MyPageAPI: BaseAPI {
         switch self {
         case .fetchUserProfile(let userId):
             return "/users/\(userId)"
+        case .fetchRegisteredTracks(let userId):
+            return "/users/\(userId)/posts"
+        case .fetchArchiveTracks(let userId):
+            return "/users/\(userId)/scraps"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .fetchUserProfile(let userId):
+        default:
             return .get
         }
     }

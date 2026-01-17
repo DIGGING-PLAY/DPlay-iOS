@@ -28,7 +28,6 @@ final class QuestionPostsViewController: UIViewController {
     private let totalCountLabel = UILabel()
     private let postsTableView = UITableView()
     private let backgroundColorView = UIView()
-    private let emptyLabel = UILabel()
 
     //MARK: - Life Cycle
     
