@@ -12,7 +12,7 @@ final class MyPageCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
-    private let myPageService = MockMyPageService()
+    private let myPageService = MyPageServiceImpl()
     private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
     private lazy var myPageUseCase = DefaultMyPageUseCase(repository: myPageRepository)
 
@@ -21,7 +21,8 @@ final class MyPageCoordinator: Coordinator {
     }
 
     func start() {
-        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self)
+        //로그인 연결 후 userID 저장해둔 값으로 변경 예정
+        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: 17)
         let vc = MyPageViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
