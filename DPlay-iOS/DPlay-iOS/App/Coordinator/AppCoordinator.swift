@@ -51,6 +51,12 @@ private extension AppCoordinator {
         let onboardingCoordinator = OnboardingCoordinator(navigationController: onboardingNav, appleIdentityToken: appleIdentityToken)
         childCoordinators = [onboardingCoordinator]
         
+        onboardingCoordinator.onFinishOnboardingFlow = { [weak self] in
+            guard let self else { return }
+            
+            router.goToMainTabBar()
+        }
+        
         onboardingCoordinator.start()
         
         setRootViewController(onboardingCoordinator.navigationController, animated: true)
@@ -69,7 +75,7 @@ private extension AppCoordinator {
         if animated {
             UIView.transition(
                 with: window,
-                duration: 0.25,
+                duration: 0.5,
                 options: .transitionCrossDissolve,
                 animations: { self.window.rootViewController = vc }
             )

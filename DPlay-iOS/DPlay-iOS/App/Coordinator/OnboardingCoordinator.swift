@@ -12,6 +12,8 @@ final class OnboardingCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
+    var onFinishOnboardingFlow: (() -> Void)?
+    
     //auth
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
@@ -54,6 +56,10 @@ final class OnboardingCoordinator: Coordinator {
         let vc = NotificationPermissionViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToMainTabBar() {
+        onFinishOnboardingFlow?()
     }
 
     func pop() {

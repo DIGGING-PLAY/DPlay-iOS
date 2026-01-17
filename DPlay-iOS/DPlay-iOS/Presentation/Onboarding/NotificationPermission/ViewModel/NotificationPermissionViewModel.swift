@@ -69,6 +69,6 @@ extension NotificationPermissionViewModel {
     // MARK: - Coordinator
     
     func goToHome() {
-        
+        coordinator?.goToMainTabBar()
     }
 }

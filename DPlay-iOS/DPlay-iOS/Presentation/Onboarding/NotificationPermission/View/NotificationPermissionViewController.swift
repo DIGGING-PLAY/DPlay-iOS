@@ -164,7 +164,7 @@ private extension NotificationPermissionViewController {
     //MARK: - @objc Method
         
     func confirmButtonTapped() {
-        print("confirmButtonTapped")
+        viewModel.goToHome()
     }
 }
 
