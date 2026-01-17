@@ -114,12 +114,7 @@ extension SongSearchCell {
         titleLabel.text = item.title
         artistLabel.text = item.artist
 
-        if let url = item.coverURL {
-            coverImageView.kf.setImage(with: url)
-        } else {
-            coverImageView.image = nil
-        }
-
+        coverImageView.setImage(url: item.coverURL)
         checkmarkImageView.isHidden = !isSelected
         backgroundColor = isSelected ? .gray200 : .white
     }
