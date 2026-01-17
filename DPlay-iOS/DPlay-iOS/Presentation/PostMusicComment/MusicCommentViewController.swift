@@ -10,6 +10,7 @@ import Combine
 
 import SnapKit
 import Then
+import Kingfisher
 
 final class MusicCommentViewController: UIViewController {
     
@@ -49,7 +50,9 @@ final class MusicCommentViewController: UIViewController {
         setupLayout()
         setupDelegate()
         setupTarget()
+        bind()
         hideKeyboardWhenTappedAround()
+        viewModel.onAppear()
     }
     
     init(viewModel: MusicCommentViewModel) {
@@ -86,6 +89,7 @@ private extension MusicCommentViewController {
             $0.text = "내일에서 온 티켓"
             $0.setTextStyle(.titleBold18)
             $0.textColor = .dplay_black
+            $0.numberOfLines = 2
             $0.textAlignment = .center
         }
         
@@ -217,6 +221,7 @@ private extension MusicCommentViewController {
         songTitleLabel.snp.makeConstraints {
             $0.top.equalTo(coverImageView.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
         
         artistLabel.snp.makeConstraints {
@@ -334,9 +339,51 @@ private extension MusicCommentViewController {
     }
 }
 
+private extension MusicCommentViewController {
+
+    func bind() {
+
+        viewModel.$track
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] track in
+                guard
+                    let self,
+                    let track
+                else { return }
+
+                self.songTitleLabel.text = track.title
+                self.artistLabel.text = track.artist
+                coverImageView.setImage(url: track.coverURL)
+            }
+            .store(in: &cancellables)
+    }
+}
+
 // MARK: - UITextViewDelegate
 
 extension MusicCommentViewController: UITextViewDelegate {
+    
+    /// 결과 글자 수가 150 이하 → true (입력 허용) | 초과 → false (입력 차단)
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+
+        let currentText = textView.text ?? ""
+        guard let textRange = Range(range, in: currentText) else {
+            return false
+        }
+
+        let updatedText = currentText.replacingCharacters(
+            in: textRange,
+            with: text
+        )
+
+        return updatedText.count <= maxCount
+    }
+    
+    /// 텍스트 변경에 따라 placeholder, 글자 수, 버튼 활성화 상태를 갱신
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
         countLabel.text = "\(textView.text.count)/150"
