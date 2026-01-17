@@ -11,9 +11,13 @@ import Combine
 @MainActor
 final class QuestionPostsViewModel: ObservableObject {
     
-    //MARK: - Properties
+    //MARK: - Property Wrappers
     
     @Published var questionPosts: QuestionPosts?
+    
+    //MARK: - Properties
+    
+    private let questionId: Int
 
     //MARK: - Dependencies
     
@@ -24,10 +28,12 @@ final class QuestionPostsViewModel: ObservableObject {
     
     init(
         useCase: PostHistoryUseCase,
-        coordinator: HomeCoordinator?
+        coordinator: HomeCoordinator?,
+        questionId: Int
     ) {
         self.useCase = useCase
         self.coordinator = coordinator
+        self.questionId = questionId
     }
 }
 
@@ -37,7 +43,7 @@ extension QuestionPostsViewModel {
     
     func loadQuestionPosts() async {
         do {
-            let result = try await useCase.getQuestionPosts(questionId: 1)
+            let result = try await useCase.getQuestionPosts(questionId: questionId)
             
             self.questionPosts = result
         } catch {

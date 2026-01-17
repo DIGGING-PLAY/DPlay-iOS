@@ -178,6 +178,7 @@ extension MonthlyQuestionViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.goToQuestionPosts()
+        let questionId = viewModel.monthlyQuestions?[indexPath.row].id ?? 0
+        viewModel.goToQuestionPosts(questionId: questionId)
     }
 }
