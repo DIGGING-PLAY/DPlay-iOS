@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
     
-        let coordinator = AppCoordinator(window: window)
+        let router = AppRouter()
+        let coordinator = AppCoordinator(window: window, router: router)
         self.appCoordinator = coordinator
         coordinator.start()
         

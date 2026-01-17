@@ -14,6 +14,10 @@ final class TokenRefreshManager {
 
     private let keychain = KeychainManager.shared
     private var isRefreshing = false
+    
+    private let authService = AuthServiceImpl()
+    private lazy var authRepository = DefaultAuthRepository(service: authService)
+    private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
 
     private var waiters: [CheckedContinuation<Bool, Never>] = []
 
@@ -27,21 +31,12 @@ final class TokenRefreshManager {
         }
 
         isRefreshing = true
-
+        
         do {
-            // 1) Refresh API 호출
-            //            let response = try await BaseAPIService().request(
-            //                AuthAPI.refreshToken,
-            //                RefreshResponseDTO.self
-            //            )
-
-            // guard let data = response else { throw NetworkError.emptyData }
-
-            // 2) 새로운 토큰 저장
-            // keychain.accessToken = data.accessToken
-            // keychain.refreshToken = data.refreshToken
-
-            // 3) 대기 중인 다른 요청 모두 재개
+            //1) Refresh API 호출
+            try await authUseCase.refreshToken()
+            
+            //2) 대기 중인 다른 요청 모두 재개
             finishRefresh(success: true)
 
             return true

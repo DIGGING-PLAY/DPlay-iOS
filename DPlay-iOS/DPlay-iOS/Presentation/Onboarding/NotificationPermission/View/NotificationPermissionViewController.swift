@@ -46,6 +46,12 @@ final class NotificationPermissionViewController: UIViewController {
         
         setupTarget()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.showPushPermissionAlert()
+    }
 }
 
 private extension NotificationPermissionViewController {
@@ -158,7 +164,7 @@ private extension NotificationPermissionViewController {
     //MARK: - @objc Method
         
     func confirmButtonTapped() {
-        print("confirmButtonTapped")
+        viewModel.goToHome()
     }
 }
 
