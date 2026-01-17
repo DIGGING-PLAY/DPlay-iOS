@@ -11,6 +11,7 @@ protocol AuthRepository {
     func loginWithApple(appleIdentityToken: String) async throws -> UserSession
     func refreshToken() async throws -> UserSession
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> UserSession
+    func setNotification(pushOn: Bool) async throws
     func logout() async throws
     func saveTokens(_ userData: UserSession) throws
     func deleteTokens() throws
@@ -51,6 +52,10 @@ final class DefaultAuthRepository: AuthRepository {
         let entity = data.toEntity()
 
         return entity
+    }
+    
+    func setNotification(pushOn: Bool) async throws {
+        try await service.setNotification(pushOn: pushOn)
     }
     
     func logout() async throws {

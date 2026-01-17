@@ -11,6 +11,7 @@ protocol AuthService {
     func loginWithApple(appleIdentityToken: String) async throws -> AuthResponseDTO
     func refreshToken() async throws -> AuthResponseDTO
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> AuthResponseDTO
+    func setNotification(pushOn: Bool) async throws
     func logout() async throws
 }
 
@@ -93,6 +94,19 @@ final class AuthServiceImpl: AuthService {
         case .networkFail:  throw AppError.networkFail
         case .conflict:     throw NicknameError.duplicate
         default:            throw AppError.unknown
+        }
+    }
+    
+    func setNotification(pushOn: Bool) async throws {
+        let result = await apiService.request(AuthAPI.setNotification(pushOn: pushOn), EmptyDTO.self)
+        
+        switch result {
+        case .success:
+            return
+        case .unauthorized:
+            throw AppError.unauthorized
+        default:
+            throw AppError.serverError
         }
     }
     

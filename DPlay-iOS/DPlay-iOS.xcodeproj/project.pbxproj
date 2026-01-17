@@ -54,6 +54,7 @@
 		D06645C82F03627C008A1B44 /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06645C72F03626E008A1B44 /* UINavigationController+.swift */; };
 		D06B4ABA2ED0DC0E00DB0107 /* AuthResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */; };
 		D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B4ABC2ED0E05400DB0107 /* AuthService.swift */; };
+		D06DF77F2F1B87EC00DC641A /* NotificationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF77E2F1B87DA00DC641A /* NotificationRequestDTO.swift */; };
 		D071854D2ECAC1510055FEBE /* TermsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071854C2ECAC1470055FEBE /* TermsViewModel.swift */; };
 		D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */; };
 		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
@@ -272,6 +273,7 @@
 		D06645C72F03626E008A1B44 /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseDTO.swift; sourceTree = "<group>"; };
 		D06B4ABC2ED0E05400DB0107 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		D06DF77E2F1B87DA00DC641A /* NotificationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRequestDTO.swift; sourceTree = "<group>"; };
 		D071854C2ECAC1470055FEBE /* TermsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewModel.swift; sourceTree = "<group>"; };
 		D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
@@ -914,6 +916,7 @@
 			children = (
 				D0DE02502F194BD2005B2EEF /* SignupRequestDTO.swift */,
 				D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */,
+				D06DF77E2F1B87DA00DC641A /* NotificationRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -2027,6 +2030,7 @@
 				D0D071982F04E32C00B9EE00 /* MockMonthlyQuestion.swift in Sources */,
 				EFCBCE9B2EC9A9E300BA7740 /* Coordinator.swift in Sources */,
 				D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */,
+				D06DF77F2F1B87EC00DC641A /* NotificationRequestDTO.swift in Sources */,
 				EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EF5A94822ED83B0A001B56B8 /* RecommendationPopupView.swift in Sources */,

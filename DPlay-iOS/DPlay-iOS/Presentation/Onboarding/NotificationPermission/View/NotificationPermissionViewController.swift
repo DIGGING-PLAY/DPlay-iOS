@@ -46,6 +46,12 @@ final class NotificationPermissionViewController: UIViewController {
         
         setupTarget()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.showPushPermissionAlert()
+    }
 }
 
 private extension NotificationPermissionViewController {

@@ -11,6 +11,7 @@ protocol AuthUseCase {
     func loginWithApple(appleIdentityToken: String) async throws
     func refreshToken() async throws
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws
+    func setNotification(pushOn: Bool) async throws
     func logout() async throws
 }
 
@@ -44,8 +45,13 @@ final class DefaultAuthUseCase: AuthUseCase {
         let userSession = try await authRepository.singUp(appleIdentityToken: appleIdentityToken, signupRequestBody: signupRequestBody, profileImg: profileImgData)
         try authRepository.saveTokens(userSession)
     }
+    
+    // 4. 푸시 알림 동의 여부 설정
+    func setNotification(pushOn: Bool) async throws {
+        try await authRepository.setNotification(pushOn: pushOn)
+    }
 
-    // 4. 로그아웃
+    // 5. 로그아웃
     func logout() async throws {
         try await authRepository.logout()
         try authRepository.deleteTokens()
