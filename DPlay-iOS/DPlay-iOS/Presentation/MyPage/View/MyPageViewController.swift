@@ -340,4 +340,16 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
             return cell
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let postId: Int
+        
+        if selectedTabIndex == 0 {
+            postId = viewModel.registeredMusicsResult?.musics.items[indexPath.item].id ?? 0
+        } else {
+            postId = viewModel.archiveMusicsResult?.musics.items[indexPath.item].id ?? 0
+        }
+        
+        viewModel.goToMusicDetail(trackId: String(postId))
+    }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeCoordinator: Coordinator {
+final class HomeCoordinator: Coordinator, MyPageCoordinating {
     
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
@@ -99,11 +99,5 @@ final class HomeCoordinator: Coordinator {
         if navigationController.viewControllers.count == 1 {
             navigationController.rootTabBarController()?.setTabBarHidden(false)
         }
-    }
-}
-
-extension HomeCoordinator: MyPageCoordinating {
-    func goToMusicDetail() {
-        
     }
 }

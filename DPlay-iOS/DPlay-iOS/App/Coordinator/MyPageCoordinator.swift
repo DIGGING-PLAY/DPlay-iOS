@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MyPageCoordinating: AnyObject {
-    func goToMusicDetail()
+    func goToMusicDetail(trackId: String)
     func pop()
 }
 
@@ -62,7 +62,14 @@ final class MyPageCoordinator: Coordinator {
 }
 
 extension MyPageCoordinator: MyPageCoordinating {
-    func goToMusicDetail() {
-        
+    func goToMusicDetail(trackId: String) {
+        let service = MockMusicDetailService()
+        let repository = DefaultMusicDetailRepository(service: service)
+        let useCase = DefaultMusicDetailUseCase(repository: repository)
+        let vm = MusicDetailViewModel(trackId: trackId, useCase: useCase, coordinator: self)
+        let vc = MusicDetailViewController(viewModel: vm)
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
     }
 }

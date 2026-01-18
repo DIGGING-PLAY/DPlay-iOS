@@ -86,6 +86,10 @@ extension MyPageViewModel {
         (coordinator as? MyPageCoordinator)?.goToSetting(pushOn: pushOn)
     }
     
+    func goToMusicDetail(trackId: String) {
+        coordinator?.goToMusicDetail(trackId: trackId)
+    }
+    
     func popToPrevious() {
         coordinator?.pop()
     }
