@@ -227,5 +227,8 @@ extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let postId = viewModel.questionPosts?.items[indexPath.row].id ?? 0
+        viewModel.goToMusicDetail(trackId: String(postId))
     }
 }

@@ -56,6 +56,10 @@ extension QuestionPostsViewModel {
     
     // MARK: - Coordinator
     
+    func goToMusicDetail(trackId: String) {
+        coordinator?.goToMusicDetail(trackId: trackId)
+    }
+    
     func popToPrevious() {
         coordinator?.pop()
     }
