@@ -52,4 +52,8 @@ extension TermsViewModel {
     func goToProfileSetting() {
         coordinator?.goToProfileSetting()
     }
+    
+    func popToPrevious() {
+        coordinator?.pop()
+    }
 }
