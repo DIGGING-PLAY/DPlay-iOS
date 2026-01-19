@@ -316,12 +316,6 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                         
                         showDeleteModal()
                     }
-                } else {
-                    cell.onTapPlayButton = { [weak self] in
-                        guard let self else { return }
-                        
-                        print("playButtonTapped")
-                    }
                 }
             }
             
