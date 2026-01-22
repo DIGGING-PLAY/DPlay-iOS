@@ -27,7 +27,8 @@ final class HomeViewController: UIViewController {
     private var currentPage: PageState = .post(0)
     private var isRefreshing = false
     private var scrapToggleIndex: Int?
-    
+    private var likeToggleIndex: Int?
+
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()
@@ -518,10 +519,24 @@ private extension HomeViewController {
             .sink { [weak self] posts in
                 guard let self else { return }
                 
-                // 스크랩 토글에 의한 이벤트일 경우: 셀 리로드 없이 상단 UI만 업데이트
+                // 스크랩 토글 (상단 버튼)
+                // 셀은 건드리지 않고 상단 UI만 갱신
                 if self.scrapToggleIndex != nil {
                     self.scrapToggleIndex = nil
                     self.updateTopUI()
+                    return
+                }
+                
+                // 좋아요 토글 (셀 내부 버튼)
+                // 해당 셀만 부분 업데이트 → 애니메이션 유지
+                if let index = self.likeToggleIndex {
+                    self.likeToggleIndex = nil
+                    
+                    let indexPath = IndexPath(item: index, section: 0)
+                    if let cell = self.editorCollectionView.cellForItem(at: indexPath) as? MusicAlbumCell {
+                        let post = posts[index]
+                        cell.updateLikeUI(post.like)
+                    }
                     return
                 }
                 
@@ -634,6 +649,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         cell.onTapLike = { [weak self] in
+            self?.likeToggleIndex = indexPath.item
             Task {
                 await self?.viewModel.toggleLike(postId: post.id)
             }
