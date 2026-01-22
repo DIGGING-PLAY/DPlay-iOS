@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SafariServices
 
 import SnapKit
 import Then
@@ -39,7 +40,7 @@ final class MusicCommentViewController: UIViewController {
     private let guideButton = UIButton()
     private var popupView: CommentGuidePopupView?
     private let registerButton = UIButton()
-
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -130,7 +131,7 @@ private extension MusicCommentViewController {
             config.image = IconLiterals.ic_info_20
             config.imagePlacement = .leading
             config.imagePadding = 4
-
+            
             config.contentInsets = NSDirectionalEdgeInsets(
                 top: 8,
                 leading: 8,
@@ -143,7 +144,7 @@ private extension MusicCommentViewController {
             titleAttr.foregroundColor = .gray400
             config.attributedTitle = titleAttr
             $0.configuration = config
-
+            
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
             $0.roundCorners(cornerRadius: 20)
@@ -206,7 +207,7 @@ private extension MusicCommentViewController {
             $0.edges.equalToSuperview()
             $0.width.equalToSuperview()
         }
-
+        
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.horizontalEdges.equalToSuperview().inset(16)
@@ -240,12 +241,12 @@ private extension MusicCommentViewController {
             $0.horizontalEdges.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(40)
         }
-
+        
         placeholderLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(16)
         }
-
+        
         countLabel.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
             $0.bottom.equalToSuperview().inset(12)
@@ -262,7 +263,7 @@ private extension MusicCommentViewController {
 }
 
 @objc private extension MusicCommentViewController {
-   
+    
     //MARK: - @objc Method
     
     /// 팝업 관련 메서드
@@ -309,11 +310,20 @@ private extension MusicCommentViewController {
         view.addSubview(popup)
         self.popupView = popup
         
-        popup.bindActions(close: { [weak self] in
-            self?.hidePopup()
-        }, learnMore: {
-            print("더 알아보기 이동 예정 추후 웹뷰 연결")
-        })
+        popup.bindActions(
+            close: { [weak self] in
+                self?.hidePopup()
+            },
+            learnMore: { [weak self] in
+                guard let self,
+                      let url = URL(string: "https://www.notion.so/2d13aeb558c980c7915bf540db799aac")
+                else { return }
+                
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.modalPresentationStyle = .pageSheet
+                self.present(safariVC, animated: true)
+            }
+        )
         
         popup.snp.makeConstraints {
             $0.top.equalTo(guideButton.snp.bottom).offset(8)
@@ -326,23 +336,23 @@ private extension MusicCommentViewController {
             popup.alpha = 1
         }
     }
+
+private func hidePopup() {
+    guard let popup = popupView else { return }
     
-    private func hidePopup() {
-        guard let popup = popupView else { return }
-        
-        UIView.animate(withDuration: 0.2, animations: {
-            popup.alpha = 0
-        }, completion: { _ in
-            popup.removeFromSuperview()
-            self.popupView = nil
-        })
-    }
+    UIView.animate(withDuration: 0.2, animations: {
+        popup.alpha = 0
+    }, completion: { _ in
+        popup.removeFromSuperview()
+        self.popupView = nil
+    })
+}
 }
 
 private extension MusicCommentViewController {
-
+    
     func bind() {
-
+        
         viewModel.$track
             .receive(on: DispatchQueue.main)
             .sink { [weak self] track in
@@ -350,7 +360,7 @@ private extension MusicCommentViewController {
                     let self,
                     let track
                 else { return }
-
+                
                 self.songTitleLabel.text = track.title
                 self.artistLabel.text = track.artist
                 coverImageView.setImage(url: track.coverURL)
@@ -369,17 +379,17 @@ extension MusicCommentViewController: UITextViewDelegate {
         shouldChangeTextIn range: NSRange,
         replacementText text: String
     ) -> Bool {
-
+        
         let currentText = textView.text ?? ""
         guard let textRange = Range(range, in: currentText) else {
             return false
         }
-
+        
         let updatedText = currentText.replacingCharacters(
             in: textRange,
             with: text
         )
-
+        
         return updatedText.count <= maxCount
     }
     
