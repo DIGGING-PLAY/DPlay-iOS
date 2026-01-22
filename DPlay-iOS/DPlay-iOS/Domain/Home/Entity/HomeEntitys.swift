@@ -49,10 +49,10 @@ struct Like {
     let count: Int
 }
 
-enum HomeFeedBadge: Equatable {
-    case editor
-    case best
-    case new
+enum HomeFeedBadge: String {
+    case editor = "EDITOR"
+    case best   = "BEST"
+    case new    = "NEW"
     case nomal
 }
 
