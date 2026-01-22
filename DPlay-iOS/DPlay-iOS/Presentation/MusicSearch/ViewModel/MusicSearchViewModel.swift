@@ -15,7 +15,8 @@ final class MusicSearchViewModel: ObservableObject {
     @Published private(set) var tracks: [MusicTrack] = []
     @Published private(set) var isEmpty: Bool = false
     @Published private(set) var isLoading: Bool = false
-
+    @Published private(set) var hasSearched: Bool = false
+    
     private var currentKeyword: String?
     private var nextCursor: String?
     private var canLoadMore: Bool = true
@@ -51,6 +52,7 @@ extension MusicSearchViewModel {
         guard !keyword.isEmpty else { return }
 
         // 초기화
+        hasSearched = true
         currentKeyword = keyword
         nextCursor = nil
         canLoadMore = true
@@ -74,6 +76,16 @@ extension MusicSearchViewModel {
         }
 
         isLoading = false
+    }
+    
+    func clearResults() {
+        tracks = []
+        isEmpty = false
+        isLoading = false
+        hasSearched = false
+        currentKeyword = nil
+        nextCursor = nil
+        canLoadMore = false
     }
 }
 

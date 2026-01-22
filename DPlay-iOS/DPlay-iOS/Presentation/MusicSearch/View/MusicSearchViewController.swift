@@ -18,6 +18,7 @@ final class MusicSearchViewController: UIViewController {
     private let viewModel: MusicSearchViewModel
     private var cancellables = Set<AnyCancellable>()
     private var selectedIndex: IndexPath?
+    private var searchTask: Task<Void, Never>?
     
     // MARK: - UI Properties
     
@@ -95,7 +96,7 @@ private extension MusicSearchViewController {
         
         tableView.do {
             $0.register(SongSearchCell.self, forCellReuseIdentifier: SongSearchCell.identifier)
-            $0.isHidden = true
+            $0.isHidden = false
             $0.separatorStyle = .none
             $0.backgroundView = emptyResultLabel
         }
@@ -164,13 +165,17 @@ private extension MusicSearchViewController {
 
     func bind() {
         viewModel.$tracks
+            .combineLatest(viewModel.$hasSearched)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] tracks in
+            .sink { [weak self] tracks, hasSearched in
                 guard let self else { return }
 
                 self.tableView.reloadData()
-                self.tableView.isHidden = tracks.isEmpty
-                self.emptyResultLabel.isHidden = !tracks.isEmpty
+
+                let shouldShowEmpty =
+                    hasSearched && tracks.isEmpty
+
+                self.emptyResultLabel.isHidden = !shouldShowEmpty
             }
             .store(in: &cancellables)
     }
@@ -180,10 +185,31 @@ private extension MusicSearchViewController {
     
     // MARK: - @objc Method
     
-    func textDidChange() {
+    func textDidChange(_ textField: UITextField) {
+        // 기존 로직 유지
         selectedIndex = nil
         updateClearButtonVisibility()
         updateNextButton()
+
+        // 한글 조합 중이면 검색하지 않음
+        if textField.markedTextRange != nil { return }
+
+        guard let query = textField.text, !query.isEmpty else {
+            searchTask?.cancel()
+            viewModel.clearResults()
+            return
+        }
+
+        // 이전 검색 취소 (디바운스)
+        searchTask?.cancel()
+
+        searchTask = Task {
+            // 디바운스 (300ms)
+            try? await Task.sleep(nanoseconds: 300_000_000)
+
+            guard !Task.isCancelled else { return }
+            await viewModel.search(keyword: query)
+        }
     }
     
     func didTapClear() {
