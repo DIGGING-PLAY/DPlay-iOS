@@ -16,6 +16,7 @@ enum IconLiterals {
     static var ic_heart_w: UIImage { .load(name: "ic_heart_w_24") }
     static var ic_heart_w_fill: UIImage { .load(name: "ic_heart_w_fill_24") }
     static var ic_heart_p: UIImage { .load(name: "ic_heart_p_24") }
+    static var ic_heart_p_fill: UIImage { .load(name: "ic_heart_p_fill_24") }
     static var ic_editor: UIImage { .load(name: "ic_editor") }
     static var ic_editor_20: UIImage { .load(name: "ic_editor_20") }
     static var ic_new: UIImage { .load(name: "ic_new_20") }
