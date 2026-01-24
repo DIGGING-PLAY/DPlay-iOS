@@ -53,8 +53,8 @@ final class HomeNetworkServiceImpl: HomeService {
 
     func toggleLike(postId: Int, isLiked: Bool) async throws {
         let api = isLiked
-            ? HomeAPI.unlikePost(postId: postId)
-            : HomeAPI.likePost(postId: postId)
+            ? PostActionAPI.unlikePost(postId: postId)
+            : PostActionAPI.likePost(postId: postId)
 
         let result = await apiService.request(api, EmptyDTO.self)
 
@@ -72,8 +72,8 @@ final class HomeNetworkServiceImpl: HomeService {
 
     func toggleScrap(postId: Int, isScrapped: Bool) async throws {
         let api = isScrapped
-            ? HomeAPI.unscrap(postId: postId)
-            : HomeAPI.scrap(postId: postId)
+            ? PostActionAPI.unscrap(postId: postId)
+            : PostActionAPI.scrap(postId: postId)
 
         let result = await apiService.request(api, EmptyDTO.self)
 

@@ -29,15 +29,15 @@ struct HomeFeedPostDTO: Decodable {
     let postId: Int
     let isScrapped: Bool
     let content: String
-    let badge: HomeFeedBadgeDTO?
+    let badge: BadgeDTO?
     let track: HomeFeedTrackDTO
-    let user: HomeFeedUserDTO
-    let like: HomeFeedLikeDTO
+    let user: UserDTO
+    let like: LikeDTO
 }
 
 // MARK: - HomeFeedBadgesDTO
 
-enum HomeFeedBadgeDTO: String, Decodable {
+enum BadgeDTO: String, Decodable {
     case editor = "EDITOR"
     case best   = "BEST"
     case new    = "NEW"
@@ -54,7 +54,7 @@ struct HomeFeedTrackDTO: Decodable {
 
 // MARK: - HomeFeedUserDTO
 
-struct HomeFeedUserDTO: Decodable {
+struct UserDTO: Decodable {
     let userId: Int
     let nickname: String
     let profileImg: String?
@@ -62,7 +62,7 @@ struct HomeFeedUserDTO: Decodable {
 
 // MARK: - HomeFeedLikeDTO
 
-struct HomeFeedLikeDTO: Decodable {
+struct LikeDTO: Decodable {
     let isLiked: Bool
     let count: Int
 }
@@ -85,7 +85,7 @@ extension HomeFeedDataDTO {
     }
 }
 
-extension HomeFeedBadgeDTO {
+extension BadgeDTO {
     func toEntity() -> HomeFeedBadge {
         switch self {
         case .editor: return .editor
@@ -109,7 +109,7 @@ extension HomeFeedPostDTO {
     }
 }
 
-extension HomeFeedUserDTO {
+extension UserDTO {
     func toEntity() -> User {
         User(id: userId, nickname: nickname, profileImage: profileImg)
     }
@@ -126,7 +126,7 @@ extension HomeFeedTrackDTO {
     }
 }
 
-extension HomeFeedLikeDTO {
+extension LikeDTO {
     func toEntity() -> Like {
         Like(isLiked: isLiked, count: count)
     }
