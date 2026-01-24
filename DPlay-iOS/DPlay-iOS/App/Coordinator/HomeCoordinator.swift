@@ -50,12 +50,12 @@ final class HomeCoordinator: Coordinator {
         navigationController.setViewControllers([vc], animated: false)
     }
     
-    func goToMusicDetail(trackId: String) {
-        let service = MockMusicDetailService()
-        let repository = DefaultMusicDetailRepository(service: service)
+    func goToMusicCommentDetail(postId: Int) {
+        let service = MusicDetailNetworkServiceImpl()
+        let repository = DefaultCommentMusicDetailRepository(service: service)
         let useCase = DefaultMusicDetailUseCase(repository: repository)
-        let vm = MusicDetailViewModel(trackId: trackId, useCase: useCase, coordinator: self)
-        let vc = MusicDetailViewController(viewModel: vm)
+        let vm = MusicCommentDetailViewModel(postId: postId, useCase: useCase, coordinator: self)
+        let vc = MusicCommentDetailViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)

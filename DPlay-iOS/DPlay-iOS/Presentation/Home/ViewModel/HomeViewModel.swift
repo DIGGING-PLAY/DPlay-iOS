@@ -114,7 +114,7 @@ extension HomeViewModel {
 
 extension HomeViewModel {
     func didSelectPost(_ post: Post) {
-        coordinator?.goToMusicDetail(trackId: String(post.id))
+        coordinator?.goToMusicCommentDetail(postId: post.id)
     }
     
     func goToMonthlyQuestion() {
