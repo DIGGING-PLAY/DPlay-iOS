@@ -273,8 +273,10 @@ private extension HomeViewController {
             await viewModel.toggleScrap(postId: post.id)
         }
         
+        guard post.isScrapped == false else { return }
+        
         ToastManager.shared.show(
-            message: post.isScrapped ? "보관함에서 삭제했어요" : "보관함에 추가했어요",
+            message: "보관함에 추가했어요",
             actionText: "보러가기",
             action: { [weak self] in
                 self?.viewModel.goToScrapTab()
