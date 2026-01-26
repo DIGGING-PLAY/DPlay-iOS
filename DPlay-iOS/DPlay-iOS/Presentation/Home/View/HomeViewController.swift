@@ -28,6 +28,8 @@ final class HomeViewController: UIViewController {
     private var isRefreshing = false
     private var scrapToggleIndex: Int?
     private var likeToggleIndex: Int?
+    private var lastOffsetX: CGFloat = 0
+    private var didShowLockedPopup = false
 
     // MARK: - UI Properties
     
@@ -344,6 +346,19 @@ private extension HomeViewController {
                 self.updateCurrentPage(page)
                 // 3. 페이지 바뀔 때 햅틱
                 self.playHapticIfNeeded(page)
+                // 4. 이미 locked 페이지인데, 더 스크롤 시도하면 팝업
+                if self.currentPage == .locked,
+                   self.viewModel.isLocked,
+                   !self.didShowLockedPopup {
+
+                    let didTryToScrollMore =
+                        abs(offset.x - self.lastOffsetX) < 1   // 실제 이동은 없고
+                        && offset.x <= self.lastOffsetX        // 더 안 가면
+                    if didTryToScrollMore {
+                        self.showLockedPopup()
+                    }
+                }
+                self.lastOffsetX = offset.x
             }
             return section
         }
@@ -385,7 +400,6 @@ private extension HomeViewController {
     /// 페이지 변경 시 발생하는 이벤트 묶음
     func onPageChanged() {
         updateTopUI()
-        showLockedPopupIfNeeded()
     }
     
     /// 현재 페이지 상태에 맞게 상단 UI 업데이트 제어 함수
@@ -467,6 +481,8 @@ private extension HomeViewController {
         guard popupView == nil else { return }
         guard let window = UIApplication.shared.keyWindow else { return }
         
+        didShowLockedPopup = true
+        
         let popup = RecommendationPopupView()
         popup.configure(
             action: { [weak self] in
@@ -498,6 +514,7 @@ private extension HomeViewController {
         }) { _ in
             popup.removeFromSuperview()
             self.popupView = nil
+            self.didShowLockedPopup = false
         }
     }
 }
