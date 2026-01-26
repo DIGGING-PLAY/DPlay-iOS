@@ -56,7 +56,8 @@ enum IconLiterals {
 }
 
 enum ImageLiterals {
-    static var Img_editor_profile: UIImage { .load(name: "Img_editor_profile") }
+    static var img_editor_profile: UIImage { .load(name: "img_editor_profile") }
+    static var img_default_profile: UIImage { .load(name: "img_default_profile") }
     static var img_card_cover: UIImage { .load(name: "img_card_cover") }
     static var img_mock_profile: UIImage { .load(name: "img_mock_profile") }
     static var img_back: UIImage { .load(name: "img_back") }
