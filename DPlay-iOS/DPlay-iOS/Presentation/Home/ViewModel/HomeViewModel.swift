@@ -128,6 +128,10 @@ extension HomeViewModel {
     func didTapUserProfile(userId: Int) {
         coordinator?.goToUserProfile()
     }
+    
+    func goToPostMusicComment() {
+        coordinator?.goToPostMusicComment()
+    }
 }
 
 // MARK: - 음악 재생

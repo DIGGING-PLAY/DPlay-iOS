@@ -23,6 +23,9 @@ final class TabBarCoordinator: Coordinator {
         homeCoordinator.onRequestSwitchToMyPage = { [weak self] in
             self?.switchToMyPageTab()
         }
+        homeCoordinator.onRequestGoToPostMusicComment = { [weak self] in
+            self?.startAddFlow()
+        }
         homeCoordinator.start()
         
         // 2) My Flow

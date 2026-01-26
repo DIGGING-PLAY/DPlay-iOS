@@ -66,6 +66,9 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadData()
         hapticGenerator.prepare()
+        // 글 작성 이후 fullScreen 내려올때 팝업 뜸 방지
+        lastOffsetX = editorCollectionView.contentOffset.x
+        didShowLockedPopup = false
     }
     
     override func viewDidLoad() {
@@ -486,7 +489,7 @@ private extension HomeViewController {
         let popup = RecommendationPopupView()
         popup.configure(
             action: { [weak self] in
-                self?.hidePopup()
+                self?.viewModel.goToPostMusicComment()
             },
             close: { [weak self] in
                 self?.hidePopup()

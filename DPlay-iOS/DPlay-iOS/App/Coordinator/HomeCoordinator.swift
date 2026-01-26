@@ -14,6 +14,7 @@ final class HomeCoordinator: Coordinator {
     
     /// 상위(TabBar)로 네비게이션 요청을 전달하는 클로저
     var onRequestSwitchToMyPage: (() -> Void)?
+    var onRequestGoToPostMusicComment: (() -> Void)?
     
     private let service = MockHomeService()
     private lazy var repository = DefaultHomeRepository(service: service)
@@ -79,6 +80,10 @@ final class HomeCoordinator: Coordinator {
     
     func goToScrapTab() {
         onRequestSwitchToMyPage?()
+    }
+    
+    func goToPostMusicComment() {
+        onRequestGoToPostMusicComment?()
     }
     
     func goToUserProfile() {
