@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeFeedBadgeView: UIButton {
+final class BadgeView: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ final class HomeFeedBadgeView: UIButton {
     }
 }
 
-private extension HomeFeedBadgeView {
+private extension BadgeView {
 
     func setupBaseStyle() {
         backgroundColor = .white
@@ -30,13 +30,13 @@ private extension HomeFeedBadgeView {
     }
 }
 
-private extension HomeFeedBadgeView {
+private extension BadgeView {
 
     var badgeColor: UIColor {
         .dplay_pink
     }
 
-    func titleText(for badge: HomeFeedBadge) -> String {
+    func titleText(for badge: Badge) -> String {
         switch badge {
         case .editor: return "EDITOR"
         case .best:   return "BEST"
@@ -46,7 +46,7 @@ private extension HomeFeedBadgeView {
         }
     }
 
-    func icon(for badge: HomeFeedBadge) -> UIImage {
+    func icon(for badge: Badge) -> UIImage {
         switch badge {
         case .editor: return IconLiterals.ic_editor
         case .best:   return IconLiterals.ic_best
@@ -57,9 +57,9 @@ private extension HomeFeedBadgeView {
     }
 }
 
-extension HomeFeedBadgeView {
+extension BadgeView {
 
-    func configure(badge: HomeFeedBadge) {
+    func configure(badge: Badge) {
 
         // nomal이면 숨김 처리
         guard badge != .nomal else {

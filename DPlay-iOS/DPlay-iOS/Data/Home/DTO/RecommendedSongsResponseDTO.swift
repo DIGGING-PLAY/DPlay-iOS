@@ -86,7 +86,7 @@ extension HomeFeedDataDTO {
 }
 
 extension BadgeDTO {
-    func toEntity() -> HomeFeedBadge {
+    func toEntity() -> Badge {
         switch self {
         case .editor: return .editor
         case .best:   return .best

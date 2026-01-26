@@ -12,6 +12,7 @@ import Combine
 final class MusicCommentDetailViewModel: ObservableObject {
     
     @Published var detail: MusicCommentDetail?
+    @Published var badge: Badge
     
     private let useCase: MusicCommentDetailUseCase
     weak var coordinator: HomeCoordinator?
@@ -19,10 +20,12 @@ final class MusicCommentDetailViewModel: ObservableObject {
     
     init(
         postId: Int,
+        initialBadge: Badge,
         useCase: MusicCommentDetailUseCase,
         coordinator: HomeCoordinator?
     ) {
         self.postId = postId
+        self.badge = initialBadge
         self.useCase = useCase
         self.coordinator = coordinator
     }

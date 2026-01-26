@@ -51,11 +51,11 @@ final class HomeCoordinator: Coordinator {
         navigationController.setViewControllers([vc], animated: false)
     }
     
-    func goToMusicCommentDetail(postId: Int) {
+    func goToMusicCommentDetail(postId: Int, badge: Badge) {
         let service = MusicDetailNetworkServiceImpl()
         let repository = DefaultCommentMusicDetailRepository(service: service)
         let useCase = DefaultMusicDetailUseCase(repository: repository)
-        let vm = MusicCommentDetailViewModel(postId: postId, useCase: useCase, coordinator: self)
+        let vm = MusicCommentDetailViewModel(postId: postId, initialBadge: badge, useCase: useCase, coordinator: self)
         let vc = MusicCommentDetailViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)

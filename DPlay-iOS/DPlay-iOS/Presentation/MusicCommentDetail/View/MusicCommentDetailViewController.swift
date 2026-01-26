@@ -32,7 +32,7 @@ final class MusicCommentDetailViewController: UIViewController {
     private let albumContainer = UIView()
     private let albumImageView = UIImageView()
     private let scrapButton = UIButton()
-    private let musicStateButton = UIButton()
+    private let badgeView = BadgeView()
     private let musicTitle = UILabel()
     private let artistLabel = UILabel()
     
@@ -66,6 +66,7 @@ final class MusicCommentDetailViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setContentHidden(true)
         bind()
         bindActions()
         bindNavigationBar()
@@ -100,24 +101,8 @@ private extension MusicCommentDetailViewController {
         scrapButton.do {
             $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
             $0.backgroundColor = .gray600
+            $0.contentMode = .scaleAspectFill
             $0.roundCorners(cornerRadius: 12)
-        }
-        
-        musicStateButton.do {
-            var config = UIButton.Configuration.plain()
-            config.image = IconLiterals.ic_editor
-            config.baseForegroundColor = .dplay_pink
-            config.imagePadding = 4
-            
-            var titleAttr = AttributedString("EDITOR")
-            titleAttr.font = .dplayFont(.bodySemi14)
-            titleAttr.foregroundColor = .dplay_pink
-            config.attributedTitle = titleAttr
-            $0.configuration = config
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.dplay_pink.cgColor
-            $0.backgroundColor = .white
-            $0.roundCorners(cornerRadius: 15)
         }
         
         musicTitle.do {
@@ -191,9 +176,12 @@ private extension MusicCommentDetailViewController {
         }
         
         profileImageView.do {
-            $0.contentMode = .scaleAspectFill
+            $0.contentMode = .scaleToFill
+            $0.clipsToBounds = true
             $0.roundCorners(cornerRadius: 16)
             $0.image = ImageLiterals.img_mock_profile
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray200.cgColor
             $0.snp.makeConstraints { $0.size.equalTo(32) }
         }
         
@@ -230,7 +218,7 @@ private extension MusicCommentDetailViewController {
         albumContainer.addSubviews(
             albumImageView,
             scrapButton,
-            musicStateButton
+            badgeView
         )
         
         actionButtons.addArrangedSubviews(playButton, likeButton)
@@ -270,7 +258,7 @@ private extension MusicCommentDetailViewController {
         }
         
         albumContainer.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).offset(20)
+            $0.top.equalTo(navigationBarView.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
         }
         
@@ -280,18 +268,20 @@ private extension MusicCommentDetailViewController {
         }
         
         scrapButton.snp.makeConstraints {
-            $0.top.equalTo(albumImageView.snp.top).inset(12)
-            $0.trailing.equalTo(albumImageView.snp.trailing).inset(12)
+            $0.top.equalTo(albumImageView.snp.top)
+            $0.trailing.equalTo(albumImageView.snp.trailing)
             $0.size.equalTo(44)
         }
         
-        musicStateButton.snp.makeConstraints {
-            $0.top.equalTo(albumImageView.snp.bottom).inset(20)
+        badgeView.snp.makeConstraints {
+            $0.top.equalTo(albumImageView.snp.bottom).inset(30)
             $0.centerX.equalToSuperview()
+            $0.height.equalTo(32)
+            $0.width.equalTo(100)
         }
         
         musicTitle.snp.makeConstraints {
-            $0.top.equalTo(musicStateButton.snp.bottom).offset(20)
+            $0.top.equalTo(badgeView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
@@ -334,6 +324,7 @@ private extension MusicCommentDetailViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] detail in
                 guard let self, let detail else { return }
+                self.setContentHidden(false)
                 
                 // 텍스트
                 self.musicTitle.text = detail.track.title
@@ -346,11 +337,18 @@ private extension MusicCommentDetailViewController {
                 self.topOverlayImageView.kf.setImage(with: detail.track.coverURL)
                 
                 // 사용자 프로필 없으면 기본 이미지 지정 해줘야 함
-                if let imageString = detail.user.profileImage,
-                   let url = URL(string: imageString) {
-                    profileImageView.kf.setImage(with: url)
+                if let profileImageString = detail.user.profileImage,
+                   let profileImageURL = URL(string: profileImageString)
+                {
+                    profileImageView.setImage(url: profileImageURL)
+                } else {
+                    profileImageView.image = ImageLiterals.img_default_profile
                 }
-
+                // badge가 editor면 최종 override
+                if self.viewModel.badge == .editor {
+                    self.profileImageView.image = ImageLiterals.img_editor_profile
+                }
+                
                 // 좋아요 버튼
                 self.updateLikeButton(detail.like)
                 
@@ -362,6 +360,13 @@ private extension MusicCommentDetailViewController {
                     displayDate: detail.displayDate,
                     isHost: detail.isHost
                 )
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$badge
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] badge in
+                self?.badgeView.configure(badge: badge)
             }
             .store(in: &cancellables)
     }
@@ -383,6 +388,16 @@ private extension MusicCommentDetailViewController {
             },
             for: .touchUpInside
         )
+    }
+    
+    /// 데이터 오기전 기본 값 보임 방지
+    private func setContentHidden(_ hidden: Bool) {
+        topOverlayImageView.isHidden = hidden
+        albumContainer.isHidden = hidden
+        musicTitle.isHidden = hidden
+        artistLabel.isHidden = hidden
+        actionButtons.isHidden = hidden
+        commentCard.isHidden = hidden
     }
 
     func presentReportSheet() {

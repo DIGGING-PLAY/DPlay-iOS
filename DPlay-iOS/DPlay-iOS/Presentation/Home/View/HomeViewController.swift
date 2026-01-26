@@ -43,7 +43,7 @@ final class HomeViewController: UIViewController {
     private let questionTitleLabel = UILabel()
     
     private var popupView: RecommendationPopupView?
-    private var musicStateBadgeView = HomeFeedBadgeView()
+    private var badgeView = BadgeView()
     private let musicScrapButton = UIButton()
     private let editorCollectionView = UICollectionView(
         frame: .zero,
@@ -150,7 +150,7 @@ private extension HomeViewController {
             todayDateLabel,
             refreshButton,
             questionContainerView,
-            musicStateBadgeView,
+            badgeView,
             editorCollectionView,
             musicScrapButton
         )
@@ -203,7 +203,7 @@ private extension HomeViewController {
             $0.bottom.equalToSuperview().inset(12)
         }
         
-        musicStateBadgeView.snp.makeConstraints {
+        badgeView.snp.makeConstraints {
             $0.top.equalTo(questionContainerView.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
@@ -217,7 +217,7 @@ private extension HomeViewController {
         }
         
         editorCollectionView.snp.makeConstraints {
-            $0.top.equalTo(musicStateBadgeView.snp.bottom).offset(20)
+            $0.top.equalTo(badgeView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -427,8 +427,7 @@ private extension HomeViewController {
     }
     
     func showTopUI(_ post: Post) {
-        musicStateBadgeView.configure(badge: post.badges)
-        musicScrapButton.isHidden = false
+        badgeView.configure(badge: post.badges)
         
         let image = post.isScrapped
         ? IconLiterals.ic_bookmark_fill_24
@@ -438,7 +437,7 @@ private extension HomeViewController {
     }
     
     func hideTopUI() {
-        musicStateBadgeView.hide()
+        badgeView.hide()
         musicScrapButton.isHidden = true
     }
     

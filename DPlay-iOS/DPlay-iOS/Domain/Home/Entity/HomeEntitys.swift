@@ -27,7 +27,7 @@ struct Post {
     let user: User
     let track: Track
     let like: Like
-    let badges: HomeFeedBadge
+    let badges: Badge
     let isScrapped: Bool
 }
 
@@ -49,7 +49,7 @@ struct Like {
     let count: Int
 }
 
-enum HomeFeedBadge: String {
+enum Badge: String {
     case editor = "EDITOR"
     case best   = "BEST"
     case new    = "NEW"
