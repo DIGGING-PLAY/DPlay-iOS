@@ -14,19 +14,22 @@ final class MusicCommentDetailViewModel: ObservableObject {
     @Published var detail: MusicCommentDetail?
     @Published var badge: Badge
     
-    private let useCase: MusicCommentDetailUseCase
+    private let commentDetailUseCase: MusicCommentDetailUseCase
+    private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: HomeCoordinator?
     private let postId: Int
     
     init(
         postId: Int,
         initialBadge: Badge,
-        useCase: MusicCommentDetailUseCase,
+        commentDetailUseCase: MusicCommentDetailUseCase,
+        previewMusicUseCase: PreviewMusicUseCase,
         coordinator: HomeCoordinator?
     ) {
         self.postId = postId
         self.badge = initialBadge
-        self.useCase = useCase
+        self.commentDetailUseCase = commentDetailUseCase
+        self.previewMusicUseCase = previewMusicUseCase
         self.coordinator = coordinator
     }
 }
@@ -38,7 +41,7 @@ extension MusicCommentDetailViewModel {
     func loadDetail() async {
         do {
             print("뷰모델 postId \(postId)")
-            detail = try await useCase.getMusicDetail(postId: postId)
+            detail = try await commentDetailUseCase.getMusicDetail(postId: postId)
         } catch {
             print("❌ Detail load failed:", error)
         }
@@ -51,7 +54,7 @@ extension MusicCommentDetailViewModel {
 
     func deletePost() async {
         do {
-            try await useCase.deletePost(postId: postId)
+            try await commentDetailUseCase.deletePost(postId: postId)
             coordinator?.pop()
         } catch {
             print("❌ 삭제 실패:", error)
@@ -87,7 +90,7 @@ extension MusicCommentDetailViewModel {
         )
 
         do {
-            try await useCase.toggleLike(
+            try await commentDetailUseCase.toggleLike(
                 postId: original.id,
                 isLiked: wasLiked
             )
@@ -119,7 +122,7 @@ extension MusicCommentDetailViewModel {
         )
 
         do {
-            try await useCase.toggleScrap(
+            try await commentDetailUseCase.toggleScrap(
                 postId: original.id,
                 isScrapped: original.isScrapped
             )
@@ -141,5 +144,29 @@ extension MusicCommentDetailViewModel {
     func goToScrapTab() {
         didTapBack()
         coordinator?.goToScrapTab()
+    }
+}
+
+// MARK: - 음악 재생
+extension MusicCommentDetailViewModel {
+
+    func didTapPreview() {
+        Task {
+            do {
+                let session = try await previewMusicUseCase.execute(
+                    trackId: self.detail?.track.trackId ?? "",
+                    storefront: "kr"
+                )
+
+                AudioPlayerManager.shared.playPreview(
+                    sessionId: session.sessionId,
+                    trackId: session.trackId,
+                    streamURL: session.streamURL, playId: nil
+                )
+
+            } catch {
+                print("미리듣기 실패:", error)
+            }
+        }
     }
 }

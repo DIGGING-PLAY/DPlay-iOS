@@ -387,6 +387,14 @@ private extension MusicCommentDetailViewController {
             },
             for: .touchUpInside
         )
+        
+        playButton.addAction(
+            UIAction { [weak self] _ in
+                guard let self else { return }
+                Task { await self.viewModel.didTapPreview()}
+            },
+            for: .touchUpInside
+        )
     }
     
     /// 데이터 오기전 기본 값 보임 방지
