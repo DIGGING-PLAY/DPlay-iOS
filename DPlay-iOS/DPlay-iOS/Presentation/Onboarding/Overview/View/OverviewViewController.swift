@@ -35,7 +35,6 @@ final class OverviewViewController: UIViewController {
     
     //MARK: - UI Properties
 
-    private let backButton = UIButton()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let pagingCollectioView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -70,10 +69,6 @@ private extension OverviewViewController {
     
     func setupStyle() {
         view.backgroundColor = .white
-        
-        backButton.do {
-            $0.setImage(IconLiterals.ic_back_48, for: .normal)
-        }
         
         titleLabel.do {
             $0.text = "오늘의 질문이 도착했어요"
@@ -123,7 +118,6 @@ private extension OverviewViewController {
     
     func setupHierarchy() {
         view.addSubviews(
-            backButton,
             titleLabel,
             descriptionLabel,
             pagingCollectioView,
@@ -133,12 +127,8 @@ private extension OverviewViewController {
     }
     
     func setupLayout() {
-        backButton.snp.makeConstraints{
-            $0.top.leading.equalTo(view.safeAreaLayoutGuide)
-        }
-        
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(backButton.snp.bottom).offset(40)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(88)
             $0.centerX.equalToSuperview()
         }
         
@@ -168,10 +158,6 @@ private extension OverviewViewController {
     
     //MARK: - @objc Method
     
-    func backButtonTapped() {
-        viewModel.popToPrevious()
-    }
-    
     func startButtonTapped() {
         viewModel.goToNotificationPermission()
     }
@@ -182,7 +168,6 @@ private extension OverviewViewController {
     // MARK: - Private Method
     
     func setupTarget() {
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
 }
