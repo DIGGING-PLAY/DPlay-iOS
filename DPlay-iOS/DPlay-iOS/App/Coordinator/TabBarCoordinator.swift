@@ -12,6 +12,12 @@ final class TabBarCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let rootViewController = MainTabBarController()
     
+    private let router: AppRouter
+
+    init(router: AppRouter) {
+        self.router = router
+    }
+    
     func start() {
         
         // 오디오 세션 미리 활성화

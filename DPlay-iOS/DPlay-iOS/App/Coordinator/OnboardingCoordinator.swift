@@ -11,14 +11,20 @@ final class OnboardingCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-    
+        
+    private let router: AppRouter
+
     //auth
-    private let authService = MockAuthService()
+    private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
     private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
+    
+    private let appleIdentityToken: String
 
-    init(navigationController: UINavigationController) {
+    init(router: AppRouter, navigationController: UINavigationController, appleIdentityToken: String) {
+        self.router = router
         self.navigationController = navigationController
+        self.appleIdentityToken = appleIdentityToken
     }
 
     func start() {
@@ -29,7 +35,11 @@ final class OnboardingCoordinator: Coordinator {
     }
     
     func goToProfileSetting() {
-        let vm = ProfileSettingViewModel(useCase: authUseCase, coordinator: self)
+        let vm = ProfileSettingViewModel(
+            useCase: authUseCase,
+            coordinator: self,
+            appleIdentityToken: appleIdentityToken
+        )
         let vc = ProfileSettingViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.pushViewController(vc, animated: true)
@@ -43,10 +53,14 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func goToNotificationPermission() {
-        let vm = NotificationPermissionViewModel(coordinator: self)
+        let vm = NotificationPermissionViewModel(useCase: authUseCase, coordinator: self)
         let vc = NotificationPermissionViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToMainTabBar() {
+        router.goToMainTabBar()
     }
 
     func pop() {

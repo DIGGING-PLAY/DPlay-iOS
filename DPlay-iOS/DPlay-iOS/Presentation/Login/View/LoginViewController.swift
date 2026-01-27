@@ -12,6 +12,10 @@ import Then
 
 final class LoginViewController: UIViewController {
     
+    //MARK: - Properties
+    
+    private let viewModel: LoginViewModel
+    
     //MARK: - UI Properties
     
     private let logoStackView = UIStackView()
@@ -21,6 +25,15 @@ final class LoginViewController: UIViewController {
     private let applelogoImageView = UIImageView(image: IconLiterals.ic_apple_24)
     
     //MARK: - Life Cycle
+    
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +106,15 @@ private extension LoginViewController {
     
     func appleLoginButtonTapped() {
         print("appleLoginButtonTapped")
+        
+        AppleLoginManager.shared.appleLogin()
+        AppleLoginManager.shared.loginSuccess = { token in
+            guard let token else { return }
+            
+            Task {
+                await self.viewModel.startLogin(appleIdentityToken: token)
+            }
+        }
     }
 }
 
