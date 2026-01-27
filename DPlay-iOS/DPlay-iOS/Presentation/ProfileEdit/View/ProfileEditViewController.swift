@@ -108,7 +108,9 @@ private extension ProfileEditViewController {
         }
         
         textLengthLabel.do {
-            $0.text = "0/10"
+            let nicknameCount = viewModel.nickname?.count ?? 0
+            
+            $0.text = "\(nicknameCount)/10"
             $0.setTextStyle(.capMedi12)
             $0.textColor = .gray400
         }
