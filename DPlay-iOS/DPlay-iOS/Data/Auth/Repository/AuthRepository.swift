@@ -9,9 +9,11 @@ import Foundation
 
 protocol AuthRepository {
     func loginWithApple(appleIdentityToken: String) async throws -> UserSession
-    func refreshAccessToken(refreshToken: String) async throws -> UserSession
-    func singUp(nickname: String, image: Data?) async throws -> UserSession
+    func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> UserSession
+    func setNotification(pushOn: Bool) async throws
     func logout() async throws
+    func saveTokens(_ userData: UserSession) throws
+    func deleteTokens() throws
 }
 
 final class DefaultAuthRepository: AuthRepository {
@@ -21,29 +23,52 @@ final class DefaultAuthRepository: AuthRepository {
     init(service: AuthService) {
         self.service = service
     }
+    
+    //MARK: - API Func
 
     func loginWithApple(appleIdentityToken: String) async throws -> UserSession {
         let response = try await service.loginWithApple(appleIdentityToken: appleIdentityToken)
-        let entity = response.toEntity()
+        
+        guard let data = response.data else { throw AppError.emptyData }
+        let entity = data.toEntity()
 
         return entity
     }
     
-    func refreshAccessToken(refreshToken: String) async throws -> UserSession {
-        let response = try await service.refreshAccessToken(refreshToken: refreshToken)
-        let entity = response.toEntity()
+    func refreshToken() async throws -> UserSession {
+        let response = try await service.refreshToken()
+        
+        guard let data = response.data else { throw AppError.emptyData }
+        let entity = data.toEntity()
 
         return entity
     }
     
-    func singUp(nickname: String, image: Data?) async throws -> UserSession {
-        let response = try await service.singUp(nickname: nickname, image: image)
-        let entity = response.toEntity()
+    func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> UserSession {
+        let response = try await service.singUp(appleIdentityToken: appleIdentityToken, signupRequestBody: signupRequestBody, profileImg: profileImg)
+        
+        guard let data = response.data else { throw AppError.emptyData }
+        let entity = data.toEntity()
 
         return entity
+    }
+    
+    func setNotification(pushOn: Bool) async throws {
+        try await service.setNotification(pushOn: pushOn)
     }
     
     func logout() async throws {
         try await service.logout()
+    }
+    
+    //MARK: - KeychainManager Func
+    
+    func saveTokens(_ userData: UserSession) throws {
+        KeychainManager.shared.accessToken = userData.accessToken
+        KeychainManager.shared.refreshToken = userData.refreshToken
+    }
+    
+    func deleteTokens() throws {
+        KeychainManager.shared.clearAll()
     }
 }
