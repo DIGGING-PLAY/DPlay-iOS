@@ -69,8 +69,11 @@ extension ProfileEditButton {
         editImageView.isHidden = !isHost
         isEnabled = isHost
         
-        guard let url = URL(string: profileImageUrl) else { return }
-        profileImageView.kf.setImage(with: url)
+        if let url = URL(string: profileImageUrl) {
+            profileImageView.kf.setImage(with: url)
+        } else {
+            profileImageView.image = ImageLiterals.img_profile
+        }
     }
     
     //MARK: - getter

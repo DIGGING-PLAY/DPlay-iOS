@@ -78,6 +78,13 @@ extension UploadAPI: MultipartAPI {
                     fileName: "profileImg.jpeg",
                     mimeType: "image/jpeg"
                 )
+            } else {
+                form.append(
+                    Data(),
+                    withName: "profileImg",
+                    fileName: "profileImg.jpeg",
+                    mimeType: "image/jpeg"
+                )
             }
             
             let encoder = JSONEncoder()
