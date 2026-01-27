@@ -16,8 +16,6 @@ final class TokenRefreshManager {
     private var isRefreshing = false
     
     private let authService = AuthServiceImpl()
-    private lazy var authRepository = DefaultAuthRepository(service: authService)
-    private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
 
     private var waiters: [CheckedContinuation<Bool, Never>] = []
 
@@ -34,7 +32,13 @@ final class TokenRefreshManager {
         
         do {
             //1) Refresh API 호출
-            try await authUseCase.refreshToken()
+            let response = try await authService.refreshToken()
+            guard let data = response.data else { throw AppError.emptyData }
+            let userData = data.toEntity()
+
+            KeychainManager.shared.accessToken = userData.accessToken
+            KeychainManager.shared.refreshToken = userData.refreshToken
+            UserDefaults.standard.set(userData.userId, forKey: "userId")
             
             //2) 대기 중인 다른 요청 모두 재개
             finishRefresh(success: true)
