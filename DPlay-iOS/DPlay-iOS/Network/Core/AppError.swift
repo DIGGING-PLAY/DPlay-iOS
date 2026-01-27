@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppError: LocalizedError {
+enum AppError: LocalizedError, Equatable{
     
     // 네트워크 관련
     case unauthorized

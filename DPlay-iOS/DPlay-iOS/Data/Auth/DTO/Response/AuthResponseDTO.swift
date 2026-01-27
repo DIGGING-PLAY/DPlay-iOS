@@ -1,16 +1,11 @@
 //
-//  AuthDTO.swift
+//  AuthResponseDTO.swift
 //  DPlay-iOS
 //
 //  Created by 조혜린 on 11/22/25.
 //
 
-struct AuthResponseDTO: Decodable {
-    let success: Bool
-    let code: Int
-    let message: String
-    let data: AuthDataDTO
-}
+typealias AuthResponseDTO = BaseResponseDTO<AuthDataDTO>
 
 struct AuthDataDTO: Decodable {
     let userId: Int
