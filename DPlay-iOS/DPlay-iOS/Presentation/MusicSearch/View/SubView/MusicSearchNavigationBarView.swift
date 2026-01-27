@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MusicAddNavigationBarView: UIView {
+final class MusicSearchNavigationBarView: UIView {
     
     // MARK: - Properties
     
@@ -36,7 +36,7 @@ final class MusicAddNavigationBarView: UIView {
     }
 }
 
-private extension MusicAddNavigationBarView {
+private extension MusicSearchNavigationBarView {
     func setupStyle() {
         backgroundColor = .clear
         
@@ -71,7 +71,7 @@ private extension MusicAddNavigationBarView {
     }
 }
 
-@objc private extension MusicAddNavigationBarView {
+@objc private extension MusicSearchNavigationBarView {
     
     //MARK: - @objc Method
     
@@ -80,7 +80,7 @@ private extension MusicAddNavigationBarView {
     }
 }
 
-private extension MusicAddNavigationBarView {
+private extension MusicSearchNavigationBarView {
     // MARK: - Private Method
     
     func setupTarget() {

@@ -107,16 +107,14 @@ private extension SongSearchCell {
 }
 
 extension SongSearchCell {
-    
+
     // MARK: - Configure
-    func configure(item: MusicAddResponseDTO, isSelected: Bool) {
-        titleLabel.text = item.songTitle
-        artistLabel.text = item.artistName
-        
-        if let url = URL(string: item.coverImg) {
-            coverImageView.kf.setImage(with: url)
-        }
-        
+
+    func configure(item: MusicTrack, isSelected: Bool) {
+        titleLabel.text = item.title
+        artistLabel.text = item.artist
+
+        coverImageView.setImage(url: item.coverURL)
         checkmarkImageView.isHidden = !isSelected
         backgroundColor = isSelected ? .gray200 : .white
     }

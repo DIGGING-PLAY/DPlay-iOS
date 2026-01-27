@@ -15,16 +15,23 @@ final class MusicAddCoordinator: Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
-        let vm = MusicAddViewModel(coordinator: self)
-        let vc = MusicAddViewController(viewModel: vm)
+        
+        let musicSearchService: MusicSearchService = MusicSearchNetworkService()
+        let musicSearchRepository = DefaultMusicSearchRepository(service: musicSearchService)
+        let musicSearchUseCase = DefaultMusicSearchUseCase(repository: musicSearchRepository)
+        let vm = MusicSearchViewModel(useCase: musicSearchUseCase, coordinator: self)
+        let vc = MusicSearchViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
     
     func goToMusicComment(trackId: String) {
-        let vm = MusicCommentViewModel(trackId: trackId, coordinator: self)
+        let musicCommentservice = PostMusicCommentNetworkService()
+        let musicCommentRepository = DefaultPostMusicCommentRepository(service: musicCommentservice)
+        let musicCommentUseCase = DefaultPostMusicCommentUseCase(repository: musicCommentRepository)
+        let vm = MusicCommentViewModel(trackId: trackId, useCase: musicCommentUseCase, coordinator: self)
         let vc = MusicCommentViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.pushViewController(vc, animated: true)

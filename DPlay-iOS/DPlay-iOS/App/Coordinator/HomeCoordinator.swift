@@ -34,7 +34,7 @@ final class HomeCoordinator: Coordinator, MyPageCoordinating {
     func start() {
         
         // 서버 연결후 Mock 갈아 끼우기
-        let homeService: HomeService = MockHomeService()
+        let homeService: HomeService = HomeNetworkServiceImpl()
         let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
         
         let homeRepository = DefaultHomeRepository(service: homeService)
