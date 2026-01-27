@@ -101,7 +101,7 @@
 		D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */; };
 		D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
-		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
+		D0D8FDB12ED4621E00F75191 /* AgreementItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemButton.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
 		D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */; };
 		D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */; };
@@ -265,7 +265,7 @@
 		D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		D01893F82ECA54F6002A48C1 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
-		D01894002ECA6074002A48C1 /* AgreementItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemView.swift; sourceTree = "<group>"; };
+		D01894002ECA6074002A48C1 /* AgreementItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemButton.swift; sourceTree = "<group>"; };
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D01C6D792EE46BFC009C9AF8 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
 		D01C6D7D2EE46CDF009C9AF8 /* MockMyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMyPage.swift; sourceTree = "<group>"; };
@@ -585,7 +585,7 @@
 			isa = PBXGroup;
 			children = (
 				D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */,
-				D01894002ECA6074002A48C1 /* AgreementItemView.swift */,
+				D01894002ECA6074002A48C1 /* AgreementItemButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -2163,7 +2163,7 @@
 				D09780782F10337900AAF7A6 /* AppleLoginManager.swift in Sources */,
 				D06645C82F03627C008A1B44 /* UINavigationController+.swift in Sources */,
 				D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */,
-				D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */,
+				D0D8FDB12ED4621E00F75191 /* AgreementItemButton.swift in Sources */,
 				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
 				EFCBCF5E2ED58B0300BA7740 /* MusicCommentViewModel.swift in Sources */,
 				EFCBCF472ED4989B00BA7740 /* MusicSearchNavigationBarView.swift in Sources */,
@@ -2215,7 +2215,7 @@
 				EFA1BA4B2F1A16650013888C /* MusicComment.swift in Sources */,
 				D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */,
 				D06DF77F2F1B87EC00DC641A /* NotificationRequestDTO.swift in Sources */,
-				EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
+				EFCBCF4E2ED49A6F00BA7740 /* MusicSearchResponseDTO.swift in Sources */,
 				EFCBCF4E2ED49A6F00BA7740 /* MusicSearchResponseDTO.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EF4B907D2F12BA44009101C4 /* MusicSearchAPI.swift in Sources */,
@@ -2231,7 +2231,6 @@
 				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
 				EFCBCF362ECC75F900BA7740 /* MusicDetailRepository.swift in Sources */,
 				D0B944E82F1C38D7002B87FF /* UpdateProfileRequestDTO.swift in Sources */,
-				EFCBCF432ED4983400BA7740 /* MusicAddViewController.swift in Sources */,
 				EFCBCEF82EC9BA7D00BA7740 /* MusicDetailNavigationBarView.swift in Sources */,
 				D06645BE2F0081B4008A1B44 /* AlertAction.swift in Sources */,
 				EFCBCF5C2ED587A400BA7740 /* MusicCommentViewController.swift in Sources */,

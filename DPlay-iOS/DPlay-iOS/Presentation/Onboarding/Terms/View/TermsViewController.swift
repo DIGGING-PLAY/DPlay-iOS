@@ -7,6 +7,7 @@
 
 import UIKit
 
+import SafariServices
 import SnapKit
 import Then
 
@@ -20,10 +21,11 @@ final class TermsViewController: UIViewController {
 
     private let backButton = UIButton()
     private let titleLabel = UILabel()
-    private let termsStackView = UIStackView()
     private let agreeAllButton = AllAgreementButton()
-    private let serviceTermView = AgreementItemView()
-    private let privacyTermView = AgreementItemView()
+    private let serviceTermButton = AgreementItemButton()
+    private let privacyTermButton = AgreementItemButton()
+    private let serviceTermRedirectButton = UIButton()
+    private let privacyTermRedirectButton = UIButton()
     private let nextButton = UIButton()
 
     //MARK: - Life Cycle
@@ -67,17 +69,20 @@ private extension TermsViewController {
             $0.textAlignment = .left
         }
         
-        termsStackView.do {
-            $0.axis = .vertical
-            $0.distribution = .fillEqually
-        }
-        
-        serviceTermView.do {
+        serviceTermButton.do {
             $0.setTitle("서비스 이용약관 (필수)")
         }
         
-        privacyTermView.do {
+        privacyTermButton.do {
             $0.setTitle("개인정보 처리방침 (필수)")
+        }
+        
+        serviceTermRedirectButton.do {
+            $0.setImage(IconLiterals.ic_arrow_right_16, for: .normal)
+        }
+        
+        privacyTermRedirectButton.do {
+            $0.setImage(IconLiterals.ic_arrow_right_16, for: .normal)
         }
         
         nextButton.do {
@@ -94,14 +99,12 @@ private extension TermsViewController {
         view.addSubviews(
             backButton,
             titleLabel,
-            termsStackView,
-            nextButton
-        )
-        
-        termsStackView.addArrangedSubviews(
             agreeAllButton,
-            serviceTermView,
-            privacyTermView
+            serviceTermButton,
+            privacyTermButton,
+            serviceTermRedirectButton,
+            privacyTermRedirectButton,
+            nextButton
         )
     }
     
@@ -115,12 +118,40 @@ private extension TermsViewController {
             $0.leading.equalToSuperview().inset(16)
         }
         
-        termsStackView.snp.makeConstraints {
+        agreeAllButton.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(40)
             $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.height.equalTo(168)
+            $0.height.equalTo(56)
         }
         
+        serviceTermButton.snp.makeConstraints {
+            $0.top.equalTo(agreeAllButton.snp.bottom)
+            $0.leading.equalToSuperview().inset(16)
+            $0.height.equalTo(56)
+        }
+        
+        serviceTermRedirectButton.snp.makeConstraints {
+            $0.centerY.equalTo(serviceTermButton)
+            $0.leading.equalTo(serviceTermButton.snp.trailing)
+            $0.trailing.equalToSuperview().inset(12)
+            $0.height.equalTo(56)
+            $0.width.equalTo(40)
+        }
+        
+        privacyTermButton.snp.makeConstraints {
+            $0.top.equalTo(serviceTermButton.snp.bottom)
+            $0.leading.equalToSuperview().inset(16)
+            $0.height.equalTo(56)
+        }
+        
+        privacyTermRedirectButton.snp.makeConstraints {
+            $0.centerY.equalTo(privacyTermButton)
+            $0.leading.equalTo(privacyTermButton.snp.trailing)
+            $0.trailing.equalToSuperview().inset(12)
+            $0.height.equalTo(56)
+            $0.width.equalTo(40)
+        }
+
         nextButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.height.equalTo(61)
@@ -141,13 +172,17 @@ private extension TermsViewController {
         applyStateToUI()
     }
     
-    func agreeButtonTapped(_ sender: UIButton) {
-        sender == serviceTermView.agreeButton ? viewModel.toggleService() : viewModel.togglePrivacy()
+    func agreeButtonTapped(_ sender: AgreementItemButton) {
+        sender.isSelected.toggle()
+        sender == serviceTermButton ? viewModel.toggleService() : viewModel.togglePrivacy()
         applyStateToUI()
     }
     
     func termTitleButtonTapped(_ sender: UIButton) {
-        print("termTitleButtonTapped")
+        guard let url = sender == serviceTermRedirectButton ? URL(string: "https://www.notion.so/2d13aeb558c9801fb8c2db2ae6ac2c3e?source=copy_link") : URL(string: "https://www.notion.so/2d13aeb558c98003b480f83b06245430?source=copy_link") else { return }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
     
     func nextButtonTapped() {
@@ -162,16 +197,18 @@ private extension TermsViewController {
     func setupTarget() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         agreeAllButton.addTarget(self, action: #selector(agreeAllButtonTapped), for: .touchUpInside)
-        serviceTermView.agreeButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
-        privacyTermView.agreeButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
-        serviceTermView.titleButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
-        privacyTermView.titleButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
+        serviceTermButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
+        privacyTermButton.addTarget(self, action: #selector(agreeButtonTapped(_:)), for: .touchUpInside)
+        serviceTermRedirectButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
+        privacyTermRedirectButton.addTarget(self, action: #selector(termTitleButtonTapped(_:)), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     func applyStateToUI() {
-        serviceTermView.agreeButton.isSelected = viewModel.serviceAgreed
-        privacyTermView.agreeButton.isSelected = viewModel.privacyAgreed
+        serviceTermButton.isSelected = viewModel.serviceAgreed
+        privacyTermButton.isSelected = viewModel.privacyAgreed
+        serviceTermButton.updateUI()
+        privacyTermButton.updateUI()
         agreeAllButton.updateUI(agreeAllSelected: viewModel.allAgreed)
         updateNextButtonState(isEnabled: viewModel.allAgreed)
     }
