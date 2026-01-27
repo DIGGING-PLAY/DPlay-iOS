@@ -17,6 +17,8 @@ final class MyPageCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
     
+    var onUserSessionEnded: (() -> Void)?
+    
     private let myPageService = MyPageServiceImpl()
     private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
     private lazy var myPageUseCase = DefaultMyPageUseCase(repository: myPageRepository)
@@ -51,6 +53,10 @@ final class MyPageCoordinator: Coordinator {
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToAuth() {
+        onUserSessionEnded?()
     }
 
     func pop() {

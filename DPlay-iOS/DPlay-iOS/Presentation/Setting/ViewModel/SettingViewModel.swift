@@ -43,6 +43,7 @@ extension SettingViewModel {
     
     func logout() async throws {
         try await useCase.logout()
+        coordinator?.goToAuth()
     }
     
     func withdraw() async throws {

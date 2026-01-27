@@ -59,11 +59,13 @@ final class DefaultAuthUseCase: AuthUseCase {
     func logout() async throws {
         try await authRepository.logout()
         try authRepository.deleteTokens()
+        UserDefaults.standard.removeObject(forKey: "userId")
     }
     
     // 6. 회원탈퇴
     func withdraw() async throws {
         try await authRepository.withdraw()
         try authRepository.deleteTokens()
+        UserDefaults.standard.removeObject(forKey: "userId")
     }
 }
