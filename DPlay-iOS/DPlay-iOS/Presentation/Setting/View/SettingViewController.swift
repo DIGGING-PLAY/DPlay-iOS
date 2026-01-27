@@ -233,7 +233,7 @@ private extension SettingViewController {
     func deleteAccountButtonTapped() {
         AlertWindowManager.shared.present(
             title: "정말 탈퇴하시겠어요?",
-            message: "작성하신 글, 좋아요한 글, 저장한 글 등 모든 기록이 삭제되며 복구가 불가능해요.",
+            message: "작성하신 글, 좋아요한 글, 저장한 글 등\n모든 기록이 삭제되며 복구가 불가능해요.",
             actions: [
                 AlertAction(
                     buttonTitle: "탈퇴하기",
