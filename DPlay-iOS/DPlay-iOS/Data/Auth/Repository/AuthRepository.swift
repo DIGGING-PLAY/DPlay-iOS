@@ -9,7 +9,6 @@ import Foundation
 
 protocol AuthRepository {
     func loginWithApple(appleIdentityToken: String) async throws -> UserSession
-    func refreshToken() async throws -> UserSession
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> UserSession
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
