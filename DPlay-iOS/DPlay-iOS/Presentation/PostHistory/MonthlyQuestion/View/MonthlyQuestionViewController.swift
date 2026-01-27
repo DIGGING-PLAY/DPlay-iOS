@@ -105,9 +105,10 @@ private extension MonthlyQuestionViewController {
     func bindViewModel() {
         viewModel.$monthlyQuestions
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self else { return }
+            .sink { [weak self] result in
+                guard let self, let result else { return }
                 
+                emptyLabel.isHidden = !result.isEmpty
                 questionsTableView.reloadData()
             }.store(in: &cancellables)
     }
@@ -177,6 +178,7 @@ extension MonthlyQuestionViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.goToQuestionPosts()
+        let questionId = viewModel.monthlyQuestions?[indexPath.row].id ?? 0
+        viewModel.goToQuestionPosts(questionId: questionId)
     }
 }

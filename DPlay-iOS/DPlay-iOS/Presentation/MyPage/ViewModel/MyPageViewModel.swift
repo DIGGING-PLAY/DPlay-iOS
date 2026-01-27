@@ -17,16 +17,21 @@ final class MyPageViewModel: ObservableObject {
     @Published var registeredMusicsResult: MyPageTrackResult?
     @Published var archiveMusicsResult: MyPageTrackResult?
     
+    //MARK: - Properties
+    
+    private let userId: Int
+    
     //MARK: - Dependencies
     
     private let useCase: MyPageUseCase
-    weak var coordinator: MyPageCoordinator?
+    weak var coordinator: MyPageCoordinating?
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: MyPageCoordinator?) {
+    init(useCase: MyPageUseCase, coordinator: MyPageCoordinating?, userId: Int) {
         self.useCase = useCase
         self.coordinator = coordinator
+        self.userId = userId
     }
 }
 
@@ -36,7 +41,7 @@ extension MyPageViewModel {
     
     func loadUserProfile() async {
         do {
-            let result = try await useCase.getUserProfile()
+            let result = try await useCase.getUserProfile(userId: userId)
             
             self.userProfileResult = result
         } catch {
@@ -46,7 +51,7 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let result = try await useCase.getRegisteredTracks()
+            let result = try await useCase.getRegisteredTracks(userId: userId)
             
             self.registeredMusicsResult = result
         } catch {
@@ -56,7 +61,7 @@ extension MyPageViewModel {
     
     func loadArchiveMusics() async {
         do {
-            let result = try await useCase.getArchiveTracks()
+            let result = try await useCase.getArchiveTracks(userId: userId)
 
             self.archiveMusicsResult = result
         } catch {
@@ -72,12 +77,20 @@ extension MyPageViewModel {
     func goToProfileEdit(profileImage: UIImage? = nil) {
         let nickname = userProfileResult?.profile.user.nickname ?? ""
         
-        coordinator?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
+        (coordinator as? MyPageCoordinator)?.goToProfileEdit(nickname: nickname, profileImg: profileImage)
     }
     
     func goToSetting() {
         let pushOn = userProfileResult?.pushOn ?? false
         
-        coordinator?.goToSetting(pushOn: pushOn)
+        (coordinator as? MyPageCoordinator)?.goToSetting(pushOn: pushOn)
+    }
+    
+    func goToMusicDetail(trackId: String) {
+        coordinator?.goToMusicDetail(trackId: trackId)
+    }
+    
+    func popToPrevious() {
+        coordinator?.pop()
     }
 }

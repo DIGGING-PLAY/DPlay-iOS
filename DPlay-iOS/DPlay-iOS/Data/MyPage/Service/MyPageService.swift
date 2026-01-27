@@ -8,24 +8,104 @@
 import Foundation
 
 protocol MyPageService {
-    func fetchUserProfile() async throws -> MyPageProfileResponseDTO
-    func fetchRegisteredTracks() async throws -> MyPageTracksResponseDTO
-    func fetchArchiveTracks() async throws -> MyPageTracksResponseDTO
-    func updateUserProfile(nickname: String?, profileImg: Data?) async throws
+    func fetchUserProfile(userId: Int) async throws -> MyPageProfileResponseDTO
+    func fetchRegisteredTracks(userId: Int) async throws -> MyPageTracksResponseDTO
+    func fetchArchiveTracks(userId: Int) async throws -> MyPageTracksResponseDTO
+    func updateUserProfile(changeProfileRequest: UpdateProfileRequestDTO, profileImg: Data?) async throws
 }
 
-final class MockMyPageService: MyPageService {
-    func fetchUserProfile() async throws -> MyPageProfileResponseDTO {
-        return MockMyPage.profileSample
+final class MyPageServiceImpl: MyPageService {
+    private let apiService: BaseAPIService
+    
+    init(apiService: BaseAPIService = BaseAPIService()) {
+        self.apiService = apiService
     }
     
-    func fetchRegisteredTracks() async throws -> MyPageTracksResponseDTO {
-        return MockMyPage.registeredTracksSample
+    func fetchUserProfile(userId: Int) async throws -> MyPageProfileResponseDTO {
+        let result = await apiService.request(
+            MyPageAPI.fetchUserProfile(userId: userId),
+            MyPageProfileResponseDTO.self
+        )
+        
+        switch result {
+        case .success(let dto):
+            guard let dto = dto else {
+                throw AppError.emptyData
+            }
+            return dto
+            
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .decodeError:  throw AppError.decodeError
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        default:            throw AppError.unknown
+        }
     }
     
-    func fetchArchiveTracks() async throws -> MyPageTracksResponseDTO {
-        return MockMyPage.archiveTracksSample
+    func fetchRegisteredTracks(userId: Int) async throws -> MyPageTracksResponseDTO {
+        let result = await apiService.request(
+            MyPageAPI.fetchRegisteredTracks(userId: userId),
+            MyPageTracksResponseDTO.self
+        )
+        
+        switch result {
+        case .success(let dto):
+            guard let dto = dto else {
+                throw AppError.emptyData
+            }
+            return dto
+            
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .decodeError:  throw AppError.decodeError
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        default:            throw AppError.unknown
+        }
     }
     
-    func updateUserProfile(nickname: String? = nil, profileImg: Data? = nil) async throws { }
+    func fetchArchiveTracks(userId: Int) async throws -> MyPageTracksResponseDTO {
+        let result = await apiService.request(
+            MyPageAPI.fetchArchiveTracks(userId: userId),
+            MyPageTracksResponseDTO.self
+        )
+        
+        switch result {
+        case .success(let dto):
+            guard let dto = dto else {
+                throw AppError.emptyData
+            }
+            return dto
+            
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .decodeError:  throw AppError.decodeError
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        default:            throw AppError.unknown
+        }
+    }
+    
+    func updateUserProfile(changeProfileRequest: UpdateProfileRequestDTO, profileImg: Data?) async throws {
+        let result = await apiService.request(
+            UploadAPI.updateUserProfile(changeProfileRequest: changeProfileRequest, profileImg: profileImg),
+            EmptyDTO.self
+        )
+        
+        switch result {
+        case .success:
+            return
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        case .conflict:     throw NicknameError.duplicate
+        default:            throw AppError.unknown
+        }
+    }
 }
