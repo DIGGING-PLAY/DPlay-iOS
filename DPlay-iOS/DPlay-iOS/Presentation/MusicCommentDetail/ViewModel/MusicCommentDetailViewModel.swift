@@ -137,4 +137,9 @@ extension MusicCommentDetailViewModel {
     func didTapBack() {
         coordinator?.pop()
     }
+    
+    func goToScrapTab() {
+        didTapBack()
+        coordinator?.goToScrapTab()
+    }
 }

@@ -383,8 +383,7 @@ private extension MusicCommentDetailViewController {
         
         scrapButton.addAction(
             UIAction { [weak self] _ in
-                guard let self else { return }
-                Task { await self.viewModel.toggleScrap() }
+                self?.handleScrapTapped()
             },
             for: .touchUpInside
         )
@@ -443,6 +442,24 @@ private extension MusicCommentDetailViewController {
             : IconLiterals.ic_bookmark_24
 
         scrapButton.setImage(image, for: .normal)
+    }
+    
+    func handleScrapTapped() {
+        let isScrapped = viewModel.detail?.isScrapped == true
+
+        Task {
+            await viewModel.toggleScrap()
+        }
+
+        guard isScrapped == false else { return }
+
+        ToastManager.shared.show(
+            message: "보관함에 추가했어요",
+            actionText: "보러가기",
+            action: { [weak self] in
+                self?.viewModel.goToScrapTab()
+            }
+        )
     }
 }
 

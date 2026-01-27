@@ -79,6 +79,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     func goToScrapTab() {
+        navigationController.rootTabBarController()?.setTabBarHidden(false)
         onRequestSwitchToMyPage?()
     }
     

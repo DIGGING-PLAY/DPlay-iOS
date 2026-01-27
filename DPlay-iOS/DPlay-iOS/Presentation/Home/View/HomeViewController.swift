@@ -429,6 +429,8 @@ private extension HomeViewController {
     func showTopUI(_ post: Post) {
         badgeView.configure(badge: post.badges)
         
+        musicScrapButton.isHidden = false
+        
         let image = post.isScrapped
         ? IconLiterals.ic_bookmark_fill_24
         : IconLiterals.ic_bookmark_24
