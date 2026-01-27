@@ -29,7 +29,7 @@ struct HomeFeedPostDTO: Decodable {
     let postId: Int
     let isScrapped: Bool
     let content: String
-    let badges: HomeFeedBadgesDTO
+    let badge: HomeFeedBadgeDTO?
     let track: HomeFeedTrackDTO
     let user: HomeFeedUserDTO
     let like: HomeFeedLikeDTO
@@ -37,10 +37,10 @@ struct HomeFeedPostDTO: Decodable {
 
 // MARK: - HomeFeedBadgesDTO
 
-struct HomeFeedBadgesDTO: Decodable {
-    let isEditorPick: Bool
-    let isPopular: Bool
-    let isNew: Bool
+enum HomeFeedBadgeDTO: String, Decodable {
+    case editor = "EDITOR"
+    case best   = "BEST"
+    case new    = "NEW"
 }
 
 // MARK: - HomeFeedTrackDTO
@@ -85,6 +85,16 @@ extension HomeFeedDataDTO {
     }
 }
 
+extension HomeFeedBadgeDTO {
+    func toEntity() -> HomeFeedBadge {
+        switch self {
+        case .editor: return .editor
+        case .best:   return .best
+        case .new:    return .new
+        }
+    }
+}
+
 extension HomeFeedPostDTO {
     func toEntity() -> Post {
         Post(
@@ -93,30 +103,11 @@ extension HomeFeedPostDTO {
             user: user.toEntity(),
             track: track.toEntity(),
             like: like.toEntity(),
-            badges: badges.toEntity(),
+            badges: badge?.toEntity() ?? .nomal,
             isScrapped: isScrapped
         )
     }
 }
-
-extension HomeFeedBadgesDTO {
-    func toEntity() -> HomeFeedBadge {
-        if isEditorPick {
-            return .editor
-        }
-
-        if isPopular {
-            return .best
-        }
-
-        if isNew {
-            return .new
-        }
-
-        return .nomal
-    }
-}
-
 
 extension HomeFeedUserDTO {
     func toEntity() -> User {

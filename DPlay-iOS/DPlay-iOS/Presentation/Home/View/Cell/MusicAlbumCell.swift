@@ -321,6 +321,14 @@ extension MusicAlbumCell {
             stopRotating()
         }
     }
+    
+    func updateLikeUI(_ like: Like) {
+        let image = like.isLiked
+            ? IconLiterals.ic_heart_w_fill
+            : IconLiterals.ic_heart_w
+        userHeartButton.setImage(image, for: .normal)
+        heartCountLabel.text = "\(like.count)"
+    }
 }
 
 // MARK: - 회전 애니메이션
