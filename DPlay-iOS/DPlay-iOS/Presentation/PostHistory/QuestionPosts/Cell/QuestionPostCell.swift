@@ -22,7 +22,6 @@ final class QuestionPostCell: UITableViewCell {
     private let containerView = UIView()
     private let coverImageView = UIImageView()
     private let editorBadgeImageView = UIImageView(image: IconLiterals.ic_editor_20)
-    private let moreButton = UIButton()
     private let musicTitleLabel = UILabel()
     private let artistNameLabel = UILabel()
     private let commentLabel = UILabel()
@@ -35,8 +34,6 @@ final class QuestionPostCell: UITableViewCell {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        
-        setupTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -75,12 +72,8 @@ private extension QuestionPostCell {
             $0.contentMode = .scaleAspectFill
         }
         
-        moreButton.do {
-            $0.setImage(IconLiterals.ic_more_g_20, for: .normal)
-        }
-        
         musicTitleLabel.do {
-            $0.text = "ㅈ ㅣ ㅂ"
+            $0.text = " "
             $0.textColor = .dplay_black
             $0.setTextStyle(.bodyBold16)
             $0.numberOfLines = 1
@@ -88,13 +81,13 @@ private extension QuestionPostCell {
         }
         
         artistNameLabel.do {
-            $0.text = "한로로"
+            $0.text = " "
             $0.textColor = .gray400
             $0.setTextStyle(.capMedi12)
          }
         
         commentLabel.do {
-            $0.text = "저쪽 집에 불이 어쩌고"
+            $0.text = " "
             $0.textColor = .gray500
             $0.setTextStyle(.capMedi12)
             $0.numberOfLines = 1
@@ -107,7 +100,6 @@ private extension QuestionPostCell {
             containerView,
             coverImageView,
             editorBadgeImageView,
-            moreButton,
             musicTitleLabel,
             artistNameLabel,
             commentLabel
@@ -134,14 +126,8 @@ private extension QuestionPostCell {
             $0.trailing.equalTo(coverImageView).offset(4)
         }
         
-        moreButton.snp.makeConstraints {
-            $0.top.equalTo(coverImageView.snp.top).offset(7)
-            $0.trailing.equalToSuperview().inset(12)
-            $0.size.equalTo(20)
-        }
-        
         musicTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(moreButton.snp.bottom)
+            $0.bottom.equalTo(commentLabel.snp.top).offset(-4)
             $0.leading.equalTo(coverImageView.snp.trailing).offset(8)
         }
         
@@ -155,6 +141,7 @@ private extension QuestionPostCell {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(4)
             $0.leading.equalTo(coverImageView.snp.trailing).offset(8)
             $0.trailing.equalToSuperview().inset(12)
+            $0.bottom.equalTo(coverImageView)
         }
     }
 }
@@ -165,15 +152,6 @@ private extension QuestionPostCell {
     
     func moreButtonTapped() {
         onTapMoreButton?()
-    }
-}
-
-private extension QuestionPostCell {
-    
-    // MARK: - Private Method
-    
-    func setupTarget() {
-        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
     }
 }
 
