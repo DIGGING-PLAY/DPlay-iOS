@@ -34,8 +34,7 @@ final class DefaultAuthUseCase: AuthUseCase {
     
     // 회원가입
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws {
-        let profileImgData = profileImg?.jpegData(compressionQuality: 0.5)
-        //업로드 파일 용량으로 인한 413 에러를 반환하는 관계로 임의로 0.5로 지정 (논의 필요)
+        let profileImgData = profileImg?.jpegData(compressionQuality: 0.9)
         
         let userSession = try await authRepository.singUp(appleIdentityToken: appleIdentityToken, signupRequestBody: signupRequestBody, profileImg: profileImgData)
         try authRepository.saveTokens(userSession)
