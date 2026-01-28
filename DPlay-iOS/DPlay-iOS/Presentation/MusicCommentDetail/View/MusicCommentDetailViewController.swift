@@ -70,6 +70,7 @@ final class MusicCommentDetailViewController: UIViewController {
         bind()
         bindActions()
         bindNavigationBar()
+        setupProfileTap()
     }
     
     private func loadData() {
@@ -344,9 +345,13 @@ private extension MusicCommentDetailViewController {
                 } else {
                     profileImageView.image = ImageLiterals.img_default_profile
                 }
-                // badge가 editor면 최종 override
+                
+                // editor 작성 글이면 기본 이미지 + 터치 불가 (프로필 이동 불가)
                 if self.viewModel.badge == .editor {
                     self.profileImageView.image = ImageLiterals.img_editor_profile
+                    self.profileStack.isUserInteractionEnabled = false
+                } else {
+                    self.profileStack.isUserInteractionEnabled = true
                 }
                 
                 // 좋아요 버튼
@@ -391,7 +396,7 @@ private extension MusicCommentDetailViewController {
         playButton.addAction(
             UIAction { [weak self] _ in
                 guard let self else { return }
-                Task { await self.viewModel.didTapPreview()}
+                Task { self.viewModel.didTapPreview()}
             },
             for: .touchUpInside
         )
@@ -425,6 +430,21 @@ private extension MusicCommentDetailViewController {
         window.addSubview(sheet)
         sheet.snp.makeConstraints { $0.edges.equalToSuperview() }
         sheet.present()
+    }
+    
+    func setupProfileTap() {
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTapProfile)
+        )
+        profileStack.addGestureRecognizer(tap)
+        profileStack.isUserInteractionEnabled = true
+    }
+}
+
+@objc private extension MusicCommentDetailViewController {
+    func didTapProfile() {
+        print("상대방 프로필로 이동")
     }
 }
 
@@ -496,7 +516,24 @@ private extension MusicCommentDetailViewController {
             primaryButtonTitle: "삭제하기",
             secondaryButtonTitle: "취소하기",
             primaryAction: { [weak self] in
-                Task { await self?.viewModel.deletePost() }
+                AlertWindowManager.shared.present(
+                    title: "정말 삭제하시겠어요?",
+                    message: nil,
+                    actions: [
+                        AlertAction(
+                            buttonTitle: "취소",
+                            style: .secondaryLeft,
+                            onTap: {
+                                print("머무리기")
+                            }),
+                        AlertAction(
+                            buttonTitle: "삭제하기",
+                            style: .primaryRight,
+                            onTap: {
+                                Task { await self?.viewModel.deletePost() }
+                            })
+                    ],
+                )
             },
             secondaryAction: {}
         )
