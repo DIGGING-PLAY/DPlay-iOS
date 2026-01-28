@@ -11,8 +11,7 @@ final class MusicAddCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
-    var onFinishAdd: (() -> Void)?
-    
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
