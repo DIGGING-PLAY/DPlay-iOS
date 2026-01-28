@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeCoordinator: Coordinator {
+final class HomeCoordinator: Coordinator, DetailCoordinating {
     
     var childCoordinators: [Coordinator] = []
     let navigationController: UINavigationController
@@ -19,9 +19,13 @@ final class HomeCoordinator: Coordinator {
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
     
-    private let postHistoryService = MockPostHistoryService()
+    private let postHistoryService = PostHistoryServiceImpl()
     private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
     private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
+    
+    private let myPageService = MyPageServiceImpl()
+    private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
+    private lazy var myPageUseCase = DefaultMyPageUseCase(repository: myPageRepository)
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -69,8 +73,8 @@ final class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func goToQuestionPosts() {
-        let vm = QuestionPostsViewModel(coordinator: self)
+    func goToQuestionPosts(questionId: Int) {
+        let vm = QuestionPostsViewModel(useCase: postHistoryUseCase, coordinator: self, questionId: questionId)
         let vc = QuestionPostsViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
@@ -81,8 +85,13 @@ final class HomeCoordinator: Coordinator {
         onRequestSwitchToMyPage?()
     }
     
-    func goToUserProfile() {
-        // 유저 프로필 탐색
+    func goToUserProfile(userId: Int) {
+        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: userId)
+        let vc = MyPageViewController(viewModel: vm)
+        
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func pop() {

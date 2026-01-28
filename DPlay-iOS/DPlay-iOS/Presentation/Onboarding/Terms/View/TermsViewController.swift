@@ -133,7 +133,7 @@ private extension TermsViewController {
     //MARK: - @objc Method
     
     func backButtonTapped() {
-        print("backButtonTapped")
+        viewModel.popToPrevious()
     }
     
     func agreeAllButtonTapped() {

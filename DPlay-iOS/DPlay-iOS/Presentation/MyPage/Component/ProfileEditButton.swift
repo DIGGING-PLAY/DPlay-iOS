@@ -66,10 +66,14 @@ extension ProfileEditButton {
     //MARK: - setter
     
     func setProfileButton(isHost: Bool, profileImageUrl: String) {
-        guard let url = URL(string: profileImageUrl) else { return }
-        profileImageView.kf.setImage(with: url)
         editImageView.isHidden = !isHost
         isEnabled = isHost
+        
+        if let url = URL(string: profileImageUrl) {
+            profileImageView.kf.setImage(with: url)
+        } else {
+            profileImageView.image = ImageLiterals.img_profile
+        }
     }
     
     //MARK: - getter

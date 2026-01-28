@@ -14,6 +14,7 @@ protocol MultipartAPI: BaseAPI {
 
 enum UploadAPI {
     case signup(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?)
+    case updateUserProfile(changeProfileRequest: UpdateProfileRequestDTO?, profileImg: Data?)
 }
 
 extension UploadAPI: MultipartAPI {
@@ -21,12 +22,14 @@ extension UploadAPI: MultipartAPI {
     var path: String {
         switch self {
         case .signup: return "/auth/signup"
+        case .updateUserProfile: return "/users/me"
         }
     }
     
     var method: HTTPMethod {
         switch self {
         case .signup: return .post
+        case .updateUserProfile: return .patch
         }
     }
     
@@ -38,6 +41,8 @@ extension UploadAPI: MultipartAPI {
         switch self {
         case .signup(let token, _, _):
             return ["Authorization": token]
+        default:
+            return [:]
         }
     }
     
@@ -62,6 +67,32 @@ extension UploadAPI: MultipartAPI {
                     jsonData,
                     withName: "signupRequest",
                     fileName: "signupRequest.json",
+                    mimeType: "application/json"
+                )
+            }
+        case .updateUserProfile(let changeProfileRequest, let profileImg):
+            if let imageData = profileImg {
+                form.append(
+                    imageData,
+                    withName: "profileImg",
+                    fileName: "profileImg.jpeg",
+                    mimeType: "image/jpeg"
+                )
+            } else {
+                form.append(
+                    Data(),
+                    withName: "profileImg",
+                    fileName: "profileImg.jpeg",
+                    mimeType: "image/jpeg"
+                )
+            }
+            
+            let encoder = JSONEncoder()
+            if let jsonData = try? encoder.encode(changeProfileRequest) {
+                form.append(
+                    jsonData,
+                    withName: "changeProfileRequest",
+                    fileName: "changeProfileRequest.json",
                     mimeType: "application/json"
                 )
             }

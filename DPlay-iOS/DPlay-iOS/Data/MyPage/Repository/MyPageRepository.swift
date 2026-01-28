@@ -8,9 +8,9 @@
 import Foundation
 
 protocol MyPageRepository {
-    func fetchUserProfile() async throws -> MyPageUserProfileResult
-    func fetchRegisteredTracks() async throws -> MyPageTrackResult
-    func fetchArchiveTracks() async throws -> MyPageTrackResult
+    func fetchUserProfile(userId: Int) async throws -> MyPageUserProfileResult
+    func fetchRegisteredTracks(userId: Int) async throws -> MyPageTrackResult
+    func fetchArchiveTracks(userId: Int) async throws -> MyPageTrackResult
     func updateUserProfile(nickname: String?, profileImg: Data?) async throws
 }
 
@@ -22,8 +22,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         self.service = service
     }
 
-    func fetchUserProfile() async throws -> MyPageUserProfileResult {
-        let response = try await service.fetchUserProfile()
+    func fetchUserProfile(userId: Int) async throws -> MyPageUserProfileResult {
+        let response = try await service.fetchUserProfile(userId: userId)
         
         let userProfile = response.data.toEntity()
         let result = MyPageUserProfileResult(
@@ -35,8 +35,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         return result
     }
 
-    func fetchRegisteredTracks() async throws -> MyPageTrackResult {
-        let response = try await service.fetchRegisteredTracks()
+    func fetchRegisteredTracks(userId: Int) async throws -> MyPageTrackResult {
+        let response = try await service.fetchRegisteredTracks(userId: userId)
         
         let musics = response.data.toEntity()
         let result = MyPageTrackResult(
@@ -49,8 +49,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         return result
     }
 
-    func fetchArchiveTracks() async throws -> MyPageTrackResult {
-        let response = try await service.fetchArchiveTracks()
+    func fetchArchiveTracks(userId: Int) async throws -> MyPageTrackResult {
+        let response = try await service.fetchArchiveTracks(userId: userId)
 
         let musics = response.data.toEntity()
         let result = MyPageTrackResult(
@@ -63,5 +63,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         return result
     }
     
-    func updateUserProfile(nickname: String? = nil, profileImg: Data? = nil) async throws { }
+    func updateUserProfile(nickname: String?, profileImg: Data?) async throws {
+        let requestBody = UpdateProfileRequestDTO(nickname: nickname)
+        try await service.updateUserProfile(changeProfileRequest: requestBody, profileImg: profileImg)
+    }
 }

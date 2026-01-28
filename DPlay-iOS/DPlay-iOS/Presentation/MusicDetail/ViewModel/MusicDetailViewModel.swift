@@ -14,10 +14,10 @@ final class MusicDetailViewModel: ObservableObject {
     @Published var detail: MusicDetail?
     
     private let useCase: MusicDetailUseCase
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: DetailCoordinating?
     private let trackId: String
     
-    init(trackId: String, useCase: MusicDetailUseCase,  coordinator: HomeCoordinator?) {
+    init(trackId: String, useCase: MusicDetailUseCase,  coordinator: DetailCoordinating?) {
         self.trackId = trackId
         self.useCase = useCase
         self.coordinator = coordinator

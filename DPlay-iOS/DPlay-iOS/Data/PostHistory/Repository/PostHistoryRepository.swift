@@ -9,6 +9,7 @@ import Foundation
 
 protocol PostHistoryRepository {
     func fetchMonthlyQuestions(year: Int, month: Int) async throws -> [MonthlyQuestion]
+    func fetchQuestionPosts(questionId: Int) async throws -> QuestionPosts
 }
 
 final class DefaultPostHistoryRepository: PostHistoryRepository {
@@ -24,5 +25,14 @@ final class DefaultPostHistoryRepository: PostHistoryRepository {
         guard let data = response.data else { return [MonthlyQuestion]() }
         
         return data.questions.map { $0.toEntity() }
+    }
+    
+    func fetchQuestionPosts(questionId: Int) async throws -> QuestionPosts {
+        let response = try await service.fetchQuestionPosts(questionId: questionId)
+        
+        guard let data = response.data else { throw AppError.emptyData }
+        let entity = data.toEntity()
+        
+        return entity
     }
 }
