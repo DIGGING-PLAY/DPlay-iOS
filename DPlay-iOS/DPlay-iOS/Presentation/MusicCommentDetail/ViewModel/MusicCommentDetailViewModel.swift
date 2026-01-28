@@ -55,7 +55,7 @@ extension MusicCommentDetailViewModel {
     func deletePost() async {
         do {
             try await commentDetailUseCase.deletePost(postId: postId)
-            coordinator?.onCommentDeleted?() 
+            coordinator?.requestHomeRefresh?() 
             coordinator?.pop()
         } catch {
             print("❌ 삭제 실패:", error)

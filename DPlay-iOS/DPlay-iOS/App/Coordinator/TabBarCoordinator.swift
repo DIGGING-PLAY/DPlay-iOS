@@ -13,7 +13,8 @@ final class TabBarCoordinator: Coordinator {
     let rootViewController = MainTabBarController()
     
     private let router: AppRouter
-
+    private weak var homeCoordinator: HomeCoordinator?
+    
     init(router: AppRouter) {
         self.router = router
     }
@@ -33,6 +34,7 @@ final class TabBarCoordinator: Coordinator {
             self?.startAddFlow()
         }
         homeCoordinator.start()
+        self.homeCoordinator = homeCoordinator
         
         // 2) My Flow
         let myPageNav = UINavigationController()
@@ -60,7 +62,9 @@ private extension TabBarCoordinator {
         let addCoordinator = MusicAddCoordinator(navigationController: addNav)
         childCoordinators.append(addCoordinator)
         addCoordinator.start()
-
+        addCoordinator.onFinishAdd = { [weak self] in
+            self?.homeCoordinator?.requestHomeRefresh?()
+        }
         addNav.modalPresentationStyle = .fullScreen
         rootViewController.present(addNav, animated: true) 
     }

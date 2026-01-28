@@ -59,6 +59,7 @@ extension MusicCommentViewModel {
             do {
                 _ = try await useCase.createPost(comment: musicComment)
                 coordinator?.dismiss()
+                coordinator?.onFinishAdd?()
             } catch {
                 errorMessage = "코멘트 등록에 실패했습니다."
             }
