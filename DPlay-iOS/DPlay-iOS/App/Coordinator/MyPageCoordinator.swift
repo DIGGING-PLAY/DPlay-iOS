@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MyPageCoordinating: AnyObject {
+protocol DetailCoordinating: AnyObject {
     func goToMusicDetail(trackId: String)
     func pop()
 }
@@ -67,7 +67,7 @@ final class MyPageCoordinator: Coordinator {
     }
 }
 
-extension MyPageCoordinator: MyPageCoordinating {
+extension MyPageCoordinator: DetailCoordinating {
     func goToMusicDetail(trackId: String) {
         let service = MockMusicDetailService()
         let repository = DefaultMusicDetailRepository(service: service)

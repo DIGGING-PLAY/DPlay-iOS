@@ -24,11 +24,11 @@ final class MyPageViewModel: ObservableObject {
     //MARK: - Dependencies
     
     private let useCase: MyPageUseCase
-    weak var coordinator: MyPageCoordinating?
+    weak var coordinator: DetailCoordinating?
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: MyPageCoordinating?, userId: Int) {
+    init(useCase: MyPageUseCase, coordinator: DetailCoordinating?, userId: Int) {
         self.useCase = useCase
         self.coordinator = coordinator
         self.userId = userId
