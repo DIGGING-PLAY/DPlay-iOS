@@ -47,6 +47,9 @@ final class MusicCommentDetailViewController: UIViewController {
     private let profileName = UILabel()
     private let profileStack = UIStackView()
     
+    private let loadingOverlayView = UIView()
+    private let loadingIndicator = UIActivityIndicatorView(style: .large)
+    
     // MARK: - Life Cycle
     
     init(viewModel: MusicCommentDetailViewModel) {
@@ -66,7 +69,7 @@ final class MusicCommentDetailViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        setContentHidden(true)
+        startLoading()
         bind()
         bindActions()
         bindNavigationBar()
@@ -74,6 +77,7 @@ final class MusicCommentDetailViewController: UIViewController {
     }
     
     private func loadData() {
+        startLoading()
         Task { await viewModel.loadDetail() }
     }
 }
@@ -108,7 +112,7 @@ private extension MusicCommentDetailViewController {
         
         musicTitle.do {
             $0.setTextStyle(.titleBold18)
-            $0.text = "내일에서 온 티켓"
+            $0.text = nil
             $0.textColor = .dplay_black
             $0.numberOfLines = 2
             $0.textAlignment = .center
@@ -116,7 +120,7 @@ private extension MusicCommentDetailViewController {
         
         artistLabel.do {
             $0.setTextStyle(.bodySemi14)
-            $0.text = "한로로"
+            $0.text = nil
             $0.textColor = .gray400
             $0.textAlignment = .center
         }
@@ -147,7 +151,7 @@ private extension MusicCommentDetailViewController {
             config.imagePadding = 8
             
             // 텍스트
-            var titleAttr = AttributedString("53")
+            var titleAttr = AttributedString("0")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = UIColor.dplay_pink
             config.attributedTitle = titleAttr
@@ -172,7 +176,7 @@ private extension MusicCommentDetailViewController {
         
         commentLabel.do {
             $0.setTextStyle(.bodySemi14)
-            $0.text = "진짜 나오자마자 들었는데 이 노래가 최고 출근곡, 퇴근곡, 노동곡 다 되는 짱제로! 일하는 매장에서도 수십 번씩 틀고 있어요. 모두가 알아야 돼.."
+            $0.text = nil
             $0.numberOfLines = 0
         }
         
@@ -189,7 +193,7 @@ private extension MusicCommentDetailViewController {
         profileName.do {
             $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
-            $0.text = "윤서얌어렵다이거"
+            $0.text = nil
         }
         
         profileStack.do {
@@ -197,10 +201,22 @@ private extension MusicCommentDetailViewController {
             $0.spacing = 6
             $0.alignment = .center
         }
+        
+        loadingOverlayView.do {
+            $0.backgroundColor = .white
+            $0.isHidden = true
+        }
+        
+        loadingIndicator.do {
+            $0.hidesWhenStopped = true
+        }
     }
     
     func setupHierarchy() {
         view.addSubview(scrollView)
+        view.addSubview(loadingOverlayView)
+        loadingOverlayView.addSubview(loadingIndicator)
+        
         scrollView.addSubview(contentView)
         scrollView.contentInsetAdjustmentBehavior = .never
         
@@ -250,6 +266,14 @@ private extension MusicCommentDetailViewController {
         contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.width.equalToSuperview()
+        }
+        
+        loadingOverlayView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
         navigationBarView.snp.makeConstraints {
@@ -325,7 +349,7 @@ private extension MusicCommentDetailViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] detail in
                 guard let self, let detail else { return }
-                self.setContentHidden(false)
+                self.stopLoading()
                 
                 // 텍스트
                 self.musicTitle.text = detail.track.title
@@ -402,14 +426,16 @@ private extension MusicCommentDetailViewController {
         )
     }
     
-    /// 데이터 오기전 기본 값 보임 방지
-    private func setContentHidden(_ hidden: Bool) {
-        topOverlayImageView.isHidden = hidden
-        albumContainer.isHidden = hidden
-        musicTitle.isHidden = hidden
-        artistLabel.isHidden = hidden
-        actionButtons.isHidden = hidden
-        commentCard.isHidden = hidden
+    func startLoading() {
+        loadingOverlayView.isHidden = false
+        loadingIndicator.startAnimating()
+        view.isUserInteractionEnabled = false
+    }
+    
+    func stopLoading() {
+        loadingIndicator.stopAnimating()
+        loadingOverlayView.isHidden = true
+        view.isUserInteractionEnabled = true
     }
 
     func presentReportSheet() {
