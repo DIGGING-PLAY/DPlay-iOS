@@ -64,7 +64,6 @@ final class HomeViewController: UIViewController {
     required init?(coder: NSCoder) { fatalError() }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadData()
         hapticGenerator.prepare()
         // 글 작성 이후 fullScreen 내려올때 팝업 뜸 방지
         lastOffsetX = editorCollectionView.contentOffset.x
@@ -73,6 +72,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
         setupStyle()
         setupHierarchy()
         setupLayout()
