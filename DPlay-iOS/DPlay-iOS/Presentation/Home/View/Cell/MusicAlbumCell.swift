@@ -87,9 +87,10 @@ private extension MusicAlbumCell {
         overlayView.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.25)
         
         userProfileImageView.do {
-            $0.contentMode = .scaleAspectFill
-            $0.roundCorners(cornerRadius: 6)
-            $0.image = ImageLiterals.img_mock_profile
+            $0.contentMode = .scaleToFill
+            $0.clipsToBounds = true
+            $0.roundCorners(cornerRadius: 14)
+            $0.image = ImageLiterals.img_default_profile
         }
         
         userNameLabel.do {
@@ -296,7 +297,15 @@ extension MusicAlbumCell {
             musicAlbumCoverImageView.image = ImageLiterals.img_card_cover
         }
         userNameLabel.text = post.user.nickname
-        userProfileImageView.image = UIImage(named: "img_mock_profile")
+       
+        if let profileImageString = post.user.profileImage,
+           let profileImageURL = URL(string: profileImageString)
+        {
+            userProfileImageView.setImage(url: profileImageURL)
+        } else {
+            userProfileImageView.image = ImageLiterals.img_default_profile
+        }
+        
         userCommentLabel.text = post.content
         let image = post.like.isLiked
             ? IconLiterals.ic_heart_w_fill
@@ -306,10 +315,9 @@ extension MusicAlbumCell {
         
         // editor 작성 글이면 기본 이미지, 및 터치 불가능
         if post.badges == .editor {
-            userProfileImageView.image = ImageLiterals.Img_editor_profile
+            userProfileImageView.image = ImageLiterals.img_editor_profile
             profileTapAreaView.isUserInteractionEnabled = false
         } else {
-            userProfileImageView.image = ImageLiterals.img_mock_profile
             profileTapAreaView.isUserInteractionEnabled = true
         }
     }

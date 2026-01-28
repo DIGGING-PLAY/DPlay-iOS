@@ -29,11 +29,17 @@ final class TabBarCoordinator: Coordinator {
         homeCoordinator.onRequestSwitchToMyPage = { [weak self] in
             self?.switchToMyPageTab()
         }
+        homeCoordinator.onRequestGoToPostMusicComment = { [weak self] in
+            self?.startAddFlow()
+        }
         homeCoordinator.start()
-        
+   
         // 2) My Flow
         let myPageNav = UINavigationController()
         let myPageCoordinator = MyPageCoordinator(navigationController: myPageNav)
+        myPageCoordinator.onRequestSwitchToMyPage = { [weak self] in
+            self?.switchToMyPageTab()
+        }
         myPageCoordinator.start()
         myPageCoordinator.onUserSessionEnded = { [weak self] in
             guard let self else { return }
@@ -62,7 +68,6 @@ private extension TabBarCoordinator {
         let addCoordinator = MusicAddCoordinator(navigationController: addNav)
         childCoordinators.append(addCoordinator)
         addCoordinator.start()
-
         addNav.modalPresentationStyle = .fullScreen
         rootViewController.present(addNav, animated: true) 
     }

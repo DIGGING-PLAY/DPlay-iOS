@@ -14,6 +14,7 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
     
     /// 상위(TabBar)로 네비게이션 요청을 전달하는 클로저
     var onRequestSwitchToMyPage: (() -> Void)?
+    var onRequestGoToPostMusicComment: (() -> Void)?
     
     private let service = MockHomeService()
     private lazy var repository = DefaultHomeRepository(service: service)
@@ -43,23 +44,30 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
         let homeUseCase = DefaultHomeViewUseCase(repository: homeRepository)
         let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
         
-        let viewModel = HomeViewModel(
+        let homeViewModel = HomeViewModel(
             homeViewUseCase: homeUseCase,
             previewMusicUseCase: previewUseCase,
             coordinator: self
         )
         
-        let vc = HomeViewController(viewModel: viewModel)
+        let vc = HomeViewController(viewModel: homeViewModel)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
     
-    func goToMusicDetail(trackId: String) {
-        let service = MockMusicDetailService()
-        let repository = DefaultMusicDetailRepository(service: service)
-        let useCase = DefaultMusicDetailUseCase(repository: repository)
-        let vm = MusicDetailViewModel(trackId: trackId, useCase: useCase, coordinator: self)
-        let vc = MusicDetailViewController(viewModel: vm)
+    func goToMusicCommentDetail(postId: Int, badge: Badge) {
+        let commentDetailService = MusicDetailNetworkServiceImpl()
+        let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
+       
+        let commentRepository = DefaultCommentMusicDetailRepository(service: commentDetailService)
+        let previewRepository = DefaultPreviewMusicRepository(service: previewService)
+       
+        let commentDetailUseCase = DefaultMusicDetailUseCase(repository: commentRepository)
+        let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
+        
+        let vm = MusicCommentDetailViewModel(postId: postId, initialBadge: badge, commentDetailUseCase: commentDetailUseCase, previewMusicUseCase: previewUseCase, coordinator: self)
+        
+        let vc = MusicCommentDetailViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
@@ -82,6 +90,7 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
     }
     
     func goToScrapTab() {
+        navigationController.rootTabBarController()?.setTabBarHidden(false)
         onRequestSwitchToMyPage?()
     }
     
@@ -93,6 +102,11 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func goToPostMusicComment() {
+        onRequestGoToPostMusicComment?()
+    }
+    
     
     func pop() {
         navigationController.popViewController(animated: true)

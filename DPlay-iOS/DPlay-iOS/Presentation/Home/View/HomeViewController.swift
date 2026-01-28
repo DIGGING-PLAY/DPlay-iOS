@@ -28,6 +28,9 @@ final class HomeViewController: UIViewController {
     private var isRefreshing = false
     private var scrapToggleIndex: Int?
     private var likeToggleIndex: Int?
+    /// 락 셀에서 시작한 패닝 제스처인지 여부
+    private var isPanStartedOnLockedCell = false
+    private var didShowLockedPopup = false
 
     // MARK: - UI Properties
     
@@ -41,7 +44,7 @@ final class HomeViewController: UIViewController {
     private let questionTitleLabel = UILabel()
     
     private var popupView: RecommendationPopupView?
-    private var musicStateBadgeView = HomeFeedBadgeView()
+    private var badgeView = BadgeView()
     private let musicScrapButton = UIButton()
     private let editorCollectionView = UICollectionView(
         frame: .zero,
@@ -62,12 +65,14 @@ final class HomeViewController: UIViewController {
     required init?(coder: NSCoder) { fatalError() }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadData()
         hapticGenerator.prepare()
+        // 화면 재진입 시 다시 스크롤로 팝업을 볼 수 있도록 초기화
+        didShowLockedPopup = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
         setupStyle()
         setupHierarchy()
         setupLayout()
@@ -145,7 +150,7 @@ private extension HomeViewController {
             todayDateLabel,
             refreshButton,
             questionContainerView,
-            musicStateBadgeView,
+            badgeView,
             editorCollectionView,
             musicScrapButton
         )
@@ -198,7 +203,7 @@ private extension HomeViewController {
             $0.bottom.equalToSuperview().inset(12)
         }
         
-        musicStateBadgeView.snp.makeConstraints {
+        badgeView.snp.makeConstraints {
             $0.top.equalTo(questionContainerView.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
@@ -212,7 +217,7 @@ private extension HomeViewController {
         }
         
         editorCollectionView.snp.makeConstraints {
-            $0.top.equalTo(musicStateBadgeView.snp.bottom).offset(20)
+            $0.top.equalTo(badgeView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -226,6 +231,11 @@ private extension HomeViewController {
     func setupDelegate() {
         editorCollectionView.delegate = self
         editorCollectionView.dataSource = self
+        
+        // 락 셀에서 더 스크롤하려고 할 때 팝업을 띄우기 위한 제스처 추가
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        panGesture.delegate = self
+        editorCollectionView.addGestureRecognizer(panGesture)
     }
     
     func setupTarget() {
@@ -273,13 +283,52 @@ private extension HomeViewController {
             await viewModel.toggleScrap(postId: post.id)
         }
         
+        guard post.isScrapped == false else { return }
+        
         ToastManager.shared.show(
-            message: post.isScrapped ? "보관함에서 삭제했어요" : "보관함에 추가했어요",
+            message: "보관함에 추가했어요",
             actionText: "보러가기",
             action: { [weak self] in
                 self?.viewModel.goToScrapTab()
             }
         )
+    }
+    
+    /// 락 셀에 이미 위치한 상태에서, 추가로 더 스크롤하려고 할 때만 팝업 표시
+    func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            // 제스처가 시작될 때 현재 페이지가 락 셀인지 기록
+            isPanStartedOnLockedCell = (currentPage == .locked)
+            
+        case .changed, .ended:
+            // 락 셀에서 시작한 제스처가 아니면 → 그냥 락 셀로 "진입" 중인 스크롤이므로 무시
+            guard isPanStartedOnLockedCell,
+                  currentPage == .locked,
+                  viewModel.isLocked,
+                  !didShowLockedPopup else { break }
+            
+            let translation = gesture.translation(in: editorCollectionView)
+            
+            // 왼쪽(다음 카드 방향)으로 스와이프하려고 할 때만
+            // 그리고 스크롤이 끝에 도달했을 때만
+            if translation.x < -20 {
+                let maxOffsetX = editorCollectionView.contentSize.width - editorCollectionView.bounds.width + editorCollectionView.contentInset.right
+                let isAtEnd = editorCollectionView.contentOffset.x >= maxOffsetX - 1
+                
+                if isAtEnd {
+                    showLockedPopup()
+                }
+            }
+            
+        default:
+            break
+        }
+        
+        // 제스처가 종료/취소되면 상태 초기화
+        if gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed {
+            isPanStartedOnLockedCell = false
+        }
     }
 }
 
@@ -383,7 +432,6 @@ private extension HomeViewController {
     /// 페이지 변경 시 발생하는 이벤트 묶음
     func onPageChanged() {
         updateTopUI()
-        showLockedPopupIfNeeded()
     }
     
     /// 현재 페이지 상태에 맞게 상단 UI 업데이트 제어 함수
@@ -408,7 +456,8 @@ private extension HomeViewController {
     }
     
     func showTopUI(_ post: Post) {
-        musicStateBadgeView.configure(badge: post.badges)
+        badgeView.configure(badge: post.badges)
+        
         musicScrapButton.isHidden = false
         
         let image = post.isScrapped
@@ -419,7 +468,7 @@ private extension HomeViewController {
     }
     
     func hideTopUI() {
-        musicStateBadgeView.hide()
+        badgeView.hide()
         musicScrapButton.isHidden = true
     }
     
@@ -439,14 +488,6 @@ private extension HomeViewController {
     
     // MARK: - PopUp & Haptic
     
-    /// 팝업 표시 함수
-    /// - currentPage .locked 상태이고 isLocked가 참일때 스크롤시 팝업 표시
-    func showLockedPopupIfNeeded() {
-        if currentPage == .locked && viewModel.isLocked {
-            showLockedPopup()
-        }
-    }
-    
     /// 햅틱 발생 함수
     func playHapticIfNeeded(_ page: Int) {
         if lastHapticIndex == page { return }
@@ -465,10 +506,14 @@ private extension HomeViewController {
         guard popupView == nil else { return }
         guard let window = UIApplication.shared.keyWindow else { return }
         
+        didShowLockedPopup = true
+        
         let popup = RecommendationPopupView()
         popup.configure(
             action: { [weak self] in
+                // 작성 화면으로 이동하면서 기존 팝업은 닫아준다.
                 self?.hidePopup()
+                self?.viewModel.goToPostMusicComment()
             },
             close: { [weak self] in
                 self?.hidePopup()
@@ -496,6 +541,7 @@ private extension HomeViewController {
         }) { _ in
             popup.removeFromSuperview()
             self.popupView = nil
+            self.didShowLockedPopup = false
         }
     }
 }
@@ -615,7 +661,13 @@ private extension HomeViewController {
 
 // MARK: - UICollectionView
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
+    
+    /// Pan gesture가 collection view의 스크롤과 동시에 동작하도록 허용
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = viewModel.posts.count
         return viewModel.isLocked ? count + 1 : count // 잠금 상태면 Lock Cell 생성 필요

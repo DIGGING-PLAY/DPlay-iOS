@@ -17,7 +17,6 @@ final class MusicAddCoordinator: Coordinator {
     }
     
     func start() {
-        
         let musicSearchService: MusicSearchService = MusicSearchNetworkService()
         let musicSearchRepository = DefaultMusicSearchRepository(service: musicSearchService)
         let musicSearchUseCase = DefaultMusicSearchUseCase(repository: musicSearchRepository)

@@ -1,35 +1,33 @@
 //
-//  HomeService.swift
+//  MusicDetailService.swift
 //  DPlay-iOS
 //
-//  Created by 정정욱 on 11/16/25.
+//  Created by 정정욱 on 11/18/25.
 //
 
 import Foundation
 
-protocol HomeService {
-    func fetchHomeFeed() async throws -> HomeFeedResponseDTO
+protocol MusicDetailCommentService {
+    func fetchMusicDetail(postId: Int) async throws -> MusicCommentDetailResponseDTO
     func toggleLike(postId: Int, isLiked: Bool) async throws
     func toggleScrap(postId: Int, isScrapped: Bool) async throws
+    func deletePost(postId: Int) async throws
 }
 
-// MARK: - HomeNetworkService
-
-final class HomeNetworkServiceImpl: HomeService {
+final class MusicDetailNetworkServiceImpl: MusicDetailCommentService {
 
     private let apiService: BaseAPIService
 
-    // DI 가능 → 테스트 가능
     init(apiService: BaseAPIService = BaseAPIService()) {
         self.apiService = apiService
     }
 
-    // MARK: - Home Feed
+    // MARK: - Fetch Detail
 
-    func fetchHomeFeed() async throws -> HomeFeedResponseDTO {
+    func fetchMusicDetail(postId: Int) async throws -> MusicCommentDetailResponseDTO {
         let result = await apiService.request(
-            HomeAPI.fetchHomeFeed,
-            HomeFeedResponseDTO.self
+            MusicCommentDetailAPI.fetchMusicCommentDetail(postId: postId),
+            MusicCommentDetailResponseDTO.self
         )
 
         switch result {
@@ -82,6 +80,26 @@ final class HomeNetworkServiceImpl: HomeService {
             return
         case .unauthorized:
             throw AppError.unauthorized
+        default:
+            throw AppError.serverError
+        }
+    }
+    
+    // MARK: - Delete Post
+    
+    func deletePost(postId: Int) async throws {
+        let result = await apiService.request(
+            MusicCommentDetailAPI.deleteMusicCommentDetail(postId: postId),
+            EmptyDTO.self
+        )
+
+        switch result {
+        case .success:
+            return
+        case .unauthorized:
+            throw AppError.unauthorized
+        case .notFound:
+            throw AppError.notFound
         default:
             throw AppError.serverError
         }

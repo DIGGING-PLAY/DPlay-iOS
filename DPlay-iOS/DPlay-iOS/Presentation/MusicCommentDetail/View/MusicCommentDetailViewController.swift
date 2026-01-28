@@ -10,17 +10,18 @@ import Combine
 
 import Then
 import SnapKit
+import Kingfisher
 
-final class MusicDetailViewController: UIViewController {
+final class MusicCommentDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel: MusicDetailViewModel
+    private let viewModel: MusicCommentDetailViewModel
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI Properties
     
-    private let navigationBarView = MusicDetailNavigationBar()
+    private let navigationBarView = MusicCommentDetailNavigationBarView()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
@@ -31,7 +32,7 @@ final class MusicDetailViewController: UIViewController {
     private let albumContainer = UIView()
     private let albumImageView = UIImageView()
     private let scrapButton = UIButton()
-    private let musicStateButton = UIButton()
+    private let badgeView = BadgeView()
     private let musicTitle = UILabel()
     private let artistLabel = UILabel()
     
@@ -46,9 +47,12 @@ final class MusicDetailViewController: UIViewController {
     private let profileName = UILabel()
     private let profileStack = UIStackView()
     
+    private let loadingOverlayView = UIView()
+    private let loadingIndicator = UIActivityIndicatorView(style: .large)
+    
     // MARK: - Life Cycle
     
-    init(viewModel: MusicDetailViewModel) {
+    init(viewModel: MusicCommentDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,16 +69,20 @@ final class MusicDetailViewController: UIViewController {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        startLoading()
         bind()
+        bindActions()
         bindNavigationBar()
+        setupProfileTap()
     }
     
     private func loadData() {
+        startLoading()
         Task { await viewModel.loadDetail() }
     }
 }
 
-private extension MusicDetailViewController {
+private extension MusicCommentDetailViewController {
     // MARK: - Layout
     
     func setupStyle() {
@@ -92,44 +100,29 @@ private extension MusicDetailViewController {
         albumImageView.do {
             $0.contentMode = .scaleAspectFill
             $0.image = ImageLiterals.img_card_cover
-            $0.roundCorners(cornerRadius: 8)
+            $0.roundCorners(cornerRadius: 90)
         }
         
         scrapButton.do {
             $0.setImage(IconLiterals.ic_bookmark_24, for: .normal)
             $0.backgroundColor = .gray600
+            $0.contentMode = .scaleAspectFill
             $0.roundCorners(cornerRadius: 12)
         }
         
-        musicStateButton.do {
-            var config = UIButton.Configuration.plain()
-            config.image = IconLiterals.ic_editor
-            config.baseForegroundColor = .dplay_pink
-            config.imagePadding = 4
-            
-            var titleAttr = AttributedString("EDITOR")
-            titleAttr.font = .dplayFont(.bodySemi14)
-            titleAttr.foregroundColor = .dplay_pink
-            config.attributedTitle = titleAttr
-            $0.configuration = config
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.dplay_pink.cgColor
-            $0.backgroundColor = .white
-            $0.roundCorners(cornerRadius: 15)
-        }
-        
         musicTitle.do {
-            $0.setTextStyle(.titleBold18)
             $0.text = "내일에서 온 티켓"
             $0.textColor = .dplay_black
+            $0.numberOfLines = 2
             $0.textAlignment = .center
+            $0.setTextStyle(.titleBold18)
         }
         
         artistLabel.do {
-            $0.setTextStyle(.bodySemi14)
             $0.text = "한로로"
             $0.textColor = .gray400
             $0.textAlignment = .center
+            $0.setTextStyle(.bodySemi14)
         }
         
         playButton.do {
@@ -158,7 +151,7 @@ private extension MusicDetailViewController {
             config.imagePadding = 8
             
             // 텍스트
-            var titleAttr = AttributedString("53")
+            var titleAttr = AttributedString("0")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = UIColor.dplay_pink
             config.attributedTitle = titleAttr
@@ -182,22 +175,25 @@ private extension MusicDetailViewController {
         }
         
         commentLabel.do {
-            $0.setTextStyle(.bodySemi14)
             $0.text = "진짜 나오자마자 들었는데 이 노래가 최고 출근곡, 퇴근곡, 노동곡 다 되는 짱제로! 일하는 매장에서도 수십 번씩 틀고 있어요. 모두가 알아야 돼.."
             $0.numberOfLines = 0
+            $0.setTextStyle(.bodySemi14)
         }
         
         profileImageView.do {
-            $0.contentMode = .scaleAspectFill
+            $0.contentMode = .scaleToFill
+            $0.clipsToBounds = true
             $0.roundCorners(cornerRadius: 16)
             $0.image = ImageLiterals.img_mock_profile
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray200.cgColor
             $0.snp.makeConstraints { $0.size.equalTo(32) }
         }
         
         profileName.do {
-            $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
             $0.text = "윤서얌어렵다이거"
+            $0.setTextStyle(.bodySemi14)
         }
         
         profileStack.do {
@@ -205,11 +201,24 @@ private extension MusicDetailViewController {
             $0.spacing = 6
             $0.alignment = .center
         }
+        
+        loadingOverlayView.do {
+            $0.backgroundColor = .white
+            $0.isHidden = true
+        }
+        
+        loadingIndicator.do {
+            $0.hidesWhenStopped = true
+        }
     }
     
     func setupHierarchy() {
         view.addSubview(scrollView)
+        view.addSubview(loadingOverlayView)
+        loadingOverlayView.addSubview(loadingIndicator)
+        
         scrollView.addSubview(contentView)
+        scrollView.contentInsetAdjustmentBehavior = .never
         
         contentView.addSubviews(
             topOverlayImageView,
@@ -226,7 +235,7 @@ private extension MusicDetailViewController {
         albumContainer.addSubviews(
             albumImageView,
             scrapButton,
-            musicStateButton
+            badgeView
         )
         
         actionButtons.addArrangedSubviews(playButton, likeButton)
@@ -237,9 +246,9 @@ private extension MusicDetailViewController {
     func setupLayout() {
         
         topOverlayImageView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(250)
+            $0.height.equalTo(200)
         }
         
         blurView.snp.makeConstraints {
@@ -259,14 +268,22 @@ private extension MusicDetailViewController {
             $0.width.equalToSuperview()
         }
         
+        loadingOverlayView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
         navigationBarView.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(44)
         }
         
         albumContainer.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).offset(20)
+            $0.top.equalTo(navigationBarView.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
         }
         
@@ -276,24 +293,30 @@ private extension MusicDetailViewController {
         }
         
         scrapButton.snp.makeConstraints {
-            $0.top.equalTo(albumImageView.snp.top).inset(12)
-            $0.trailing.equalTo(albumImageView.snp.trailing).inset(12)
+            $0.top.equalTo(albumImageView.snp.top)
+            $0.trailing.equalTo(albumImageView.snp.trailing)
             $0.size.equalTo(44)
         }
         
-        musicStateButton.snp.makeConstraints {
-            $0.top.equalTo(albumImageView.snp.bottom).inset(20)
+        badgeView.snp.makeConstraints {
+            $0.top.equalTo(albumImageView.snp.bottom).inset(30)
             $0.centerX.equalToSuperview()
+            $0.height.equalTo(32)
+            $0.width.equalTo(100)
         }
         
         musicTitle.snp.makeConstraints {
-            $0.top.equalTo(musicStateButton.snp.bottom).offset(20)
+            $0.top.equalTo(badgeView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview().inset(16)
+            $0.trailing.lessThanOrEqualToSuperview().inset(16)
         }
         
         artistLabel.snp.makeConstraints {
             $0.top.equalTo(musicTitle.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview().inset(16)
+            $0.trailing.lessThanOrEqualToSuperview().inset(16)
         }
         
         actionButtons.snp.makeConstraints {
@@ -321,26 +344,102 @@ private extension MusicDetailViewController {
     }
 }
 
-private extension MusicDetailViewController {
+private extension MusicCommentDetailViewController {
     func bind() {
         
         viewModel.$detail
             .receive(on: DispatchQueue.main)
             .sink { [weak self] detail in
                 guard let self, let detail else { return }
+                self.stopLoading()
                 
-                self.musicTitle.text = detail.title
-                self.artistLabel.text = detail.artist
+                // 텍스트
+                self.musicTitle.text = detail.track.title
+                self.artistLabel.text = detail.track.artist
+                self.commentLabel.text = detail.content
+                self.profileName.text = detail.user.nickname
                 
-                // 이미지 로드 (URL 기반)
-                //if let url = URL(string: detail.coverImage) {
-                //    self.albumImageView.kf.setImage(with: url)
-                //    self.topOverlayImageView.kf.setImage(with: url)
-                //}
+                // 이미지
+                self.albumImageView.kf.setImage(with: detail.track.coverURL)
+                self.topOverlayImageView.kf.setImage(with: detail.track.coverURL)
+                
+                // 사용자 프로필 없으면 기본 이미지 지정 해줘야 함
+                if let profileImageString = detail.user.profileImage,
+                   let profileImageURL = URL(string: profileImageString)
+                {
+                    profileImageView.setImage(url: profileImageURL)
+                } else {
+                    profileImageView.image = ImageLiterals.img_default_profile
+                }
+                
+                // editor 작성 글이면 기본 이미지 + 터치 불가 (프로필 이동 불가)
+                if self.viewModel.badge == .editor {
+                    self.profileImageView.image = ImageLiterals.img_editor_profile
+                    self.profileStack.isUserInteractionEnabled = false
+                } else {
+                    self.profileStack.isUserInteractionEnabled = true
+                }
+                
+                // 좋아요 버튼
+                self.updateLikeButton(detail.like)
+                
+                // 스크랩 버튼
+                self.updateScrapButton(isScrapped: detail.isScrapped)
+                
+                // 작성자 여부 → 메뉴 표시 제어
+                self.navigationBarView.configure(
+                    displayDate: detail.displayDate,
+                    isHost: detail.isHost
+                )
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$badge
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] badge in
+                self?.badgeView.configure(badge: badge)
             }
             .store(in: &cancellables)
     }
     
+    func bindActions() {
+        
+        likeButton.addAction(
+            UIAction { [weak self] _ in
+                guard let self else { return }
+                Task { await self.viewModel.toggleLike() }
+            },
+            for: .touchUpInside
+        )
+        
+        scrapButton.addAction(
+            UIAction { [weak self] _ in
+                self?.handleScrapTapped()
+            },
+            for: .touchUpInside
+        )
+        
+        playButton.addAction(
+            UIAction { [weak self] _ in
+                guard let self else { return }
+                Task { self.viewModel.didTapPreview()}
+            },
+            for: .touchUpInside
+        )
+    }
+    
+    func startLoading() {
+        loadingOverlayView.isHidden = false
+        loadingIndicator.startAnimating()
+        view.isUserInteractionEnabled = false
+    }
+    
+    func stopLoading() {
+        loadingIndicator.stopAnimating()
+        loadingOverlayView.isHidden = true
+        view.isUserInteractionEnabled = true
+    }
+
     func presentReportSheet() {
 
         guard let window = UIApplication.shared.keyWindow else { return }
@@ -360,18 +459,118 @@ private extension MusicDetailViewController {
         sheet.snp.makeConstraints { $0.edges.equalToSuperview() }
         sheet.present()
     }
+    
+    func setupProfileTap() {
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTapProfile)
+        )
+        profileStack.addGestureRecognizer(tap)
+        profileStack.isUserInteractionEnabled = true
+    }
 }
+
+@objc private extension MusicCommentDetailViewController {
+    func didTapProfile() {
+        print("상대방 프로필로 이동")
+    }
+}
+
+private extension MusicCommentDetailViewController {
+
+    func updateLikeButton(_ like: Like) {
+        var config = likeButton.configuration
+        config?.image = like.isLiked
+            ? IconLiterals.ic_heart_p_fill
+            : IconLiterals.ic_heart_p
+
+        var title = AttributedString("\(like.count)")
+        title.font = .dplayFont(.bodySemi14)
+        title.foregroundColor = .dplay_pink
+        config?.attributedTitle = title
+
+        likeButton.configuration = config
+    }
+
+    func updateScrapButton(isScrapped: Bool) {
+        let image = isScrapped
+            ? IconLiterals.ic_bookmark_fill_24
+            : IconLiterals.ic_bookmark_24
+
+        scrapButton.setImage(image, for: .normal)
+    }
+    
+    func handleScrapTapped() {
+        let isScrapped = viewModel.detail?.isScrapped == true
+
+        Task {
+            await viewModel.toggleScrap()
+        }
+
+        guard isScrapped == false else { return }
+
+        ToastManager.shared.show(
+            message: "보관함에 추가했어요",
+            actionText: "보러가기",
+            action: { [weak self] in
+                self?.viewModel.goToScrapTab()
+            }
+        )
+    }
+}
+
 
 // MARK: - Navigation
 
-private extension MusicDetailViewController {
+private extension MusicCommentDetailViewController {
+
     func bindNavigationBar() {
         navigationBarView.onTapBack = { [weak self] in
             self?.viewModel.didTapBack()
         }
-        
-        navigationBarView.onTapMenu = { [weak self] in
+
+        navigationBarView.onTapDelete = { [weak self] in
+            self?.showDeleteModal()
+        }
+
+        navigationBarView.onTapReport = { [weak self] in
             self?.presentReportSheet()
         }
+    }
+    
+    func showDeleteModal() {
+        let modal = DPlayButtonModalViewController(
+            type: .warning,
+            primaryButtonTitle: "삭제하기",
+            secondaryButtonTitle: "취소하기",
+            primaryAction: { [weak self] in
+                AlertWindowManager.shared.present(
+                    title: "정말 삭제하시겠어요?",
+                    message: nil,
+                    actions: [
+                        AlertAction(
+                            buttonTitle: "취소",
+                            style: .secondaryLeft,
+                            onTap: {
+                                print("머무리기")
+                            }),
+                        AlertAction(
+                            buttonTitle: "삭제하기",
+                            style: .primaryRight,
+                            onTap: {
+                                Task { await self?.viewModel.deletePost() }
+                            })
+                    ],
+                )
+            },
+            secondaryAction: {}
+        )
+
+        if let sheet = modal.sheetPresentationController {
+            sheet.detents = [.custom { _ in 140 }]
+            sheet.prefersGrabberVisible = false
+        }
+
+        present(modal, animated: true)
     }
 }
