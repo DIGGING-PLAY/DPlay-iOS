@@ -172,6 +172,7 @@
 		EFA1BA562F1A25420013888C /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA1BA552F1A25420013888C /* UIImageView+.swift */; };
 		EFA1BA582F24F0310013888C /* MusicCommentDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA1BA572F24F0310013888C /* MusicCommentDetailAPI.swift */; };
 		EFA1BA5A2F24F2350013888C /* PostActionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA1BA592F24F2350013888C /* PostActionAPI.swift */; };
+		EFA1BA602F2A67A50013888C /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA1BA5F2F2A67A50013888C /* AppEvent.swift */; };
 		EFA5C37D2EB31484001F1627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3752EB31484001F1627 /* SceneDelegate.swift */; };
 		EFA5C3812EB31488001F1627 /* DPlay_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C37F2EB31488001F1627 /* DPlay_iOSTests.swift */; };
 		EFA5C3852EB3148C001F1627 /* DPlay_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA5C3822EB3148C001F1627 /* DPlay_iOSUITests.swift */; };
@@ -390,6 +391,7 @@
 		EFA1BA552F1A25420013888C /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		EFA1BA572F24F0310013888C /* MusicCommentDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCommentDetailAPI.swift; sourceTree = "<group>"; };
 		EFA1BA592F24F2350013888C /* PostActionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionAPI.swift; sourceTree = "<group>"; };
+		EFA1BA5F2F2A67A50013888C /* AppEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEvent.swift; sourceTree = "<group>"; };
 		EFA5C33A2EB3061B001F1627 /* DPlay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DPlay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C3502EB3061C001F1627 /* DPlay-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA5C35A2EB3061C001F1627 /* DPlay-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DPlay-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1450,6 +1452,14 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		EFA1BA5E2F2A679C0013888C /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				EFA1BA5F2F2A67A50013888C /* AppEvent.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 		EFA5C3312EB3061B001F1627 = {
 			isa = PBXGroup;
 			children = (
@@ -1798,6 +1808,7 @@
 		EFCBCEE12EC9B57C00BA7740 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				EFA1BA5E2F2A679C0013888C /* Event */,
 				EF4B8DC02F067270009101C4 /* AudioPlayer */,
 				EFCBCED62EC9B57C00BA7740 /* Extension */,
 				EFCBCEE02EC9B57C00BA7740 /* Resource */,
@@ -2222,7 +2233,7 @@
 				EFA1BA4B2F1A16650013888C /* MusicComment.swift in Sources */,
 				D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */,
 				D06DF77F2F1B87EC00DC641A /* NotificationRequestDTO.swift in Sources */,
-				EFCBCF4E2ED49A6F00BA7740 /* MusicAddResponseDTO.swift in Sources */,
+				EFCBCF4E2ED49A6F00BA7740 /* MusicSearchResponseDTO.swift in Sources */,
 				EFCBCF4E2ED49A6F00BA7740 /* MusicSearchResponseDTO.swift in Sources */,
 				EFCBCE972EC9A91900BA7740 /* HomeCoordinator.swift in Sources */,
 				EF4B907D2F12BA44009101C4 /* MusicSearchAPI.swift in Sources */,
@@ -2236,7 +2247,6 @@
 				D0D071A92F04F48700B9EE00 /* PostHistoryUseCase.swift in Sources */,
 				D01C6D7B2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				D06B4ABD2ED0E05700DB0107 /* AuthService.swift in Sources */,
-				EFCBCF432ED4983400BA7740 /* MusicAddViewController.swift in Sources */,
 				D0B944E82F1C38D7002B87FF /* UpdateProfileRequestDTO.swift in Sources */,
 				EFCBCF362ECC75F900BA7740 /* MusicCommentDetailRepository.swift in Sources */,
 				EFCBCEF82EC9BA7D00BA7740 /* MusicCommentDetailNavigationBarView.swift in Sources */,
@@ -2289,6 +2299,7 @@
 				EF4B8DF22F06841F009101C4 /* MockHomeService.swift in Sources */,
 				EFAA45B12EDD965A00BEC1AC /* Encodable+.swift in Sources */,
 				D0D071A52F04F2D700B9EE00 /* PostHistoryRepository.swift in Sources */,
+				EFA1BA602F2A67A50013888C /* AppEvent.swift in Sources */,
 				EF5A947A2ED80F16001B56B8 /* ToastView.swift in Sources */,
 				D0C5500B2EDFE5C80003E4B0 /* MyPageProfileDTO.swift in Sources */,
 				D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */,

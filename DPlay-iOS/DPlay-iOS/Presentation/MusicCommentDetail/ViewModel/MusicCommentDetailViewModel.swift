@@ -16,7 +16,7 @@ final class MusicCommentDetailViewModel: ObservableObject {
     
     private let commentDetailUseCase: MusicCommentDetailUseCase
     private let previewMusicUseCase: PreviewMusicUseCase
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: DetailCoordinating?
     private let postId: Int
     
     init(
@@ -24,7 +24,7 @@ final class MusicCommentDetailViewModel: ObservableObject {
         initialBadge: Badge,
         commentDetailUseCase: MusicCommentDetailUseCase,
         previewMusicUseCase: PreviewMusicUseCase,
-        coordinator: HomeCoordinator?
+        coordinator: DetailCoordinating?
     ) {
         self.postId = postId
         self.badge = initialBadge
@@ -55,8 +55,10 @@ extension MusicCommentDetailViewModel {
     func deletePost() async {
         do {
             try await commentDetailUseCase.deletePost(postId: postId)
-            coordinator?.requestHomeRefresh?() 
             coordinator?.pop()
+            AppEventBus.shared.event.send(
+                .homeShouldRefresh(reason: .commentDeleted)
+            )
         } catch {
             print("❌ 삭제 실패:", error)
         }
@@ -95,6 +97,10 @@ extension MusicCommentDetailViewModel {
                 postId: original.id,
                 isLiked: wasLiked
             )
+            
+            AppEventBus.shared.event.send(
+                .homeShouldRefresh(reason: .likeToggled)
+            )
         } catch {
             // rollback
             detail = original
@@ -126,6 +132,10 @@ extension MusicCommentDetailViewModel {
             try await commentDetailUseCase.toggleScrap(
                 postId: original.id,
                 isScrapped: original.isScrapped
+            )
+            
+            AppEventBus.shared.event.send(
+                .homeShouldRefresh(reason: .scrapToggled)
             )
         } catch {
             // rollback

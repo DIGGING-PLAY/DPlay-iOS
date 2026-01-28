@@ -11,15 +11,23 @@ import Combine
 @MainActor
 final class HomeViewModel: ObservableObject {
     
+    // MARK: - Published State
+    
     @Published var question: Question?
     @Published var posts: [Post] = []
     @Published var isLoading = false
     @Published var isLocked: Bool = false
     @Published var shouldShowPopup: Bool = false
      
+    // MARK: - Dependencies
+    
     private let homeViewUseCase: HomeViewUseCase
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: HomeCoordinator?
+    
+    // MARK: - Combine
+
+    private var cancellables = Set<AnyCancellable>()
     
     init(
         homeViewUseCase: HomeViewUseCase,
@@ -29,6 +37,7 @@ final class HomeViewModel: ObservableObject {
         self.homeViewUseCase = homeViewUseCase
         self.previewMusicUseCase = previewMusicUseCase
         self.coordinator = coordinator
+        bindAppEvent()
     }
 }
 
@@ -51,6 +60,33 @@ extension HomeViewModel {
 
         } catch {
             print("❌ Home load failed:", error)
+        }
+    }
+}
+
+// MARK: - AppEvent Binding
+
+private extension HomeViewModel {
+
+    func bindAppEvent() {
+        AppEventBus.shared.event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                guard let self else { return }
+
+                switch event {
+                case let .homeShouldRefresh(reason):
+                    self.handleHomeRefresh(reason)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func handleHomeRefresh(_ reason: HomeRefreshReason) {
+        
+        // 추후 reason case에 따른 분기처리 대비
+        Task {
+            await loadHome()
         }
     }
 }
