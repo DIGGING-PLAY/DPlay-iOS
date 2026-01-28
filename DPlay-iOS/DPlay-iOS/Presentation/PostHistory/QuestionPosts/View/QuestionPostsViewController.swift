@@ -192,7 +192,7 @@ private extension QuestionPostsViewController {
                 navigationBarView.setDateTitle(data.date)
                 questionTitleLabel.text = data.title
                 totalCountLabel.text = "총 \(data.totalCount)개의 곡"
-                guideFooterView.isHidden = data.hasPosted
+                guideFooterView.isHidden = data.hasPosted || data.totalCount <= data.visibleLimit
                 postsTableView.reloadData()
             }.store(in: &cancellables)
     }

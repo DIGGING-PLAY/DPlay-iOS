@@ -107,9 +107,6 @@ private extension QuestionPostCell {
     }
     
     func setupLayout() {
-        musicTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        artistNameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
         containerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

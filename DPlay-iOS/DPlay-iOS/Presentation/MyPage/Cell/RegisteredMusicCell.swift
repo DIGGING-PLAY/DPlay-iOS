@@ -98,11 +98,7 @@ private extension RegisteredMusicCell {
         )
     }
     
-    func setupLayout() {
-        musicTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        artistNameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-        imageView.snp.makeConstraints {
+    func setupLayout() {imageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(12)
             $0.size.equalTo(68)
