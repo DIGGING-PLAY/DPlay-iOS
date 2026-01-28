@@ -250,7 +250,7 @@ private extension ProfileEditViewController {
         //선언한 DPlayButtonModalViewController 노출
         if let sheet = modal.sheetPresentationController {
             sheet.detents = [
-                .custom { _ in 140 }
+                .custom { _ in 110 }
             ]
             sheet.prefersGrabberVisible = false
         }
