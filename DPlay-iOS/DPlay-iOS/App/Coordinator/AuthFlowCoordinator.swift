@@ -10,7 +10,7 @@ import UIKit
 final class AuthFlowCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
-    var rootViewController = UIViewController()
+    var rootViewController = UINavigationController()
         
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
@@ -22,27 +22,14 @@ final class AuthFlowCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = SplashViewController()
-        rootViewController = vc
+        let loginViewModel = LoginViewModel(useCase: authUseCase, coordinator: self)
+        let loginViewController = LoginViewController(viewModel: loginViewModel)
         
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_000_000_000)
-            startLoginFlow()
-        }
+        rootViewController.setViewControllers([loginViewController], animated: false)
     }
 }
 
 extension AuthFlowCoordinator {
-    private func startLoginFlow() {
-        let loginViewModel = LoginViewModel(useCase: authUseCase, coordinator: self)
-        let loginViewController = LoginViewController(viewModel: loginViewModel)
-
-        loginViewController.modalPresentationStyle = .fullScreen
-        loginViewController.modalTransitionStyle = .crossDissolve
-        
-        rootViewController.present(loginViewController, animated: true)
-    }
-    
     func goToMainTabBar() {
         //window의 roorViewController를 변경하기 위해 AppCoordinator에게 요청
         router.goToMainTabBar()
