@@ -16,6 +16,9 @@ final class HomeCoordinator: Coordinator {
     var onRequestSwitchToMyPage: (() -> Void)?
     var onRequestGoToPostMusicComment: (() -> Void)?
     
+    /// 코멘트 삭제이후 홈뷰 새로고침을 위한 클로저
+    var onCommentDeleted: (() -> Void)?
+    
     private let service = MockHomeService()
     private lazy var repository = DefaultHomeRepository(service: service)
     private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
@@ -40,13 +43,20 @@ final class HomeCoordinator: Coordinator {
         let homeUseCase = DefaultHomeViewUseCase(repository: homeRepository)
         let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
         
-        let viewModel = HomeViewModel(
+        let homeViewModel = HomeViewModel(
             homeViewUseCase: homeUseCase,
             previewMusicUseCase: previewUseCase,
             coordinator: self
         )
         
-        let vc = HomeViewController(viewModel: viewModel)
+        // 코멘트 디테일뷰에서 코멘트 삭제 이후 홈뷰 새로고침
+        onCommentDeleted = { [weak homeViewModel] in
+            Task {
+                await homeViewModel?.loadHome()
+            }
+        }
+        
+        let vc = HomeViewController(viewModel: homeViewModel)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
     }
