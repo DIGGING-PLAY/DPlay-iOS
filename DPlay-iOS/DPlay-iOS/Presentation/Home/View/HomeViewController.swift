@@ -28,7 +28,8 @@ final class HomeViewController: UIViewController {
     private var isRefreshing = false
     private var scrapToggleIndex: Int?
     private var likeToggleIndex: Int?
-    private var lastOffsetX: CGFloat = 0
+    /// 락 셀에서 시작한 패닝 제스처인지 여부
+    private var isPanStartedOnLockedCell = false
     private var didShowLockedPopup = false
 
     // MARK: - UI Properties
@@ -65,8 +66,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         hapticGenerator.prepare()
-        // 글 작성 이후 fullScreen 내려올때 팝업 뜸 방지
-        lastOffsetX = editorCollectionView.contentOffset.x
+        // 화면 재진입 시 다시 스크롤로 팝업을 볼 수 있도록 초기화
         didShowLockedPopup = false
     }
     
@@ -231,6 +231,11 @@ private extension HomeViewController {
     func setupDelegate() {
         editorCollectionView.delegate = self
         editorCollectionView.dataSource = self
+        
+        // 락 셀에서 더 스크롤하려고 할 때 팝업을 띄우기 위한 제스처 추가
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        panGesture.delegate = self
+        editorCollectionView.addGestureRecognizer(panGesture)
     }
     
     func setupTarget() {
@@ -287,6 +292,43 @@ private extension HomeViewController {
                 self?.viewModel.goToScrapTab()
             }
         )
+    }
+    
+    /// 락 셀에 이미 위치한 상태에서, 추가로 더 스크롤하려고 할 때만 팝업 표시
+    func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            // 제스처가 시작될 때 현재 페이지가 락 셀인지 기록
+            isPanStartedOnLockedCell = (currentPage == .locked)
+            
+        case .changed, .ended:
+            // 락 셀에서 시작한 제스처가 아니면 → 그냥 락 셀로 "진입" 중인 스크롤이므로 무시
+            guard isPanStartedOnLockedCell,
+                  currentPage == .locked,
+                  viewModel.isLocked,
+                  !didShowLockedPopup else { break }
+            
+            let translation = gesture.translation(in: editorCollectionView)
+            
+            // 왼쪽(다음 카드 방향)으로 스와이프하려고 할 때만
+            // 그리고 스크롤이 끝에 도달했을 때만
+            if translation.x < -20 {
+                let maxOffsetX = editorCollectionView.contentSize.width - editorCollectionView.bounds.width + editorCollectionView.contentInset.right
+                let isAtEnd = editorCollectionView.contentOffset.x >= maxOffsetX - 1
+                
+                if isAtEnd {
+                    showLockedPopup()
+                }
+            }
+            
+        default:
+            break
+        }
+        
+        // 제스처가 종료/취소되면 상태 초기화
+        if gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed {
+            isPanStartedOnLockedCell = false
+        }
     }
 }
 
@@ -349,19 +391,6 @@ private extension HomeViewController {
                 self.updateCurrentPage(page)
                 // 3. 페이지 바뀔 때 햅틱
                 self.playHapticIfNeeded(page)
-                // 4. 이미 locked 페이지인데, 더 스크롤 시도하면 팝업
-                if self.currentPage == .locked,
-                   self.viewModel.isLocked,
-                   !self.didShowLockedPopup {
-
-                    let didTryToScrollMore =
-                        abs(offset.x - self.lastOffsetX) < 1   // 실제 이동은 없고
-                        && offset.x <= self.lastOffsetX        // 더 안 가면
-                    if didTryToScrollMore {
-                        self.showLockedPopup()
-                    }
-                }
-                self.lastOffsetX = offset.x
             }
             return section
         }
@@ -459,14 +488,6 @@ private extension HomeViewController {
     
     // MARK: - PopUp & Haptic
     
-    /// 팝업 표시 함수
-    /// - currentPage .locked 상태이고 isLocked가 참일때 스크롤시 팝업 표시
-    func showLockedPopupIfNeeded() {
-        if currentPage == .locked && viewModel.isLocked {
-            showLockedPopup()
-        }
-    }
-    
     /// 햅틱 발생 함수
     func playHapticIfNeeded(_ page: Int) {
         if lastHapticIndex == page { return }
@@ -490,6 +511,8 @@ private extension HomeViewController {
         let popup = RecommendationPopupView()
         popup.configure(
             action: { [weak self] in
+                // 작성 화면으로 이동하면서 기존 팝업은 닫아준다.
+                self?.hidePopup()
                 self?.viewModel.goToPostMusicComment()
             },
             close: { [weak self] in
@@ -638,7 +661,13 @@ private extension HomeViewController {
 
 // MARK: - UICollectionView
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
+    
+    /// Pan gesture가 collection view의 스크롤과 동시에 동작하도록 허용
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = viewModel.posts.count
         return viewModel.isLocked ? count + 1 : count // 잠금 상태면 Lock Cell 생성 필요
