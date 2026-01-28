@@ -12,7 +12,7 @@ protocol AuthUseCase {
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: UIImage?) async throws
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
-    func withdraw() async throws
+    func withdraw(appleAuthorizationCode: String) async throws
 }
 
 final class DefaultAuthUseCase: AuthUseCase {
@@ -53,9 +53,9 @@ final class DefaultAuthUseCase: AuthUseCase {
         UserDefaults.standard.removeObject(forKey: "userId")
     }
     
-    // 6. 회원탈퇴
-    func withdraw() async throws {
-        try await authRepository.withdraw()
+    // 회원탈퇴
+    func withdraw(appleAuthorizationCode: String) async throws {
+        try await authRepository.withdraw(appleAuthorizationCode: appleAuthorizationCode)
         try authRepository.deleteTokens()
         UserDefaults.standard.removeObject(forKey: "userId")
     }

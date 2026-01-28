@@ -12,7 +12,7 @@ enum AuthAPI {
     case refreshToken
     case setNotification(pushOn: Bool)
     case logout
-    case withdraw
+    case withdraw(appleAuthorizationCode: String)
 }
 
 extension AuthAPI: BaseAPI {
@@ -54,6 +54,8 @@ extension AuthAPI: BaseAPI {
         case .refreshToken:
             let refreshToken = KeychainManager.shared.refreshToken ?? ""
             return ["Authorization": "Bearer \(refreshToken)"]
+        case .withdraw(let appleAuthorizationCode):
+            return ["Apple-Auth-Code": appleAuthorizationCode]
         default: return [:]
         }
     }

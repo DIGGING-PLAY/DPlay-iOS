@@ -13,7 +13,7 @@ protocol AuthService {
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> AuthResponseDTO
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
-    func withdraw() async throws
+    func withdraw(appleAuthorizationCode: String) async throws
 }
 
 final class AuthServiceImpl: AuthService {
@@ -124,8 +124,8 @@ final class AuthServiceImpl: AuthService {
         }
     }
     
-    func withdraw() async throws {
-        let result = await apiService.request(AuthAPI.withdraw, EmptyDTO.self)
+    func withdraw(appleAuthorizationCode: String) async throws {
+        let result = await apiService.request(AuthAPI.withdraw(appleAuthorizationCode: appleAuthorizationCode), EmptyDTO.self)
         
         switch result {
         case .success:
