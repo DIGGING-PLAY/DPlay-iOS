@@ -126,7 +126,7 @@ extension HomeViewModel {
     }
     
     func didTapUserProfile(userId: Int) {
-        coordinator?.goToUserProfile()
+        coordinator?.goToUserProfile(userId: userId)
     }
     
     func goToPostMusicComment() {

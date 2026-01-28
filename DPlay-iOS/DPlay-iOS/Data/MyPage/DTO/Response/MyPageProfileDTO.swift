@@ -24,7 +24,7 @@ struct MyPageProfileDataDTO: Decodable {
 struct MyPageUserDTO: Decodable {
     let userId: Int
     let nickname: String
-    var image: String?
+    var profileImg: String?
 }
 
 // MARK: - DTO to Entity
@@ -43,7 +43,7 @@ extension MyPageUserDTO {
         User(
             id: userId,
             nickname: nickname,
-            profileImage: image
+            profileImage: profileImg
         )
     }
 }

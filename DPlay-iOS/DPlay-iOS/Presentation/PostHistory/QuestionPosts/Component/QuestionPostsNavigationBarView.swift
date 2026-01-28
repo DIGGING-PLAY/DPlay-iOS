@@ -92,7 +92,17 @@ private extension QuestionPostsNavigationBarView {
 }
 
 extension QuestionPostsNavigationBarView {
-    func setDateTitle(_ date: String) {
-        dateLabel.text = date
+    func setDateTitle(_ dateString: String) {
+        let input = DateFormatter()
+        input.locale = Locale(identifier: "en_US_POSIX")
+        input.dateFormat = "yyyy-MM-dd"
+
+        guard let date = input.date(from: dateString) else { return }
+        
+        let output = DateFormatter()
+        output.locale = Locale(identifier: "ko_KR")
+        output.dateFormat = "M월 d일"
+        
+        dateLabel.text = output.string(from: date)
     }
 }

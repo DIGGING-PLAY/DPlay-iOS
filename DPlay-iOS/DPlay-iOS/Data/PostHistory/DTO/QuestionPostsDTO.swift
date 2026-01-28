@@ -41,10 +41,67 @@ struct QuestionPostsTrackDTO: Decodable {
 struct QuestionPostsUserDTO: Decodable {
     let userId: Int
     let nickname: String
-    let profileImg: String
+    let profileImg: String?
 }
 
 struct QuestionPostsLikeDTO: Decodable {
     let isLiked: Bool
     let count: Int
+}
+
+extension QuestionPostsDataDTO {
+    func toEntity() -> QuestionPosts {
+        QuestionPosts(
+            id: questionId,
+            date: date,
+            title: title,
+            hasPosted: hasPosted,
+            locked: locked,
+            visibleLimit: visibleLimit,
+            totalCount: totalCount,
+            nextCursor: nextCursor,
+            items: items.map { $0.toEntity() }
+        )
+    }
+}
+
+extension QuestionPostsItemDTO {
+    func toEntity() -> QuestionPost {
+        QuestionPost(
+            id: postId,
+            isEditorPick: isEditorPick,
+            isScrapped: isScrapped,
+            content: content,
+            track: track.toEntity(),
+            user: user.toEntity(),
+            like: like.toEntity()
+        )
+    }
+}
+
+extension QuestionPostsTrackDTO {
+    func toEntity() -> Track {
+        Track(
+            id: trackId,
+            title: songTitle,
+            coverImage: coverImg,
+            artist: artistName
+        )
+    }
+}
+
+extension QuestionPostsUserDTO {
+    func toEntity() -> User {
+        User(
+            id: userId,
+            nickname: nickname,
+            profileImage: profileImg
+        )
+    }
+}
+
+extension QuestionPostsLikeDTO {
+    func toEntity() -> Like {
+        Like(isLiked: isLiked, count: count)
+    }
 }

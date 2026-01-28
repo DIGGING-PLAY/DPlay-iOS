@@ -12,6 +12,7 @@ protocol AuthRepository {
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> UserSession
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
+    func withdraw() async throws
     func saveTokens(_ userData: UserSession) throws
     func deleteTokens() throws
 }
@@ -59,6 +60,10 @@ final class DefaultAuthRepository: AuthRepository {
     
     func logout() async throws {
         try await service.logout()
+    }
+    
+    func withdraw() async throws {
+        try await service.withdraw()
     }
     
     //MARK: - KeychainManager Func

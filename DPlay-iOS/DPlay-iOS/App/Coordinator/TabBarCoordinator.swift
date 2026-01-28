@@ -40,6 +40,11 @@ final class TabBarCoordinator: Coordinator {
         let myPageNav = UINavigationController()
         let myPageCoordinator = MyPageCoordinator(navigationController: myPageNav)
         myPageCoordinator.start()
+        myPageCoordinator.onUserSessionEnded = { [weak self] in
+            guard let self else { return }
+            
+            router.goToAuth()
+        }
         
         childCoordinators = [homeCoordinator, myPageCoordinator]
         

@@ -29,6 +29,7 @@ final class MyPageViewController: UIViewController {
     private let profileEditButton = ProfileEditButton()
     private let segmentedControl = MyPageSegmentedControl()
     private let musicsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: MyPageCollectionViewLayout.registeredMusicsLayout())
+    private let emptyLabel = UILabel()
 
     //MARK: - Life Cycle
     
@@ -88,6 +89,13 @@ private extension MyPageViewController {
             $0.spacing = 4
         }
         
+        emptyLabel.do {
+            $0.text = "아직 등록한 곡이 없어요"
+            $0.setTextStyle(.bodySemi14)
+            $0.textColor = .gray400
+            $0.textAlignment = .center
+        }
+        
         musicsCollectionView.do {
             $0.backgroundColor = .gray100
             $0.showsVerticalScrollIndicator = false
@@ -95,6 +103,7 @@ private extension MyPageViewController {
             $0.register(ArchiveCell.self, forCellWithReuseIdentifier: ArchiveCell.className)
             $0.delegate = self
             $0.dataSource = self
+            $0.backgroundView = emptyLabel
         }
     }
     
@@ -184,16 +193,18 @@ private extension MyPageViewController {
             .store(in: &cancellables)
         
         viewModel.$registeredMusicsResult
-            .sink { [weak self] _ in
+            .sink { [weak self] result in
                 guard let self else { return }
                 
+                emptyLabel.isHidden = result?.musics.totalCount != 0
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
         
         viewModel.$archiveMusicsResult
-            .sink { [weak self] _ in
+            .sink { [weak self] result in
                 guard let self else { return }
                 
+                emptyLabel.isHidden = result?.musics.totalCount != 0
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
     }
@@ -204,7 +215,7 @@ private extension MyPageViewController {
         }
         
         navigationBarView.onTapBackButton = {
-            print("backButtonTapped")
+            self.viewModel.popToPrevious()
         }
     }
     
@@ -216,9 +227,12 @@ private extension MyPageViewController {
                     MyPageCollectionViewLayout.registeredMusicsLayout(),
                     animated: false
                 ) { _ in
+                    self.emptyLabel.text = "아직 등록한 곡이 없어요"
                     self.musicsCollectionView.reloadData()
                     self.musicsCollectionView.setContentOffset(.zero, animated: false)
                     self.musicsCollectionView.layoutIfNeeded()
+                    
+                    self.emptyLabel.isHidden = self.viewModel.registeredMusicsResult?.musics.totalCount != 0
                 }
             }
         }
@@ -230,6 +244,7 @@ private extension MyPageViewController {
                     MyPageCollectionViewLayout.archiveLayout(),
                     animated: false
                 ) { _ in
+                    self.emptyLabel.text = "아직 저장한 곡이 없어요"
                     guard (self.viewModel.archiveMusicsResult != nil) else {
                         Task { await self.viewModel.loadArchiveMusics() }
                         return
@@ -237,6 +252,8 @@ private extension MyPageViewController {
                     self.musicsCollectionView.reloadData()
                     self.musicsCollectionView.setContentOffset(.zero, animated: false)
                     self.musicsCollectionView.layoutIfNeeded()
+                    
+                    self.emptyLabel.isHidden = self.viewModel.archiveMusicsResult?.musics.totalCount != 0
                 }
             }
         }
@@ -299,12 +316,6 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                         
                         showDeleteModal()
                     }
-                } else {
-                    cell.onTapPlayButton = { [weak self] in
-                        guard let self else { return }
-                        
-                        print("playButtonTapped")
-                    }
                 }
             }
             
@@ -322,5 +333,17 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
             
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let postId: Int
+        
+        if selectedTabIndex == 0 {
+            postId = viewModel.registeredMusicsResult?.musics.items[indexPath.item].id ?? 0
+        } else {
+            postId = viewModel.archiveMusicsResult?.musics.items[indexPath.item].id ?? 0
+        }
+        
+        viewModel.goToMusicDetail(trackId: String(postId))
     }
 }
