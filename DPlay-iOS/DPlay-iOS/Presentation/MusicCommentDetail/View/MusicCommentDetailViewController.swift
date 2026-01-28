@@ -111,18 +111,18 @@ private extension MusicCommentDetailViewController {
         }
         
         musicTitle.do {
-            $0.setTextStyle(.titleBold18)
-            $0.text = nil
+            $0.text = "내일에서 온 티켓"
             $0.textColor = .dplay_black
             $0.numberOfLines = 2
             $0.textAlignment = .center
+            $0.setTextStyle(.titleBold18)
         }
         
         artistLabel.do {
-            $0.setTextStyle(.bodySemi14)
-            $0.text = nil
+            $0.text = "한로로"
             $0.textColor = .gray400
             $0.textAlignment = .center
+            $0.setTextStyle(.bodySemi14)
         }
         
         playButton.do {
@@ -175,9 +175,9 @@ private extension MusicCommentDetailViewController {
         }
         
         commentLabel.do {
-            $0.setTextStyle(.bodySemi14)
-            $0.text = nil
+            $0.text = "진짜 나오자마자 들었는데 이 노래가 최고 출근곡, 퇴근곡, 노동곡 다 되는 짱제로! 일하는 매장에서도 수십 번씩 틀고 있어요. 모두가 알아야 돼.."
             $0.numberOfLines = 0
+            $0.setTextStyle(.bodySemi14)
         }
         
         profileImageView.do {
@@ -191,9 +191,9 @@ private extension MusicCommentDetailViewController {
         }
         
         profileName.do {
-            $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
-            $0.text = nil
+            $0.text = "윤서얌어렵다이거"
+            $0.setTextStyle(.bodySemi14)
         }
         
         profileStack.do {
@@ -308,13 +308,15 @@ private extension MusicCommentDetailViewController {
         musicTitle.snp.makeConstraints {
             $0.top.equalTo(badgeView.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.leading.greaterThanOrEqualToSuperview().inset(16)
+            $0.trailing.lessThanOrEqualToSuperview().inset(16)
         }
         
         artistLabel.snp.makeConstraints {
             $0.top.equalTo(musicTitle.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.leading.greaterThanOrEqualToSuperview().inset(16)
+            $0.trailing.lessThanOrEqualToSuperview().inset(16)
         }
         
         actionButtons.snp.makeConstraints {
