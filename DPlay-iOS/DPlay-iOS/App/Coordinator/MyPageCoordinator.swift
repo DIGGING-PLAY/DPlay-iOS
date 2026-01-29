@@ -8,8 +8,9 @@
 import UIKit
 
 protocol DetailCoordinating: AnyObject {
-    func goToMusicDetail(trackId: String)
+    func goToMusicCommentDetail(postId: Int, badge: Badge)
     func pop()
+    func goToScrapTab()
 }
 
 final class MyPageCoordinator: Coordinator {
@@ -18,6 +19,7 @@ final class MyPageCoordinator: Coordinator {
     let navigationController: UINavigationController
     
     var onUserSessionEnded: (() -> Void)?
+    var onRequestSwitchToMyPage: (() -> Void)?
     
     private let myPageService = MyPageServiceImpl()
     private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
@@ -68,12 +70,25 @@ final class MyPageCoordinator: Coordinator {
 }
 
 extension MyPageCoordinator: DetailCoordinating {
-    func goToMusicDetail(trackId: String) {
-        let service = MockMusicDetailService()
-        let repository = DefaultMusicDetailRepository(service: service)
-        let useCase = DefaultMusicDetailUseCase(repository: repository)
-        let vm = MusicDetailViewModel(trackId: trackId, useCase: useCase, coordinator: self)
-        let vc = MusicDetailViewController(viewModel: vm)
+    
+    func goToScrapTab() {
+        navigationController.rootTabBarController()?.setTabBarHidden(false)
+        onRequestSwitchToMyPage?()
+    }
+    
+    func goToMusicCommentDetail(postId: Int, badge: Badge) {
+        let commentDetailService = MusicDetailNetworkServiceImpl()
+        let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
+       
+        let commentRepository = DefaultCommentMusicDetailRepository(service: commentDetailService)
+        let previewRepository = DefaultPreviewMusicRepository(service: previewService)
+       
+        let commentDetailUseCase = DefaultMusicDetailUseCase(repository: commentRepository)
+        let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
+        
+        let vm = MusicCommentDetailViewModel(postId: postId, initialBadge: badge, commentDetailUseCase: commentDetailUseCase, previewMusicUseCase: previewUseCase, coordinator: self)
+        
+        let vc = MusicCommentDetailViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)

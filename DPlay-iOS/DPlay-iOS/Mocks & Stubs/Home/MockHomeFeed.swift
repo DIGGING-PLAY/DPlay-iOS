@@ -40,12 +40,12 @@ enum MockHomeFeed {
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
                     ),
-                    user: HomeFeedUserDTO(
+                    user: UserDTO(
                         userId: 222,
                         nickname: "윤서암",
                         profileImg: "https://picsum.photos/100"
                     ),
-                    like: HomeFeedLikeDTO(
+                    like: LikeDTO(
                         isLiked: false,
                         count: 24
                     )
@@ -62,12 +62,12 @@ enum MockHomeFeed {
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
                     ),
-                    user: HomeFeedUserDTO(
+                    user: UserDTO(
                         userId: 223,
                         nickname: "정정욱",
                         profileImg: "https://picsum.photos/100"
                     ),
-                    like: HomeFeedLikeDTO(
+                    like: LikeDTO(
                         isLiked: false,
                         count: 1224
                     )
@@ -84,12 +84,12 @@ enum MockHomeFeed {
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
                     ),
-                    user: HomeFeedUserDTO(
+                    user: UserDTO(
                         userId: 224,
                         nickname: "윤서암",
                         profileImg: "https://picsum.photos/100"
                     ),
-                    like: HomeFeedLikeDTO(
+                    like: LikeDTO(
                         isLiked: false,
                         count: 24
                     )
@@ -106,12 +106,12 @@ enum MockHomeFeed {
                         coverImg: "https://picsum.photos/300/300",
                         artistName: "Artist1, Artist2"
                     ),
-                    user: HomeFeedUserDTO(
+                    user: UserDTO(
                         userId: 225,
                         nickname: "윤서암",
                         profileImg: "https://picsum.photos/100"
                     ),
-                    like: HomeFeedLikeDTO(
+                    like: LikeDTO(
                         isLiked: false,
                         count: 24
                     )

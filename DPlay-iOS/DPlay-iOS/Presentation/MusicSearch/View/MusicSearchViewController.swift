@@ -169,7 +169,8 @@ private extension MusicSearchViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tracks, hasSearched in
                 guard let self else { return }
-
+                
+                self.tableView.isHidden = tracks.isEmpty && !hasSearched
                 self.tableView.reloadData()
 
                 let shouldShowEmpty =

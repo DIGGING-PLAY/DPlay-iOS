@@ -87,7 +87,12 @@ extension MyPageViewModel {
     }
     
     func goToMusicDetail(trackId: String) {
-        coordinator?.goToMusicDetail(trackId: trackId)
+        guard let postId = Int(trackId) else { return }
+
+        coordinator?.goToMusicCommentDetail(
+            postId: postId,
+            badge: .nomal
+        )
     }
     
     func popToPrevious() {
