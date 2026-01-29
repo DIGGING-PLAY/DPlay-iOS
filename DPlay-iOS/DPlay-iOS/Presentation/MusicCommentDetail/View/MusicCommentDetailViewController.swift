@@ -157,7 +157,7 @@ private extension MusicCommentDetailViewController {
         
         playButton.do {
             var config = UIButton.Configuration.filled()
-            config.baseBackgroundColor = .dplay_pink
+            config.background.backgroundColor = .dplay_pink
             config.image = IconLiterals.ic_stream_w
             config.imagePadding = 8
             config.cornerStyle = .medium
@@ -609,7 +609,7 @@ private extension MusicCommentDetailViewController {
         )
 
         if let sheet = modal.sheetPresentationController {
-            sheet.detents = [.custom { _ in 140 }]
+            sheet.detents = [.custom { _ in 110 }]
             sheet.prefersGrabberVisible = false
         }
 
