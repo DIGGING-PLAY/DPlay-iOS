@@ -26,7 +26,7 @@ final class MusicAlbumCell: UICollectionViewCell {
     
     private let musicAlbumCoverImageView = UIImageView()
     private let cardBackgroundView = UIView()
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     private let overlayView = UIView()
     
     private let profileTapAreaView = UIView()
@@ -83,7 +83,7 @@ private extension MusicAlbumCell {
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
         }
         
-        blurView.alpha = 0.75
+        blurView.alpha = 0.85
         overlayView.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.25)
         
         userProfileImageView.do {
@@ -217,13 +217,12 @@ private extension MusicAlbumCell {
         userHeartButton.snp.makeConstraints {
             $0.top.equalTo(userNameLabel.snp.bottom).offset(44)
             $0.leading.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(12)
             $0.size.equalTo(24)
         }
         
         heartCountLabel.snp.makeConstraints {
-            $0.centerY.equalTo(userHeartButton)
-            $0.leading.equalTo(userHeartButton.snp.trailing).offset(2)
+            $0.centerY.equalTo(userHeartButton.snp.centerY).offset(-2)
+            $0.leading.equalTo(userHeartButton.snp.trailing).offset(4)
         }
         
         musicStreamingButton.snp.makeConstraints {
@@ -349,7 +348,7 @@ private extension MusicAlbumCell {
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.fromValue = 0
         rotation.toValue = Double.pi * 2
-        rotation.duration = 8.0              // 한 바퀴 8초 (느긋하게)
+        rotation.duration = 10.0              // 한 바퀴 8초 (느긋하게)
         rotation.repeatCount = .infinity
         rotation.isRemovedOnCompletion = false
         
