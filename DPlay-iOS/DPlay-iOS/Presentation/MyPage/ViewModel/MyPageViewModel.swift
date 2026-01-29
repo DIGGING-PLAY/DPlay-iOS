@@ -23,13 +23,15 @@ final class MyPageViewModel: ObservableObject {
     
     //MARK: - Dependencies
     
-    private let useCase: MyPageUseCase
+    private let myPageUseCase: MyPageUseCase
+    private let commentDetailUseCase: MusicCommentDetailUseCase
     weak var coordinator: DetailCoordinating?
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: DetailCoordinating?, userId: Int) {
-        self.useCase = useCase
+    init(myPageUseCase: MyPageUseCase, commentDetailUseCase: MusicCommentDetailUseCase, coordinator: DetailCoordinating?, userId: Int) {
+        self.myPageUseCase = myPageUseCase
+        self.commentDetailUseCase = commentDetailUseCase
         self.coordinator = coordinator
         self.userId = userId
     }
@@ -41,7 +43,7 @@ extension MyPageViewModel {
     
     func loadUserProfile() async {
         do {
-            let result = try await useCase.getUserProfile(userId: userId)
+            let result = try await myPageUseCase.getUserProfile(userId: userId)
             
             self.userProfileResult = result
         } catch {
@@ -51,7 +53,7 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let result = try await useCase.getRegisteredTracks(userId: userId)
+            let result = try await myPageUseCase.getRegisteredTracks(userId: userId)
             
             self.registeredMusicsResult = result
         } catch {
@@ -61,11 +63,23 @@ extension MyPageViewModel {
     
     func loadArchiveMusics() async {
         do {
-            let result = try await useCase.getArchiveTracks(userId: userId)
+            let result = try await myPageUseCase.getArchiveTracks(userId: userId)
 
             self.archiveMusicsResult = result
         } catch {
             print("ERROR:", error)
+        }
+    }
+    
+    func deletePost(postId: Int) async {
+        do {
+            try await commentDetailUseCase.deletePost(postId: postId)
+
+//            AppEventBus.shared.event.send(
+//                .homeShouldRefresh(reason: .commentDeleted)
+//            )
+        } catch {
+            print("❌ 삭제 실패:", error)
         }
     }
 }

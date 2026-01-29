@@ -264,13 +264,13 @@ private extension MyPageViewController {
         Task { await viewModel.loadRegisteredMusics() }
     }
     
-    func showDeleteModal() {
+    func showDeleteModal(postId: Int) {
         let modal = DPlayButtonModalViewController(
             type: .warning,
             primaryButtonTitle: "삭제하기",
             secondaryButtonTitle: "취소하기",
             primaryAction: {
-                print("삭제하기 탭")
+                Task { await self.viewModel.deletePost(postId: postId) }
             },
             secondaryAction: {
                 print("취소하기 탭")
@@ -293,9 +293,15 @@ private extension MyPageViewController {
 extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if selectedTabIndex == 0 {
-            return viewModel.registeredMusicsResult?.musics.totalCount ?? 0
+            let itemsCount = viewModel.registeredMusicsResult?.musics.items.count ?? 0
+            let visibleCount = viewModel.registeredMusicsResult?.musics.totalCount ?? 0
+            
+            return min(itemsCount, visibleCount)
         } else {
-            return viewModel.archiveMusicsResult?.musics.totalCount ?? 0
+            let itemsCount = viewModel.archiveMusicsResult?.musics.items.count ?? 0
+            let visibleCount = viewModel.archiveMusicsResult?.musics.totalCount ?? 0
+            
+            return min(itemsCount, visibleCount)
         }
     }
     
@@ -314,7 +320,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                     cell.onTapMoreButton = { [weak self] in
                         guard let self else { return }
                         
-                        showDeleteModal()
+                        showDeleteModal(postId: data.musics.items[indexPath.item].id)
                     }
                 }
             }

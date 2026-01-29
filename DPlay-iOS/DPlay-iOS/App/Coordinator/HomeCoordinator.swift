@@ -95,7 +95,11 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
     }
     
     func goToUserProfile(userId: Int) {
-        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: userId)
+        let commentDetailService = MusicDetailNetworkServiceImpl()
+        let commentRepository = DefaultCommentMusicDetailRepository(service: commentDetailService)
+        let commentDetailUseCase = DefaultMusicDetailUseCase(repository: commentRepository)
+
+        let vm = MyPageViewModel(myPageUseCase: myPageUseCase, commentDetailUseCase: commentDetailUseCase, coordinator: self, userId: userId)
         let vc = MyPageViewController(viewModel: vm)
         
         navigationController.isNavigationBarHidden = true
