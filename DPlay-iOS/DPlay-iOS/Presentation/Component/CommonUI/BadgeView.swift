@@ -26,7 +26,7 @@ private extension BadgeView {
     func setupBaseStyle() {
         backgroundColor = .white
         layer.borderWidth = 1
-        layer.cornerRadius = 20
+        layer.cornerRadius = 16
     }
 }
 

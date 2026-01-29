@@ -26,8 +26,9 @@ final class MusicAlbumCell: UICollectionViewCell {
     
     private let musicAlbumCoverImageView = UIImageView()
     private let cardBackgroundView = UIView()
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-    private let overlayView = UIView()
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let gradientOverlay = UIView()
+    private let gradientLayer = CAGradientLayer()
     
     private let profileTapAreaView = UIView()
     private let userProfileImageView = UIImageView()
@@ -71,10 +72,12 @@ private extension MusicAlbumCell {
             $0.contentMode = .scaleAspectFill
             $0.roundCorners(cornerRadius: 128)
             $0.image = ImageLiterals.img_card_cover
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.gray200.cgColor
         }
         
         cardBackgroundView.do {
-            $0.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.5)
+            $0.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.45)
             $0.roundCorners(
                 cornerRadius: 12,
                 maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -83,8 +86,22 @@ private extension MusicAlbumCell {
             $0.layer.borderColor = UIColor.dplay_pink.cgColor
         }
         
-        blurView.alpha = 0.85
-        overlayView.backgroundColor = UIColor.dplay_pink.withAlphaComponent(0.25)
+        blurView.alpha = 1.0
+        
+        gradientOverlay.do {
+            $0.isUserInteractionEnabled = false
+        }
+        
+        gradientLayer.do {
+            $0.colors = [
+                UIColor.white.withAlphaComponent(0.05).cgColor,
+                UIColor.white.withAlphaComponent(0.25).cgColor,
+                UIColor.white.withAlphaComponent(0.6).cgColor
+            ]
+            gradientLayer.locations = [0.0, 0.65, 1.0]
+            $0.startPoint = CGPoint(x: 0.5, y: 0.0)
+            $0.endPoint   = CGPoint(x: 0.5, y: 1.0)
+        }
         
         userProfileImageView.do {
             $0.contentMode = .scaleToFill
@@ -140,9 +157,11 @@ private extension MusicAlbumCell {
             cardBackgroundView
         )
         
+        gradientOverlay.layer.addSublayer(gradientLayer)
+        
         cardBackgroundView.addSubviews(
             blurView,
-            overlayView
+            gradientOverlay
         )
         
         cardBackgroundView.addSubviews(
@@ -175,8 +194,12 @@ private extension MusicAlbumCell {
             $0.height.equalTo(204)
         }
         
-        blurView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        overlayView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        blurView.snp.makeConstraints { $0.edges.equalToSuperview()
+        }
+        
+        gradientOverlay.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         profileTapAreaView.snp.makeConstraints {
             $0.top.equalToSuperview()

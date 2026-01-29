@@ -26,8 +26,9 @@ final class MusicCommentDetailViewController: UIViewController {
     private let contentView = UIView()
     
     private let topOverlayImageView = UIImageView()
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    private let whiteOverlay = UIView()
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+    private let gradientOverlay = UIView()
+    private let gradientLayer = CAGradientLayer()
     
     private let albumContainer = UIView()
     private let albumImageView = UIImageView()
@@ -77,6 +78,11 @@ final class MusicCommentDetailViewController: UIViewController {
         setupProfileTap()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        gradientLayer.frame = gradientOverlay.bounds
+    }
+    
     private func loadData() {
         startLoading()
         Task { await viewModel.loadDetail() }
@@ -95,13 +101,29 @@ private extension MusicCommentDetailViewController {
             $0.clipsToBounds = true
         }
         
-        blurView.alpha = 0.5
-        whiteOverlay.backgroundColor = .white.withAlphaComponent(0.7)
+        blurView.alpha = 0.6
+        
+        gradientOverlay.do {
+            $0.isUserInteractionEnabled = false
+        }
+        
+        gradientLayer.do {
+            $0.colors = [
+                UIColor.white.withAlphaComponent(0.5).cgColor, // 위
+                UIColor.white.withAlphaComponent(0.75).cgColor, // 중간
+                UIColor.white.cgColor                            // 아래
+            ]
+            $0.locations = [0.0, 0.5, 1.0]
+            $0.startPoint = CGPoint(x: 0.5, y: 0.0)
+            $0.endPoint   = CGPoint(x: 0.5, y: 1.0)
+        }
         
         albumImageView.do {
             $0.contentMode = .scaleAspectFill
             $0.image = ImageLiterals.img_card_cover
             $0.roundCorners(cornerRadius: 90)
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.gray200.cgColor
         }
         
         holeView.do {
@@ -233,10 +255,12 @@ private extension MusicCommentDetailViewController {
         scrollView.addSubview(contentView)
         scrollView.contentInsetAdjustmentBehavior = .never
         
+        gradientOverlay.layer.addSublayer(gradientLayer)
+        
         contentView.addSubviews(
             topOverlayImageView,
             blurView,
-            whiteOverlay,
+            gradientOverlay,
             navigationBarView,
             albumContainer,
             musicTitle,
@@ -269,7 +293,7 @@ private extension MusicCommentDetailViewController {
             $0.edges.equalTo(topOverlayImageView)
         }
         
-        whiteOverlay.snp.makeConstraints {
+        gradientOverlay.snp.makeConstraints {
             $0.edges.equalTo(topOverlayImageView)
         }
         
