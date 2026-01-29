@@ -24,12 +24,14 @@ final class AppleLoginManager: NSObject, ASAuthorizationControllerDelegate, ASAu
     var loginFailure: ((Error) -> Void)?
     var loadAuthorizationCode: ((String?) -> Void)?
     
+    /// Apple 최초 로그인 (또는 일반 로그인) 요청
     func appleLogin() {
         loginType = .initialLogin
         
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
+        // requestedOperation 기본값(.operationLogin)
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
@@ -37,6 +39,8 @@ final class AppleLoginManager: NSObject, ASAuthorizationControllerDelegate, ASAu
         authorizationController.performRequests()
     }
     
+    /// Apple 회원 탈퇴(연결 해제)용 Authorization Code 요청
+    /// Apple ID와 앱 간 연결 해제(회원 탈퇴)를 위한 authorizationCode 발급 -> 서버에서 Apple Revoke API 호출에 사용
     func getAuthorizationCode() {
         loginType = .getAuthorizationCode
         
