@@ -9,7 +9,7 @@ import Foundation
 
 protocol PostHistoryUseCase {
     func getMonthlyQuestions(year: Int, month: Int) async throws -> [MonthlyQuestion]
-    func getQuestionPosts(questionId: Int) async throws -> QuestionPosts
+    func getQuestionPosts(questionId: Int, cursor: String?) async throws -> QuestionPosts
 }
 
 final class DefaultPostHistoryUseCase: PostHistoryUseCase {
@@ -26,8 +26,8 @@ final class DefaultPostHistoryUseCase: PostHistoryUseCase {
         return data
     }
     
-    func getQuestionPosts(questionId: Int) async throws -> QuestionPosts {
-        let data = try await repository.fetchQuestionPosts(questionId: questionId)
+    func getQuestionPosts(questionId: Int, cursor: String?) async throws -> QuestionPosts {
+        let data = try await repository.fetchQuestionPosts(questionId: questionId, cursor: cursor)
         
         return data
     }

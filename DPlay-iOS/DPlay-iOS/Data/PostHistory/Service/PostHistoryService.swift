@@ -9,7 +9,7 @@ import Foundation
 
 protocol PostHistoryService {
     func fetchMonthlyQuestions(year: Int, month: Int) async throws -> MonthlyQuestionsResponseDTO
-    func fetchQuestionPosts(questionId: Int) async throws -> QuestionPostsResponseDTO
+    func fetchQuestionPosts(questionId: Int, cursor: String?) async throws -> QuestionPostsResponseDTO
 }
 
 final class PostHistoryServiceImpl: PostHistoryService {
@@ -42,9 +42,9 @@ final class PostHistoryServiceImpl: PostHistoryService {
         }
     }
     
-    func fetchQuestionPosts(questionId: Int) async throws -> QuestionPostsResponseDTO {
+    func fetchQuestionPosts(questionId: Int, cursor: String?) async throws -> QuestionPostsResponseDTO {
         let result = await apiService.request(
-            PostHistoryAPI.fetchQuestionPosts(questionId: questionId),
+            PostHistoryAPI.fetchQuestionPosts(questionId: questionId, cursor: cursor),
             QuestionPostsResponseDTO.self
         )
         

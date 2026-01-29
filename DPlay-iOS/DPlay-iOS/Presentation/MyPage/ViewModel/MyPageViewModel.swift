@@ -110,7 +110,7 @@ extension MyPageViewModel {
     func loadArchiveMusicsMore(currentIndex: Int) async {
         guard let cursor = nextCursor,
               currentIndex >= archiveMusics.count - 3 else { return }
-        print(currentIndex)
+
         do {
             let result = try await myPageUseCase.getArchiveTracks(userId: userId, cursor: cursor)
 
