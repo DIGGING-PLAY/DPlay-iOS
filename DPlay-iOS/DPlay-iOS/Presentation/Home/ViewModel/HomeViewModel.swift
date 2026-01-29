@@ -167,7 +167,13 @@ extension HomeViewModel {
     }
     
     func didTapUserProfile(userId: Int) {
-        coordinator?.goToUserProfile(userId: userId)
+        let myUserId = UserDefaults.standard.integer(forKey: "userId")
+        
+        if userId == myUserId {
+            coordinator?.goToScrapTab()
+        } else {
+            coordinator?.goToUserProfile(userId: userId)
+        }
     }
     
     func goToPostMusicComment() {

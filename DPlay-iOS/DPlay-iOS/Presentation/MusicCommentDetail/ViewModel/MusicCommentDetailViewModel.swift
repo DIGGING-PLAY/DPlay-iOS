@@ -164,7 +164,13 @@ extension MusicCommentDetailViewModel {
     }
     
     func goToUserProfile() {
-        coordinator?.goToUserProfile(userId: detail?.user.id ?? 0)
+        let myUserId = UserDefaults.standard.integer(forKey: "userId")
+        
+        if detail?.user.id ?? 0 == myUserId {
+            goToScrapTab()
+        } else {
+            coordinator?.goToUserProfile(userId: detail?.user.id ?? 0)
+        }
     }
 }
 
