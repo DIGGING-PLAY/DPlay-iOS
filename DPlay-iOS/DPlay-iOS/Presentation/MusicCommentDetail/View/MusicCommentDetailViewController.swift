@@ -109,8 +109,8 @@ private extension MusicCommentDetailViewController {
         
         gradientLayer.do {
             $0.colors = [
-                UIColor.white.withAlphaComponent(0.5).cgColor, // 위
-                UIColor.white.withAlphaComponent(0.75).cgColor, // 중간
+                UIColor.white.withAlphaComponent(0.1).cgColor, // 위
+                UIColor.white.withAlphaComponent(0.5).cgColor, // 중간
                 UIColor.white.cgColor                            // 아래
             ]
             $0.locations = [0.0, 0.5, 1.0]
