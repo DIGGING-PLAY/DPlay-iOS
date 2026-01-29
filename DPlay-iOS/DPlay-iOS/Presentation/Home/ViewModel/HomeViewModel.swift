@@ -77,6 +77,8 @@ private extension HomeViewModel {
                 switch event {
                 case let .homeShouldRefresh(reason):
                     self.handleHomeRefresh(reason)
+                default:
+                    break
                 }
             }
             .store(in: &cancellables)
@@ -107,6 +109,9 @@ extension HomeViewModel {
             try await homeViewUseCase.toggleScrap(
                 postId: postId,
                 isScrapped: original.isScrapped
+            )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .scrapToggled)
             )
         } catch {
             // 실패 시 롤백

@@ -54,11 +54,6 @@ final class MyPageViewController: UIViewController {
         bindViewModel()
         bindNavigationBar()
         bindSegmentedControl()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-     
         loadData()
     }
 }
@@ -196,7 +191,7 @@ private extension MyPageViewController {
             .sink { [weak self] result in
                 guard let self else { return }
                 
-                emptyLabel.isHidden = result?.musics.totalCount != 0
+                emptyLabel.isHidden = result?.musics.totalCount != 0 && selectedTabIndex == 0
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
         
@@ -204,7 +199,7 @@ private extension MyPageViewController {
             .sink { [weak self] result in
                 guard let self else { return }
                 
-                emptyLabel.isHidden = result?.musics.totalCount != 0
+                emptyLabel.isHidden = result?.musics.totalCount != 0 && selectedTabIndex == 1
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
     }
@@ -271,6 +266,9 @@ private extension MyPageViewController {
             secondaryButtonTitle: "취소하기",
             primaryAction: {
                 Task { await self.viewModel.deletePost(postId: postId) }
+                AppEventBus.shared.event.send(
+                    .mypageShouldRefresh(reason: .commentDeleted)
+                )
             },
             secondaryAction: {
                 print("취소하기 탭")

@@ -20,6 +20,7 @@ final class MyPageViewModel: ObservableObject {
     //MARK: - Properties
     
     private let userId: Int
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Dependencies
     
@@ -34,6 +35,8 @@ final class MyPageViewModel: ObservableObject {
         self.commentDetailUseCase = commentDetailUseCase
         self.coordinator = coordinator
         self.userId = userId
+        
+        bindAppEvent()
     }
 }
 
@@ -75,11 +78,41 @@ extension MyPageViewModel {
         do {
             try await commentDetailUseCase.deletePost(postId: postId)
 
-//            AppEventBus.shared.event.send(
-//                .homeShouldRefresh(reason: .commentDeleted)
-//            )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .commentDeleted)
+            )
         } catch {
             print("❌ 삭제 실패:", error)
+        }
+    }
+}
+
+// MARK: - AppEvent Binding
+
+private extension MyPageViewModel {
+    func bindAppEvent() {
+        AppEventBus.shared.event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                guard let self else { return }
+
+                switch event {
+                case let .mypageShouldRefresh(reason):
+                    self.handleMyPageRefresh(reason)
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func handleMyPageRefresh(_ reason: MyPageRefreshReason) {
+        switch reason {
+        case .commentAdded, .commentDeleted:
+            Task { await loadRegisteredMusics() }
+            Task { await loadUserProfile() }
+        case .scrapToggled:
+            Task { await loadArchiveMusics() }
         }
     }
 }

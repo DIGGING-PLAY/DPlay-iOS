@@ -59,6 +59,9 @@ extension MusicCommentDetailViewModel {
             AppEventBus.shared.event.send(
                 .homeShouldRefresh(reason: .commentDeleted)
             )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .commentDeleted)
+            )
         } catch {
             print("❌ 삭제 실패:", error)
         }
@@ -136,6 +139,9 @@ extension MusicCommentDetailViewModel {
             
             AppEventBus.shared.event.send(
                 .homeShouldRefresh(reason: .scrapToggled)
+            )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .scrapToggled)
             )
         } catch {
             // rollback
