@@ -155,7 +155,7 @@ private extension MusicCommentViewController {
             
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
-            $0.roundCorners(cornerRadius: 20)
+            $0.roundCorners(cornerRadius: 18)
         }
         
         registerButton.do {

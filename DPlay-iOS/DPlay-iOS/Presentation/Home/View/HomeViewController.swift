@@ -385,7 +385,8 @@ private extension HomeViewController {
             section.visibleItemsInvalidationHandler = { [weak self] _, offset, env in
                 guard let self else { return }
                 // 1. 현재 스크롤 위치 판단
-                let page = self.pageNumber(offsetX: offset.x, width: env.container.contentSize.width)
+                let page = self.pageNumber(offsetX: offset.x, env: env)
+
                 // 2. 페이지 상태 갱신
                 self.updateCurrentPage(page)
                 // 3. 페이지 바뀔 때 햅틱
@@ -397,11 +398,23 @@ private extension HomeViewController {
     
     // MARK: - 현재 페이지 상태 관련
     
-    /// 페이지 계산 로직 현재 보여지는 카드뷰 index(0, 1, 2, …) 을 계산
+    /// 현재 스크롤 위치(offsetX)를 기준으로
+    /// 화면에 가장 가깝게 보이는 카드(그룹)의 인덱스를 계산
     /// 반환값: 현재 카드뷰 인덱스
-    func pageNumber(offsetX: CGFloat, width: CGFloat) -> Int {
-        let pageWidth = width * Layout.cardFraction
-        return Int((offsetX + pageWidth / 2) / pageWidth)
+    func pageNumber(offsetX: CGFloat, env: NSCollectionLayoutEnvironment) -> Int {
+        // 카드 1장의 실제 너비
+        let cardWidth =
+            env.container.effectiveContentSize.width * Layout.cardFraction
+
+        // 카드 간 간격
+        let spacing =
+            env.container.effectiveContentSize.width * Layout.groupSpacingFraction
+
+        // 한 페이지 = 카드 1장 + 카드 간 간격
+        let groupWidth = cardWidth + spacing
+
+        // 현재 offset이 몇 번째 페이지에 가까운지 계산
+        return Int(round(offsetX / groupWidth))
     }
     
     /// 페이지 상태 갱신
