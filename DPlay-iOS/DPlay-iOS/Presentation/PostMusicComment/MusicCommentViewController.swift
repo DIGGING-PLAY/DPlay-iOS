@@ -29,6 +29,7 @@ final class MusicCommentViewController: UIViewController {
     
     private let titleLabel = UILabel()
     private let coverImageView = UIImageView()
+    private let holeView = UIView()
     private let songTitleLabel = UILabel()
     private let artistLabel = UILabel()
     
@@ -86,8 +87,15 @@ private extension MusicCommentViewController {
             $0.contentMode = .scaleAspectFill
         }
         
+        holeView.do {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 10
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.gray200.cgColor
+        }
+        
         songTitleLabel.do {
-            $0.text = "내일에서 온 티켓"
+            $0.text = " "
             $0.setTextStyle(.titleBold18)
             $0.textColor = .dplay_black
             $0.numberOfLines = 2
@@ -95,7 +103,7 @@ private extension MusicCommentViewController {
         }
         
         artistLabel.do {
-            $0.text = "한로로"
+            $0.text = " "
             $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
             $0.textAlignment = .center
@@ -171,6 +179,7 @@ private extension MusicCommentViewController {
         
         scrollView.addSubview(contentView)
         textViewContainer.addSubviews(textView, placeholderLabel, countLabel)
+        coverImageView.addSubview(holeView)
         
         contentView.addSubviews(
             titleLabel,
@@ -219,6 +228,11 @@ private extension MusicCommentViewController {
             $0.size.equalTo(132)
         }
         
+        holeView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.size.equalTo(20)
+        }
+        
         songTitleLabel.snp.makeConstraints {
             $0.top.equalTo(coverImageView.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
@@ -231,7 +245,7 @@ private extension MusicCommentViewController {
         }
         
         textViewContainer.snp.makeConstraints {
-            $0.top.equalTo(artistLabel.snp.bottom).offset(20)
+            $0.top.equalTo(artistLabel.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.height.equalTo(180)
         }

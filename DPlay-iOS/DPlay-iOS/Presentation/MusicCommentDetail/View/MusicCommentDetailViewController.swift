@@ -26,11 +26,13 @@ final class MusicCommentDetailViewController: UIViewController {
     private let contentView = UIView()
     
     private let topOverlayImageView = UIImageView()
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    private let whiteOverlay = UIView()
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+    private let gradientOverlay = UIView()
+    private let gradientLayer = CAGradientLayer()
     
     private let albumContainer = UIView()
     private let albumImageView = UIImageView()
+    private let holeView = UIView()
     private let scrapButton = UIButton()
     private let badgeView = BadgeView()
     private let musicTitle = UILabel()
@@ -76,6 +78,11 @@ final class MusicCommentDetailViewController: UIViewController {
         setupProfileTap()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        gradientLayer.frame = gradientOverlay.bounds
+    }
+    
     private func loadData() {
         startLoading()
         Task { await viewModel.loadDetail() }
@@ -94,13 +101,36 @@ private extension MusicCommentDetailViewController {
             $0.clipsToBounds = true
         }
         
-        blurView.alpha = 0.5
-        whiteOverlay.backgroundColor = .white.withAlphaComponent(0.7)
+        blurView.alpha = 0.6
+        
+        gradientOverlay.do {
+            $0.isUserInteractionEnabled = false
+        }
+        
+        gradientLayer.do {
+            $0.colors = [
+                UIColor.white.withAlphaComponent(0.1).cgColor, // 위
+                UIColor.white.withAlphaComponent(0.5).cgColor, // 중간
+                UIColor.white.cgColor                            // 아래
+            ]
+            $0.locations = [0.0, 0.5, 1.0]
+            $0.startPoint = CGPoint(x: 0.5, y: 0.0)
+            $0.endPoint   = CGPoint(x: 0.5, y: 1.0)
+        }
         
         albumImageView.do {
             $0.contentMode = .scaleAspectFill
             $0.image = ImageLiterals.img_card_cover
             $0.roundCorners(cornerRadius: 90)
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.gray200.cgColor
+        }
+        
+        holeView.do {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 14
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.gray200.cgColor
         }
         
         scrapButton.do {
@@ -132,6 +162,10 @@ private extension MusicCommentDetailViewController {
             config.imagePadding = 8
             config.cornerStyle = .medium
             
+            config.background.cornerRadius = 12
+            config.background.strokeColor = .dplay_pink
+            config.background.strokeWidth = 1
+            
             var titleAttr = AttributedString("재생하기")
             titleAttr.font = .dplayFont(.bodyBold14)
             titleAttr.foregroundColor = .white
@@ -150,15 +184,16 @@ private extension MusicCommentDetailViewController {
             config.imagePlacement = .leading
             config.imagePadding = 8
             
+            config.background.cornerRadius = 12
+            config.background.strokeColor = .dplay_pink
+            config.background.strokeWidth = 1
+            
             // 텍스트
             var titleAttr = AttributedString("0")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = UIColor.dplay_pink
             config.attributedTitle = titleAttr
             $0.configuration = config
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.dplay_pink.cgColor
-            $0.roundCorners(cornerRadius: 12)
         }
         
         actionButtons.do {
@@ -220,10 +255,12 @@ private extension MusicCommentDetailViewController {
         scrollView.addSubview(contentView)
         scrollView.contentInsetAdjustmentBehavior = .never
         
+        gradientOverlay.layer.addSublayer(gradientLayer)
+        
         contentView.addSubviews(
             topOverlayImageView,
             blurView,
-            whiteOverlay,
+            gradientOverlay,
             navigationBarView,
             albumContainer,
             musicTitle,
@@ -232,6 +269,7 @@ private extension MusicCommentDetailViewController {
             commentCard
         )
         
+        albumImageView.addSubview(holeView)
         albumContainer.addSubviews(
             albumImageView,
             scrapButton,
@@ -255,7 +293,7 @@ private extension MusicCommentDetailViewController {
             $0.edges.equalTo(topOverlayImageView)
         }
         
-        whiteOverlay.snp.makeConstraints {
+        gradientOverlay.snp.makeConstraints {
             $0.edges.equalTo(topOverlayImageView)
         }
         
@@ -292,6 +330,11 @@ private extension MusicCommentDetailViewController {
             $0.edges.equalToSuperview()
         }
         
+        holeView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.size.equalTo(28)
+        }
+
         scrapButton.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top)
             $0.trailing.equalTo(albumImageView.snp.trailing)
@@ -302,7 +345,6 @@ private extension MusicCommentDetailViewController {
             $0.top.equalTo(albumImageView.snp.bottom).inset(30)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
-            $0.width.equalTo(100)
         }
         
         musicTitle.snp.makeConstraints {
@@ -326,8 +368,8 @@ private extension MusicCommentDetailViewController {
         }
         
         commentCard.snp.makeConstraints {
-            $0.top.equalTo(actionButtons.snp.bottom).offset(32)
-            $0.horizontalEdges.equalToSuperview().inset(12)
+            $0.top.equalTo(actionButtons.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().offset(-40)
         }
         
@@ -488,7 +530,7 @@ private extension MusicCommentDetailViewController {
         title.font = .dplayFont(.bodySemi14)
         title.foregroundColor = .dplay_pink
         config?.attributedTitle = title
-
+        likeButton.backgroundColor =  like.isLiked ? .dplay_pink100 : .white
         likeButton.configuration = config
     }
 
