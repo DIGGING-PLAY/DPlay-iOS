@@ -13,6 +13,7 @@ protocol AuthUseCase {
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
     func withdraw(appleAuthorizationCode: String) async throws
+    func checkToken() async throws -> AppRoute
 }
 
 final class DefaultAuthUseCase: AuthUseCase {
@@ -58,5 +59,16 @@ final class DefaultAuthUseCase: AuthUseCase {
         try await authRepository.withdraw(appleAuthorizationCode: appleAuthorizationCode)
         try authRepository.deleteTokens()
         UserDefaults.standard.removeObject(forKey: "userId")
+    }
+    
+    //토큰 유효성 확인을 위한 임의 요청
+    func checkToken() async throws -> AppRoute {
+        do {
+            let _ = try await authRepository.checkToken()
+            
+            return .mainTabBar
+        } catch {
+            return .auth
+        }
     }
 }

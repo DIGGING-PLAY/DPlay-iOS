@@ -20,9 +20,6 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = SplashViewController()
-        setRootViewController(vc, animated: true)
-        
         router.onRouteChange = { [weak self] route in
             guard let self else { return }
             switch route {
@@ -35,19 +32,23 @@ final class AppCoordinator: Coordinator {
             }
         }
         
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_000_000_000)
-            showAuth()
-        }
+        showSplash()
     }
 }
 
 private extension AppCoordinator {
+    func showSplash() {
+        let authCoordinator = AuthFlowCoordinator(router: router)
+        childCoordinators = [authCoordinator]
+        authCoordinator.start()
+        
+        setRootViewController(authCoordinator.rootViewController, animated: true)
+    }
+    
     func showAuth() {
         let authCoordinator = AuthFlowCoordinator(router: router)
         childCoordinators = [authCoordinator]
-        
-        authCoordinator.start()
+        authCoordinator.startLoginFlow()
         
         setRootViewController(authCoordinator.rootViewController, animated: true)
     }

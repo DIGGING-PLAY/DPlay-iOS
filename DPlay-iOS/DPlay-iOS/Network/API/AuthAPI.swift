@@ -13,6 +13,7 @@ enum AuthAPI {
     case setNotification(pushOn: Bool)
     case logout
     case withdraw(appleAuthorizationCode: String)
+    case checkToken
 }
 
 extension AuthAPI: BaseAPI {
@@ -24,6 +25,7 @@ extension AuthAPI: BaseAPI {
         case .setNotification: return "/users/me/notifications"
         case .logout: return "/auth/logout"
         case .withdraw: return "/auth/withdraw"
+        case .checkToken: return "/users/me/notifications"
         }
     }
     
@@ -32,6 +34,7 @@ extension AuthAPI: BaseAPI {
         case .login, .setNotification: return .post
         case .refreshToken: return .patch
         case .logout, .withdraw: return .delete
+        case .checkToken: return .get
         }
     }
     
