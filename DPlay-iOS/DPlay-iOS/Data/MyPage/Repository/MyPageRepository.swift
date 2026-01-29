@@ -10,7 +10,7 @@ import Foundation
 protocol MyPageRepository {
     func fetchUserProfile(userId: Int) async throws -> MyPageUserProfileResult
     func fetchRegisteredTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult
-    func fetchArchiveTracks(userId: Int) async throws -> MyPageTrackResult
+    func fetchArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult
     func updateUserProfile(nickname: String?, profileImg: Data?) async throws
 }
 
@@ -49,8 +49,8 @@ final class DefaultMyPageRepository: MyPageRepository {
         return result
     }
 
-    func fetchArchiveTracks(userId: Int) async throws -> MyPageTrackResult {
-        let response = try await service.fetchArchiveTracks(userId: userId)
+    func fetchArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult {
+        let response = try await service.fetchArchiveTracks(userId: userId, cursor: cursor)
 
         let musics = response.data.toEntity()
         let result = MyPageTrackResult(

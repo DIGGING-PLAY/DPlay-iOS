@@ -196,12 +196,12 @@ private extension MyPageViewController {
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
         
-        viewModel.$archiveMusicsResult
+        viewModel.$archiveMusics
             .sink { [weak self] result in
                 guard let self else { return }
                 
                 if selectedTabIndex == 1 {
-                    emptyLabel.isHidden = result?.musics.totalCount != 0
+                    emptyLabel.isHidden = result.count != 0
                 }
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
@@ -244,16 +244,16 @@ private extension MyPageViewController {
                     MyPageCollectionViewLayout.archiveLayout(),
                     animated: false
                 ) { _ in
-                    self.emptyLabel.text = "아직 저장한 곡이 없어요"
-                    guard (self.viewModel.archiveMusicsResult != nil) else {
+                    if self.viewModel.archiveMusics.isEmpty {
+                        self.emptyLabel.text = "아직 저장한 곡이 없어요"
                         Task { await self.viewModel.loadArchiveMusics() }
-                        return
+                    } else {
+                        self.musicsCollectionView.reloadData()
+                        self.musicsCollectionView.setContentOffset(.zero, animated: false)
+                        self.musicsCollectionView.layoutIfNeeded()
+                        
+                        self.emptyLabel.isHidden = self.viewModel.archiveMusics.count != 0
                     }
-                    self.musicsCollectionView.reloadData()
-                    self.musicsCollectionView.setContentOffset(.zero, animated: false)
-                    self.musicsCollectionView.layoutIfNeeded()
-                    
-                    self.emptyLabel.isHidden = self.viewModel.archiveMusicsResult?.musics.totalCount != 0
                 }
             }
         }
@@ -312,10 +312,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
         if selectedTabIndex == 0 {
             return viewModel.registeredMusics.count
         } else {
-            let itemsCount = viewModel.archiveMusicsResult?.musics.items.count ?? 0
-            let visibleCount = viewModel.archiveMusicsResult?.musics.totalCount ?? 0
-            
-            return min(itemsCount, visibleCount)
+            return viewModel.archiveMusics.count
         }
     }
     
@@ -327,7 +324,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                 for: indexPath
             ) as? RegisteredMusicCell else { return UICollectionViewCell() }
             
-            if let isHost = viewModel.registeredMusicsResult?.isHost {
+            if let isHost = viewModel.isHost {
                 cell.configureCell(isHost: isHost, with: viewModel.registeredMusics[indexPath.item])
                 
                 if isHost {
@@ -347,9 +344,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                 for: indexPath
             ) as? ArchiveCell else { return UICollectionViewCell() }
             
-            if let models = viewModel.archiveMusicsResult?.musics.items {
-                cell.configureCell(with: models[indexPath.item])
-            }
+            cell.configureCell(with: viewModel.archiveMusics[indexPath.item])
             
             return cell
         }
@@ -361,15 +356,19 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
         if selectedTabIndex == 0 {
             postId = viewModel.registeredMusics[indexPath.item].id
         } else {
-            postId = viewModel.archiveMusicsResult?.musics.items[indexPath.item].id ?? 0
+            postId = viewModel.archiveMusics[indexPath.item].id
         }
         
         viewModel.goToMusicDetail(trackId: String(postId))
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        Task {
-            await viewModel.loadRegisteredMusicsMoreIfNeeded(currentIndex: indexPath.item)
+        if selectedTabIndex == 0 {
+            Task { await viewModel.loadRegisteredMusicsMore(currentIndex: indexPath.item) }
+        } else {
+            if indexPath.item % 3 == 0 {
+                Task { await viewModel.loadArchiveMusicsMore(currentIndex: indexPath.item) }
+            }
         }
     }
 }

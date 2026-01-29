@@ -10,7 +10,7 @@ import UIKit
 protocol MyPageUseCase {
     func getUserProfile(userId: Int) async throws -> MyPageUserProfileResult
     func getRegisteredTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult
-    func getArchiveTracks(userId: Int) async throws -> MyPageTrackResult
+    func getArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult
     func patchUserProfile(nickname: String?, profileImg: UIImage?) async throws
 }
 
@@ -34,8 +34,8 @@ final class DefaultMyPageUseCase: MyPageUseCase {
         return data
     }
     
-    func getArchiveTracks(userId: Int) async throws -> MyPageTrackResult {
-        let data = try await repository.fetchArchiveTracks(userId: userId)
+    func getArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult {
+        let data = try await repository.fetchArchiveTracks(userId: userId, cursor: cursor)
         
         return data
     }

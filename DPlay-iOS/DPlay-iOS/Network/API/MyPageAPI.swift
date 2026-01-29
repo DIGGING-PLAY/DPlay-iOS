@@ -10,7 +10,7 @@ import Alamofire
 enum MyPageAPI {
     case fetchUserProfile(userId: Int)
     case fetchRegisteredTracks(userId: Int, cursor: String?)
-    case fetchArchiveTracks(userId: Int)
+    case fetchArchiveTracks(userId: Int, cursor: String?)
 }
 
 extension MyPageAPI: BaseAPI {
@@ -20,7 +20,7 @@ extension MyPageAPI: BaseAPI {
             return "/users/\(userId)"
         case .fetchRegisteredTracks(let userId, _):
             return "/users/\(userId)/posts"
-        case .fetchArchiveTracks(let userId):
+        case .fetchArchiveTracks(let userId, _):
             return "/users/\(userId)/scraps"
         }
     }
@@ -37,6 +37,14 @@ extension MyPageAPI: BaseAPI {
         case .fetchRegisteredTracks(_, let cursor):
             var params: Parameters = [
                 "limit": 20,
+            ]
+            if let cursor {
+                params["cursor"] = cursor
+            }
+            return params
+        case .fetchArchiveTracks(_, let cursor):
+            var params: Parameters = [
+                "limit": 15,
             ]
             if let cursor {
                 params["cursor"] = cursor
