@@ -86,6 +86,9 @@ extension ProfileEditViewModel {
                 try await useCase.patchUserProfile(nickname: nickname, profileImg: profileImg)
                 nicknameValidationState = .valid
                 try await Task.sleep(nanoseconds: 1_000_000_000)
+                AppEventBus.shared.event.send(
+                    .mypageShouldRefresh(reason: .profileUpdated)
+                )
                 popToPrevious()
             } catch let error as NicknameError {
                 if error == .duplicate {

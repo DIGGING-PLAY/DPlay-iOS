@@ -25,6 +25,8 @@ enum MyPageRefreshReason {
     case commentAdded
     case commentDeleted
     case scrapToggled
+    case pushNotificationToggled
+    case profileUpdated
 }
 
 final class AppEventBus {

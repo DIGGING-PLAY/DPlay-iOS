@@ -119,6 +119,8 @@ private extension MyPageViewModel {
             Task { await loadArchiveMusics() }
         case .scrapToggled:
             Task { await loadArchiveMusics() }
+        case .pushNotificationToggled, .profileUpdated:
+            Task { await loadUserProfile() }
         }
     }
 }
