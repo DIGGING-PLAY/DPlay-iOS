@@ -108,6 +108,8 @@ private extension MusicAlbumCell {
             $0.clipsToBounds = true
             $0.roundCorners(cornerRadius: 14)
             $0.image = ImageLiterals.img_default_profile
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.gray200.cgColor
         }
         
         userNameLabel.do {
