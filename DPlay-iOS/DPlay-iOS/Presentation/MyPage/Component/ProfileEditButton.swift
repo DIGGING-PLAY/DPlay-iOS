@@ -40,6 +40,7 @@ private extension ProfileEditButton {
     func setupStyle() {
         profileImageView.do {
             $0.roundCorners(cornerRadius: 40)
+            $0.contentMode = .scaleAspectFill
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.gray200.cgColor
         }

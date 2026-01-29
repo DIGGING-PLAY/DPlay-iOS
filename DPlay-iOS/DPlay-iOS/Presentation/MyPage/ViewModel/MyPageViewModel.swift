@@ -16,11 +16,13 @@ final class MyPageViewModel: ObservableObject {
     @Published var userProfileResult: MyPageUserProfileResult?
     @Published var registeredMusicsResult: MyPageTrackResult?
     @Published var archiveMusicsResult: MyPageTrackResult?
+    @Published var registeredMusics: [MyPageTrackPost] = []
     
     //MARK: - Properties
     
     private let userId: Int
     private var cancellables = Set<AnyCancellable>()
+    private var nextCursor: String?
     
     //MARK: - Dependencies
     
@@ -56,9 +58,11 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let result = try await myPageUseCase.getRegisteredTracks(userId: userId)
+            let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: nextCursor)
             
             self.registeredMusicsResult = result
+            self.nextCursor = result.nextCursor
+            self.registeredMusics = result.musics.items
         } catch {
             print("ERROR:", error)
         }
@@ -86,6 +90,24 @@ extension MyPageViewModel {
         } catch {
             print("❌ 삭제 실패:", error)
         }
+    }
+    
+    func loadRegisteredMusicsMoreIfNeeded(currentIndex: Int) async {
+        guard let cursor = nextCursor,
+              currentIndex >= registeredMusics.count - 3 else { return }
+
+        do {
+            let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: cursor)
+
+            registeredMusics.append(contentsOf: result.musics.items)
+            nextCursor = result.nextCursor
+        } catch {
+            nextCursor = nil
+        }
+    }
+    
+    func resetCursor() {
+        nextCursor = nil
     }
 }
 

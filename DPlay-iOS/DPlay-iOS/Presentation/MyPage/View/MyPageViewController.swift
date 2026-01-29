@@ -93,7 +93,6 @@ private extension MyPageViewController {
         
         musicsCollectionView.do {
             $0.backgroundColor = .gray100
-            $0.showsVerticalScrollIndicator = false
             $0.register(RegisteredMusicCell.self, forCellWithReuseIdentifier: RegisteredMusicCell.className)
             $0.register(ArchiveCell.self, forCellWithReuseIdentifier: ArchiveCell.className)
             $0.delegate = self
@@ -187,12 +186,12 @@ private extension MyPageViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$registeredMusicsResult
+        viewModel.$registeredMusics
             .sink { [weak self] result in
                 guard let self else { return }
                 
                 if selectedTabIndex == 0 {
-                    emptyLabel.isHidden = result?.musics.totalCount != 0
+                    emptyLabel.isHidden = result.count != 0
                 }
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
@@ -220,6 +219,7 @@ private extension MyPageViewController {
     
     func bindSegmentedControl() {
         segmentedControl.onTapRegisteredMusicsButton = {
+            self.viewModel.resetCursor()
             if self.selectedTabIndex == 1 {
                 self.selectedTabIndex = 0
                 self.musicsCollectionView.setCollectionViewLayout(
@@ -231,12 +231,13 @@ private extension MyPageViewController {
                     self.musicsCollectionView.setContentOffset(.zero, animated: false)
                     self.musicsCollectionView.layoutIfNeeded()
                     
-                    self.emptyLabel.isHidden = self.viewModel.registeredMusicsResult?.musics.totalCount != 0
+                    self.emptyLabel.isHidden = self.viewModel.registeredMusics.count != 0
                 }
             }
         }
         
         segmentedControl.onTapArchiveButton = {
+            self.viewModel.resetCursor()
             if self.selectedTabIndex == 0 {
                 self.selectedTabIndex = 1
                 self.musicsCollectionView.setCollectionViewLayout(
@@ -309,10 +310,7 @@ private extension MyPageViewController {
 extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if selectedTabIndex == 0 {
-            let itemsCount = viewModel.registeredMusicsResult?.musics.items.count ?? 0
-            let visibleCount = viewModel.registeredMusicsResult?.musics.totalCount ?? 0
-            
-            return min(itemsCount, visibleCount)
+            return viewModel.registeredMusics.count
         } else {
             let itemsCount = viewModel.archiveMusicsResult?.musics.items.count ?? 0
             let visibleCount = viewModel.archiveMusicsResult?.musics.totalCount ?? 0
@@ -329,14 +327,14 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                 for: indexPath
             ) as? RegisteredMusicCell else { return UICollectionViewCell() }
             
-            if let data = viewModel.registeredMusicsResult, let isHost = data.isHost {
-                cell.configureCell(isHost: isHost, with: data.musics.items[indexPath.item])
+            if let isHost = viewModel.registeredMusicsResult?.isHost {
+                cell.configureCell(isHost: isHost, with: viewModel.registeredMusics[indexPath.item])
                 
                 if isHost {
                     cell.onTapMoreButton = { [weak self] in
                         guard let self else { return }
                         
-                        showDeleteModal(postId: data.musics.items[indexPath.item].id)
+                        showDeleteModal(postId: viewModel.registeredMusics[indexPath.item].id)
                     }
                 }
             }
@@ -361,11 +359,17 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
         let postId: Int
         
         if selectedTabIndex == 0 {
-            postId = viewModel.registeredMusicsResult?.musics.items[indexPath.item].id ?? 0
+            postId = viewModel.registeredMusics[indexPath.item].id
         } else {
             postId = viewModel.archiveMusicsResult?.musics.items[indexPath.item].id ?? 0
         }
         
         viewModel.goToMusicDetail(trackId: String(postId))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        Task {
+            await viewModel.loadRegisteredMusicsMoreIfNeeded(currentIndex: indexPath.item)
+        }
     }
 }
