@@ -28,7 +28,7 @@ final class MusicSearchViewController: UIViewController {
     private let clearButton = UIButton(type: .custom)
     private let tableView = UITableView()
     private let nextButton = UIButton()
-    
+    private let emptyBackgroundView = UIView()
     private let emptyResultLabel = UILabel()
     
     
@@ -63,30 +63,42 @@ private extension MusicSearchViewController {
         
         titleLabel.do {
             $0.text = "추천하고 싶은\n노래를 검색해보세요!"
-            $0.setTextStyle(.titleBold24)
             $0.textColor = .dplay_black
+            $0.setTextStyle(.titleBold24)
             $0.numberOfLines = 2
         }
         
         searchTextField.do {
             $0.backgroundColor = .gray100
             $0.roundCorners(cornerRadius: 12)
-            $0.setTextStyle(.bodySemi16)
             $0.tintColor = .dplay_pink
             $0.placeholder = "노래 제목이나 아티스트명을 검색해주세요"
+            $0.setTextStyle(.bodySemi16)
             $0.returnKeyType = .search
             
             // 왼쪽 패딩
             $0.addPadding(left: 12)
             
-            // 오른쪽 clear 버튼 영역 (ProfileSetting과 동일 패턴)
-            let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 53))
+            // 오른쪽 clear 버튼 영역
+            let iconSize: CGFloat = 20
+            let rightPadding: CGFloat = 16.5
+
+            let rightViewWidth = iconSize + rightPadding
+            let rightView = UIView(
+                frame: CGRect(x: 0, y: 0, width: rightViewWidth, height: 53)
+            )
+
+            clearButton.frame = CGRect(
+                x: 0,
+                y: 0,
+                width: iconSize,
+                height: 53
+            )
+
             rightView.addSubview(clearButton)
-            
-            clearButton.frame = CGRect(x: 6, y: 0, width: 20, height: 53)
-            
-            $0.rightView = rightView
-            $0.rightViewMode = .never
+
+            searchTextField.rightView = rightView
+            searchTextField.rightViewMode = .never
         }
         
         clearButton.do {
@@ -98,14 +110,14 @@ private extension MusicSearchViewController {
             $0.register(SongSearchCell.self, forCellReuseIdentifier: SongSearchCell.identifier)
             $0.isHidden = false
             $0.separatorStyle = .none
-            $0.backgroundView = emptyResultLabel
+            $0.backgroundView = emptyBackgroundView
         }
         
         emptyResultLabel.do {
             $0.text = "일치하는 검색 결과가 없어요"
-            $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
             $0.textAlignment = .center
+            $0.setTextStyle(.bodySemi14)
             $0.isHidden = true
         }
         
@@ -120,6 +132,8 @@ private extension MusicSearchViewController {
     }
     
     func setupHierarchy() {
+        emptyBackgroundView.addSubview(emptyResultLabel)
+        
         view.addSubviews(
             navigationBarView,
             titleLabel,
@@ -130,6 +144,11 @@ private extension MusicSearchViewController {
     }
     
     func setupLayout() {
+        
+        emptyResultLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+
         navigationBarView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview()

@@ -207,7 +207,6 @@ private extension HomeViewController {
             $0.top.equalTo(questionContainerView.snp.bottom).offset(32)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
-            $0.width.equalTo(100)
         }
         
         musicScrapButton.snp.makeConstraints {
