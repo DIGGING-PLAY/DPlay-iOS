@@ -31,6 +31,7 @@ final class MusicCommentDetailViewController: UIViewController {
     
     private let albumContainer = UIView()
     private let albumImageView = UIImageView()
+    private let holeView = UIView()
     private let scrapButton = UIButton()
     private let badgeView = BadgeView()
     private let musicTitle = UILabel()
@@ -101,6 +102,13 @@ private extension MusicCommentDetailViewController {
             $0.contentMode = .scaleAspectFill
             $0.image = ImageLiterals.img_card_cover
             $0.roundCorners(cornerRadius: 90)
+        }
+        
+        holeView.do {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 14
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.gray200.cgColor
         }
         
         scrapButton.do {
@@ -237,6 +245,7 @@ private extension MusicCommentDetailViewController {
             commentCard
         )
         
+        albumImageView.addSubview(holeView)
         albumContainer.addSubviews(
             albumImageView,
             scrapButton,
@@ -297,6 +306,11 @@ private extension MusicCommentDetailViewController {
             $0.edges.equalToSuperview()
         }
         
+        holeView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.size.equalTo(28)
+        }
+
         scrapButton.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top)
             $0.trailing.equalTo(albumImageView.snp.trailing)
@@ -492,7 +506,7 @@ private extension MusicCommentDetailViewController {
         title.font = .dplayFont(.bodySemi14)
         title.foregroundColor = .dplay_pink
         config?.attributedTitle = title
-        likeButton.backgroundColor = .dplay_pink100
+        likeButton.backgroundColor =  like.isLiked ? .dplay_pink100 : .white
         likeButton.configuration = config
     }
 

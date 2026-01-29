@@ -54,13 +54,15 @@ private extension SongSearchCell {
         }
         
         titleLabel.do {
-            $0.setTextStyle(.bodySemi16)
+            $0.text = "내일에서 온 티켓"
             $0.textColor = .dplay_black
+            $0.setTextStyle(.bodySemi16)
         }
         
         artistLabel.do {
-            $0.setTextStyle(.bodyMedi14)
+            $0.text = "한로로"
             $0.textColor = .gray400
+            $0.setTextStyle(.bodyMedi14)
         }
         
         checkmarkImageView.do {
