@@ -132,6 +132,10 @@ private extension MusicCommentDetailViewController {
             config.imagePadding = 8
             config.cornerStyle = .medium
             
+            config.background.cornerRadius = 12
+            config.background.strokeColor = .dplay_pink
+            config.background.strokeWidth = 1
+            
             var titleAttr = AttributedString("재생하기")
             titleAttr.font = .dplayFont(.bodyBold14)
             titleAttr.foregroundColor = .white
@@ -150,15 +154,16 @@ private extension MusicCommentDetailViewController {
             config.imagePlacement = .leading
             config.imagePadding = 8
             
+            config.background.cornerRadius = 12
+            config.background.strokeColor = .dplay_pink
+            config.background.strokeWidth = 1
+            
             // 텍스트
             var titleAttr = AttributedString("0")
             titleAttr.font = .dplayFont(.bodySemi14)
             titleAttr.foregroundColor = UIColor.dplay_pink
             config.attributedTitle = titleAttr
             $0.configuration = config
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.dplay_pink.cgColor
-            $0.roundCorners(cornerRadius: 12)
         }
         
         actionButtons.do {
@@ -302,7 +307,6 @@ private extension MusicCommentDetailViewController {
             $0.top.equalTo(albumImageView.snp.bottom).inset(30)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
-            $0.width.equalTo(100)
         }
         
         musicTitle.snp.makeConstraints {
@@ -326,8 +330,8 @@ private extension MusicCommentDetailViewController {
         }
         
         commentCard.snp.makeConstraints {
-            $0.top.equalTo(actionButtons.snp.bottom).offset(32)
-            $0.horizontalEdges.equalToSuperview().inset(12)
+            $0.top.equalTo(actionButtons.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().offset(-40)
         }
         
@@ -488,7 +492,7 @@ private extension MusicCommentDetailViewController {
         title.font = .dplayFont(.bodySemi14)
         title.foregroundColor = .dplay_pink
         config?.attributedTitle = title
-
+        likeButton.backgroundColor = .dplay_pink100
         likeButton.configuration = config
     }
 
