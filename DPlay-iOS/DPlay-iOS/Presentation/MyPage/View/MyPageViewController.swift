@@ -191,7 +191,9 @@ private extension MyPageViewController {
             .sink { [weak self] result in
                 guard let self else { return }
                 
-                emptyLabel.isHidden = result?.musics.totalCount != 0 && selectedTabIndex == 0
+                if selectedTabIndex == 0 {
+                    emptyLabel.isHidden = result?.musics.totalCount != 0
+                }
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
         
@@ -199,7 +201,9 @@ private extension MyPageViewController {
             .sink { [weak self] result in
                 guard let self else { return }
                 
-                emptyLabel.isHidden = result?.musics.totalCount != 0 && selectedTabIndex == 1
+                if selectedTabIndex == 1 {
+                    emptyLabel.isHidden = result?.musics.totalCount != 0
+                }
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
     }
@@ -265,9 +269,23 @@ private extension MyPageViewController {
             primaryButtonTitle: "삭제하기",
             secondaryButtonTitle: "취소하기",
             primaryAction: {
-                Task { await self.viewModel.deletePost(postId: postId) }
-                AppEventBus.shared.event.send(
-                    .mypageShouldRefresh(reason: .commentDeleted)
+                AlertWindowManager.shared.present(
+                    title: "정말 삭제하시겠어요?",
+                    message: nil,
+                    actions: [
+                        AlertAction(
+                            buttonTitle: "취소",
+                            style: .secondaryLeft,
+                            onTap: {
+                                print("머무리기")
+                            }),
+                        AlertAction(
+                            buttonTitle: "삭제하기",
+                            style: .primaryRight,
+                            onTap: {
+                                Task { await self.viewModel.deletePost(postId: postId) }
+                            })
+                    ],
                 )
             },
             secondaryAction: {

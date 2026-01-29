@@ -77,7 +77,9 @@ extension MyPageViewModel {
     func deletePost(postId: Int) async {
         do {
             try await commentDetailUseCase.deletePost(postId: postId)
-
+            AppEventBus.shared.event.send(
+                .homeShouldRefresh(reason: .commentDeleted)
+            )
             AppEventBus.shared.event.send(
                 .mypageShouldRefresh(reason: .commentDeleted)
             )
@@ -108,9 +110,13 @@ private extension MyPageViewModel {
     
     func handleMyPageRefresh(_ reason: MyPageRefreshReason) {
         switch reason {
-        case .commentAdded, .commentDeleted:
+        case .commentAdded:
             Task { await loadRegisteredMusics() }
             Task { await loadUserProfile() }
+        case .commentDeleted:
+            Task { await loadUserProfile() }
+            Task { await loadRegisteredMusics() }
+            Task { await loadArchiveMusics() }
         case .scrapToggled:
             Task { await loadArchiveMusics() }
         }
