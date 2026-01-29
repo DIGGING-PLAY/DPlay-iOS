@@ -107,11 +107,14 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
         onRequestGoToPostMusicComment?()
     }
     
-    
     func pop() {
         navigationController.popViewController(animated: true)
         if navigationController.viewControllers.count == 1 {
             navigationController.rootTabBarController()?.setTabBarHidden(false)
         }
+    }
+    
+    func popToRoot() {
+        navigationController.popToRootViewController(animated: false)
     }
 }

@@ -9,8 +9,10 @@ import UIKit
 
 protocol DetailCoordinating: AnyObject {
     func goToMusicCommentDetail(postId: Int, badge: Badge)
-    func pop()
     func goToScrapTab()
+    func goToUserProfile(userId: Int)
+    func pop()
+    func popToRoot()
 }
 
 final class MyPageCoordinator: Coordinator {
@@ -92,5 +94,18 @@ extension MyPageCoordinator: DetailCoordinating {
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToUserProfile(userId: Int) {
+        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: userId)
+        let vc = MyPageViewController(viewModel: vm)
+        
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func popToRoot() {
+        navigationController.popToRootViewController(animated: false)
     }
 }

@@ -153,8 +153,12 @@ extension MusicCommentDetailViewModel {
     }
     
     func goToScrapTab() {
-        didTapBack()
+        coordinator?.popToRoot()
         coordinator?.goToScrapTab()
+    }
+    
+    func goToUserProfile() {
+        coordinator?.goToUserProfile(userId: detail?.user.id ?? 0)
     }
 }
 

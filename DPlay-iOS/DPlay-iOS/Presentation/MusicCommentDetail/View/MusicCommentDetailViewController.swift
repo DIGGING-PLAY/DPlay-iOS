@@ -472,7 +472,7 @@ private extension MusicCommentDetailViewController {
 
 @objc private extension MusicCommentDetailViewController {
     func didTapProfile() {
-        print("상대방 프로필로 이동")
+        viewModel.goToUserProfile()
     }
 }
 
