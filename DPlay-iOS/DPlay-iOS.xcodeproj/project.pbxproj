@@ -32,6 +32,9 @@
 		D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */; };
 		D025992D2F04506A0054D604 /* MonthlyQuestionNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */; };
 		D02599322F045EE50054D604 /* QuestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02599312F045EC50054D604 /* QuestionsCell.swift */; };
+		D0387F852F29EFD2004167D6 /* QuestionPostFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0387F842F29EFBB004167D6 /* QuestionPostFooterView.swift */; };
+		D0387F872F29F0F8004167D6 /* QuestionPostsGuideTooltipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0387F862F29F0DA004167D6 /* QuestionPostsGuideTooltipView.swift */; };
+		D0387F9A2F2B320C004167D6 /* NotificationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0387F992F2B3203004167D6 /* NotificationResponseDTO.swift */; };
 		D05A62EC2EC1C6FB00B56DFD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */; };
 		D05A62F62EC1CF9F00B56DFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */; };
 		D05B17502EF24C5F007E2D93 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B174F2EF24C59007E2D93 /* SettingViewModel.swift */; };
@@ -101,7 +104,7 @@
 		D0D071B72F050AF900B9EE00 /* QuestionPostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B62F050AF700B9EE00 /* QuestionPostsViewModel.swift */; };
 		D0D071B92F050BC600B9EE00 /* MockQuestionPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D071B82F050BC100B9EE00 /* MockQuestionPosts.swift */; };
 		D0D8FDB02ED461DE00F75191 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */; };
-		D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemView.swift */; };
+		D0D8FDB12ED4621E00F75191 /* AgreementItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01894002ECA6074002A48C1 /* AgreementItemButton.swift */; };
 		D0D8FDB52ED5703A00F75191 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDB42ED5703500F75191 /* UIViewController+.swift */; };
 		D0D8FDBE2ED59CBD00F75191 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDBD2ED59CB300F75191 /* OverviewViewController.swift */; };
 		D0D8FDC12ED61C5700F75191 /* OnboardingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8FDC02ED61C4A00F75191 /* OnboardingImageCell.swift */; };
@@ -268,7 +271,7 @@
 		D01893F22ECA54B0002A48C1 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		D01893F82ECA54F6002A48C1 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		D01893FD2ECA5CCC002A48C1 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
-		D01894002ECA6074002A48C1 /* AgreementItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemView.swift; sourceTree = "<group>"; };
+		D01894002ECA6074002A48C1 /* AgreementItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementItemButton.swift; sourceTree = "<group>"; };
 		D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAgreementButton.swift; sourceTree = "<group>"; };
 		D01C6D792EE46BFC009C9AF8 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
 		D01C6D7D2EE46CDF009C9AF8 /* MockMyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMyPage.swift; sourceTree = "<group>"; };
@@ -284,6 +287,9 @@
 		D02599232F04328C0054D604 /* MonthlyQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionViewController.swift; sourceTree = "<group>"; };
 		D025992C2F04505A0054D604 /* MonthlyQuestionNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyQuestionNavigationBarView.swift; sourceTree = "<group>"; };
 		D02599312F045EC50054D604 /* QuestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsCell.swift; sourceTree = "<group>"; };
+		D0387F842F29EFBB004167D6 /* QuestionPostFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostFooterView.swift; sourceTree = "<group>"; };
+		D0387F862F29F0DA004167D6 /* QuestionPostsGuideTooltipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPostsGuideTooltipView.swift; sourceTree = "<group>"; };
+		D0387F992F2B3203004167D6 /* NotificationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationResponseDTO.swift; sourceTree = "<group>"; };
 		D05A62EB2EC1C6F700B56DFD /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D05A62F52EC1CF9B00B56DFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D05B174F2EF24C59007E2D93 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -591,7 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				D01894112ECA6D3B002A48C1 /* AllAgreementButton.swift */,
-				D01894002ECA6074002A48C1 /* AgreementItemView.swift */,
+				D01894002ECA6074002A48C1 /* AgreementItemButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -977,6 +983,7 @@
 			isa = PBXGroup;
 			children = (
 				D06B4AB92ED0DC0A00DB0107 /* AuthResponseDTO.swift */,
+				D0387F992F2B3203004167D6 /* NotificationResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1149,6 +1156,7 @@
 		D0D071AF2F04FDAB00B9EE00 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				D0387F862F29F0DA004167D6 /* QuestionPostsGuideTooltipView.swift */,
 				D0D071B02F04FDC400B9EE00 /* QuestionPostsNavigationBarView.swift */,
 			);
 			path = Component;
@@ -1157,6 +1165,7 @@
 		D0D071B22F04FF6D00B9EE00 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D0387F842F29EFBB004167D6 /* QuestionPostFooterView.swift */,
 				D0D071B32F04FF7C00B9EE00 /* QuestionPostCell.swift */,
 			);
 			path = Cell;
@@ -2180,7 +2189,7 @@
 				D09780782F10337900AAF7A6 /* AppleLoginManager.swift in Sources */,
 				D06645C82F03627C008A1B44 /* UINavigationController+.swift in Sources */,
 				D05B6C302ED6C6B9003F25E5 /* NotificationPermissionViewController.swift in Sources */,
-				D0D8FDB12ED4621E00F75191 /* AgreementItemView.swift in Sources */,
+				D0D8FDB12ED4621E00F75191 /* AgreementItemButton.swift in Sources */,
 				D01893F32ECA54B9002A48C1 /* AuthUseCase.swift in Sources */,
 				EFCBCF5E2ED58B0300BA7740 /* MusicCommentViewModel.swift in Sources */,
 				EFCBCF472ED4989B00BA7740 /* MusicSearchNavigationBarView.swift in Sources */,
@@ -2194,10 +2203,12 @@
 				D01C6D952EEBF131009C9AF8 /* ProfileEditNavigationBarView.swift in Sources */,
 				EFA1BA412F1A12120013888C /* PostMusicCommentRepository.swift in Sources */,
 				EF2560462EBDD8CB003E65C9 /* HomeViewModel.swift in Sources */,
+				D0387F852F29EFD2004167D6 /* QuestionPostFooterView.swift in Sources */,
 				D0B944DC2F1C0216002B87FF /* MyPageAPI.swift in Sources */,
 				EFAA45AF2EDD959200BEC1AC /* Config.swift in Sources */,
 				EF2560362EBDD220003E65C9 /* HomeViewUseCase.swift in Sources */,
 				D01C6D812EE479A5009C9AF8 /* MyPageRepository.swift in Sources */,
+				D0387F9A2F2B320C004167D6 /* NotificationResponseDTO.swift in Sources */,
 				EFCBCEA72EC9B46B00BA7740 /* TabBarCoordinator.swift in Sources */,
 				D097809C2F12E20200AAF7A6 /* LoginViewModel.swift in Sources */,
 				EFCBCEEA2EC9B57C00BA7740 /* UIStackView+.swift in Sources */,
@@ -2311,6 +2322,7 @@
 				EF4B8DE42F0678BD009101C4 /* PreviewMusicUseCase.swift in Sources */,
 				EF02DE3F2F12C75900259499 /* MusicTrack.swift in Sources */,
 				EFCBCE912EC9A14A00BA7740 /* HomeNetworkServiceImpl.swift in Sources */,
+				D0387F872F29F0F8004167D6 /* QuestionPostsGuideTooltipView.swift in Sources */,
 				D02599242F04329C0054D604 /* MonthlyQuestionViewController.swift in Sources */,
 				D0DE02512F194BE4005B2EEF /* SignupRequestDTO.swift in Sources */,
 				EF4B8DF42F06853E009101C4 /* MockPreviewNetworkService.swift in Sources */,

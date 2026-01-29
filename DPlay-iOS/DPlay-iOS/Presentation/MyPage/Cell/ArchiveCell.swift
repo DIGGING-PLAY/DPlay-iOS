@@ -72,6 +72,7 @@ private extension ArchiveCell {
             $0.text = " "
             $0.textColor = .dplay_black
             $0.setTextStyle(.bodySemi14)
+            $0.textAlignment = .center
             $0.numberOfLines = 1
             $0.lineBreakMode = .byTruncatingTail
         }
@@ -80,6 +81,7 @@ private extension ArchiveCell {
             $0.text = " "
             $0.textColor = .gray400
             $0.setTextStyle(.capMedi12)
+            $0.textAlignment = .center
             $0.numberOfLines = 1
             $0.lineBreakMode = .byTruncatingTail
         }
@@ -108,10 +110,12 @@ private extension ArchiveCell {
         musicTitleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(5)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(imageView)
         }
         
         artistNameLabel.snp.makeConstraints {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(1)
+            $0.width.equalTo(imageView)
             $0.centerX.bottom.equalToSuperview()
         }
         

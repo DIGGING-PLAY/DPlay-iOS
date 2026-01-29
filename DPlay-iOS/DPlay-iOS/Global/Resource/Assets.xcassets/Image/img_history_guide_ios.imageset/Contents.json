@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "img_lock.png",
+      "filename" : "img_history_guide_ios.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "img_lock@2x.png",
+      "filename" : "img_history_guide_ios@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "img_lock@3x.png",
+      "filename" : "img_history_guide_ios@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -32,16 +32,23 @@ final class AppCoordinator: Coordinator {
             }
         }
         
-        showAuth()
+        showSplash()
     }
 }
 
 private extension AppCoordinator {
+    func showSplash() {
+        let authCoordinator = AuthFlowCoordinator(router: router)
+        childCoordinators = [authCoordinator]
+        authCoordinator.start()
+        
+        setRootViewController(authCoordinator.rootViewController, animated: true)
+    }
+    
     func showAuth() {
         let authCoordinator = AuthFlowCoordinator(router: router)
         childCoordinators = [authCoordinator]
-        
-        authCoordinator.start()
+        authCoordinator.startLoginFlow()
         
         setRootViewController(authCoordinator.rootViewController, animated: true)
     }

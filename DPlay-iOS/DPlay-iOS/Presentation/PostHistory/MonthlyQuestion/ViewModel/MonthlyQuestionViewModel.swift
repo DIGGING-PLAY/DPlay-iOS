@@ -50,6 +50,7 @@ extension MonthlyQuestionViewModel {
             self.monthlyQuestions = result
         } catch {
             print("ERROR:", error)
+            self.monthlyQuestions = []
         }
     }
 }

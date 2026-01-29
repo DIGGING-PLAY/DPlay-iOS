@@ -64,6 +64,6 @@ final class OnboardingCoordinator: Coordinator {
     }
 
     func pop() {
-        navigationController.popViewController(animated: true)
+        router.goToAuth()
     }
 }

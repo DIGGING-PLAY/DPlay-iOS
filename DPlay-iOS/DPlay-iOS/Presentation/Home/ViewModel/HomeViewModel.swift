@@ -77,6 +77,8 @@ private extension HomeViewModel {
                 switch event {
                 case let .homeShouldRefresh(reason):
                     self.handleHomeRefresh(reason)
+                default:
+                    break
                 }
             }
             .store(in: &cancellables)
@@ -107,6 +109,9 @@ extension HomeViewModel {
             try await homeViewUseCase.toggleScrap(
                 postId: postId,
                 isScrapped: original.isScrapped
+            )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .scrapToggled)
             )
         } catch {
             // 실패 시 롤백
@@ -162,7 +167,13 @@ extension HomeViewModel {
     }
     
     func didTapUserProfile(userId: Int) {
-        coordinator?.goToUserProfile(userId: userId)
+        let myUserId = UserDefaults.standard.integer(forKey: "userId")
+        
+        if userId == myUserId {
+            coordinator?.goToScrapTab()
+        } else {
+            coordinator?.goToUserProfile(userId: userId)
+        }
     }
     
     func goToPostMusicComment() {

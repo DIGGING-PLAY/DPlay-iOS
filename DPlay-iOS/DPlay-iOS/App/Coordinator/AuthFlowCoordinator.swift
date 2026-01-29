@@ -10,37 +10,56 @@ import UIKit
 final class AuthFlowCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
-    var rootViewController = UIViewController()
-        
+    var rootViewController = UINavigationController()
+    
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
     private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
     private let router: AppRouter
-
+    
     init(router: AppRouter) {
         self.router = router
     }
     
     func start() {
         let vc = SplashViewController()
-        rootViewController = vc
+        rootViewController.setViewControllers([vc], animated: true)
         
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_000_000_000)
-            startLoginFlow()
+            
+            if KeychainManager.shared.accessToken != nil {
+                let route = try await authUseCase.checkToken()
+                
+                switch route {
+                case .auth:
+                    startLoginFlow()
+                case .mainTabBar:
+                    goToMainTabBar()
+                default:
+                    break
+                }
+            }else {
+                startLoginFlow()
+            }
         }
     }
 }
 
 extension AuthFlowCoordinator {
-    private func startLoginFlow() {
+    func startLoginFlow() {
         let loginViewModel = LoginViewModel(useCase: authUseCase, coordinator: self)
         let loginViewController = LoginViewController(viewModel: loginViewModel)
-
-        loginViewController.modalPresentationStyle = .fullScreen
-        loginViewController.modalTransitionStyle = .crossDissolve
         
-        rootViewController.present(loginViewController, animated: true)
+        UIView.transition(
+            with: rootViewController.view,
+            duration: 0.35,
+            options: [.transitionCrossDissolve, .allowAnimatedContent],
+            animations: {
+                self.rootViewController.setViewControllers([loginViewController],
+                                                           animated: false)
+            }
+        )
     }
     
     func goToMainTabBar() {

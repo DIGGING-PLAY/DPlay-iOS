@@ -47,7 +47,15 @@ extension SettingViewModel {
     }
     
     func withdraw() async throws {
-        try await useCase.withdraw()
+        AppleLoginManager.shared.getAuthorizationCode()
+        AppleLoginManager.shared.loadAuthorizationCode = { code in
+            guard let code else { return }
+            
+            Task {
+                try await self.useCase.withdraw(appleAuthorizationCode: code)
+                self.coordinator?.goToAuth()
+            }
+        }
     }
 }
 

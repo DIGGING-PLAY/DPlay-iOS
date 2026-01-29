@@ -13,7 +13,8 @@ protocol AuthService {
     func singUp(appleIdentityToken: String, signupRequestBody: SignupRequestDTO, profileImg: Data?) async throws -> AuthResponseDTO
     func setNotification(pushOn: Bool) async throws
     func logout() async throws
-    func withdraw() async throws
+    func withdraw(appleAuthorizationCode: String) async throws
+    func checkToken() async throws -> NotificationResponseDTO
 }
 
 final class AuthServiceImpl: AuthService {
@@ -124,8 +125,8 @@ final class AuthServiceImpl: AuthService {
         }
     }
     
-    func withdraw() async throws {
-        let result = await apiService.request(AuthAPI.withdraw, EmptyDTO.self)
+    func withdraw(appleAuthorizationCode: String) async throws {
+        let result = await apiService.request(AuthAPI.withdraw(appleAuthorizationCode: appleAuthorizationCode), EmptyDTO.self)
         
         switch result {
         case .success:
@@ -134,6 +135,29 @@ final class AuthServiceImpl: AuthService {
             throw AppError.unauthorized
         default:
             throw AppError.serverError
+        }
+    }
+    
+    func checkToken() async throws -> NotificationResponseDTO {
+        let result = await apiService.request(
+            AuthAPI.checkToken,
+            NotificationResponseDTO.self
+        )
+        
+        switch result {
+        case .success(let dto):
+            guard let dto = dto else {
+                throw AppError.emptyData
+            }
+            return dto
+            
+        case .unauthorized: throw AppError.unauthorized
+        case .notFound:     throw AppError.notFound
+        case .decodeError:  throw AppError.decodeError
+        case .badRequest:   throw AppError.badRequest
+        case .serverError:  throw AppError.serverError
+        case .networkFail:  throw AppError.networkFail
+        default:            throw AppError.unknown
         }
     }
 }

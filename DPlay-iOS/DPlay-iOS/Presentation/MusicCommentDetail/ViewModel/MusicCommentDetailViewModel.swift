@@ -59,6 +59,9 @@ extension MusicCommentDetailViewModel {
             AppEventBus.shared.event.send(
                 .homeShouldRefresh(reason: .commentDeleted)
             )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .commentDeleted)
+            )
         } catch {
             print("❌ 삭제 실패:", error)
         }
@@ -137,6 +140,9 @@ extension MusicCommentDetailViewModel {
             AppEventBus.shared.event.send(
                 .homeShouldRefresh(reason: .scrapToggled)
             )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .scrapToggled)
+            )
         } catch {
             // rollback
             detail = original
@@ -153,8 +159,18 @@ extension MusicCommentDetailViewModel {
     }
     
     func goToScrapTab() {
-        didTapBack()
+        coordinator?.popToRoot()
         coordinator?.goToScrapTab()
+    }
+    
+    func goToUserProfile() {
+        let myUserId = UserDefaults.standard.integer(forKey: "userId")
+        
+        if detail?.user.id ?? 0 == myUserId {
+            goToScrapTab()
+        } else {
+            coordinator?.goToUserProfile(userId: detail?.user.id ?? 0)
+        }
     }
 }
 

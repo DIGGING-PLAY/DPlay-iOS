@@ -20,18 +20,23 @@ final class MyPageViewModel: ObservableObject {
     //MARK: - Properties
     
     private let userId: Int
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - Dependencies
     
-    private let useCase: MyPageUseCase
+    private let myPageUseCase: MyPageUseCase
+    private let commentDetailUseCase: MusicCommentDetailUseCase
     weak var coordinator: DetailCoordinating?
     
     //MARK: - Init
     
-    init(useCase: MyPageUseCase, coordinator: DetailCoordinating?, userId: Int) {
-        self.useCase = useCase
+    init(myPageUseCase: MyPageUseCase, commentDetailUseCase: MusicCommentDetailUseCase, coordinator: DetailCoordinating?, userId: Int) {
+        self.myPageUseCase = myPageUseCase
+        self.commentDetailUseCase = commentDetailUseCase
         self.coordinator = coordinator
         self.userId = userId
+        
+        bindAppEvent()
     }
 }
 
@@ -41,7 +46,7 @@ extension MyPageViewModel {
     
     func loadUserProfile() async {
         do {
-            let result = try await useCase.getUserProfile(userId: userId)
+            let result = try await myPageUseCase.getUserProfile(userId: userId)
             
             self.userProfileResult = result
         } catch {
@@ -51,7 +56,7 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let result = try await useCase.getRegisteredTracks(userId: userId)
+            let result = try await myPageUseCase.getRegisteredTracks(userId: userId)
             
             self.registeredMusicsResult = result
         } catch {
@@ -61,11 +66,59 @@ extension MyPageViewModel {
     
     func loadArchiveMusics() async {
         do {
-            let result = try await useCase.getArchiveTracks(userId: userId)
+            let result = try await myPageUseCase.getArchiveTracks(userId: userId)
 
             self.archiveMusicsResult = result
         } catch {
             print("ERROR:", error)
+        }
+    }
+    
+    func deletePost(postId: Int) async {
+        do {
+            try await commentDetailUseCase.deletePost(postId: postId)
+            AppEventBus.shared.event.send(
+                .homeShouldRefresh(reason: .commentDeleted)
+            )
+            AppEventBus.shared.event.send(
+                .mypageShouldRefresh(reason: .commentDeleted)
+            )
+        } catch {
+            print("❌ 삭제 실패:", error)
+        }
+    }
+}
+
+// MARK: - AppEvent Binding
+
+private extension MyPageViewModel {
+    func bindAppEvent() {
+        AppEventBus.shared.event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                guard let self else { return }
+
+                switch event {
+                case let .mypageShouldRefresh(reason):
+                    self.handleMyPageRefresh(reason)
+                default:
+                    break
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func handleMyPageRefresh(_ reason: MyPageRefreshReason) {
+        switch reason {
+        case .commentAdded:
+            Task { await loadRegisteredMusics() }
+            Task { await loadUserProfile() }
+        case .commentDeleted:
+            Task { await loadUserProfile() }
+            Task { await loadRegisteredMusics() }
+            Task { await loadArchiveMusics() }
+        case .scrapToggled:
+            Task { await loadArchiveMusics() }
         }
     }
 }

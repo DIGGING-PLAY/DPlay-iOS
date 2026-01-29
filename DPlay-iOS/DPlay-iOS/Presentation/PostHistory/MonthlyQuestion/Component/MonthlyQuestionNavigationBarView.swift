@@ -88,7 +88,7 @@ private extension MonthlyQuestionNavigationBarView {
     
     //MARK: - @objc Method
     
-    private func settingButtonTapped() {
+    private func monthSelectButtonTapped() {
         onTapMonthSelectButton?()
     }
     
@@ -102,7 +102,7 @@ private extension MonthlyQuestionNavigationBarView {
     // MARK: - Private Method
     
     func setupTarget() {
-        monthSelectButton.addTarget(self, action: #selector(settingButtonTapped), for: .touchUpInside)
+        monthSelectButton.addTarget(self, action: #selector(monthSelectButtonTapped), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
 }

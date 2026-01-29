@@ -28,6 +28,7 @@ final class QuestionPostsViewController: UIViewController {
     private let totalCountLabel = UILabel()
     private let postsTableView = UITableView()
     private let backgroundColorView = UIView()
+    private let guideFooterView = QuestionPostFooterView()
 
     //MARK: - Life Cycle
     
@@ -103,11 +104,16 @@ private extension QuestionPostsViewController {
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
             $0.dataSource = self
+            
+            guideFooterView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 125)
+            $0.tableFooterView = guideFooterView
         }
         
         backgroundColorView.do {
             $0.backgroundColor = .gray100
         }
+        
+        guideFooterView.isHidden = true
     }
     
     func setupHierarchy() {
@@ -186,6 +192,7 @@ private extension QuestionPostsViewController {
                 navigationBarView.setDateTitle(data.date)
                 questionTitleLabel.text = data.title
                 totalCountLabel.text = "총 \(data.totalCount)개의 곡"
+                guideFooterView.isHidden = data.hasPosted || data.totalCount <= data.visibleLimit
                 postsTableView.reloadData()
             }.store(in: &cancellables)
     }
@@ -208,7 +215,12 @@ private extension QuestionPostsViewController {
 extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.questionPosts?.items.count ?? 0
+        guard let posts = viewModel.questionPosts else { return 0 }
+        
+        var count = posts.hasPosted ? posts.items.count : posts.visibleLimit
+        if posts.items.isEmpty { count = 0 }
+        
+        return count
     }
 
     func tableView(

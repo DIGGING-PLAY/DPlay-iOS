@@ -10,6 +10,7 @@ import Combine
 
 enum AppEvent {
     case homeShouldRefresh(reason: HomeRefreshReason)
+    case mypageShouldRefresh(reason: MyPageRefreshReason)
 }
 
 enum HomeRefreshReason {
@@ -17,6 +18,12 @@ enum HomeRefreshReason {
     case commentDeleted
     case postAdded
     case likeToggled
+    case scrapToggled
+}
+
+enum MyPageRefreshReason {
+    case commentAdded
+    case commentDeleted
     case scrapToggled
 }
 

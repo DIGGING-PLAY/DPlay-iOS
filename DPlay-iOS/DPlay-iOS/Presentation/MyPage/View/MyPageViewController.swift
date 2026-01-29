@@ -54,11 +54,6 @@ final class MyPageViewController: UIViewController {
         bindViewModel()
         bindNavigationBar()
         bindSegmentedControl()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-     
         loadData()
     }
 }
@@ -196,7 +191,9 @@ private extension MyPageViewController {
             .sink { [weak self] result in
                 guard let self else { return }
                 
-                emptyLabel.isHidden = result?.musics.totalCount != 0
+                if selectedTabIndex == 0 {
+                    emptyLabel.isHidden = result?.musics.totalCount != 0
+                }
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
         
@@ -204,7 +201,9 @@ private extension MyPageViewController {
             .sink { [weak self] result in
                 guard let self else { return }
                 
-                emptyLabel.isHidden = result?.musics.totalCount != 0
+                if selectedTabIndex == 1 {
+                    emptyLabel.isHidden = result?.musics.totalCount != 0
+                }
                 musicsCollectionView.reloadData()
             }.store(in: &cancellables)
     }
@@ -264,13 +263,30 @@ private extension MyPageViewController {
         Task { await viewModel.loadRegisteredMusics() }
     }
     
-    func showDeleteModal() {
+    func showDeleteModal(postId: Int) {
         let modal = DPlayButtonModalViewController(
             type: .warning,
             primaryButtonTitle: "삭제하기",
             secondaryButtonTitle: "취소하기",
             primaryAction: {
-                print("삭제하기 탭")
+                AlertWindowManager.shared.present(
+                    title: "정말 삭제하시겠어요?",
+                    message: nil,
+                    actions: [
+                        AlertAction(
+                            buttonTitle: "취소",
+                            style: .secondaryLeft,
+                            onTap: {
+                                print("머무리기")
+                            }),
+                        AlertAction(
+                            buttonTitle: "삭제하기",
+                            style: .primaryRight,
+                            onTap: {
+                                Task { await self.viewModel.deletePost(postId: postId) }
+                            })
+                    ],
+                )
             },
             secondaryAction: {
                 print("취소하기 탭")
@@ -279,7 +295,7 @@ private extension MyPageViewController {
         
         if let sheet = modal.sheetPresentationController {
             sheet.detents = [
-                .custom { _ in 140 }
+                .custom { _ in 110 }
             ]
             sheet.prefersGrabberVisible = false
         }
@@ -293,9 +309,15 @@ private extension MyPageViewController {
 extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if selectedTabIndex == 0 {
-            return viewModel.registeredMusicsResult?.musics.totalCount ?? 0
+            let itemsCount = viewModel.registeredMusicsResult?.musics.items.count ?? 0
+            let visibleCount = viewModel.registeredMusicsResult?.musics.totalCount ?? 0
+            
+            return min(itemsCount, visibleCount)
         } else {
-            return viewModel.archiveMusicsResult?.musics.totalCount ?? 0
+            let itemsCount = viewModel.archiveMusicsResult?.musics.items.count ?? 0
+            let visibleCount = viewModel.archiveMusicsResult?.musics.totalCount ?? 0
+            
+            return min(itemsCount, visibleCount)
         }
     }
     
@@ -314,7 +336,7 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
                     cell.onTapMoreButton = { [weak self] in
                         guard let self else { return }
                         
-                        showDeleteModal()
+                        showDeleteModal(postId: data.musics.items[indexPath.item].id)
                     }
                 }
             }

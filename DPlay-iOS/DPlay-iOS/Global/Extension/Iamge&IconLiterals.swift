@@ -68,8 +68,9 @@ enum ImageLiterals {
     static var img_onboarding_1: UIImage { .load(name: "img_onboarding_1") }
     static var img_onboarding_2: UIImage { .load(name: "img_onboarding_2") }
     static var img_onboarding_3: UIImage { .load(name: "img_onboarding_3") }
-    static var img_profile: UIImage { .load(name: "img_profile")}
-    static var img_lock: UIImage { .load(name: "img_lock")}
+    static var img_profile: UIImage { .load(name: "img_profile") }
+    static var img_lock: UIImage { .load(name: "img_lock") }
+    static var img_history_guide: UIImage { .load(name: "img_history_guide_ios") }
 }
 
 extension UIImage {

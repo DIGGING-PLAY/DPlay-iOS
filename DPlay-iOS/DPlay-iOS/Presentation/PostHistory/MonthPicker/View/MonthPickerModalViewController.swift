@@ -21,7 +21,7 @@ final class MonthPickerModalViewController: UIViewController {
     private var selectedYear: Int
     private var selectedMonth: Int
     
-    private var years = [2022] //출시 년도 기준이라 원래 초기값은 2026이지만 테스트를 위해 작게 잡아둠
+    private var years = [2026]
     private let months = Array(1...12)
         
     //MARK: - UI Properties

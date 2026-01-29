@@ -9,8 +9,10 @@ import UIKit
 
 protocol DetailCoordinating: AnyObject {
     func goToMusicCommentDetail(postId: Int, badge: Badge)
-    func pop()
     func goToScrapTab()
+    func goToUserProfile(userId: Int)
+    func pop()
+    func popToRoot()
 }
 
 final class MyPageCoordinator: Coordinator {
@@ -28,6 +30,10 @@ final class MyPageCoordinator: Coordinator {
     private let authService = AuthServiceImpl()
     private lazy var authRepository = DefaultAuthRepository(service: authService)
     private lazy var authUseCase = DefaultAuthUseCase(repository: authRepository)
+    
+    private let commentDetailService = MusicDetailNetworkServiceImpl()
+    private lazy var commentRepository = DefaultCommentMusicDetailRepository(service: commentDetailService)
+    private lazy var commentDetailUseCase = DefaultMusicDetailUseCase(repository: commentRepository)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -35,7 +41,7 @@ final class MyPageCoordinator: Coordinator {
 
     func start() {
         let userId = UserDefaults.standard.integer(forKey: "userId")
-        let vm = MyPageViewModel(useCase: myPageUseCase, coordinator: self, userId: userId)
+        let vm = MyPageViewModel(myPageUseCase: myPageUseCase, commentDetailUseCase: commentDetailUseCase, coordinator: self, userId: userId)
         let vc = MyPageViewController(viewModel: vm)
         navigationController.isNavigationBarHidden = true
         navigationController.setViewControllers([vc], animated: false)
@@ -77,13 +83,8 @@ extension MyPageCoordinator: DetailCoordinating {
     }
     
     func goToMusicCommentDetail(postId: Int, badge: Badge) {
-        let commentDetailService = MusicDetailNetworkServiceImpl()
         let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
-       
-        let commentRepository = DefaultCommentMusicDetailRepository(service: commentDetailService)
         let previewRepository = DefaultPreviewMusicRepository(service: previewService)
-       
-        let commentDetailUseCase = DefaultMusicDetailUseCase(repository: commentRepository)
         let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
         
         let vm = MusicCommentDetailViewModel(postId: postId, initialBadge: badge, commentDetailUseCase: commentDetailUseCase, previewMusicUseCase: previewUseCase, coordinator: self)
@@ -92,5 +93,18 @@ extension MyPageCoordinator: DetailCoordinating {
         navigationController.isNavigationBarHidden = true
         navigationController.rootTabBarController()?.setTabBarHidden(true)
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToUserProfile(userId: Int) {
+        let vm = MyPageViewModel(myPageUseCase: myPageUseCase, commentDetailUseCase: commentDetailUseCase, coordinator: self, userId: userId)
+        let vc = MyPageViewController(viewModel: vm)
+        
+        navigationController.isNavigationBarHidden = true
+        navigationController.rootTabBarController()?.setTabBarHidden(true)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func popToRoot() {
+        navigationController.popToRootViewController(animated: false)
     }
 }
