@@ -93,7 +93,7 @@ private extension MusicCommentDetailViewController {
     // MARK: - Layout
     
     func setupStyle() {
-        view.backgroundColor = .white
+        view.backgroundColor = .gray100
         
         topOverlayImageView.do {
             $0.contentMode = .scaleAspectFill
@@ -109,9 +109,9 @@ private extension MusicCommentDetailViewController {
         
         gradientLayer.do {
             $0.colors = [
-                UIColor.white.withAlphaComponent(0.1).cgColor, // 위
-                UIColor.white.withAlphaComponent(0.5).cgColor, // 중간
-                UIColor.white.cgColor                            // 아래
+                UIColor.gray100.withAlphaComponent(0.1).cgColor, // 위
+                UIColor.gray100.withAlphaComponent(0.5).cgColor, // 중간
+                UIColor.gray100.cgColor                            // 아래
             ]
             $0.locations = [0.0, 0.5, 1.0]
             $0.startPoint = CGPoint(x: 0.5, y: 0.0)
@@ -151,6 +151,7 @@ private extension MusicCommentDetailViewController {
         artistLabel.do {
             $0.text = "한로로"
             $0.textColor = .gray400
+            $0.numberOfLines = 2
             $0.textAlignment = .center
             $0.setTextStyle(.bodySemi14)
         }
@@ -162,7 +163,8 @@ private extension MusicCommentDetailViewController {
             config.imagePadding = 8
             config.cornerStyle = .medium
             
-            config.background.cornerRadius = 12
+            config.cornerStyle = .fixed
+            config.background.cornerRadius = 13
             config.background.strokeColor = .dplay_pink
             config.background.strokeWidth = 1
             
@@ -184,7 +186,8 @@ private extension MusicCommentDetailViewController {
             config.imagePlacement = .leading
             config.imagePadding = 8
             
-            config.background.cornerRadius = 12
+            config.cornerStyle = .fixed
+            config.background.cornerRadius = 13
             config.background.strokeColor = .dplay_pink
             config.background.strokeWidth = 1
             
@@ -248,20 +251,29 @@ private extension MusicCommentDetailViewController {
     }
     
     func setupHierarchy() {
+        view.backgroundColor = .gray100
+        
+        // 1. 배경 이미지들
+        view.addSubview(topOverlayImageView)
+        view.addSubview(blurView)
+        view.addSubview(gradientOverlay)
+        
+        // 2. 스크롤뷰
         view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        // 3. 네비게이션바 (투명하게 보여야 하므로 스크롤뷰 위에)
+        view.addSubview(navigationBarView)
+        
+        // 4. 로딩 오버레이 (가장 위에)
         view.addSubview(loadingOverlayView)
         loadingOverlayView.addSubview(loadingIndicator)
         
-        scrollView.addSubview(contentView)
         scrollView.contentInsetAdjustmentBehavior = .never
-        
         gradientOverlay.layer.addSublayer(gradientLayer)
         
+        // contentView에는 배경 제외한 나머지만
         contentView.addSubviews(
-            topOverlayImageView,
-            blurView,
-            gradientOverlay,
-            navigationBarView,
             albumContainer,
             musicTitle,
             artistLabel,
@@ -297,13 +309,22 @@ private extension MusicCommentDetailViewController {
             $0.edges.equalTo(topOverlayImageView)
         }
         
-        scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        navigationBarView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(44)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(navigationBarView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        
         contentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.equalToSuperview()
+            $0.top.equalTo(scrollView.contentLayoutGuide)
+            $0.leading.trailing.bottom.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
         }
         
         loadingOverlayView.snp.makeConstraints {
@@ -314,14 +335,8 @@ private extension MusicCommentDetailViewController {
             $0.center.equalToSuperview()
         }
         
-        navigationBarView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(44)
-        }
-        
         albumContainer.snp.makeConstraints {
-            $0.top.equalTo(navigationBarView.snp.bottom).offset(24)
+            $0.top.equalToSuperview().offset(24)
             $0.centerX.equalToSuperview()
         }
         
@@ -334,7 +349,7 @@ private extension MusicCommentDetailViewController {
             $0.center.equalToSuperview()
             $0.size.equalTo(28)
         }
-
+        
         scrapButton.snp.makeConstraints {
             $0.top.equalTo(albumImageView.snp.top)
             $0.trailing.equalTo(albumImageView.snp.trailing)
@@ -522,6 +537,7 @@ private extension MusicCommentDetailViewController {
 
     func updateLikeButton(_ like: Like) {
         var config = likeButton.configuration
+
         config?.image = like.isLiked
             ? IconLiterals.ic_heart_p_fill
             : IconLiterals.ic_heart_p
@@ -530,9 +546,13 @@ private extension MusicCommentDetailViewController {
         title.font = .dplayFont(.bodySemi14)
         title.foregroundColor = .dplay_pink
         config?.attributedTitle = title
-        likeButton.backgroundColor =  like.isLiked ? .dplay_pink100 : .white
+
+        config?.background.backgroundColor =
+            like.isLiked ? .dplay_pink100 : .white
+
         likeButton.configuration = config
     }
+
 
     func updateScrapButton(isScrapped: Bool) {
         let image = isScrapped
