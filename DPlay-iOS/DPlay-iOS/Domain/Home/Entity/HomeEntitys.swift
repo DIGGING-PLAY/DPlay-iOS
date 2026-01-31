@@ -35,6 +35,7 @@ struct User {
     let id: Int
     let nickname: String
     let profileImage: String?
+    let isAdmin: Bool
 }
 
 struct Track {

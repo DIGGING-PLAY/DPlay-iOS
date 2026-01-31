@@ -430,7 +430,7 @@ private extension MusicCommentDetailViewController {
                 }
                 
                 // editor 작성 글이면 기본 이미지 + 터치 불가 (프로필 이동 불가)
-                if self.viewModel.badge == .editor {
+                if detail.user.isAdmin == true {
                     self.profileImageView.image = ImageLiterals.img_editor_profile
                     self.profileStack.isUserInteractionEnabled = false
                 } else {

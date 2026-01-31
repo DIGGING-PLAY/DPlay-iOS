@@ -30,7 +30,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -51,7 +52,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -72,7 +74,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -93,7 +96,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -114,7 +118,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -135,7 +140,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -156,7 +162,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -177,7 +184,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -198,7 +206,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -219,7 +228,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -240,7 +250,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,
@@ -261,7 +272,8 @@ enum MockQuestionPosts {
                 user: QuestionPostsUserDTO(
                     userId: 0,
                     nickname: "",
-                    profileImg: ""
+                    profileImg: "",
+                    isAdmin: false
                 ),
                 like: QuestionPostsLikeDTO(
                     isLiked: false,

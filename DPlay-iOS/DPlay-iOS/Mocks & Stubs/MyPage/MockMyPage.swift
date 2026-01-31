@@ -16,7 +16,7 @@ enum MockMyPage {
             user: MyPageUserDTO(
                 userId: 1,
                 nickname: "조리",
-                profileImg: "https://i.pinimg.com/474x/52/4d/bf/524dbf475995b70c42184c652b833c8b.jpg"
+                profileImg: "https://i.pinimg.com/474x/52/4d/bf/524dbf475995b70c42184c652b833c8b.jpg", isAdmin: false
             ),
             isHost: true,
             pushOn: true,

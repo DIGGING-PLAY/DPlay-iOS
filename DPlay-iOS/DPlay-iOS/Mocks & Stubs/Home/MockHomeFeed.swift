@@ -43,7 +43,8 @@ enum MockHomeFeed {
                     user: UserDTO(
                         userId: 222,
                         nickname: "윤서암",
-                        profileImg: "https://picsum.photos/100"
+                        profileImg: "https://picsum.photos/100",
+                        isAdmin: false
                     ),
                     like: LikeDTO(
                         isLiked: false,
@@ -65,7 +66,8 @@ enum MockHomeFeed {
                     user: UserDTO(
                         userId: 223,
                         nickname: "정정욱",
-                        profileImg: "https://picsum.photos/100"
+                        profileImg: "https://picsum.photos/100",
+                        isAdmin: false
                     ),
                     like: LikeDTO(
                         isLiked: false,
@@ -87,7 +89,8 @@ enum MockHomeFeed {
                     user: UserDTO(
                         userId: 224,
                         nickname: "윤서암",
-                        profileImg: "https://picsum.photos/100"
+                        profileImg: "https://picsum.photos/100",
+                        isAdmin: false
                     ),
                     like: LikeDTO(
                         isLiked: false,
@@ -109,7 +112,8 @@ enum MockHomeFeed {
                     user: UserDTO(
                         userId: 225,
                         nickname: "윤서암",
-                        profileImg: "https://picsum.photos/100"
+                        profileImg: "https://picsum.photos/100",
+                        isAdmin: false
                     ),
                     like: LikeDTO(
                         isLiked: false,
