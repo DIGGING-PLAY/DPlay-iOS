@@ -42,6 +42,7 @@ struct QuestionPostsUserDTO: Decodable {
     let userId: Int
     let nickname: String
     let profileImg: String?
+    let isAdmin: Bool
 }
 
 struct QuestionPostsLikeDTO: Decodable {
@@ -95,7 +96,8 @@ extension QuestionPostsUserDTO {
         User(
             id: userId,
             nickname: nickname,
-            profileImage: profileImg
+            profileImage: profileImg,
+            isAdmin: isAdmin
         )
     }
 }

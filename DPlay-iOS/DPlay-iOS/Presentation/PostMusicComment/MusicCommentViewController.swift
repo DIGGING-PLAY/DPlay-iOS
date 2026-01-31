@@ -104,6 +104,7 @@ private extension MusicCommentViewController {
         
         artistLabel.do {
             $0.text = " "
+            $0.numberOfLines = 2
             $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
             $0.textAlignment = .center
@@ -116,6 +117,8 @@ private extension MusicCommentViewController {
         }
         
         textView.do {
+            $0.text = " "
+            $0.font = .dplayFont(.bodySemi14)
             $0.backgroundColor = .clear
             $0.textColor = .dplay_black
         }
@@ -242,6 +245,7 @@ private extension MusicCommentViewController {
         artistLabel.snp.makeConstraints {
             $0.top.equalTo(songTitleLabel.snp.bottom).offset(6)
             $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
         
         textViewContainer.snp.makeConstraints {

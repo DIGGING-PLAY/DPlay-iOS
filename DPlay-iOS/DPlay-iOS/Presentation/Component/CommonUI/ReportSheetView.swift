@@ -219,7 +219,7 @@ private extension ReportSheetView {
     func updateConfirmButton() {
         let enabled = (selectedReason != nil)
         confirmButton.isEnabled = enabled
-        confirmButton.backgroundColor = enabled ? .dplay_black : .gray200
+        confirmButton.backgroundColor = enabled ? .gray600 : .gray200
         confirmButton.setTitleColor(enabled ? .white : .gray400, for: .normal)
     }
 
