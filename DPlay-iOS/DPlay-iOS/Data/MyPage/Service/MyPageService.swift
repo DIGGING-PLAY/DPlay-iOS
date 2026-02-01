@@ -9,8 +9,8 @@ import Foundation
 
 protocol MyPageService {
     func fetchUserProfile(userId: Int) async throws -> MyPageProfileResponseDTO
-    func fetchRegisteredTracks(userId: Int) async throws -> MyPageTracksResponseDTO
-    func fetchArchiveTracks(userId: Int) async throws -> MyPageTracksResponseDTO
+    func fetchRegisteredTracks(userId: Int, cursor: String?) async throws -> MyPageTracksResponseDTO
+    func fetchArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTracksResponseDTO
     func updateUserProfile(changeProfileRequest: UpdateProfileRequestDTO, profileImg: Data?) async throws
 }
 
@@ -44,9 +44,9 @@ final class MyPageServiceImpl: MyPageService {
         }
     }
     
-    func fetchRegisteredTracks(userId: Int) async throws -> MyPageTracksResponseDTO {
+    func fetchRegisteredTracks(userId: Int, cursor: String?) async throws -> MyPageTracksResponseDTO {
         let result = await apiService.request(
-            MyPageAPI.fetchRegisteredTracks(userId: userId),
+            MyPageAPI.fetchRegisteredTracks(userId: userId, cursor: cursor),
             MyPageTracksResponseDTO.self
         )
         
@@ -67,9 +67,9 @@ final class MyPageServiceImpl: MyPageService {
         }
     }
     
-    func fetchArchiveTracks(userId: Int) async throws -> MyPageTracksResponseDTO {
+    func fetchArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTracksResponseDTO {
         let result = await apiService.request(
-            MyPageAPI.fetchArchiveTracks(userId: userId),
+            MyPageAPI.fetchArchiveTracks(userId: userId, cursor: cursor),
             MyPageTracksResponseDTO.self
         )
         

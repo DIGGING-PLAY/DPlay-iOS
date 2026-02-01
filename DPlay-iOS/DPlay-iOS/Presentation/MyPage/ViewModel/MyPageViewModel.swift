@@ -14,13 +14,15 @@ final class MyPageViewModel: ObservableObject {
     //MARK: - Property Wrappers
     
     @Published var userProfileResult: MyPageUserProfileResult?
-    @Published var registeredMusicsResult: MyPageTrackResult?
-    @Published var archiveMusicsResult: MyPageTrackResult?
-    
+    @Published var registeredMusics: [MyPageTrackPost] = []
+    @Published var archiveMusics: [MyPageTrackPost] = []
+
     //MARK: - Properties
     
     private let userId: Int
     private var cancellables = Set<AnyCancellable>()
+    private var nextCursor: String?
+    var isHost: Bool?
     
     //MARK: - Dependencies
     
@@ -56,9 +58,11 @@ extension MyPageViewModel {
     
     func loadRegisteredMusics() async {
         do {
-            let result = try await myPageUseCase.getRegisteredTracks(userId: userId)
+            let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: nil)
             
-            self.registeredMusicsResult = result
+            self.nextCursor = result.nextCursor
+            self.isHost = result.isHost
+            self.registeredMusics = result.musics.items
         } catch {
             print("ERROR:", error)
         }
@@ -66,9 +70,10 @@ extension MyPageViewModel {
     
     func loadArchiveMusics() async {
         do {
-            let result = try await myPageUseCase.getArchiveTracks(userId: userId)
+            let result = try await myPageUseCase.getArchiveTracks(userId: userId, cursor: nil)
 
-            self.archiveMusicsResult = result
+            self.nextCursor = result.nextCursor
+            self.archiveMusics = result.musics.items
         } catch {
             print("ERROR:", error)
         }
@@ -86,6 +91,38 @@ extension MyPageViewModel {
         } catch {
             print("❌ 삭제 실패:", error)
         }
+    }
+    
+    func loadRegisteredMusicsMore(currentIndex: Int) async {
+        guard let cursor = nextCursor,
+              currentIndex >= registeredMusics.count - 3 else { return }
+
+        do {
+            let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: cursor)
+
+            registeredMusics.append(contentsOf: result.musics.items)
+            nextCursor = result.nextCursor
+        } catch {
+            nextCursor = nil
+        }
+    }
+    
+    func loadArchiveMusicsMore(currentIndex: Int) async {
+        guard let cursor = nextCursor,
+              currentIndex >= archiveMusics.count - 3 else { return }
+
+        do {
+            let result = try await myPageUseCase.getArchiveTracks(userId: userId, cursor: cursor)
+
+            archiveMusics.append(contentsOf: result.musics.items)
+            nextCursor = result.nextCursor
+        } catch {
+            nextCursor = nil
+        }
+    }
+    
+    func resetCursor() {
+        nextCursor = nil
     }
 }
 
@@ -119,6 +156,8 @@ private extension MyPageViewModel {
             Task { await loadArchiveMusics() }
         case .scrapToggled:
             Task { await loadArchiveMusics() }
+        case .pushNotificationToggled, .profileUpdated:
+            Task { await loadUserProfile() }
         }
     }
 }

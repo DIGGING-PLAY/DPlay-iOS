@@ -126,13 +126,18 @@ private extension QuestionPostCell {
         musicTitleLabel.snp.makeConstraints {
             $0.bottom.equalTo(commentLabel.snp.top).offset(-4)
             $0.leading.equalTo(coverImageView.snp.trailing).offset(8)
+            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.6)
         }
+        
+        musicTitleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         artistNameLabel.snp.makeConstraints {
             $0.centerY.equalTo(musicTitleLabel.snp.centerY)
             $0.leading.equalTo(musicTitleLabel.snp.trailing).offset(6)
             $0.trailing.lessThanOrEqualToSuperview().inset(12)
         }
+        
+        artistNameLabel.setContentHuggingPriority(.required, for: .horizontal)
         
         commentLabel.snp.makeConstraints {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(4)

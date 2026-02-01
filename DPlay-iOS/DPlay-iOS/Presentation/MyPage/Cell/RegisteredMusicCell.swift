@@ -113,13 +113,18 @@ private extension RegisteredMusicCell {
         musicTitleLabel.snp.makeConstraints {
             $0.top.equalTo(moreButton.snp.bottom)
             $0.leading.equalTo(imageView.snp.trailing).offset(8)
+            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.6)
         }
+        
+        musicTitleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         artistNameLabel.snp.makeConstraints {
             $0.centerY.equalTo(musicTitleLabel.snp.centerY)
             $0.leading.equalTo(musicTitleLabel.snp.trailing).offset(6)
             $0.trailing.lessThanOrEqualToSuperview().inset(12)
         }
+        
+        artistNameLabel.setContentHuggingPriority(.required, for: .horizontal)
         
         commentLabel.snp.makeConstraints {
             $0.top.equalTo(musicTitleLabel.snp.bottom).offset(4)

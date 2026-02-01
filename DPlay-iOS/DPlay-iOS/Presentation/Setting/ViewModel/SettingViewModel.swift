@@ -38,7 +38,16 @@ extension SettingViewModel {
     //MARK: - Method
     
     func setNotification(pushOn: Bool) async throws {
-        try await useCase.setNotification(pushOn: pushOn)
+        Task {
+            do {
+                try await useCase.setNotification(pushOn: pushOn)
+                AppEventBus.shared.event.send(
+                    .mypageShouldRefresh(reason: .pushNotificationToggled)
+                )
+            } catch {
+                print("푸시 알림 동의 여부 변경 실패")
+            }
+        }
     }
     
     func logout() async throws {

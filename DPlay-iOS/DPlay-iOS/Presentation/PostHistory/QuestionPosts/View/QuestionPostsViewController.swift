@@ -104,16 +104,11 @@ private extension QuestionPostsViewController {
             $0.showsVerticalScrollIndicator = false
             $0.delegate = self
             $0.dataSource = self
-            
-            guideFooterView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 125)
-            $0.tableFooterView = guideFooterView
         }
         
         backgroundColorView.do {
             $0.backgroundColor = .gray100
         }
-        
-        guideFooterView.isHidden = true
     }
     
     func setupHierarchy() {
@@ -192,7 +187,18 @@ private extension QuestionPostsViewController {
                 navigationBarView.setDateTitle(data.date)
                 questionTitleLabel.text = data.title
                 totalCountLabel.text = "총 \(data.totalCount)개의 곡"
-                guideFooterView.isHidden = data.hasPosted || data.totalCount <= data.visibleLimit
+                if !data.hasPosted && data.totalCount > data.visibleLimit {
+                    guideFooterView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 125)
+                    postsTableView.tableFooterView = guideFooterView
+                }
+                postsTableView.reloadData()
+            }.store(in: &cancellables)
+        
+        viewModel.$posts
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+
                 postsTableView.reloadData()
             }.store(in: &cancellables)
     }
@@ -215,12 +221,7 @@ private extension QuestionPostsViewController {
 extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let posts = viewModel.questionPosts else { return 0 }
-        
-        var count = posts.hasPosted ? posts.items.count : posts.visibleLimit
-        if posts.items.isEmpty { count = 0 }
-        
-        return count
+        return viewModel.posts.count
     }
 
     func tableView(
@@ -230,10 +231,9 @@ extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: QuestionPostCell.className,
                 for: indexPath
-        ) as? QuestionPostCell, let data = viewModel.questionPosts
-        else { return UITableViewCell() }
+        ) as? QuestionPostCell else { return UITableViewCell() }
         
-        cell.configureCell(post: data.items[indexPath.row])
+        cell.configureCell(post: viewModel.posts[indexPath.row])
 
         return cell
     }
@@ -242,5 +242,12 @@ extension QuestionPostsViewController: UITableViewDelegate, UITableViewDataSourc
         
         let postId = viewModel.questionPosts?.items[indexPath.row].id ?? 0
         viewModel.goToMusicDetail(trackId: String(postId))
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath
+    ) {
+        Task {
+            await viewModel.loadQuestionPostsMore(currentIndex: indexPath.row)
+        }
     }
 }

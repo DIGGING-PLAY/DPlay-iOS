@@ -14,10 +14,12 @@ final class QuestionPostsViewModel: ObservableObject {
     //MARK: - Property Wrappers
     
     @Published var questionPosts: QuestionPosts?
+    @Published var posts: [QuestionPost] = []
     
     //MARK: - Properties
     
     private let questionId: Int
+    private var nextCursor: String?
 
     //MARK: - Dependencies
     
@@ -43,13 +45,30 @@ extension QuestionPostsViewModel {
     
     func loadQuestionPosts() async {
         do {
-            let result = try await useCase.getQuestionPosts(questionId: questionId)
+            let result = try await useCase.getQuestionPosts(questionId: questionId, cursor: nil)
             
             self.questionPosts = result
+            self.nextCursor = result.nextCursor
+            self.posts = result.items
         } catch {
             print("ERROR:", error)
         }
     }
+    
+    func loadQuestionPostsMore(currentIndex: Int) async {
+        guard let cursor = nextCursor,
+              currentIndex >= posts.count - 3 else { return }
+        
+        do {
+            let result = try await useCase.getQuestionPosts(questionId: questionId, cursor: cursor)
+
+            posts.append(contentsOf: result.items)
+            nextCursor = result.nextCursor
+        } catch {
+            nextCursor = nil
+        }
+    }
+
 }
 
 extension QuestionPostsViewModel {
