@@ -338,7 +338,7 @@ extension MusicAlbumCell {
         heartCountLabel.text = "\(post.like.count)"
         
         // editor 작성 글이면 기본 이미지, 및 터치 불가능
-        if post.badges == .editor {
+        if post.user.isAdmin == true {
             userProfileImageView.image = ImageLiterals.img_editor_profile
             profileTapAreaView.isUserInteractionEnabled = false
         } else {

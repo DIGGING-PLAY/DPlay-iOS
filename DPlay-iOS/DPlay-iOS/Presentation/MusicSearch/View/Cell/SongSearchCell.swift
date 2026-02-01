@@ -118,6 +118,6 @@ extension SongSearchCell {
 
         coverImageView.setImage(url: item.coverURL)
         checkmarkImageView.isHidden = !isSelected
-        backgroundColor = isSelected ? .gray200 : .white
+        backgroundColor = isSelected ? .gray100 : .white
     }
 }

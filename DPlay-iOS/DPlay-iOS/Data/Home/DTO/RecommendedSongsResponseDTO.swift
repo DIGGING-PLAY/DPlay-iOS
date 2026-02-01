@@ -58,6 +58,7 @@ struct UserDTO: Decodable {
     let userId: Int
     let nickname: String
     let profileImg: String?
+    let isAdmin: Bool
 }
 
 // MARK: - HomeFeedLikeDTO
@@ -111,7 +112,7 @@ extension HomeFeedPostDTO {
 
 extension UserDTO {
     func toEntity() -> User {
-        User(id: userId, nickname: nickname, profileImage: profileImg)
+        User(id: userId, nickname: nickname, profileImage: profileImg, isAdmin: isAdmin)
     }
 }
 
