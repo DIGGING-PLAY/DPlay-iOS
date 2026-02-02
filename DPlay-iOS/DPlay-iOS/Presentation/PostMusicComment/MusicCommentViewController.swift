@@ -107,7 +107,6 @@ private extension MusicCommentViewController {
             $0.numberOfLines = 2
             $0.setTextStyle(.bodySemi14)
             $0.textColor = .gray400
-            $0.textAlignment = .center
         }
         
         textViewContainer.do {
@@ -262,7 +261,7 @@ private extension MusicCommentViewController {
         
         placeholderLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
-            $0.leading.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().inset(20)
         }
         
         countLabel.snp.makeConstraints {
@@ -380,6 +379,22 @@ private extension MusicCommentViewController {
                 else { return }
                 
                 self.songTitleLabel.text = track.title
+                
+                // NSAttributedString으로 텍스트 ...처리
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.alignment = .center
+                paragraphStyle.lineBreakMode = .byTruncatingTail
+                
+                let attributed = NSAttributedString(
+                    string: track.artist,
+                    attributes: [
+                        .font: UIFont.dplayFont(.bodySemi14),
+                        .foregroundColor: UIColor.gray400,
+                        .paragraphStyle: paragraphStyle
+                    ]
+                )
+                self.artistLabel.attributedText = attributed
+                
                 self.artistLabel.text = track.artist
                 coverImageView.setImage(url: track.coverURL)
             }
@@ -398,6 +413,11 @@ extension MusicCommentViewController: UITextViewDelegate {
         replacementText text: String
     ) -> Bool {
         
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+
         let currentText = textView.text ?? ""
         guard let textRange = Range(range, in: currentText) else {
             return false
