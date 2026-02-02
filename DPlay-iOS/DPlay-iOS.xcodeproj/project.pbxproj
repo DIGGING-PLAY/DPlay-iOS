@@ -2441,6 +2441,7 @@
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "DPlay-iOS/Global/Resource/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "디플레이";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -2483,6 +2484,7 @@
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "DPlay-iOS/Global/Resource/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "디플레이";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
