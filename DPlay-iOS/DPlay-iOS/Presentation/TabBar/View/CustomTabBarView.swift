@@ -30,7 +30,8 @@ final class CustomTabBarView: UIView {
     private let homeButton = UIButton()
     private let addButton = UIButton()
     private let myButton = UIButton()
-    
+    private let homeTouchView = UIView()
+    private let myTouchView = UIView()
     
     // MARK: - Life Cycle
     
@@ -57,7 +58,10 @@ private extension CustomTabBarView {
         }
         
         homeButton.do {
-            $0.setImage(IconLiterals.ic_tabbar_home, for: .normal)
+            var config = UIButton.Configuration.plain()
+            config.image = IconLiterals.ic_tabbar_home
+            config.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 48, bottom: 15, trailing: 48)
+            $0.configuration = config
             $0.imageView?.contentMode = .scaleAspectFill
         }
         
@@ -68,14 +72,19 @@ private extension CustomTabBarView {
         }
         
         myButton.do {
-            $0.setImage(IconLiterals.ic_tabbar_mypage, for: .normal)
+            var config = UIButton.Configuration.plain()
+            config.image = IconLiterals.ic_tabbar_mypage
+            config.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 48, bottom: 15, trailing: 48)
+            $0.configuration = config
             $0.imageView?.contentMode = .scaleAspectFill
         }
     }
     
     func setupHierarchy() {
         addSubviews(backgroundView, addButton)
-        backgroundView.addSubviews(homeButton, myButton)
+        backgroundView.addSubviews(homeTouchView, myTouchView)
+        homeTouchView.addSubview(homeButton)
+        myTouchView.addSubview(myButton)
     }
     
     func setupLayout() {
@@ -93,15 +102,27 @@ private extension CustomTabBarView {
         }
         
         homeButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
-            $0.leading.equalToSuperview().offset(67.75)
+            $0.center.equalToSuperview()
             $0.size.equalTo(32)
         }
         
+        homeTouchView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(20)
+            $0.width.equalTo(128)
+            $0.height.equalTo(56)
+        }
+        
         myButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
-            $0.trailing.equalToSuperview().inset(67.75)
+            $0.center.equalToSuperview()
             $0.size.equalTo(32)
+        }
+        
+        myTouchView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(128)
+            $0.height.equalTo(56)
         }
     }
 }
@@ -129,9 +150,13 @@ private extension CustomTabBarView {
     // MARK: - Private Method
     
     func setupTarget() {
-        homeButton.addTarget(self, action: #selector(didTapHome), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
-        myButton.addTarget(self, action: #selector(didTapMy), for: .touchUpInside)
+        homeTouchView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(didTapHome))
+        )
+        myTouchView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(didTapMy))
+        )
     }
     
     /// 기본 hitTest는 부모 뷰의 영역 안에서만 터치를 탐지

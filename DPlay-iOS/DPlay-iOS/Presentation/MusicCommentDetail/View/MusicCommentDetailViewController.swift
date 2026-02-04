@@ -151,7 +151,7 @@ private extension MusicCommentDetailViewController {
         artistLabel.do {
             $0.text = "한로로"
             $0.textColor = .gray400
-            $0.numberOfLines = 2
+            $0.numberOfLines = 0
             $0.textAlignment = .center
             $0.setTextStyle(.bodySemi14)
         }
