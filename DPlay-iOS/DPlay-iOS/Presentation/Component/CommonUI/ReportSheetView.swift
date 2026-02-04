@@ -116,7 +116,7 @@ private extension ReportSheetView {
         containerView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(355)
+            $0.height.equalTo(375)
         }
 
         titleLabel.snp.makeConstraints {
@@ -128,7 +128,6 @@ private extension ReportSheetView {
             $0.top.equalToSuperview().inset(28.5)
             $0.centerY.equalTo(titleLabel)
             $0.trailing.equalToSuperview().inset(16)
-            $0.size.equalTo(32)
         }
 
         stackView.snp.makeConstraints {
@@ -197,6 +196,10 @@ private extension ReportSheetView {
             // 클릭 이벤트만 연결
             button.addTarget(self, action: #selector(didTapReason(_:)), for: .touchUpInside)
             
+            button.snp.makeConstraints {
+                $0.height.equalTo(44).priority(.required)
+            }
+
             optionButtons.append(button)
             stackView.addArrangedSubview(button)
         }
