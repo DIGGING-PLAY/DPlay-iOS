@@ -13,10 +13,6 @@ import Then
 
 final class QuestionPostCell: UITableViewCell {
     
-    // MARK: - Event Properties
-
-    var onTapMoreButton: (() -> Void)?
-    
     // MARK: - Constraints
     
     private var titleWidthConstraint: Constraint?
@@ -169,15 +165,6 @@ private extension QuestionPostCell {
             $0.trailing.equalToSuperview().inset(12)
             $0.bottom.equalTo(coverImageView)
         }
-    }
-}
-
-@objc private extension QuestionPostCell {
-    
-    //MARK: - @objc Method
-    
-    func moreButtonTapped() {
-        onTapMoreButton?()
     }
 }
 
