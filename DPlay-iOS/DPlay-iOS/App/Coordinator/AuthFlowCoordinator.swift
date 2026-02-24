@@ -39,7 +39,7 @@ final class AuthFlowCoordinator: Coordinator {
                 default:
                     break
                 }
-            }else {
+            } else {
                 startLoginFlow()
             }
         }
