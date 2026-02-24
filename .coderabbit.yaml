@@ -1,0 +1,101 @@
+# ---------------------------------------------------------------- #
+# AI 기본 설정 (언어 및 페르소나)
+# ---------------------------------------------------------------- #
+
+# AI가 응답할 때 사용할 기본 언어를 설정합니다. (예: ko-KR, en-US)
+language: ko-KR
+
+# AI의 페르소나와 응답 톤앤매너를 상세하게 지시합니다. 최대 200자까지 작성할 수 있습니다.
+tone_instructions: >
+  당신은 'Dplay iOS 코치'입니다. 목표는 iOS 개발자가
+  클린 아키텍처, 테스트 가능성, 안정성, 확장성을 고려한 코드를 작성하도록 돕는 것입니다.
+  1. 피드백은 명확하고 구체적으로 작성하고, 문제의 원인과 개선 방법을 반드시 제시하세요.
+  2. 리뷰는 교육적이어야 하며, Swift 공식 문서나 WWDC 자료를 함께 추천하세요.
+  3. 비판보다는 개선 중심의 제안을 우선하세요.
+  4. 칭찬은 짧고 위트 있게 작성하세요.
+
+# ---------------------------------------------------------------- #
+# 코드 리뷰 기능 세부 설정
+# ---------------------------------------------------------------- #
+reviews:
+  # 리뷰의 전반적인 스타일을 설정합니다. 'chill'은 비교적 부드러운 톤을 의미합니다.
+  profile: chill
+
+  # 모든 코멘트 resolve 시 자동 Approve 여부
+  request_changes_workflow: false
+
+  # PR 전체 변경 사항 요약 생성 여부
+  high_level_summary: true
+
+  # 파일별 상세 요약 비활성화 (PR 길이 방지)
+  changed_files_summary: false
+
+  # 실행 흐름 다이어그램 생성 여부 (iOS는 구조 중심 리뷰라 비활성화)
+  sequence_diagrams: false
+
+  # 연결된 이슈 분석
+  assess_linked_issues: true
+
+  related_issues: false
+  related_prs: false
+
+  suggested_labels: false
+  auto_apply_labels: false
+  suggested_reviewers: false
+  auto_assign_reviewers: false
+
+  # 리뷰 요약에 위트 있는 시 포함 여부
+  poem: true
+
+  # ---------------------------------------------------------------- #
+  # iOS 프로젝트 전용 리뷰 지침
+  # ---------------------------------------------------------------- #
+  path_instructions:
+    - path: DPlay-iOS/**
+      instructions: |
+        1. Swift 공식 스타일 가이드, Apple Human Interface Guidelines, 팀 코드 컨벤션(docs/ios-code-convention.md)을 우선 반영해주세요.
+        2. 클린 아키텍처(Presentation / Domain / Data 계층 분리), 의존성 역전(DIP), 단일 책임 원칙(SRP) 위반 여부를 점검해주세요.
+        3. UIKit/SwiftUI 코드의 가독성, 네이밍, ViewController 비대화 여부, ViewModel 책임 과다 여부를 확인해주세요.
+        4. 메모리 관리(ARC, strong/weak 참조, 클로저 캡처 리스트)와 순환 참조 가능성을 검토해주세요.
+        5. async/await, Task, TaskGroup, Combine 사용 시 동시성 안전성과 취소 처리 여부를 점검해주세요.
+        6. 네트워크 계층(Interceptor, Token Refresh, Repository 패턴)에서 예외 처리와 재시도 로직의 안전성을 확인해주세요.
+        7. 불필요한 force unwrap(!), try!, 강한 의존성, 싱글톤 남용 여부를 점검해주세요.
+        8. 리팩토링 제안 시, 문제점과 개선 코드 예시를 함께 제시해주세요.
+        9. 리뷰는 꼭 필요한 부분에 집중하고, 나머지는 요약 캡션으로 설명해주세요.
+        10. 리뷰 코멘트는 해당 라인 범위에 직접 작성해주세요.
+
+
+# ---------------------------------------------------------------- #
+# 자동 리뷰 트리거 설정
+# ---------------------------------------------------------------- #
+auto_review:
+  enabled: false
+  auto_incremental_review: false
+
+# ---------------------------------------------------------------- #
+# 채팅 기능 설정
+# ---------------------------------------------------------------- #
+chat:
+  auto_reply: true
+
+# ---------------------------------------------------------------- #
+# CodeRabbit의 지식 기반(Knowledge Base) 설정
+# ---------------------------------------------------------------- #
+knowledge_base:
+  web_search:
+    enabled: true
+
+  # iOS 팀 코드 컨벤션 파일 참조
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - docs/ios-code-convention.md
+
+  learnings:
+    scope: local
+
+  issues:
+    scope: local
+
+  pull_requests:
+    scope: local
