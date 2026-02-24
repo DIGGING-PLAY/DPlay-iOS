@@ -26,8 +26,6 @@ final class DefaultAuthUseCase: AuthUseCase {
     
     // 애플 로그인
     func loginWithApple(appleIdentityToken: String) async throws {
-        try authRepository.deleteTokens() //키체인 내부의 토큰으로 요청이 날라가는 것을 방지하기 위해 저장된 토큰 삭제 (임시 방편)
-        
         let userSession = try await authRepository.loginWithApple(appleIdentityToken: appleIdentityToken)
         try authRepository.saveTokens(userSession)
         UserDefaults.standard.set(userSession.userId, forKey: "userId")
