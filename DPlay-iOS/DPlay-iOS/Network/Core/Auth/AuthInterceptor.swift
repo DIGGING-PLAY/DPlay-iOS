@@ -21,7 +21,7 @@ final class AuthInterceptor: RequestInterceptor {
         
         var request = urlRequest
         
-        if let url = request.url, url.path.contains("/auth/token/reissue"), url.path.contains("/auth/login") {
+        if let url = request.url, (url.path.contains("/auth/token/reissue") || url.path.contains("/auth/login")) {
             completion(.success(request))
             return
         }
