@@ -21,6 +21,11 @@ final class AuthInterceptor: RequestInterceptor {
         
         var request = urlRequest
         
+        if let url = request.url, url.path.contains("/auth/token/reissue") {
+            completion(.success(request))
+            return
+        }
+        
         if let token = KeychainManager.shared.accessToken {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
@@ -37,7 +42,7 @@ final class AuthInterceptor: RequestInterceptor {
         completion: @escaping (RetryResult) -> Void
     ) {
         
-        guard request.response?.statusCode == 401 else {
+        guard request.response?.statusCode == 401 && !isRefreshRequest(request) else {
             completion(.doNotRetry)
             return
         }
@@ -46,5 +51,14 @@ final class AuthInterceptor: RequestInterceptor {
             let success = await TokenRefreshManager.shared.refresh()
             completion(success ? .retry : .doNotRetry)
         }
+    }
+}
+
+private extension AuthInterceptor {
+    
+    //token refresh 요청인지 확인
+    func isRefreshRequest(_ request: Request) -> Bool {
+        guard let url = request.request?.url else { return false }
+        return url.path.contains("/auth/token/reissue")
     }
 }
