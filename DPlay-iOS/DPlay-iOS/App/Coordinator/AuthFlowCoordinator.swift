@@ -28,7 +28,7 @@ final class AuthFlowCoordinator: Coordinator {
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_000_000_000)
             
-            if KeychainManager.shared.accessToken != nil {
+            if KeychainManager.shared.accessToken != nil && UserDefaults.standard.object(forKey: "userId") != nil {
                 let route = try await authUseCase.checkToken()
                 
                 switch route {
