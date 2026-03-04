@@ -242,7 +242,7 @@ private extension MusicSearchViewController {
     
     func didTapNext() {
         guard let index = selectedIndex else { return }
-        let trackId = viewModel.tracks[index.row].trackId
+        let trackId = viewModel.tracks[index.row].id
         viewModel.didTapNext(trackId: trackId)
     }
 }

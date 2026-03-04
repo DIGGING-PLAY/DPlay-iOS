@@ -112,11 +112,13 @@ extension SongSearchCell {
 
     // MARK: - Configure
 
-    func configure(item: MusicTrack, isSelected: Bool) {
+    func configure(item: Track, isSelected: Bool) {
         titleLabel.text = item.title
         artistLabel.text = item.artist
 
-        coverImageView.setImage(url: item.coverURL)
+        if let url = URL(string: item.coverImageURL) {
+            coverImageView.setImage(url: url)
+        }
         checkmarkImageView.isHidden = !isSelected
         backgroundColor = isSelected ? .gray100 : .white
     }

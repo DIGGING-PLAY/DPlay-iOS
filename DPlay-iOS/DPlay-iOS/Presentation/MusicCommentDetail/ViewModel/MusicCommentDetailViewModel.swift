@@ -181,7 +181,7 @@ extension MusicCommentDetailViewModel {
         Task {
             do {
                 let session = try await previewMusicUseCase.execute(
-                    trackId: self.detail?.track.trackId ?? "",
+                    trackId: self.detail?.track.id ?? "",
                     storefront: "kr"
                 )
 
