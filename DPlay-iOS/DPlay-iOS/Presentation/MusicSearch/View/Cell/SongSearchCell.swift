@@ -116,6 +116,7 @@ extension SongSearchCell {
         titleLabel.text = item.title
         artistLabel.text = item.artist
 
+        coverImageView.image = nil
         if let url = URL(string: item.coverImageURL) {
             coverImageView.setImage(url: url)
         }
