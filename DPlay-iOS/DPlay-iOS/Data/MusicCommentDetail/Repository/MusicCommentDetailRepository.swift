@@ -26,6 +26,9 @@ final class DefaultCommentMusicDetailRepository: MusicCommentDetailRepository {
 
     func fetchMusicDetail(postId: Int) async throws -> MusicCommentDetail {
         let response = try await service.fetchMusicDetail(postId: postId)
+        guard response.status else {
+            throw AppError.serverError
+        }
         guard let data = response.data else {
             throw AppError.emptyData
         }
