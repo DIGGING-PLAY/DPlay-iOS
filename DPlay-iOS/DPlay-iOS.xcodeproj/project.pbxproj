@@ -1746,10 +1746,8 @@
 		EFAA45CE2EDDB22200BEC1AC /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */,
 				EFAA45CB2EDDB22200BEC1AC /* AuthInterceptor.swift */,
 				EFAA45CD2EDDB22200BEC1AC /* TokenRefreshManager.swift */,
-				EFAA45CC2EDDB22200BEC1AC /* KeychainManager.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1840,12 +1838,30 @@
 		EFCBCEE12EC9B57C00BA7740 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				C4E75C6603995CE5745E2819 /* Auth */,
+				9A49C97801945FA8E1D57A6B /* Keychain */,
 				EFA1BA5E2F2A679C0013888C /* Event */,
 				EF4B8DC02F067270009101C4 /* AudioPlayer */,
 				EFCBCED62EC9B57C00BA7740 /* Extension */,
 				EFCBCEE02EC9B57C00BA7740 /* Resource */,
 			);
 			path = Global;
+			sourceTree = "<group>";
+		};
+		9A49C97801945FA8E1D57A6B /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				EFAA45CC2EDDB22200BEC1AC /* KeychainManager.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		C4E75C6603995CE5745E2819 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		EFCBCEF72EC9BA7D00BA7740 /* SubView */ = {
