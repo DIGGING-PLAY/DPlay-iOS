@@ -2436,13 +2436,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA6D5F5C144400DA39D4E46 /* User.swift in Sources */,
-				047D6683A5DA494BB2B9CBB9 /* Like.swift in Sources */,
-				F1B6F493D42D492A9D310FD8 /* Badge.swift in Sources */,
-				254E0FEDBF5F4542AD2829AA /* Track.swift in Sources */,
-				F8FF24F8C39D4120A241086D /* UserDTO.swift in Sources */,
-				A8CD52DC97E24C9DBD15BA73 /* TrackDTO.swift in Sources */,
-				352336F63A704D56A19C60DB /* LikeDTO.swift in Sources */,
 				D01C6D7A2EE46C02009C9AF8 /* MyPageService.swift in Sources */,
 				EFCBCF272ECC754B00BA7740 /* MusicCommentDetailUseCase.swift in Sources */,
 				D01C6D852EE47AB0009C9AF8 /* MyPageUseCase.swift in Sources */,
