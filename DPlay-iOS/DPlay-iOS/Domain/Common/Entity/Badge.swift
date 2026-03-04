@@ -11,5 +11,5 @@ enum Badge: String {
     case editor = "EDITOR"
     case best   = "BEST"
     case new    = "NEW"
-    case nomal
+    case normal
 }

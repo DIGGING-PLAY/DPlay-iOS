@@ -79,7 +79,7 @@ extension HomeFeedPostDTO {
             user: user.toEntity(),
             track: track.toEntity(),
             like: like.toEntity(),
-            badges: badge?.toEntity() ?? .nomal,
+            badges: badge?.toEntity() ?? .normal,
             isScrapped: isScrapped
         )
     }

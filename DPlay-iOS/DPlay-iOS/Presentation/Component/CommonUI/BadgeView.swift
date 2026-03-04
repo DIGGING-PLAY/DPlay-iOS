@@ -41,8 +41,8 @@ private extension BadgeView {
         case .editor: return "EDITOR"
         case .best:   return "BEST"
         case .new:    return "NEW"
-        case .nomal:
-            fatalError("nomal badge should not be configured")
+        case .normal:
+            fatalError("normal badge should not be configured")
         }
     }
 
@@ -51,8 +51,8 @@ private extension BadgeView {
         case .editor: return IconLiterals.ic_editor
         case .best:   return IconLiterals.ic_best
         case .new:    return IconLiterals.ic_new
-        case .nomal:
-            fatalError("nomal badge should not be configured")
+        case .normal:
+            fatalError("normal badge should not be configured")
         }
     }
 }
@@ -61,8 +61,8 @@ extension BadgeView {
 
     func configure(badge: Badge) {
 
-        // nomal이면 숨김 처리
-        guard badge != .nomal else {
+        // normal이면 숨김 처리
+        guard badge != .normal else {
             hide()
             return
         }
