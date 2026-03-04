@@ -37,7 +37,7 @@ extension MusicCommentDetailResponseDTO {
             isScrapped: data.isScrapped,
             content: data.content,
             displayDate: data.displayDate,
-            track: try data.track.toEntity(),
+            track: data.track.toEntity(),
             user: data.user.toEntity(),
             like: data.like.toEntity()
         )

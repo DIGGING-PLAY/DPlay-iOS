@@ -30,42 +30,17 @@ struct HomeFeedPostDTO: Decodable {
     let isScrapped: Bool
     let content: String
     let badge: BadgeDTO?
-    let track: HomeFeedTrackDTO
+    let track: TrackDTO
     let user: UserDTO
     let like: LikeDTO
 }
 
-// MARK: - HomeFeedBadgesDTO
+// MARK: - BadgeDTO
 
 enum BadgeDTO: String, Decodable {
     case editor = "EDITOR"
     case best   = "BEST"
     case new    = "NEW"
-}
-
-// MARK: - HomeFeedTrackDTO
-
-struct HomeFeedTrackDTO: Decodable {
-    let trackId: String
-    let songTitle: String
-    let coverImg: String
-    let artistName: String
-}
-
-// MARK: - HomeFeedUserDTO
-
-struct UserDTO: Decodable {
-    let userId: Int
-    let nickname: String
-    let profileImg: String?
-    let isAdmin: Bool
-}
-
-// MARK: - HomeFeedLikeDTO
-
-struct LikeDTO: Decodable {
-    let isLiked: Bool
-    let count: Int
 }
 
 // MARK: - DTO to Entity
@@ -107,28 +82,5 @@ extension HomeFeedPostDTO {
             badges: badge?.toEntity() ?? .nomal,
             isScrapped: isScrapped
         )
-    }
-}
-
-extension UserDTO {
-    func toEntity() -> User {
-        User(id: userId, nickname: nickname, profileImage: profileImg, isAdmin: isAdmin)
-    }
-}
-
-extension HomeFeedTrackDTO {
-    func toEntity() -> Track {
-        Track(
-            id: trackId,
-            title: songTitle,
-            coverImage: coverImg,
-            artist: artistName
-        )
-    }
-}
-
-extension LikeDTO {
-    func toEntity() -> Like {
-        Like(isLiked: isLiked, count: count)
     }
 }

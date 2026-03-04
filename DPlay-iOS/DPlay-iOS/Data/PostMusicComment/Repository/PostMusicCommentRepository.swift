@@ -12,7 +12,7 @@ protocol PostMusicCommentRepository {
     /// 노래 상세 조회 
     func fetchTrackDetail(
         trackId: String
-    ) async throws -> MusicTrack
+    ) async throws -> Track
     
     /// 음악 코멘트 생성
     /// - Returns: 생성된 postId
@@ -34,7 +34,7 @@ final class DefaultPostMusicCommentRepository: PostMusicCommentRepository {
 
     func fetchTrackDetail(
         trackId: String
-    ) async throws -> MusicTrack {
+    ) async throws -> Track {
 
         let response = try await service.fetchTrackDetail(trackId: trackId)
 
@@ -45,7 +45,7 @@ final class DefaultPostMusicCommentRepository: PostMusicCommentRepository {
             throw AppError.serverError
         }
 
-        return try item.toEntity()
+        return item.toEntity()
     }
 
     // MARK: - Create Post
