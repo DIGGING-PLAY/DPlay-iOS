@@ -26,28 +26,9 @@ struct QuestionPostsItemDTO: Decodable {
     let isEditorPick: Bool
     let isScrapped: Bool
     let content: String
-    let track: QuestionPostsTrackDTO
-    let user: QuestionPostsUserDTO
-    let like: QuestionPostsLikeDTO
-}
-
-struct QuestionPostsTrackDTO: Decodable {
-    let trackId: String
-    let songTitle: String
-    let coverImg: String
-    let artistName: String
-}
-
-struct QuestionPostsUserDTO: Decodable {
-    let userId: Int
-    let nickname: String
-    let profileImg: String?
-    let isAdmin: Bool
-}
-
-struct QuestionPostsLikeDTO: Decodable {
-    let isLiked: Bool
-    let count: Int
+    let track: TrackDTO
+    let user: UserDTO
+    let like: LikeDTO
 }
 
 extension QuestionPostsDataDTO {
@@ -77,33 +58,5 @@ extension QuestionPostsItemDTO {
             user: user.toEntity(),
             like: like.toEntity()
         )
-    }
-}
-
-extension QuestionPostsTrackDTO {
-    func toEntity() -> Track {
-        Track(
-            id: trackId,
-            title: songTitle,
-            coverImage: coverImg,
-            artist: artistName
-        )
-    }
-}
-
-extension QuestionPostsUserDTO {
-    func toEntity() -> User {
-        User(
-            id: userId,
-            nickname: nickname,
-            profileImage: profileImg,
-            isAdmin: isAdmin
-        )
-    }
-}
-
-extension QuestionPostsLikeDTO {
-    func toEntity() -> Like {
-        Like(isLiked: isLiked, count: count)
     }
 }
