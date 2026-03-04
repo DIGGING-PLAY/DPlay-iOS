@@ -54,8 +54,17 @@ final class DefaultPostMusicCommentRepository: PostMusicCommentRepository {
         request: MusicComment
     ) async throws -> Int {
 
+        let dto = PostMusicCommentRequestDTO(
+            trackId: request.track.id,
+            songTitle: request.track.title,
+            artistName: request.track.artist,
+            coverImg: request.track.coverImageURL,
+            isrc: request.track.isrc ?? "",
+            content: request.content
+        )
+
         let response = try await service.createPost(
-            request: request.toDTO()
+            request: dto
         )
 
         guard
