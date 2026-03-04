@@ -7,15 +7,9 @@
 
 import Foundation
 
-struct MusicSearchResult {
-    let tracks: [MusicTrack]
-    let nextCursor: String?
-}
+typealias MusicTrack = Track
 
-struct MusicTrack {
-    let trackId: String
-    let title: String
-    let artist: String
-    let coverURL: URL
-    let isrc: String
+struct MusicSearchResult {
+    let tracks: [Track]
+    let nextCursor: String?
 }
