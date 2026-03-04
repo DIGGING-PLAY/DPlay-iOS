@@ -398,6 +398,8 @@ private extension MusicCommentViewController {
                 self.artistLabel.text = track.artist
                 if let url = URL(string: track.coverImageURL) {
                     coverImageView.setImage(url: url)
+                } else {
+                    coverImageView.image = nil
                 }
             }
             .store(in: &cancellables)
