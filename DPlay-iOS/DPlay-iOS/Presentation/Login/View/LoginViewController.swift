@@ -13,8 +13,9 @@ import Then
 final class LoginViewController: UIViewController {
     
     //MARK: - Properties
-    
+
     private let viewModel: LoginViewModel
+    private var loginTask: Task<Void, Never>?
     
     //MARK: - UI Properties
     
@@ -106,13 +107,14 @@ private extension LoginViewController {
     
     func appleLoginButtonTapped() {
         print("appleLoginButtonTapped")
-        
+
         AppleLoginManager.shared.appleLogin()
-        AppleLoginManager.shared.loginSuccess = { token in
-            guard let token else { return }
-            
-            Task {
-                await self.viewModel.startLogin(appleIdentityToken: token)
+        AppleLoginManager.shared.loginSuccess = { [weak self] token in
+            guard let self, let token else { return }
+
+            self.loginTask?.cancel()
+            self.loginTask = Task { [weak self] in
+                await self?.viewModel.startLogin(appleIdentityToken: token)
             }
         }
     }

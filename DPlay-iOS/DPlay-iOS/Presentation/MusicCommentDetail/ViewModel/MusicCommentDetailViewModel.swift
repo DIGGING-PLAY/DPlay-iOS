@@ -13,11 +13,12 @@ final class MusicCommentDetailViewModel: ObservableObject {
     
     @Published var detail: MusicCommentDetail?
     @Published var badge: Badge
-    
+
     private let commentDetailUseCase: MusicCommentDetailUseCase
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: DetailCoordinating?
     private let postId: Int
+    private var previewTask: Task<Void, Never>?
     
     init(
         postId: Int,
@@ -179,7 +180,8 @@ extension MusicCommentDetailViewModel {
 
     func didTapPreview() {
         guard let trackId = detail?.track.id, !trackId.isEmpty else { return }
-        Task {
+        previewTask?.cancel()
+        previewTask = Task {
             do {
                 let session = try await previewMusicUseCase.execute(
                     trackId: trackId,

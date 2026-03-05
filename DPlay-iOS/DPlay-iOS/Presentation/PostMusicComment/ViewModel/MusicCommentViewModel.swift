@@ -18,10 +18,12 @@ final class MusicCommentViewModel: ObservableObject {
     weak var coordinator: MusicAddCoordinator?
 
     // MARK: - State
-    
+
     @Published private(set) var track: Track?
     @Published private(set) var isLoading: Bool = false
     @Published var errorMessage: String?
+    private var registerTask: Task<Void, Never>?
+    private var fetchTask: Task<Void, Never>?
 
     // MARK: - Init
     
@@ -51,7 +53,8 @@ extension MusicCommentViewModel {
             content: comment
         )
 
-        Task {
+        registerTask?.cancel()
+        registerTask = Task {
             do {
                 _ = try await useCase.createPost(comment: musicComment)
                 coordinator?.dismiss()
@@ -71,7 +74,8 @@ extension MusicCommentViewModel {
 extension MusicCommentViewModel {
 
     func onAppear() {
-        Task {
+        fetchTask?.cancel()
+        fetchTask = Task {
             await fetchTrack()
         }
     }

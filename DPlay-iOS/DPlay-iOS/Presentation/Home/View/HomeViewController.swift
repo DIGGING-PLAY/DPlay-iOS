@@ -20,7 +20,7 @@ private enum PageState: Equatable{
 final class HomeViewController: UIViewController {
     
     // MARK: - Properties
-    
+
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
     private var playingCellId: UUID?
@@ -31,6 +31,9 @@ final class HomeViewController: UIViewController {
     /// 락 셀에서 시작한 패닝 제스처인지 여부
     private var isPanStartedOnLockedCell = false
     private var didShowLockedPopup = false
+    private var loadTask: Task<Void, Never>?
+    private var scrapTask: Task<Void, Never>?
+    private var likeTask: Task<Void, Never>?
 
     // MARK: - UI Properties
     
@@ -254,17 +257,22 @@ private extension HomeViewController {
     }
     
     func refresh() {
-        Task {
-            isRefreshing = true
+        loadTask?.cancel()
+        loadTask = Task { [weak self] in
+            guard let self else { return }
+            self.isRefreshing = true
             AudioPlayerManager.shared.stop()
-            playingCellId = nil
-            await viewModel.loadHome()
-            resetToFirstPage()
+            self.playingCellId = nil
+            await self.viewModel.loadHome()
+            self.resetToFirstPage()
         }
     }
-    
+
     func loadData() {
-        Task { await viewModel.loadHome() }
+        loadTask?.cancel()
+        loadTask = Task { [weak self] in
+            await self?.viewModel.loadHome()
+        }
     }
 }
 
@@ -274,12 +282,13 @@ private extension HomeViewController {
     
     func handleScrapTapped() {
         guard case .post(let index) = currentPage else { return }
-        
+
         let post = viewModel.posts[index]
         scrapToggleIndex = index
-        
-        Task {
-            await viewModel.toggleScrap(postId: post.id)
+
+        scrapTask?.cancel()
+        scrapTask = Task { [weak self] in
+            await self?.viewModel.toggleScrap(postId: post.id)
         }
         
         guard post.isScrapped == false else { return }
@@ -714,7 +723,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.onTapLike = { [weak self] in
             self?.likeToggleIndex = indexPath.item
-            Task {
+            self?.likeTask?.cancel()
+            self?.likeTask = Task { [weak self] in
                 await self?.viewModel.toggleLike(postId: post.id)
             }
         }
