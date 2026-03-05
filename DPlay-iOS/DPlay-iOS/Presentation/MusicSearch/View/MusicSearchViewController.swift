@@ -33,7 +33,11 @@ final class MusicSearchViewController: UIViewController {
     
     
     // MARK: - Life Cycle
-    
+
+    deinit {
+        searchTask?.cancel()
+    }
+
     init(viewModel: MusicSearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

@@ -26,7 +26,11 @@ final class LoginViewController: UIViewController {
     private let applelogoImageView = UIImageView(image: IconLiterals.ic_apple_24)
     
     //MARK: - Life Cycle
-    
+
+    deinit {
+        loginTask?.cancel()
+    }
+
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

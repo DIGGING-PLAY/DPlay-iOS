@@ -23,8 +23,17 @@ final class MusicCommentDetailViewController: UIViewController {
     private var scrapTask: Task<Void, Never>?
     private var playTask: Task<Void, Never>?
     
+    // MARK: - Life Cycle
+
+    deinit {
+        loadTask?.cancel()
+        likeTask?.cancel()
+        scrapTask?.cancel()
+        playTask?.cancel()
+    }
+
     // MARK: - UI Properties
-    
+
     private let navigationBarView = MusicCommentDetailNavigationBarView()
     private let scrollView = UIScrollView()
     private let contentView = UIView()

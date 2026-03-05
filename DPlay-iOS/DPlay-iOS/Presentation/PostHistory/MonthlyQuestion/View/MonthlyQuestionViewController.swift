@@ -26,7 +26,11 @@ final class MonthlyQuestionViewController: UIViewController {
     private let emptyLabel = UILabel()
 
     //MARK: - Life Cycle
-    
+
+    deinit {
+        loadTask?.cancel()
+    }
+
     init(viewModel: MonthlyQuestionViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

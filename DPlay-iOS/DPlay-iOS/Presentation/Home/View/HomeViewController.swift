@@ -35,6 +35,14 @@ final class HomeViewController: UIViewController {
     private var scrapTask: Task<Void, Never>?
     private var likeTask: Task<Void, Never>?
 
+    // MARK: - Life Cycle
+
+    deinit {
+        loadTask?.cancel()
+        scrapTask?.cancel()
+        likeTask?.cancel()
+    }
+
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()

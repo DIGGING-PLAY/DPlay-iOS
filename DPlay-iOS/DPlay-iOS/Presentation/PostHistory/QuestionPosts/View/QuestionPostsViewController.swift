@@ -32,7 +32,11 @@ final class QuestionPostsViewController: UIViewController {
     private let guideFooterView = QuestionPostFooterView()
 
     //MARK: - Life Cycle
-    
+
+    deinit {
+        loadTask?.cancel()
+    }
+
     init(viewModel: QuestionPostsViewModel) {
         self.viewModel = viewModel
         
