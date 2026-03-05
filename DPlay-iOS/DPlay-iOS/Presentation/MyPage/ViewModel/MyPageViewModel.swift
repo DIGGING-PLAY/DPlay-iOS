@@ -18,10 +18,11 @@ final class MyPageViewModel: ObservableObject {
     @Published var archiveMusics: [MyPageTrackPost] = []
 
     //MARK: - Properties
-    
+
     private let userId: Int
     private var cancellables = Set<AnyCancellable>()
     private var nextCursor: String?
+    private var refreshTask: Task<Void, Never>?
     var isHost: Bool?
     
     //MARK: - Dependencies
@@ -146,18 +147,23 @@ private extension MyPageViewModel {
     }
     
     func handleMyPageRefresh(_ reason: MyPageRefreshReason) {
-        switch reason {
-        case .commentAdded:
-            Task { await loadRegisteredMusics() }
-            Task { await loadUserProfile() }
-        case .commentDeleted:
-            Task { await loadUserProfile() }
-            Task { await loadRegisteredMusics() }
-            Task { await loadArchiveMusics() }
-        case .scrapToggled:
-            Task { await loadArchiveMusics() }
-        case .pushNotificationToggled, .profileUpdated:
-            Task { await loadUserProfile() }
+        refreshTask?.cancel()
+        refreshTask = Task {
+            switch reason {
+            case .commentAdded:
+                async let p: () = loadRegisteredMusics()
+                async let q: () = loadUserProfile()
+                _ = await (p, q)
+            case .commentDeleted:
+                async let a: () = loadUserProfile()
+                async let b: () = loadRegisteredMusics()
+                async let c: () = loadArchiveMusics()
+                _ = await (a, b, c)
+            case .scrapToggled:
+                await loadArchiveMusics()
+            case .pushNotificationToggled, .profileUpdated:
+                await loadUserProfile()
+            }
         }
     }
 }

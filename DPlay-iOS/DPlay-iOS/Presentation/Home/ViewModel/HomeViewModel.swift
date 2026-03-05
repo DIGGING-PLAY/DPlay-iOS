@@ -28,6 +28,8 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Combine
 
     private var cancellables = Set<AnyCancellable>()
+    private var refreshTask: Task<Void, Never>?
+    private var previewTask: Task<Void, Never>?
     
     init(
         homeViewUseCase: HomeViewUseCase,
@@ -85,9 +87,8 @@ private extension HomeViewModel {
     }
     
     func handleHomeRefresh(_ reason: HomeRefreshReason) {
-        
-        // 추후 reason case에 따른 분기처리 대비
-        Task {
+        refreshTask?.cancel()
+        refreshTask = Task {
             await loadHome()
         }
     }
@@ -185,7 +186,8 @@ extension HomeViewModel {
 extension HomeViewModel {
 
     func didTapPreview(post: Post, playCellId: UUID) {
-        Task {
+        previewTask?.cancel()
+        previewTask = Task {
             do {
                 let session = try await previewMusicUseCase.execute(
                     trackId: post.track.id,
