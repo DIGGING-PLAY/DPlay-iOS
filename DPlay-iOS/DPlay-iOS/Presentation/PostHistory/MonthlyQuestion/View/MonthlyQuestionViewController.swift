@@ -14,9 +14,10 @@ import Then
 final class MonthlyQuestionViewController: UIViewController {
     
     //MARK: - Properties
-    
+
     private let viewModel: MonthlyQuestionViewModel
     private var cancellables = Set<AnyCancellable>()
+    private var loadTask: Task<Void, Never>?
     
     //MARK: - UI Properties
 
@@ -147,7 +148,10 @@ private extension MonthlyQuestionViewController {
     }
     
     func loadData() {
-        Task { await viewModel.loadMonthlyQuestions() }
+        loadTask?.cancel()
+        loadTask = Task { [weak self] in
+            await self?.viewModel.loadMonthlyQuestions()
+        }
     }
 }
 
