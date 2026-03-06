@@ -34,7 +34,7 @@ enum MockHomeFeed {
                     isScrapped: true,
                     content: "진짜 나오자마자 들었는데 이 노래가 최고 출근곡, 퇴근곡, 노동곡 다 되는 짱제로!",
                     badge: .editor,
-                    track: HomeFeedTrackDTO(
+                    track: TrackDTO(
                         trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
@@ -57,7 +57,7 @@ enum MockHomeFeed {
                     isScrapped: true,
                     content: "그냥 좋아요 이 노래 1",
                     badge: .best,
-                    track: HomeFeedTrackDTO(
+                    track: TrackDTO(
                         trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
@@ -80,7 +80,7 @@ enum MockHomeFeed {
                     isScrapped: true,
                     content: "그냥 좋아요 이 노래 2",
                     badge: .new,
-                    track: HomeFeedTrackDTO(
+                    track: TrackDTO(
                         trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",
@@ -103,7 +103,7 @@ enum MockHomeFeed {
                     isScrapped: true,
                     content: "배지 없는 케이스 (null)",
                     badge: nil,   // ⭐️ 서버에서 null 내려오는 경우
-                    track: HomeFeedTrackDTO(
+                    track: TrackDTO(
                         trackId: "apple:1726888402",
                         songTitle: "Song Title",
                         coverImg: "https://picsum.photos/300/300",

@@ -183,7 +183,7 @@ extension MyPageViewModel {
 
         coordinator?.goToMusicCommentDetail(
             postId: postId,
-            badge: .nomal
+            badge: .normal
         )
     }
     

@@ -25,8 +25,14 @@ final class DefaultCommentMusicDetailRepository: MusicCommentDetailRepository {
     // MARK: - Fetch Detail
 
     func fetchMusicDetail(postId: Int) async throws -> MusicCommentDetail {
-        let dto = try await service.fetchMusicDetail(postId: postId)
-        return try dto.toEntity()
+        let response = try await service.fetchMusicDetail(postId: postId)
+        guard response.status else {
+            throw AppError.serverError
+        }
+        guard let data = response.data else {
+            throw AppError.emptyData
+        }
+        return data.toEntity()
     }
 
     // MARK: - Like / Unlike

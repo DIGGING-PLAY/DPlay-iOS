@@ -36,9 +36,9 @@ final class DefaultMusicSearchRepository: MusicSearchRepository {
             throw AppError.serverError
         }
         
-        var tracks: [MusicTrack] = []
+        var tracks: [Track] = []
         for item in data.items {
-            tracks.append(try item.toEntity())
+            tracks.append(item.toEntity())
         }
         
         return MusicSearchResult(

@@ -13,7 +13,7 @@ struct MusicCommentDetail {
     let isScrapped: Bool
     let content: String
     let displayDate: String
-    let track: MusicTrack
+    let track: Track
     let user: User
     let like: Like
 }
