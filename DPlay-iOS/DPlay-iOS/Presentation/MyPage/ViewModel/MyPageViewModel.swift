@@ -31,8 +31,12 @@ final class MyPageViewModel: ObservableObject {
     private let commentDetailUseCase: MusicCommentDetailUseCase
     weak var coordinator: DetailCoordinating?
     
+    deinit {
+        refreshTask?.cancel()
+    }
+
     //MARK: - Init
-    
+
     init(myPageUseCase: MyPageUseCase, commentDetailUseCase: MusicCommentDetailUseCase, coordinator: DetailCoordinating?, userId: Int) {
         self.myPageUseCase = myPageUseCase
         self.commentDetailUseCase = commentDetailUseCase
@@ -50,7 +54,7 @@ extension MyPageViewModel {
     func loadUserProfile() async {
         do {
             let result = try await myPageUseCase.getUserProfile(userId: userId)
-            
+
             self.userProfileResult = result
         } catch {
             print("ERROR:", error)
@@ -60,7 +64,7 @@ extension MyPageViewModel {
     func loadRegisteredMusics() async {
         do {
             let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: nil)
-            
+
             self.nextCursor = result.nextCursor
             self.isHost = result.isHost
             self.registeredMusics = result.musics.items

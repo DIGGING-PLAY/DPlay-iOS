@@ -31,18 +31,6 @@ final class HomeViewController: UIViewController {
     /// 락 셀에서 시작한 패닝 제스처인지 여부
     private var isPanStartedOnLockedCell = false
     private var didShowLockedPopup = false
-    private var loadTask: Task<Void, Never>?
-    private var scrapTask: Task<Void, Never>?
-    private var likeTask: Task<Void, Never>?
-
-    // MARK: - Life Cycle
-
-    deinit {
-        loadTask?.cancel()
-        scrapTask?.cancel()
-        likeTask?.cancel()
-    }
-
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()
@@ -265,22 +253,14 @@ private extension HomeViewController {
     }
     
     func refresh() {
-        loadTask?.cancel()
-        loadTask = Task { [weak self] in
-            guard let self else { return }
-            self.isRefreshing = true
-            AudioPlayerManager.shared.stop()
-            self.playingCellId = nil
-            await self.viewModel.loadHome()
-            self.resetToFirstPage()
-        }
+        isRefreshing = true
+        AudioPlayerManager.shared.stop()
+        playingCellId = nil
+        viewModel.startLoad()
     }
 
     func loadData() {
-        loadTask?.cancel()
-        loadTask = Task { [weak self] in
-            await self?.viewModel.loadHome()
-        }
+        viewModel.startLoad()
     }
 }
 
@@ -294,10 +274,7 @@ private extension HomeViewController {
         let post = viewModel.posts[index]
         scrapToggleIndex = index
 
-        scrapTask?.cancel()
-        scrapTask = Task { [weak self] in
-            await self?.viewModel.toggleScrap(postId: post.id)
-        }
+        Task { await viewModel.toggleScrap(postId: post.id) }
         
         guard post.isScrapped == false else { return }
         
@@ -731,10 +708,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.onTapLike = { [weak self] in
             self?.likeToggleIndex = indexPath.item
-            self?.likeTask?.cancel()
-            self?.likeTask = Task { [weak self] in
-                await self?.viewModel.toggleLike(postId: post.id)
-            }
+            Task { await self?.viewModel.toggleLike(postId: post.id) }
         }
         
         cell.onTapProfile = { [weak self] in

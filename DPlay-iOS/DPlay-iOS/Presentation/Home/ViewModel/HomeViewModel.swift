@@ -28,9 +28,16 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Combine
 
     private var cancellables = Set<AnyCancellable>()
+    private var loadTask: Task<Void, Never>?
     private var refreshTask: Task<Void, Never>?
     private var previewTask: Task<Void, Never>?
-    
+
+    deinit {
+        loadTask?.cancel()
+        refreshTask?.cancel()
+        previewTask?.cancel()
+    }
+
     init(
         homeViewUseCase: HomeViewUseCase,
         previewMusicUseCase: PreviewMusicUseCase,
@@ -46,6 +53,11 @@ final class HomeViewModel: ObservableObject {
 // MARK: - Home Data Loading
 
 extension HomeViewModel {
+
+    func startLoad() {
+        loadTask?.cancel()
+        loadTask = Task { await loadHome() }
+    }
 
     func loadHome() async {
         isLoading = true

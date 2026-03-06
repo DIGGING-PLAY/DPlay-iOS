@@ -15,8 +15,7 @@ final class LoginViewController: UIViewController {
     //MARK: - Properties
 
     private let viewModel: LoginViewModel
-    private var loginTask: Task<Void, Never>?
-    
+
     //MARK: - UI Properties
     
     private let logoStackView = UIStackView()
@@ -26,10 +25,6 @@ final class LoginViewController: UIViewController {
     private let applelogoImageView = UIImageView(image: IconLiterals.ic_apple_24)
     
     //MARK: - Life Cycle
-
-    deinit {
-        loginTask?.cancel()
-    }
 
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
@@ -114,12 +109,8 @@ private extension LoginViewController {
 
         AppleLoginManager.shared.appleLogin()
         AppleLoginManager.shared.loginSuccess = { [weak self] token in
-            guard let self, let token else { return }
-
-            self.loginTask?.cancel()
-            self.loginTask = Task { [weak self] in
-                await self?.viewModel.startLogin(appleIdentityToken: token)
-            }
+            guard let token else { return }
+            self?.viewModel.startLogin(appleIdentityToken: token)
         }
     }
 }

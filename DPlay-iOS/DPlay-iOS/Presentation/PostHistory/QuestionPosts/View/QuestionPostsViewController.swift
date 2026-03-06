@@ -17,8 +17,7 @@ final class QuestionPostsViewController: UIViewController {
 
     private let viewModel: QuestionPostsViewModel
     private var cancellables = Set<AnyCancellable>()
-    private var loadTask: Task<Void, Never>?
-    
+
     //MARK: - UI Properties
 
     private let navigationBarView = QuestionPostsNavigationBarView()
@@ -32,10 +31,6 @@ final class QuestionPostsViewController: UIViewController {
     private let guideFooterView = QuestionPostFooterView()
 
     //MARK: - Life Cycle
-
-    deinit {
-        loadTask?.cancel()
-    }
 
     init(viewModel: QuestionPostsViewModel) {
         self.viewModel = viewModel
@@ -217,10 +212,7 @@ private extension QuestionPostsViewController {
     }
     
     func loadData() {
-        loadTask?.cancel()
-        loadTask = Task { [weak self] in
-            await self?.viewModel.loadQuestionPosts()
-        }
+        viewModel.startLoad()
     }
 }
 

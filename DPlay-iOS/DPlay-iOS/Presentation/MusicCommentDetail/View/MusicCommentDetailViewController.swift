@@ -18,20 +18,6 @@ final class MusicCommentDetailViewController: UIViewController {
 
     private let viewModel: MusicCommentDetailViewModel
     private var cancellables = Set<AnyCancellable>()
-    private var loadTask: Task<Void, Never>?
-    private var likeTask: Task<Void, Never>?
-    private var scrapTask: Task<Void, Never>?
-    private var playTask: Task<Void, Never>?
-    
-    // MARK: - Life Cycle
-
-    deinit {
-        loadTask?.cancel()
-        likeTask?.cancel()
-        scrapTask?.cancel()
-        playTask?.cancel()
-    }
-
     // MARK: - UI Properties
 
     private let navigationBarView = MusicCommentDetailNavigationBarView()
@@ -98,10 +84,7 @@ final class MusicCommentDetailViewController: UIViewController {
     
     private func loadData() {
         startLoading()
-        loadTask?.cancel()
-        loadTask = Task { [weak self] in
-            await self?.viewModel.loadDetail()
-        }
+        viewModel.startLoad()
     }
 }
 
@@ -484,11 +467,7 @@ private extension MusicCommentDetailViewController {
 
         likeButton.addAction(
             UIAction { [weak self] _ in
-                guard let self else { return }
-                self.likeTask?.cancel()
-                self.likeTask = Task { [weak self] in
-                    await self?.viewModel.toggleLike()
-                }
+                Task { await self?.viewModel.toggleLike() }
             },
             for: .touchUpInside
         )
@@ -502,11 +481,7 @@ private extension MusicCommentDetailViewController {
 
         playButton.addAction(
             UIAction { [weak self] _ in
-                guard let self else { return }
-                self.playTask?.cancel()
-                self.playTask = Task { [weak self] in
-                    self?.viewModel.didTapPreview()
-                }
+                self?.viewModel.didTapPreview()
             },
             for: .touchUpInside
         )
@@ -592,10 +567,7 @@ private extension MusicCommentDetailViewController {
     func handleScrapTapped() {
         let isScrapped = viewModel.detail?.isScrapped == true
 
-        scrapTask?.cancel()
-        scrapTask = Task { [weak self] in
-            await self?.viewModel.toggleScrap()
-        }
+        Task { await viewModel.toggleScrap() }
 
         guard isScrapped == false else { return }
 

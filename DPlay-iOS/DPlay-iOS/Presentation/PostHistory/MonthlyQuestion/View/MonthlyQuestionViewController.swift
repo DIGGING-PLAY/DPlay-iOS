@@ -17,8 +17,7 @@ final class MonthlyQuestionViewController: UIViewController {
 
     private let viewModel: MonthlyQuestionViewModel
     private var cancellables = Set<AnyCancellable>()
-    private var loadTask: Task<Void, Never>?
-    
+
     //MARK: - UI Properties
 
     private let navigationBarView = MonthlyQuestionNavigationBarView()
@@ -26,10 +25,6 @@ final class MonthlyQuestionViewController: UIViewController {
     private let emptyLabel = UILabel()
 
     //MARK: - Life Cycle
-
-    deinit {
-        loadTask?.cancel()
-    }
 
     init(viewModel: MonthlyQuestionViewModel) {
         self.viewModel = viewModel
@@ -152,10 +147,7 @@ private extension MonthlyQuestionViewController {
     }
     
     func loadData() {
-        loadTask?.cancel()
-        loadTask = Task { [weak self] in
-            await self?.viewModel.loadMonthlyQuestions()
-        }
+        viewModel.startLoad()
     }
 }
 

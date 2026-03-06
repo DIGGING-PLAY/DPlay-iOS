@@ -18,8 +18,14 @@ final class MusicCommentDetailViewModel: ObservableObject {
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: DetailCoordinating?
     private let postId: Int
+    private var loadTask: Task<Void, Never>?
     private var previewTask: Task<Void, Never>?
-    
+
+    deinit {
+        loadTask?.cancel()
+        previewTask?.cancel()
+    }
+
     init(
         postId: Int,
         initialBadge: Badge,
@@ -38,6 +44,11 @@ final class MusicCommentDetailViewModel: ObservableObject {
 // MARK: - Data Loading
 
 extension MusicCommentDetailViewModel {
+
+    func startLoad() {
+        loadTask?.cancel()
+        loadTask = Task { await loadDetail() }
+    }
 
     func loadDetail() async {
         do {

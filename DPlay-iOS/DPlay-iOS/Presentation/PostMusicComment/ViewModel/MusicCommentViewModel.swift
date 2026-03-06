@@ -25,8 +25,13 @@ final class MusicCommentViewModel: ObservableObject {
     private var registerTask: Task<Void, Never>?
     private var fetchTask: Task<Void, Never>?
 
+    deinit {
+        registerTask?.cancel()
+        fetchTask?.cancel()
+    }
+
     // MARK: - Init
-    
+
     init(
         trackId: String,
         useCase: PostMusicCommentUseCase,
@@ -85,6 +90,8 @@ extension MusicCommentViewModel {
 
         do {
             track = try await useCase.fetchTrackDetail(trackId: trackId)
+        } catch is CancellationError {
+            return
         } catch {
             errorMessage = "노래 정보를 불러오지 못했습니다."
         }
