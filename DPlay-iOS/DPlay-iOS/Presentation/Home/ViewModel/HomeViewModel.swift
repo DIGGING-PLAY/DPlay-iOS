@@ -72,6 +72,8 @@ extension HomeViewModel {
                 ? Array(homeFeed.posts.prefix(3))
                 : homeFeed.posts
 
+        } catch is CancellationError {
+            return
         } catch {
             print("❌ Home load failed:", error)
         }
@@ -212,6 +214,8 @@ extension HomeViewModel {
                     streamURL: session.streamURL, playId: playCellId
                 )
 
+            } catch is CancellationError {
+                return
             } catch {
                 print("미리듣기 실패:", error)
             }

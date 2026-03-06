@@ -54,6 +54,8 @@ extension MusicCommentDetailViewModel {
         do {
             print("뷰모델 postId \(postId)")
             detail = try await commentDetailUseCase.getMusicDetail(postId: postId)
+        } catch is CancellationError {
+            return
         } catch {
             print("❌ Detail load failed:", error)
         }
@@ -205,6 +207,8 @@ extension MusicCommentDetailViewModel {
                     streamURL: session.streamURL, playId: nil
                 )
 
+            } catch is CancellationError {
+                return
             } catch {
                 print("미리듣기 실패:", error)
             }

@@ -56,11 +56,13 @@ extension MyPageViewModel {
             let result = try await myPageUseCase.getUserProfile(userId: userId)
 
             self.userProfileResult = result
+        } catch is CancellationError {
+            return
         } catch {
             print("ERROR:", error)
         }
     }
-    
+
     func loadRegisteredMusics() async {
         do {
             let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: nil)
@@ -68,17 +70,21 @@ extension MyPageViewModel {
             self.nextCursor = result.nextCursor
             self.isHost = result.isHost
             self.registeredMusics = result.musics.items
+        } catch is CancellationError {
+            return
         } catch {
             print("ERROR:", error)
         }
     }
-    
+
     func loadArchiveMusics() async {
         do {
             let result = try await myPageUseCase.getArchiveTracks(userId: userId, cursor: nil)
 
             self.nextCursor = result.nextCursor
             self.archiveMusics = result.musics.items
+        } catch is CancellationError {
+            return
         } catch {
             print("ERROR:", error)
         }
