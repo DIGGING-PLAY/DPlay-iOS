@@ -417,8 +417,13 @@ private extension MusicCommentDetailViewController {
                 self.profileName.text = detail.user.nickname
                 
                 // 이미지
-                self.albumImageView.kf.setImage(with: detail.track.coverURL)
-                self.topOverlayImageView.kf.setImage(with: detail.track.coverURL)
+                if let coverURL = URL(string: detail.track.coverImageURL) {
+                    self.albumImageView.kf.setImage(with: coverURL)
+                    self.topOverlayImageView.kf.setImage(with: coverURL)
+                } else {
+                    self.albumImageView.image = ImageLiterals.img_card_cover
+                    self.topOverlayImageView.image = ImageLiterals.img_card_cover
+                }
                 
                 // 사용자 프로필 없으면 기본 이미지 지정 해줘야 함
                 if let profileImageString = detail.user.profileImage,

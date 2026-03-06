@@ -12,7 +12,7 @@ import Combine
 final class MusicSearchViewModel: ObservableObject {
 
     // MARK: - State
-    @Published private(set) var tracks: [MusicTrack] = []
+    @Published private(set) var tracks: [Track] = []
     @Published private(set) var isEmpty: Bool = false
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasSearched: Bool = false

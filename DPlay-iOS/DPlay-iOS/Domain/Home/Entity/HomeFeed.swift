@@ -31,32 +31,6 @@ struct Post {
     let isScrapped: Bool
 }
 
-struct User {
-    let id: Int
-    let nickname: String
-    let profileImage: String?
-    let isAdmin: Bool
-}
-
-struct Track {
-    let id: String
-    let title: String
-    let coverImage: String
-    let artist: String
-}
-
-struct Like {
-    let isLiked: Bool
-    let count: Int
-}
-
-enum Badge: String {
-    case editor = "EDITOR"
-    case best   = "BEST"
-    case new    = "NEW"
-    case nomal
-}
-
 extension Post {
 
     func updated(

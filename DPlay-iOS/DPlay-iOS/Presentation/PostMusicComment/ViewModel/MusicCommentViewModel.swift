@@ -19,7 +19,7 @@ final class MusicCommentViewModel: ObservableObject {
 
     // MARK: - State
     
-    @Published private(set) var track: MusicTrack?
+    @Published private(set) var track: Track?
     @Published private(set) var isLoading: Bool = false
     @Published var errorMessage: String?
 
@@ -47,11 +47,7 @@ extension MusicCommentViewModel {
         guard let track else { return }
 
         let musicComment = MusicComment(
-            trackId: track.trackId,
-            songTitle: track.title,
-            artistName: track.artist,
-            coverImg: track.coverURL,
-            isrc: track.isrc,
+            track: track,
             content: comment
         )
 
