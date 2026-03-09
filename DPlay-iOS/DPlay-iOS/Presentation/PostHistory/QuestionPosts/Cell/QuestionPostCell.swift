@@ -232,7 +232,7 @@ extension QuestionPostCell {
     //MARK: - Configure
     
     func configureCell(post: QuestionPost) {
-        guard let url = URL(string: post.track.coverImage) else { return }
+        guard let url = URL(string: post.track.coverImageURL) else { return }
         
         coverImageView.kf.setImage(with: url)
         musicTitleLabel.text = post.track.title

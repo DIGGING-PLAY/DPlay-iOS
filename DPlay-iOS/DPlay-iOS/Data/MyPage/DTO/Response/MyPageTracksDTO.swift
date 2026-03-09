@@ -7,12 +7,7 @@
 
 import Foundation
 
-struct MyPageTracksResponseDTO: Decodable {
-    let status: Bool
-    let code: Int
-    let message: String
-    let data: MyPageTracksDataDTO
-}
+typealias MyPageTracksResponseDTO = BaseResponseDTO<MyPageTracksDataDTO>
 
 struct MyPageTracksDataDTO: Decodable {
     let visibleLimit: Int
@@ -24,15 +19,8 @@ struct MyPageTracksDataDTO: Decodable {
 
 struct MyPageTrackItemDTO: Decodable {
     let postId: Int
-    let track: MyPageTrackDTO
+    let track: TrackDTO
     let content: String?
-}
-
-struct MyPageTrackDTO: Decodable {
-    let trackId: String
-    let songTitle: String
-    let coverImg: String
-    let artistName: String
 }
 
 // MARK: - DTO to Entity
@@ -52,17 +40,6 @@ extension MyPageTrackItemDTO {
             id: postId,
             track: track.toEntity(),
             content: content
-        )
-    }
-}
-
-extension MyPageTrackDTO {
-    func toEntity() -> Track {
-        Track(
-            id: trackId,
-            title: songTitle,
-            coverImage: coverImg,
-            artist: artistName
         )
     }
 }

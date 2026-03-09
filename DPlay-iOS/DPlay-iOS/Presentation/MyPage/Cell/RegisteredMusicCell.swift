@@ -246,7 +246,7 @@ extension RegisteredMusicCell {
     //MARK: - Configure
     
     func configureCell(isHost: Bool, with model: MyPageTrackPost) {
-        guard let url = URL(string: model.track.coverImage) else { return }
+        guard let url = URL(string: model.track.coverImageURL) else { return }
         
         imageView.kf.setImage(with: url)
         musicTitleLabel.text = model.track.title

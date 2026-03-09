@@ -24,26 +24,34 @@ final class DefaultMyPageRepository: MyPageRepository {
 
     func fetchUserProfile(userId: Int) async throws -> MyPageUserProfileResult {
         let response = try await service.fetchUserProfile(userId: userId)
-        
-        let userProfile = response.data.toEntity()
+
+        guard let data = response.data else {
+            throw AppError.emptyData
+        }
+
+        let userProfile = data.toEntity()
         let result = MyPageUserProfileResult(
             profile: userProfile,
-            isHost: response.data.isHost,
-            pushOn: response.data.pushOn
+            isHost: data.isHost,
+            pushOn: data.pushOn
         )
-        
+
         return result
     }
 
     func fetchRegisteredTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult {
         let response = try await service.fetchRegisteredTracks(userId: userId, cursor: cursor)
-        
-        let musics = response.data.toEntity()
+
+        guard let data = response.data else {
+            throw AppError.emptyData
+        }
+
+        let musics = data.toEntity()
         let result = MyPageTrackResult(
             musics: musics,
-            visibleLimit: response.data.visibleLimit,
-            nextCursor: response.data.nextCursor,
-            isHost: response.data.isHost
+            visibleLimit: data.visibleLimit,
+            nextCursor: data.nextCursor,
+            isHost: data.isHost
         )
 
         return result
@@ -52,12 +60,16 @@ final class DefaultMyPageRepository: MyPageRepository {
     func fetchArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult {
         let response = try await service.fetchArchiveTracks(userId: userId, cursor: cursor)
 
-        let musics = response.data.toEntity()
+        guard let data = response.data else {
+            throw AppError.emptyData
+        }
+
+        let musics = data.toEntity()
         let result = MyPageTrackResult(
             musics: musics,
-            visibleLimit: response.data.visibleLimit,
-            nextCursor: response.data.nextCursor,
-            isHost: response.data.isHost
+            visibleLimit: data.visibleLimit,
+            nextCursor: data.nextCursor,
+            isHost: data.isHost
         )
 
         return result
