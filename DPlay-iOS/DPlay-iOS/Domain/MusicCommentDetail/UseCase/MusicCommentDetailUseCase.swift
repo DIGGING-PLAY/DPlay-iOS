@@ -25,7 +25,8 @@ final class DefaultMusicDetailUseCase: MusicCommentDetailUseCase {
     // MARK: - Fetch Detail
 
     func getMusicDetail(postId: Int) async throws -> MusicCommentDetail {
-        try await repository.fetchMusicDetail(postId: postId)
+        try Task.checkCancellation()
+        return try await repository.fetchMusicDetail(postId: postId)
     }
 
     // MARK: - Like / Unlike
