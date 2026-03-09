@@ -11,13 +11,13 @@ import Combine
 @MainActor
 final class MyPageViewModel: ObservableObject {
     
-    //MARK: - Property Wrappers
+    // MARK: - Property Wrappers
     
     @Published var userProfileResult: MyPageUserProfileResult?
     @Published var registeredMusics: [MyPageTrackPost] = []
     @Published var archiveMusics: [MyPageTrackPost] = []
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     private let userId: Int
     private var cancellables = Set<AnyCancellable>()
@@ -25,7 +25,7 @@ final class MyPageViewModel: ObservableObject {
     private var refreshTask: Task<Void, Never>?
     var isHost: Bool?
     
-    //MARK: - Dependencies
+    // MARK: - Dependencies
     
     private let myPageUseCase: MyPageUseCase
     private let commentDetailUseCase: MusicCommentDetailUseCase
@@ -35,7 +35,7 @@ final class MyPageViewModel: ObservableObject {
         refreshTask?.cancel()
     }
 
-    //MARK: - Init
+    // MARK: - Init
 
     init(myPageUseCase: MyPageUseCase, commentDetailUseCase: MusicCommentDetailUseCase, coordinator: DetailCoordinating?, userId: Int) {
         self.myPageUseCase = myPageUseCase
@@ -49,7 +49,7 @@ final class MyPageViewModel: ObservableObject {
 
 extension MyPageViewModel {
     
-    //MARK: - Method
+    // MARK: - Method
     
     func loadUserProfile() async {
         do {
