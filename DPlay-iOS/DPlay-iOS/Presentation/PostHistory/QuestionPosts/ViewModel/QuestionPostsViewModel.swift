@@ -77,7 +77,7 @@ extension QuestionPostsViewModel {
     
     func goToMusicDetail(trackId: String) {
         guard let postId = Int(trackId) else { return }
-        coordinator?.goToMusicCommentDetail(postId: postId, badge: .nomal)
+        coordinator?.goToMusicCommentDetail(postId: postId, badge: .normal)
     }
     
     func popToPrevious() {

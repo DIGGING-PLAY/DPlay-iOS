@@ -308,7 +308,7 @@ private extension MusicAlbumCell {
 extension MusicAlbumCell {
     
     func configure(with post: Post) {
-        if let url = URL(string: post.track.coverImage) {
+        if let url = URL(string: post.track.coverImageURL) {
             musicAlbumCoverImageView.kf.setImage(
                 with: url,
                 placeholder: nil,

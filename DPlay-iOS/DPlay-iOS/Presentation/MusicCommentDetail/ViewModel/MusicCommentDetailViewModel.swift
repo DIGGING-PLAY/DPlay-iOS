@@ -178,10 +178,11 @@ extension MusicCommentDetailViewModel {
 extension MusicCommentDetailViewModel {
 
     func didTapPreview() {
+        guard let trackId = detail?.track.id, !trackId.isEmpty else { return }
         Task {
             do {
                 let session = try await previewMusicUseCase.execute(
-                    trackId: self.detail?.track.trackId ?? "",
+                    trackId: trackId,
                     storefront: "kr"
                 )
 

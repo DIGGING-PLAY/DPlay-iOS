@@ -7,25 +7,13 @@
 
 import Foundation
 
-struct MyPageProfileResponseDTO: Decodable {
-    let status: Bool
-    let code: Int
-    let message: String
-    let data: MyPageProfileDataDTO
-}
+typealias MyPageProfileResponseDTO = BaseResponseDTO<MyPageProfileDataDTO>
 
 struct MyPageProfileDataDTO: Decodable {
-    let user: MyPageUserDTO
+    let user: UserDTO
     let isHost: Bool
     let pushOn: Bool
     let postTotalCount: Int
-}
-
-struct MyPageUserDTO: Decodable {
-    let userId: Int
-    let nickname: String
-    var profileImg: String?
-    var isAdmin: Bool
 }
 
 // MARK: - DTO to Entity
@@ -35,17 +23,6 @@ extension MyPageProfileDataDTO {
         UserProfile(
             user: user.toEntity(),
             postTotalCount: postTotalCount
-        )
-    }
-}
-
-extension MyPageUserDTO {
-    func toEntity() -> User {
-        User(
-            id: userId,
-            nickname: nickname,
-            profileImage: profileImg,
-            isAdmin: isAdmin
         )
     }
 }

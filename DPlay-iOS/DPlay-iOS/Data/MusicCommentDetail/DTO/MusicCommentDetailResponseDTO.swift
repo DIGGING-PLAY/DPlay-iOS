@@ -24,22 +24,17 @@ struct MusicPostDetailDTO: Decodable {
     let like: LikeDTO
 }
 
-extension MusicCommentDetailResponseDTO {
-    func toEntity() throws -> MusicCommentDetail {
-
-        guard let data else {
-            throw AppError.emptyData
-        }
-
-        return MusicCommentDetail(
-            id: data.postId,
-            isHost: data.isHost,
-            isScrapped: data.isScrapped,
-            content: data.content,
-            displayDate: data.displayDate,
-            track: try data.track.toEntity(),
-            user: data.user.toEntity(),
-            like: data.like.toEntity()
+extension MusicPostDetailDTO {
+    func toEntity() -> MusicCommentDetail {
+        MusicCommentDetail(
+            id: postId,
+            isHost: isHost,
+            isScrapped: isScrapped,
+            content: content,
+            displayDate: displayDate,
+            track: track.toEntity(),
+            user: user.toEntity(),
+            like: like.toEntity()
         )
     }
 }

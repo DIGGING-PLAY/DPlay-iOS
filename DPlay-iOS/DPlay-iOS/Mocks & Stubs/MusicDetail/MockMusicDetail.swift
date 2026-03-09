@@ -8,11 +8,11 @@
 import Foundation
 
 enum MockMusicDetail {
-    static let sample = MusicTrack(
-        trackId: "apple:1678382",
+    static let sample = Track(
+        id: "apple:1678382",
         title: "Blueming",
         artist: "IU",
-        coverURL: URL(string: "https://example.com/cover.jpg")!,
+        coverImageURL: "https://example.com/cover.jpg",
         isrc: "KRA381901710"
     )
 }
