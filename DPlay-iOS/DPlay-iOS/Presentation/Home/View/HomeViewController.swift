@@ -28,9 +28,11 @@ final class HomeViewController: UIViewController {
     private var isRefreshing = false
     private var scrapToggleIndex: Int?
     private var likeToggleIndex: Int?
+    
     /// 락 셀에서 시작한 패닝 제스처인지 여부
     private var isPanStartedOnLockedCell = false
     private var didShowLockedPopup = false
+    
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()
@@ -274,7 +276,7 @@ private extension HomeViewController {
         let post = viewModel.posts[index]
         scrapToggleIndex = index
 
-        Task { await viewModel.toggleScrap(postId: post.id) }
+        viewModel.toggleScrapTask(postId: post.id)
         
         guard post.isScrapped == false else { return }
         
@@ -708,7 +710,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.onTapLike = { [weak self] in
             self?.likeToggleIndex = indexPath.item
-            Task { await self?.viewModel.toggleLike(postId: post.id) }
+            self?.viewModel.toggleLikeTask(postId: post.id)
         }
         
         cell.onTapProfile = { [weak self] in

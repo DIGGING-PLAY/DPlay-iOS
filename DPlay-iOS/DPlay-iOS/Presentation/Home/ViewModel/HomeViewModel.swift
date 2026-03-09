@@ -25,12 +25,14 @@ final class HomeViewModel: ObservableObject {
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: HomeCoordinator?
     
-    // MARK: - Combine
+    // MARK: - Combine & Task
 
     private var cancellables = Set<AnyCancellable>()
     private var loadTask: Task<Void, Never>?
     private var refreshTask: Task<Void, Never>?
     private var previewTask: Task<Void, Never>?
+    private var likeTask: Task<Void, Never>?
+    private var scrapTask: Task<Void, Never>?
 
     deinit {
         loadTask?.cancel()
@@ -112,6 +114,13 @@ private extension HomeViewModel {
 
 extension HomeViewModel {
 
+    func toggleScrapTask(postId: Int) {
+        scrapTask?.cancel()
+        scrapTask = Task {
+            await toggleScrap(postId: postId)
+        }
+    }
+
     func toggleScrap(postId: Int) async {
         guard let index = posts.firstIndex(where: { $0.id == postId }) else { return }
 
@@ -137,6 +146,13 @@ extension HomeViewModel {
 }
 
 extension HomeViewModel {
+
+    func toggleLikeTask(postId: Int) {
+        likeTask?.cancel()
+        likeTask = Task {
+            await toggleLike(postId: postId)
+        }
+    }
 
     func toggleLike(postId: Int) async {
         guard let index = posts.firstIndex(where: { $0.id == postId }) else { return }

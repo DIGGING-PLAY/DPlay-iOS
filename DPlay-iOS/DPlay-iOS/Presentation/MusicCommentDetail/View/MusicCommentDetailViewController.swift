@@ -18,6 +18,7 @@ final class MusicCommentDetailViewController: UIViewController {
 
     private let viewModel: MusicCommentDetailViewModel
     private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - UI Properties
 
     private let navigationBarView = MusicCommentDetailNavigationBarView()
@@ -467,7 +468,7 @@ private extension MusicCommentDetailViewController {
 
         likeButton.addAction(
             UIAction { [weak self] _ in
-                Task { await self?.viewModel.toggleLike() }
+                self?.viewModel.toggleLikeTask()
             },
             for: .touchUpInside
         )
@@ -567,7 +568,7 @@ private extension MusicCommentDetailViewController {
     func handleScrapTapped() {
         let isScrapped = viewModel.detail?.isScrapped == true
 
-        Task { await viewModel.toggleScrap() }
+        viewModel.toggleScrapTask()
 
         guard isScrapped == false else { return }
 

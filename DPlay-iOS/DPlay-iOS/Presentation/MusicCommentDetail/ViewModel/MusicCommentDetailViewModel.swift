@@ -14,12 +14,19 @@ final class MusicCommentDetailViewModel: ObservableObject {
     @Published var detail: MusicCommentDetail?
     @Published var badge: Badge
 
+    // MARK: - Dependencies
+    
     private let commentDetailUseCase: MusicCommentDetailUseCase
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: DetailCoordinating?
     private let postId: Int
+    
+    // MARK: - Task
+    
     private var loadTask: Task<Void, Never>?
     private var previewTask: Task<Void, Never>?
+    private var likeTask: Task<Void, Never>?
+    private var scrapTask: Task<Void, Never>?
 
     deinit {
         loadTask?.cancel()
@@ -86,6 +93,13 @@ extension MusicCommentDetailViewModel {
 
 extension MusicCommentDetailViewModel {
 
+    func toggleLikeTask() {
+        likeTask?.cancel()
+        likeTask = Task {
+            await toggleLike()
+        }
+    }
+
     func toggleLike() async {
         guard let original = detail else { return }
 
@@ -127,6 +141,13 @@ extension MusicCommentDetailViewModel {
 }
 
 extension MusicCommentDetailViewModel {
+
+    func toggleScrapTask() {
+        scrapTask?.cancel()
+        scrapTask = Task {
+            await toggleScrap()
+        }
+    }
 
     func toggleScrap() async {
         guard let original = detail else { return }

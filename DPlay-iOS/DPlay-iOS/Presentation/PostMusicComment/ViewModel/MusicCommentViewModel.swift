@@ -22,6 +22,9 @@ final class MusicCommentViewModel: ObservableObject {
     @Published private(set) var track: Track?
     @Published private(set) var isLoading: Bool = false
     @Published var errorMessage: String?
+    
+    // MARK: - Task
+    
     private var registerTask: Task<Void, Never>?
     private var fetchTask: Task<Void, Never>?
 
