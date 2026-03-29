@@ -24,7 +24,8 @@ final class DefaultHomeViewUseCase: HomeViewUseCase {
     // MARK: - Fetch
 
     func getHomeData() async throws -> HomeFeed {
-        try await repository.fetchHomeFeed()
+        try Task.checkCancellation()
+        return try await repository.fetchHomeFeed()
     }
 
     // MARK: - Like

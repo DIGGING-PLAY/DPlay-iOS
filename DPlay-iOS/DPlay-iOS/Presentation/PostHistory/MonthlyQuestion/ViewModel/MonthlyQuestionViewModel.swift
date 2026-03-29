@@ -22,12 +22,17 @@ final class MonthlyQuestionViewModel: ObservableObject {
     @Published var monthlyQuestions: [MonthlyQuestion]?
 
     //MARK: - Dependencies
-    
+
     private let useCase: PostHistoryUseCase
     weak var coordinator: HomeCoordinator?
-    
+    private var loadTask: Task<Void, Never>?
+
+    deinit {
+        loadTask?.cancel()
+    }
+
     //MARK: - Init
-    
+
     init(
         useCase: PostHistoryUseCase,
         coordinator: HomeCoordinator?
@@ -42,7 +47,12 @@ final class MonthlyQuestionViewModel: ObservableObject {
 extension MonthlyQuestionViewModel {
     
     //MARK: - Method
-    
+
+    func startLoad() {
+        loadTask?.cancel()
+        loadTask = Task { await loadMonthlyQuestions() }
+    }
+
     func loadMonthlyQuestions() async {
         do {
             let result = try await useCase.getMonthlyQuestions(year: selectedYear, month: selectedMonth)

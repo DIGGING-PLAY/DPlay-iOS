@@ -11,27 +11,32 @@ import Combine
 @MainActor
 final class MyPageViewModel: ObservableObject {
     
-    //MARK: - Property Wrappers
+    // MARK: - Property Wrappers
     
     @Published var userProfileResult: MyPageUserProfileResult?
     @Published var registeredMusics: [MyPageTrackPost] = []
     @Published var archiveMusics: [MyPageTrackPost] = []
 
-    //MARK: - Properties
-    
+    // MARK: - Properties
+
     private let userId: Int
     private var cancellables = Set<AnyCancellable>()
     private var nextCursor: String?
+    private var refreshTask: Task<Void, Never>?
     var isHost: Bool?
     
-    //MARK: - Dependencies
+    // MARK: - Dependencies
     
     private let myPageUseCase: MyPageUseCase
     private let commentDetailUseCase: MusicCommentDetailUseCase
     weak var coordinator: DetailCoordinating?
     
-    //MARK: - Init
-    
+    deinit {
+        refreshTask?.cancel()
+    }
+
+    // MARK: - Init
+
     init(myPageUseCase: MyPageUseCase, commentDetailUseCase: MusicCommentDetailUseCase, coordinator: DetailCoordinating?, userId: Int) {
         self.myPageUseCase = myPageUseCase
         self.commentDetailUseCase = commentDetailUseCase
@@ -44,36 +49,42 @@ final class MyPageViewModel: ObservableObject {
 
 extension MyPageViewModel {
     
-    //MARK: - Method
+    // MARK: - Method
     
     func loadUserProfile() async {
         do {
             let result = try await myPageUseCase.getUserProfile(userId: userId)
-            
+
             self.userProfileResult = result
+        } catch is CancellationError {
+            return
         } catch {
             print("ERROR:", error)
         }
     }
-    
+
     func loadRegisteredMusics() async {
         do {
             let result = try await myPageUseCase.getRegisteredTracks(userId: userId, cursor: nil)
-            
+
             self.nextCursor = result.nextCursor
             self.isHost = result.isHost
             self.registeredMusics = result.musics.items
+        } catch is CancellationError {
+            return
         } catch {
             print("ERROR:", error)
         }
     }
-    
+
     func loadArchiveMusics() async {
         do {
             let result = try await myPageUseCase.getArchiveTracks(userId: userId, cursor: nil)
 
             self.nextCursor = result.nextCursor
             self.archiveMusics = result.musics.items
+        } catch is CancellationError {
+            return
         } catch {
             print("ERROR:", error)
         }
@@ -146,18 +157,23 @@ private extension MyPageViewModel {
     }
     
     func handleMyPageRefresh(_ reason: MyPageRefreshReason) {
-        switch reason {
-        case .commentAdded:
-            Task { await loadRegisteredMusics() }
-            Task { await loadUserProfile() }
-        case .commentDeleted:
-            Task { await loadUserProfile() }
-            Task { await loadRegisteredMusics() }
-            Task { await loadArchiveMusics() }
-        case .scrapToggled:
-            Task { await loadArchiveMusics() }
-        case .pushNotificationToggled, .profileUpdated:
-            Task { await loadUserProfile() }
+        refreshTask?.cancel()
+        refreshTask = Task {
+            switch reason {
+            case .commentAdded:
+                async let p: () = loadRegisteredMusics()
+                async let q: () = loadUserProfile()
+                _ = await (p, q)
+            case .commentDeleted:
+                async let a: () = loadUserProfile()
+                async let b: () = loadRegisteredMusics()
+                async let c: () = loadArchiveMusics()
+                _ = await (a, b, c)
+            case .scrapToggled:
+                await loadArchiveMusics()
+            case .pushNotificationToggled, .profileUpdated:
+                await loadUserProfile()
+            }
         }
     }
 }

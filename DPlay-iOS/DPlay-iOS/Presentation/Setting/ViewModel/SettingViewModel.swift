@@ -38,16 +38,10 @@ extension SettingViewModel {
     //MARK: - Method
     
     func setNotification(pushOn: Bool) async throws {
-        Task {
-            do {
-                try await useCase.setNotification(pushOn: pushOn)
-                AppEventBus.shared.event.send(
-                    .mypageShouldRefresh(reason: .pushNotificationToggled)
-                )
-            } catch {
-                print("푸시 알림 동의 여부 변경 실패")
-            }
-        }
+        try await useCase.setNotification(pushOn: pushOn)
+        AppEventBus.shared.event.send(
+            .mypageShouldRefresh(reason: .pushNotificationToggled)
+        )
     }
     
     func logout() async throws {
@@ -57,11 +51,12 @@ extension SettingViewModel {
     
     func withdraw() async throws {
         AppleLoginManager.shared.getAuthorizationCode()
-        AppleLoginManager.shared.loadAuthorizationCode = { code in
-            guard let code else { return }
-            
-            Task {
-                try await self.useCase.withdraw(appleAuthorizationCode: code)
+        AppleLoginManager.shared.loadAuthorizationCode = { [weak self] code in
+            guard let code, let self else { return }
+
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                try? await self.useCase.withdraw(appleAuthorizationCode: code)
                 self.coordinator?.goToAuth()
             }
         }

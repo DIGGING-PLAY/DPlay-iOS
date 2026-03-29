@@ -14,10 +14,10 @@ import Then
 final class QuestionPostsViewController: UIViewController {
     
     //MARK: - Properties
-    
+
     private let viewModel: QuestionPostsViewModel
     private var cancellables = Set<AnyCancellable>()
-    
+
     //MARK: - UI Properties
 
     private let navigationBarView = QuestionPostsNavigationBarView()
@@ -31,7 +31,7 @@ final class QuestionPostsViewController: UIViewController {
     private let guideFooterView = QuestionPostFooterView()
 
     //MARK: - Life Cycle
-    
+
     init(viewModel: QuestionPostsViewModel) {
         self.viewModel = viewModel
         
@@ -212,7 +212,7 @@ private extension QuestionPostsViewController {
     }
     
     func loadData() {
-        Task { await viewModel.loadQuestionPosts() }
+        viewModel.startLoad()
     }
 }
 

@@ -68,9 +68,12 @@ reviews:
 # ---------------------------------------------------------------- #
 # 자동 리뷰 트리거 설정
 # ---------------------------------------------------------------- #
-auto_review:
-  enabled: false
-  auto_incremental_review: false
+reviews:
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    base_branches:
+      - ".*"  # 모든 브랜치
 
 # ---------------------------------------------------------------- #
 # 채팅 기능 설정
