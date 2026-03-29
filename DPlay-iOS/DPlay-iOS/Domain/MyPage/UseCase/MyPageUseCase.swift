@@ -23,26 +23,22 @@ final class DefaultMyPageUseCase: MyPageUseCase {
     }
 
     func getUserProfile(userId: Int) async throws -> MyPageUserProfileResult {
-        let data = try await repository.fetchUserProfile(userId: userId)
-        
-        return data
+        try Task.checkCancellation()
+        return try await repository.fetchUserProfile(userId: userId)
     }
     
     func getRegisteredTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult {
-        let data = try await repository.fetchRegisteredTracks(userId: userId, cursor: cursor)
-        
-        return data
+        try Task.checkCancellation()
+        return try await repository.fetchRegisteredTracks(userId: userId, cursor: cursor)
     }
     
     func getArchiveTracks(userId: Int, cursor: String?) async throws -> MyPageTrackResult {
-        let data = try await repository.fetchArchiveTracks(userId: userId, cursor: cursor)
-        
-        return data
+        try Task.checkCancellation()
+        return try await repository.fetchArchiveTracks(userId: userId, cursor: cursor)
     }
     
     func patchUserProfile(nickname: String?, profileImg: UIImage?) async throws {
         let profileImgData = profileImg?.jpegData(compressionQuality: 0.9)
-        
         try await repository.updateUserProfile(nickname: nickname, profileImg: profileImgData)
     }
 }

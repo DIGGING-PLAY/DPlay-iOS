@@ -7,14 +7,13 @@
 
 import Foundation
 
-final class TokenRefreshManager {
+actor TokenRefreshManager {
 
     static let shared = TokenRefreshManager()
     private init() {}
 
-    private let keychain = KeychainManager.shared
     private var isRefreshing = false
-    
+
     private let authService = AuthServiceImpl()
 
     private var waiters: [CheckedContinuation<Bool, Never>] = []
@@ -29,7 +28,7 @@ final class TokenRefreshManager {
         }
 
         isRefreshing = true
-        
+
         do {
             //1) Refresh API 호출
             let response = try await authService.refreshToken()
@@ -39,7 +38,7 @@ final class TokenRefreshManager {
             KeychainManager.shared.accessToken = userData.accessToken
             KeychainManager.shared.refreshToken = userData.refreshToken
             UserDefaults.standard.set(userData.userId, forKey: "userId")
-            
+
             //2) 대기 중인 다른 요청 모두 재개
             finishRefresh(success: true)
 

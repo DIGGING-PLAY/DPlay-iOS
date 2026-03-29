@@ -21,15 +21,13 @@ final class DefaultPostHistoryUseCase: PostHistoryUseCase {
     }
     
     func getMonthlyQuestions(year: Int, month: Int) async throws -> [MonthlyQuestion] {
-        let data = try await repository.fetchMonthlyQuestions(year: year, month: month)
-        
-        return data
+        try Task.checkCancellation()
+        return try await repository.fetchMonthlyQuestions(year: year, month: month)
     }
     
     func getQuestionPosts(questionId: Int, cursor: String?) async throws -> QuestionPosts {
-        let data = try await repository.fetchQuestionPosts(questionId: questionId, cursor: cursor)
-        
-        return data
+        try Task.checkCancellation()
+        return try await repository.fetchQuestionPosts(questionId: questionId, cursor: cursor)
     }
 }
 

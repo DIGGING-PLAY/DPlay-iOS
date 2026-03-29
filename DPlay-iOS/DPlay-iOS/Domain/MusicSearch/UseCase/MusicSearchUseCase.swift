@@ -34,8 +34,8 @@ final class DefaultMusicSearchUseCase: MusicSearchUseCase {
         keyword: String,
         cursor: String?
     ) async throws -> MusicSearchResult {
-
-        try await repository.searchTracks(
+        try Task.checkCancellation()
+        return try await repository.searchTracks(
             keyword: keyword,
             cursor: cursor
         )

@@ -20,7 +20,7 @@ private enum PageState: Equatable{
 final class HomeViewController: UIViewController {
     
     // MARK: - Properties
-    
+
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
     private var playingCellId: UUID?
@@ -28,10 +28,11 @@ final class HomeViewController: UIViewController {
     private var isRefreshing = false
     private var scrapToggleIndex: Int?
     private var likeToggleIndex: Int?
+    
     /// 락 셀에서 시작한 패닝 제스처인지 여부
     private var isPanStartedOnLockedCell = false
     private var didShowLockedPopup = false
-
+    
     // MARK: - UI Properties
     
     private let navigationBarView = HomeNavigationBarView()
@@ -254,17 +255,14 @@ private extension HomeViewController {
     }
     
     func refresh() {
-        Task {
-            isRefreshing = true
-            AudioPlayerManager.shared.stop()
-            playingCellId = nil
-            await viewModel.loadHome()
-            resetToFirstPage()
-        }
+        isRefreshing = true
+        AudioPlayerManager.shared.stop()
+        playingCellId = nil
+        viewModel.startLoad()
     }
-    
+
     func loadData() {
-        Task { await viewModel.loadHome() }
+        viewModel.startLoad()
     }
 }
 
@@ -274,13 +272,11 @@ private extension HomeViewController {
     
     func handleScrapTapped() {
         guard case .post(let index) = currentPage else { return }
-        
+
         let post = viewModel.posts[index]
         scrapToggleIndex = index
-        
-        Task {
-            await viewModel.toggleScrap(postId: post.id)
-        }
+
+        viewModel.toggleScrapTask(postId: post.id)
         
         guard post.isScrapped == false else { return }
         
@@ -714,9 +710,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.onTapLike = { [weak self] in
             self?.likeToggleIndex = indexPath.item
-            Task {
-                await self?.viewModel.toggleLike(postId: post.id)
-            }
+            self?.viewModel.toggleLikeTask(postId: post.id)
         }
         
         cell.onTapProfile = { [weak self] in

@@ -19,6 +19,7 @@ final class PreviewMusicUseCase {
         trackId: String,
         storefront: String?
     ) async throws -> PreviewMusic {
+        try Task.checkCancellation()
         return try await repository.requestPreview(
             trackId: trackId,
             storefront: storefront
