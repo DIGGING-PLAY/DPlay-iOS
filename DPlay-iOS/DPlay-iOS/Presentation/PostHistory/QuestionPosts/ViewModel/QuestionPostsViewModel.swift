@@ -22,12 +22,17 @@ final class QuestionPostsViewModel: ObservableObject {
     private var nextCursor: String?
 
     //MARK: - Dependencies
-    
+
     private let useCase: PostHistoryUseCase
     weak var coordinator: HomeCoordinator?
-    
+    private var loadTask: Task<Void, Never>?
+
+    deinit {
+        loadTask?.cancel()
+    }
+
     //MARK: - Init
-    
+
     init(
         useCase: PostHistoryUseCase,
         coordinator: HomeCoordinator?,
@@ -42,7 +47,12 @@ final class QuestionPostsViewModel: ObservableObject {
 extension QuestionPostsViewModel {
     
     //MARK: - Method
-    
+
+    func startLoad() {
+        loadTask?.cancel()
+        loadTask = Task { await loadQuestionPosts() }
+    }
+
     func loadQuestionPosts() async {
         do {
             let result = try await useCase.getQuestionPosts(questionId: questionId, cursor: nil)
@@ -77,7 +87,7 @@ extension QuestionPostsViewModel {
     
     func goToMusicDetail(trackId: String) {
         guard let postId = Int(trackId) else { return }
-        coordinator?.goToMusicCommentDetail(postId: postId, badge: .nomal)
+        coordinator?.goToMusicCommentDetail(postId: postId, badge: .normal)
     }
     
     func popToPrevious() {

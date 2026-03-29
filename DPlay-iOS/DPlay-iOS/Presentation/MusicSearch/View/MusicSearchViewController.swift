@@ -18,8 +18,7 @@ final class MusicSearchViewController: UIViewController {
     private let viewModel: MusicSearchViewModel
     private var cancellables = Set<AnyCancellable>()
     private var selectedIndex: IndexPath?
-    private var searchTask: Task<Void, Never>?
-    
+
     // MARK: - UI Properties
     
     private let navigationBarView = MusicSearchNavigationBarView()
@@ -33,7 +32,7 @@ final class MusicSearchViewController: UIViewController {
     
     
     // MARK: - Life Cycle
-    
+
     init(viewModel: MusicSearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -215,21 +214,12 @@ private extension MusicSearchViewController {
         if textField.markedTextRange != nil { return }
 
         guard let query = textField.text, !query.isEmpty else {
-            searchTask?.cancel()
+            viewModel.cancelSearch()
             viewModel.clearResults()
             return
         }
 
-        // 이전 검색 취소 (디바운스)
-        searchTask?.cancel()
-
-        searchTask = Task {
-            // 디바운스 (300ms)
-            try? await Task.sleep(nanoseconds: 300_000_000)
-
-            guard !Task.isCancelled else { return }
-            await viewModel.search(keyword: query)
-        }
+        viewModel.searchWithDebounce(keyword: query)
     }
     
     func didTapClear() {
@@ -242,7 +232,7 @@ private extension MusicSearchViewController {
     
     func didTapNext() {
         guard let index = selectedIndex else { return }
-        let trackId = viewModel.tracks[index.row].trackId
+        let trackId = viewModel.tracks[index.row].id
         viewModel.didTapNext(trackId: trackId)
     }
 }

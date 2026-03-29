@@ -12,7 +12,7 @@ protocol PostMusicCommentUseCase {
     /// 노래 상세 조회
     func fetchTrackDetail(
          trackId: String
-     ) async throws -> MusicTrack
+     ) async throws -> Track
 
     /// 음악 코멘트 생성
     /// - Returns: 생성된 postId
@@ -33,8 +33,9 @@ final class DefaultPostMusicCommentUseCase: PostMusicCommentUseCase {
 
     func fetchTrackDetail(
         trackId: String
-    ) async throws -> MusicTrack {
-        try await repository.fetchTrackDetail(trackId: trackId)
+    ) async throws -> Track {
+        try Task.checkCancellation()
+        return try await repository.fetchTrackDetail(trackId: trackId)
     }
 
     // MARK: - Create Post
@@ -42,6 +43,6 @@ final class DefaultPostMusicCommentUseCase: PostMusicCommentUseCase {
     func createPost(
         comment: MusicComment
     ) async throws -> Int {
-        try await repository.createPost(request: comment)
+        return try await repository.createPost(request: comment)
     }
 }

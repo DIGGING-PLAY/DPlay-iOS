@@ -15,12 +15,12 @@ import Kingfisher
 final class MusicCommentDetailViewController: UIViewController {
     
     // MARK: - Properties
-    
+
     private let viewModel: MusicCommentDetailViewModel
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI Properties
-    
+
     private let navigationBarView = MusicCommentDetailNavigationBarView()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -85,7 +85,7 @@ final class MusicCommentDetailViewController: UIViewController {
     
     private func loadData() {
         startLoading()
-        Task { await viewModel.loadDetail() }
+        viewModel.startLoad()
     }
 }
 
@@ -417,8 +417,13 @@ private extension MusicCommentDetailViewController {
                 self.profileName.text = detail.user.nickname
                 
                 // 이미지
-                self.albumImageView.kf.setImage(with: detail.track.coverURL)
-                self.topOverlayImageView.kf.setImage(with: detail.track.coverURL)
+                if let coverURL = URL(string: detail.track.coverImageURL) {
+                    self.albumImageView.kf.setImage(with: coverURL)
+                    self.topOverlayImageView.kf.setImage(with: coverURL)
+                } else {
+                    self.albumImageView.image = ImageLiterals.img_card_cover
+                    self.topOverlayImageView.image = ImageLiterals.img_card_cover
+                }
                 
                 // 사용자 프로필 없으면 기본 이미지 지정 해줘야 함
                 if let profileImageString = detail.user.profileImage,
@@ -460,26 +465,24 @@ private extension MusicCommentDetailViewController {
     }
     
     func bindActions() {
-        
+
         likeButton.addAction(
             UIAction { [weak self] _ in
-                guard let self else { return }
-                Task { await self.viewModel.toggleLike() }
+                self?.viewModel.toggleLikeTask()
             },
             for: .touchUpInside
         )
-        
+
         scrapButton.addAction(
             UIAction { [weak self] _ in
                 self?.handleScrapTapped()
             },
             for: .touchUpInside
         )
-        
+
         playButton.addAction(
             UIAction { [weak self] _ in
-                guard let self else { return }
-                Task { self.viewModel.didTapPreview()}
+                self?.viewModel.didTapPreview()
             },
             for: .touchUpInside
         )
@@ -565,9 +568,7 @@ private extension MusicCommentDetailViewController {
     func handleScrapTapped() {
         let isScrapped = viewModel.detail?.isScrapped == true
 
-        Task {
-            await viewModel.toggleScrap()
-        }
+        viewModel.toggleScrapTask()
 
         guard isScrapped == false else { return }
 

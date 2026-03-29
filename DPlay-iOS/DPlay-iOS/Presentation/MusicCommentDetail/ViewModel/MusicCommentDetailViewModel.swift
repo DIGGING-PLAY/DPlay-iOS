@@ -13,12 +13,26 @@ final class MusicCommentDetailViewModel: ObservableObject {
     
     @Published var detail: MusicCommentDetail?
     @Published var badge: Badge
+
+    // MARK: - Dependencies
     
     private let commentDetailUseCase: MusicCommentDetailUseCase
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: DetailCoordinating?
     private let postId: Int
     
+    // MARK: - Task
+    
+    private var loadTask: Task<Void, Never>?
+    private var previewTask: Task<Void, Never>?
+    private var likeTask: Task<Void, Never>?
+    private var scrapTask: Task<Void, Never>?
+
+    deinit {
+        loadTask?.cancel()
+        previewTask?.cancel()
+    }
+
     init(
         postId: Int,
         initialBadge: Badge,
@@ -38,10 +52,17 @@ final class MusicCommentDetailViewModel: ObservableObject {
 
 extension MusicCommentDetailViewModel {
 
+    func startLoad() {
+        loadTask?.cancel()
+        loadTask = Task { await loadDetail() }
+    }
+
     func loadDetail() async {
         do {
             print("뷰모델 postId \(postId)")
             detail = try await commentDetailUseCase.getMusicDetail(postId: postId)
+        } catch is CancellationError {
+            return
         } catch {
             print("❌ Detail load failed:", error)
         }
@@ -71,6 +92,13 @@ extension MusicCommentDetailViewModel {
 // MARK: - Post Actions (Like / Scrap)
 
 extension MusicCommentDetailViewModel {
+
+    func toggleLikeTask() {
+        likeTask?.cancel()
+        likeTask = Task {
+            await toggleLike()
+        }
+    }
 
     func toggleLike() async {
         guard let original = detail else { return }
@@ -113,6 +141,13 @@ extension MusicCommentDetailViewModel {
 }
 
 extension MusicCommentDetailViewModel {
+
+    func toggleScrapTask() {
+        scrapTask?.cancel()
+        scrapTask = Task {
+            await toggleScrap()
+        }
+    }
 
     func toggleScrap() async {
         guard let original = detail else { return }
@@ -178,10 +213,12 @@ extension MusicCommentDetailViewModel {
 extension MusicCommentDetailViewModel {
 
     func didTapPreview() {
-        Task {
+        guard let trackId = detail?.track.id, !trackId.isEmpty else { return }
+        previewTask?.cancel()
+        previewTask = Task {
             do {
                 let session = try await previewMusicUseCase.execute(
-                    trackId: self.detail?.track.trackId ?? "",
+                    trackId: trackId,
                     storefront: "kr"
                 )
 
@@ -191,6 +228,8 @@ extension MusicCommentDetailViewModel {
                     streamURL: session.streamURL, playId: nil
                 )
 
+            } catch is CancellationError {
+                return
             } catch {
                 print("미리듣기 실패:", error)
             }

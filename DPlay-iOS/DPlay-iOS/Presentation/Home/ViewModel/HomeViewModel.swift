@@ -25,10 +25,21 @@ final class HomeViewModel: ObservableObject {
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: HomeCoordinator?
     
-    // MARK: - Combine
+    // MARK: - Combine & Task
 
     private var cancellables = Set<AnyCancellable>()
-    
+    private var loadTask: Task<Void, Never>?
+    private var refreshTask: Task<Void, Never>?
+    private var previewTask: Task<Void, Never>?
+    private var likeTask: Task<Void, Never>?
+    private var scrapTask: Task<Void, Never>?
+
+    deinit {
+        loadTask?.cancel()
+        refreshTask?.cancel()
+        previewTask?.cancel()
+    }
+
     init(
         homeViewUseCase: HomeViewUseCase,
         previewMusicUseCase: PreviewMusicUseCase,
@@ -45,6 +56,11 @@ final class HomeViewModel: ObservableObject {
 
 extension HomeViewModel {
 
+    func startLoad() {
+        loadTask?.cancel()
+        loadTask = Task { await loadHome() }
+    }
+
     func loadHome() async {
         isLoading = true
         defer { isLoading = false }
@@ -58,6 +74,8 @@ extension HomeViewModel {
                 ? Array(homeFeed.posts.prefix(3))
                 : homeFeed.posts
 
+        } catch is CancellationError {
+            return
         } catch {
             print("❌ Home load failed:", error)
         }
@@ -85,9 +103,8 @@ private extension HomeViewModel {
     }
     
     func handleHomeRefresh(_ reason: HomeRefreshReason) {
-        
-        // 추후 reason case에 따른 분기처리 대비
-        Task {
+        refreshTask?.cancel()
+        refreshTask = Task {
             await loadHome()
         }
     }
@@ -96,6 +113,13 @@ private extension HomeViewModel {
 // MARK: - Post Actions (Like / Scrap)
 
 extension HomeViewModel {
+
+    func toggleScrapTask(postId: Int) {
+        scrapTask?.cancel()
+        scrapTask = Task {
+            await toggleScrap(postId: postId)
+        }
+    }
 
     func toggleScrap(postId: Int) async {
         guard let index = posts.firstIndex(where: { $0.id == postId }) else { return }
@@ -122,6 +146,13 @@ extension HomeViewModel {
 }
 
 extension HomeViewModel {
+
+    func toggleLikeTask(postId: Int) {
+        likeTask?.cancel()
+        likeTask = Task {
+            await toggleLike(postId: postId)
+        }
+    }
 
     func toggleLike(postId: Int) async {
         guard let index = posts.firstIndex(where: { $0.id == postId }) else { return }
@@ -185,7 +216,8 @@ extension HomeViewModel {
 extension HomeViewModel {
 
     func didTapPreview(post: Post, playCellId: UUID) {
-        Task {
+        previewTask?.cancel()
+        previewTask = Task {
             do {
                 let session = try await previewMusicUseCase.execute(
                     trackId: post.track.id,
@@ -198,6 +230,8 @@ extension HomeViewModel {
                     streamURL: session.streamURL, playId: playCellId
                 )
 
+            } catch is CancellationError {
+                return
             } catch {
                 print("미리듣기 실패:", error)
             }

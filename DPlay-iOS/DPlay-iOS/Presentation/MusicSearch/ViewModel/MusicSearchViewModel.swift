@@ -12,7 +12,7 @@ import Combine
 final class MusicSearchViewModel: ObservableObject {
 
     // MARK: - State
-    @Published private(set) var tracks: [MusicTrack] = []
+    @Published private(set) var tracks: [Track] = []
     @Published private(set) var isEmpty: Bool = false
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var hasSearched: Bool = false
@@ -20,9 +20,14 @@ final class MusicSearchViewModel: ObservableObject {
     private var currentKeyword: String?
     private var nextCursor: String?
     private var canLoadMore: Bool = true
+    private var searchTask: Task<Void, Never>?
 
     private let useCase: MusicSearchUseCase
     weak var coordinator: MusicAddCoordinator?
+
+    deinit {
+        searchTask?.cancel()
+    }
 
     init(
         useCase: MusicSearchUseCase,
@@ -47,6 +52,19 @@ extension MusicSearchViewModel {
 
 
 extension MusicSearchViewModel {
+
+    func searchWithDebounce(keyword: String) {
+        searchTask?.cancel()
+        searchTask = Task {
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            guard !Task.isCancelled else { return }
+            await search(keyword: keyword)
+        }
+    }
+
+    func cancelSearch() {
+        searchTask?.cancel()
+    }
 
     func search(keyword: String) async {
         guard !keyword.isEmpty else { return }

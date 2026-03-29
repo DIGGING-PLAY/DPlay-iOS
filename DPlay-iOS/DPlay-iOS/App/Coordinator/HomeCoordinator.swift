@@ -16,17 +16,19 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
     var onRequestSwitchToMyPage: (() -> Void)?
     var onRequestGoToPostMusicComment: (() -> Void)?
     
-    private let service = MockHomeService()
-    private lazy var repository = DefaultHomeRepository(service: service)
-    private lazy var useCase = DefaultHomeViewUseCase(repository: repository)
-    
-    private let postHistoryService = PostHistoryServiceImpl()
-    private lazy var postHistoryRepository = DefaultPostHistoryRepository(service: postHistoryService)
-    private lazy var postHistoryUseCase = DefaultPostHistoryUseCase(repository: postHistoryRepository)
-    
-    private let myPageService = MyPageServiceImpl()
-    private lazy var myPageRepository = DefaultMyPageRepository(service: myPageService)
-    private lazy var myPageUseCase = DefaultMyPageUseCase(repository: myPageRepository)
+    // MARK: - Dependencies
+
+    private lazy var postHistoryUseCase: PostHistoryUseCase = {
+        let service = PostHistoryServiceImpl()
+        let repository = DefaultPostHistoryRepository(service: service)
+        return DefaultPostHistoryUseCase(repository: repository)
+    }()
+
+    private lazy var myPageUseCase: MyPageUseCase = {
+        let service = MyPageServiceImpl()
+        let repository = DefaultMyPageRepository(service: service)
+        return DefaultMyPageUseCase(repository: repository)
+    }()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -34,7 +36,6 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
     
     func start() {
         
-        // 서버 연결후 Mock 갈아 끼우기
         let homeService: HomeService = HomeNetworkServiceImpl()
         let previewService: PreviewNetworkService = PreviewNetworkServiceImpl()
         
