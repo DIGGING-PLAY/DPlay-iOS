@@ -14,10 +14,10 @@ import Then
 final class MonthlyQuestionViewController: UIViewController {
     
     //MARK: - Properties
-    
+
     private let viewModel: MonthlyQuestionViewModel
     private var cancellables = Set<AnyCancellable>()
-    
+
     //MARK: - UI Properties
 
     private let navigationBarView = MonthlyQuestionNavigationBarView()
@@ -25,7 +25,7 @@ final class MonthlyQuestionViewController: UIViewController {
     private let emptyLabel = UILabel()
 
     //MARK: - Life Cycle
-    
+
     init(viewModel: MonthlyQuestionViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -147,7 +147,7 @@ private extension MonthlyQuestionViewController {
     }
     
     func loadData() {
-        Task { await viewModel.loadMonthlyQuestions() }
+        viewModel.startLoad()
     }
 }
 

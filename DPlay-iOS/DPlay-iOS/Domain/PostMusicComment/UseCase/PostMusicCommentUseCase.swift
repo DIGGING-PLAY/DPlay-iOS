@@ -34,7 +34,8 @@ final class DefaultPostMusicCommentUseCase: PostMusicCommentUseCase {
     func fetchTrackDetail(
         trackId: String
     ) async throws -> Track {
-        try await repository.fetchTrackDetail(trackId: trackId)
+        try Task.checkCancellation()
+        return try await repository.fetchTrackDetail(trackId: trackId)
     }
 
     // MARK: - Create Post
@@ -42,6 +43,6 @@ final class DefaultPostMusicCommentUseCase: PostMusicCommentUseCase {
     func createPost(
         comment: MusicComment
     ) async throws -> Int {
-        try await repository.createPost(request: comment)
+        return try await repository.createPost(request: comment)
     }
 }
