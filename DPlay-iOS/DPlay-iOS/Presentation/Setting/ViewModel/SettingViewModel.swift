@@ -38,10 +38,18 @@ extension SettingViewModel {
     //MARK: - Method
     
     func setNotification(pushOn: Bool) async throws {
-        try await useCase.setNotification(pushOn: pushOn)
-        AppEventBus.shared.event.send(
-            .mypageShouldRefresh(reason: .pushNotificationToggled)
-        )
+        Task {
+            do {
+                UserDefaults.standard.set(pushOn, forKey: "isDailyReminderEnabled")
+                try await useCase.setNotification(pushOn: pushOn)
+                AppEventBus.shared.event.send(
+                    .mypageShouldRefresh(reason: .pushNotificationToggled)
+                )
+                pushOn ? NotificationManager.shared.checkPermissionAndScheduleNotification() : NotificationManager.shared.cancelAllNotifications()
+            } catch {
+                print("푸시 알림 동의 여부 변경 실패")
+            }
+        }
     }
     
     func logout() async throws {
