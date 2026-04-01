@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.appCoordinator = coordinator
         coordinator.start()
         
+        NotificationManager.shared.checkPermissionAndScheduleNotification()
+        
         window.makeKeyAndVisible()
     }
     
