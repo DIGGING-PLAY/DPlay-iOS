@@ -30,7 +30,7 @@ class NotificationManager {
                 case .authorized, .provisional, .ephemeral:
                     print("알림 권한이 확인되었습니다. 알림을 예약합니다.")
                     
-                    self.scheduleDailyNotification(hour: 15, minute: 30)
+                    self.scheduleDailyNotification(hour: 9, minute: 00)
                     
                 case .denied:
                     print("시스템 알림 권한이 거부되어 있습니다.")
