@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+@preconcurrency import UserNotifications
 
 @MainActor
 final class HomeViewModel: ObservableObject {
@@ -21,6 +22,7 @@ final class HomeViewModel: ObservableObject {
      
     // MARK: - Dependencies
     
+    private let authUseCase: AuthUseCase
     private let homeViewUseCase: HomeViewUseCase
     private let previewMusicUseCase: PreviewMusicUseCase
     weak var coordinator: HomeCoordinator?
@@ -41,10 +43,12 @@ final class HomeViewModel: ObservableObject {
     }
 
     init(
+        authUseCase: AuthUseCase,
         homeViewUseCase: HomeViewUseCase,
         previewMusicUseCase: PreviewMusicUseCase,
         coordinator: HomeCoordinator?
     ) {
+        self.authUseCase = authUseCase
         self.homeViewUseCase = homeViewUseCase
         self.previewMusicUseCase = previewMusicUseCase
         self.coordinator = coordinator
@@ -234,6 +238,48 @@ extension HomeViewModel {
                 return
             } catch {
                 print("미리듣기 실패:", error)
+            }
+        }
+    }
+}
+
+// MARK: - 알림 허용 팝업 (가입 이후 재설치 시 홈에서 노출)
+
+extension HomeViewModel {
+    func showPushPermissionAlert() {
+        let center = UNUserNotificationCenter.current()
+        
+        center.getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                // 아직 한 번도 권한 팝업을 띄운 적 없을 때만 시스템 Alert 호출
+                center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+                    if let error { print("Push permission error:", error) }
+                    
+                    UserDefaults.standard.set(granted, forKey: "isDailyReminderEnabled")
+                    Task {
+                        if granted { //허용 선택한 경우
+                            try await self.authUseCase.setNotification(pushOn: true)
+                            await NotificationManager.shared.checkPermissionAndScheduleNotification()
+                        } else { //허용 안 함 선택한 경우
+                            try await self.authUseCase.setNotification(pushOn: false)
+                            await NotificationManager.shared.cancelAllNotifications()
+                        }
+                    }
+                }
+                
+            case .denied:
+                // 이미 거부됨 → 시스템 Alert 재표시 불가, 설정 화면 유도 필요
+                break
+                
+            case .authorized, .provisional, .ephemeral:
+                // 이미 허용/임시허용 상태
+                Task {
+                    try await self.authUseCase.setNotification(pushOn: true)
+                }
+                
+            @unknown default:
+                break
             }
         }
     }

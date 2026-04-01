@@ -83,6 +83,12 @@ final class HomeViewController: UIViewController {
         bind()
         bindAudioState()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.showPushPermissionAlert()
+    }
 }
 
 private extension HomeViewController {

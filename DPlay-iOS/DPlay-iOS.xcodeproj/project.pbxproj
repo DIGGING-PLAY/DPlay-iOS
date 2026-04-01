@@ -69,6 +69,7 @@
 		D07185522ECACD8B0055FEBE /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */; };
 		D07185552ECACDA60055FEBE /* ProfileSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */; };
 		D07185582ECAE9B40055FEBE /* ProfileImageSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */; };
+		D07969672F73C5CD00EE62A9 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07969662F73C5C500EE62A9 /* PushNotificationManager.swift */; };
 		D09780782F10337900AAF7A6 /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */; };
 		D097807A2F103D7400AAF7A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780792F103D7000AAF7A6 /* AuthAPI.swift */; };
 		D09780982F12DE1300AAF7A6 /* LoginRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09780972F12DE0400AAF7A6 /* LoginRequestDTO.swift */; };
@@ -327,6 +328,7 @@
 		D07185512ECACD820055FEBE /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D07185542ECACDA00055FEBE /* ProfileSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewModel.swift; sourceTree = "<group>"; };
 		D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSelectButton.swift; sourceTree = "<group>"; };
+		D07969662F73C5C500EE62A9 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		D09780712F1031CF00AAF7A6 /* DPlay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "DPlay-iOS.entitlements"; sourceTree = "<group>"; };
 		D09780772F10336A00AAF7A6 /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		D09780792F103D7000AAF7A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
@@ -1033,6 +1035,14 @@
 				D07185572ECAE9A10055FEBE /* ProfileImageSelectButton.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D07969652F73C5AE00EE62A9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				D07969662F73C5C500EE62A9 /* PushNotificationManager.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		D09780962F12DDFB00AAF7A6 /* Request */ = {
@@ -1885,6 +1895,7 @@
 			children = (
 				C4E75C6603995CE5745E2819 /* Auth */,
 				9A49C97801945FA8E1D57A6B /* Keychain */,
+				D07969652F73C5AE00EE62A9 /* Notification */,
 				EFA1BA5E2F2A679C0013888C /* Event */,
 				EF4B8DC02F067270009101C4 /* AudioPlayer */,
 				EFCBCED62EC9B57C00BA7740 /* Extension */,
@@ -2254,6 +2265,7 @@
 				EFAA45D02EDDB22200BEC1AC /* KeychainManager.swift in Sources */,
 				D06645C62F026871008A1B44 /* MyPageUseCaseModel.swift in Sources */,
 				EFAA45D12EDDB22200BEC1AC /* TokenRefreshManager.swift in Sources */,
+				D07969672F73C5CD00EE62A9 /* PushNotificationManager.swift in Sources */,
 				EF4B8DDA2F0676A5009101C4 /* PreviewMusic.swift in Sources */,
 				EFAA43312EDD945400BEC1AC /* NetworkResult.swift in Sources */,
 				D01893F92ECA5504002A48C1 /* AuthRepository.swift in Sources */,

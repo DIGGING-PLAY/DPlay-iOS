@@ -37,12 +37,14 @@ extension NotificationPermissionViewModel {
                 center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
                     if let error { print("Push permission error:", error) }
                     
+                    UserDefaults.standard.set(granted, forKey: "isDailyReminderEnabled")
                     Task {
                         if granted { //허용 선택한 경우
                             try await self.useCase.setNotification(pushOn: true)
-                            await UIApplication.shared.registerForRemoteNotifications()
+                            await NotificationManager.shared.checkPermissionAndScheduleNotification()
                         } else { //허용 안 함 선택한 경우
                             try await self.useCase.setNotification(pushOn: false)
+                            await NotificationManager.shared.cancelAllNotifications()
                         }
                     }
                 }
@@ -53,8 +55,8 @@ extension NotificationPermissionViewModel {
                 
             case .authorized, .provisional, .ephemeral:
                 // 이미 허용/임시허용 상태
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
+                Task {
+                    try await self.useCase.setNotification(pushOn: true)
                 }
                 
             @unknown default:

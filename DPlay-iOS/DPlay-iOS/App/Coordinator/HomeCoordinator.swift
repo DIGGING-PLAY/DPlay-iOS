@@ -30,6 +30,12 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
         return DefaultMyPageUseCase(repository: repository)
     }()
     
+    private lazy var authUseCase: AuthUseCase = {
+        let service = AuthServiceImpl()
+        let repository = DefaultAuthRepository(service: service)
+        return DefaultAuthUseCase(repository: repository)
+    }()
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -46,6 +52,7 @@ final class HomeCoordinator: Coordinator, DetailCoordinating {
         let previewUseCase = PreviewMusicUseCase(repository: previewRepository)
         
         let homeViewModel = HomeViewModel(
+            authUseCase: authUseCase,
             homeViewUseCase: homeUseCase,
             previewMusicUseCase: previewUseCase,
             coordinator: self
